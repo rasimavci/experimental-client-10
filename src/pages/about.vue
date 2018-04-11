@@ -1,11 +1,15 @@
 <template lang='pug'>
 f7-page
-  f7-navbar(title='About', back-link='Back')
-  f7-block-title About My App
+  f7-navbar
+    f7-nav-left
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
+    f7-nav-title Settings
+    f7-nav-right
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='right')
   f7-block(strong='')
     p Here is About page!
     p
-      | You can go 
+      | You can go
       f7-link(back='') back
       | .
     p

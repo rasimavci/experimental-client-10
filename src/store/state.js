@@ -3,6 +3,7 @@ export default {
     user: null,
     admin: null,
     loged: false,
-    token: null
+    token: null,
+    contacts: []
   }
 }

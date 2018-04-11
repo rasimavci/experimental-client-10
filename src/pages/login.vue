@@ -27,17 +27,21 @@ f7-login-screen#login-screen
 import { mapActions } from 'vuex'
 export default {
   name: 'login',
-  data () {
+  data() {
     return {
       username: '',
       password: ''
     }
   },
-  mounted () {
+  mounted() {
   },
   methods: {
     ...mapActions(['setCredentials']),
-    doLogin () {
+    doLogin() {
+      this.$store.dispatch('connect', {
+        username: 'ravci@genband.com',
+        password: 'yjke9884' // 'Genband.1234'
+      })
       let vm = this
       this.$f7.preloader.show()
       this.setCredentials({
@@ -46,7 +50,7 @@ export default {
         loged: true,
         token: 'SOME_TOKEN'
       })
-      setTimeout( () => {
+      setTimeout(() => {
         vm.$f7.preloader.hide()
       }, 600)
     }

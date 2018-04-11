@@ -6,6 +6,7 @@ import * as getters from './getters'
 // import mutations from './mutations'
 import * as types from './mutation-types'
 import _ from 'lodash'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -13,9 +14,15 @@ const store = new Vuex.Store({
   state,
   actions,
   getters,
-  mutations : {
+  mutations: {
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
+    },
+
+    [types.REFRESH_DIRECTORY] (state, contacts) {
+      //   contacts.forEach(contact => console.log(contact.firstName))
+      //
+      state.contacts = contacts
     }
   }
 })

@@ -1,11 +1,12 @@
-import HomePage from './pages/home.vue';
-import AboutPage from './pages/about.vue';
-import FormPage from './pages/form.vue';
-import DynamicRoutePage from './pages/dynamic-route.vue';
-import NotFoundPage from './pages/not-found.vue';
+import Login from './pages/login.vue'
+import HomePage from './pages/home.vue'
+import AboutPage from './pages/about.vue'
+import FormPage from './pages/form.vue'
+import DynamicRoutePage from './pages/dynamic-route.vue'
+import NotFoundPage from './pages/not-found.vue'
 
-import PanelLeftPage from './pages/panel-left.vue';
-import PanelRightPage from './pages/panel-right.vue';
+import PanelLeftPage from './pages/panel-left.vue'
+import PanelRightPage from './pages/panel-right.vue'
 
 import History1 from './pages/history.vue'
 import Dialpad from './pages/dialpad.vue'
@@ -21,23 +22,27 @@ import Contact from './pages/contact.vue'
 export default [
   {
     path: '/',
-    component: HomePage,
+    component: HomePage
+  },
+  {
+    path: '/login',
+    component: Login
   },
   {
     path: '/panel-left/',
-    component: PanelLeftPage,
+    component: PanelLeftPage
   },
   {
     path: '/panel-right/',
-    component: PanelRightPage,
+    component: PanelRightPage
   },
   {
     path: '/about/',
-    component: AboutPage,
+    component: AboutPage
   },
   {
     path: '/form/',
-    component: FormPage,
+    component: FormPage
   },
   {
     path: '/favorites',
@@ -91,10 +96,10 @@ export default [
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',
-    component: DynamicRoutePage,
-  },  
+    component: DynamicRoutePage
+  },
   {
     path: '(.*)',
-    component: NotFoundPage,
-  },  
-];
+    component: NotFoundPage
+  }
+]
