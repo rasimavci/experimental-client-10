@@ -1,106 +1,130 @@
-<!-- Tabs.vue -->
 <template>
-    
-  <f7-page with-subnavbar>
-  <f7-navbar>
-      <f7-nav-left>
-        </f7-nav-left>
-</f7-navbar>  
-
-      <div class="navbar">
+  <div class="page">
+    <div class="navbar">
       <div class="navbar-inner">
-        <div class="center tab-button2">
-          <!-- Buttons row as tabs controller in navbar-->
-          <div class="buttons-row">
-            <!-- Link to 1st tab, active -->
-            <a href="#tab1" class="tab-link active button tab-button">CHAT</a>
-            <!-- Link to 2nd tab -->
-            <a href="#tab2" class="tab-link button tab-button">VOICE</a>
-            <!-- Link to 3rd tab -->
-            <a href="#tab3" class="tab-link button tab-button">VIDEO</a>
-            <!-- Link to 4th tab -->
-            <a href="#tab4" class="tab-link button tab-button">PEOPLE</a>
-          </div>
+        <div class="nav-left">
+          <i class="icon material-icons md-only" @click='openLeftPanel()'>dehaze</i>
+          </f7-link>
+
+        </div>
+        <div class="title">Call</div>
+        <div class="right">
+          <i class="icon material-icons md-only">dehaze</i>
         </div>
       </div>
     </div>
-    <div class="pages">
-      <div class="page">
-        <div class="page-content">
-          <!-- Tabs animated wrapper, required to switch tabs with transition -->
-          <div class="tabs-animated-wrap">
-
-            <!-- Tabs, tabs wrapper -->
-            <div class="tabs">
-              <!-- Tab 1, active by default -->
-              <div id="tab1" class="tab active">
-                <div class="empty-space">
-                  <p>Here is the Message page!</p>
-                </div>
-                <f7-messagebar placeholder="Message" send-link="Send" @submit="onSubmit"></f7-messagebar>
-
-              </div>
-
-              <!-- Tab 2 -->
-              <div id="tab2" class="tab">
-                <div class="call-button-container1">
-                  <div class="center">
-                    <div class="call-button-container">
-                      <div class="center">
-                        <img slot="icon" src="../assets/demo/call_outline_white.png">Call
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Tab 3 -->
-              <div id="tab3" class="tab">
-                <div class="call-button-container1">
-                  <div class="center">
-                    <div class="call-button-container">
-                      <div class="center">
-                        <img slot="icon" src="../assets/demo/camera_outline_white.png">Video
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Tab 4 -->
-              <div id="tab4" class="tab">
-                <div class="call-button-container1">
-                  <div class="center">
-                    <div class="call-button-container">
-                      <div class="center">
-                        <img slot="icon" src="../assets/demo/camera_outline_white.png">People
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <!-- Additional "tabbar-labels" class -->
+    <div class="toolbar tabbar-labels">
+      <div class="toolbar-inner">
+        <a href="#tab-1" class="tab-link b tab-link-active">
+          <!-- Different icons for iOS and MD themes -->
+          <!-- Label text -->
+          <span class="tabbar-label">CHAT</span>
+        </a>
+        <a href="#tab-2" class="tab-link b">
+          <span class="tabbar-label">VOICE</span>
+        </a>
+        <a href="#tab-3" class="tab-link b">
+          <span class="tabbar-label">VIDEO</span>
+        </a>
+        <a href="#tab-4" class="tab-link b">
+          <span class="tabbar-label">PEOPLE</span>
+        </a>
+      </div>
+    </div>
+    <div class="tabs">
+      <div id="tab-1" class="page-content tab tab-active">
+        <div class="page-content messages-content a">
+          <div class="messages a">
+            <div v-for="message in getMessages" :key="message.key">
+              {{message.parts[0].text}}
             </div>
-
+          </div>
+        </div>
+        <div class="toolbar toolbar-bottom-md messagebar">
+          <div class="toolbar-inner">
+            <a class="link toggle-sheet" href="#">
+              <i class="icon f7-icons ios-only">more_vert_fill</i>
+              <i class="icon material-icons md-only">more_vert</i>
+            </a>
+            <div class="messagebar-area">
+              <textarea v-model='message' placeholder="Message"></textarea>
+            </div>
+            <a class="link" href="#" @click="sendMessage()">
+              <i class="icon f7-icons ios-only">more_vert_fill</i>
+              <i class="icon material-icons md-only">near_me</i>
+            </a>
+          </div>
+          <div class="messagebar-sheet"></div>
+        </div>
+      </div>
+      <div id="tab-2" class="page-content tab">
+        <div class="call-button-container1">
+          <div class="call-button-container" @click="openLeftPanel()">
+            <img src="../assets/demo/call_outline_white.png" class="img1"></img>Call
           </div>
         </div>
       </div>
+      <div id="tab-3" class="page-content tab">
+        <div class="call-button-container1">
+          <div class="call-button-container" @click="openLeftPanel()">
+            <img src="../assets/demo/camera_outline_white.png"></img>Call
+          </div>
+        </div>
+      </div>
+      <div id="tab-4" class="page-content tab"> 4 </div>
     </div>
-  </f7-page>
+
+  </div>
 </template>
 
-<style scoped>
-.empty-space {
-  padding-top: 550px;
-}
 
-.tab-button {
-  width: 90px;
-}
+<script>
+import { mapState, mapGetters } from 'vuex';
+export default {
+  data: function() {
+    return {
+      showData: 'all',
+      message: ''
+    }
+  },
 
-.tab-button2 {
-  width: 450px;
-}
+  methods: {
+    openLeftPanel: function() {
+      this.$f7.popup.open(popupLanguage, true)
+    },
+    sendMessage() {
+      let messageToSend = {
+        type: 'IM',
+        text: this.message,
+        participant: 'saynaci@genband.com'
+      }
+      console.log('send message ' + this.message)
+      this.message = ''
+      this.$store.dispatch('send', messageToSend)
+    },
+  },
+  computed: {
+    getMessages() {
+      let convs = this.$store.state.conversations
+      console.log('conv obj ' + JSON.stringify(convs))
+      if (convs && convs[0]) {
+        return this.$store.state.conversations[0].messages
+      } else {
+        return [{
+          parts: [
+            {
+              text: 'wassup'
+            }]
+        }
+        ]
+      }
 
+    }
+  }
+}
+</script>
+<style>
 .call-button-container1 {
   padding-top: 160px;
 }
@@ -118,5 +142,18 @@
   font-family: lato-bold;
   font-size: 17px;
   color: white;
+}
+
+.img1 {
+  height: 50%;
+  width: 50
+}
+
+.a {
+  max-height: 700px
+}
+
+.b {
+  max-height: 40px
 }
 </style>

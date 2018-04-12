@@ -23,6 +23,21 @@ const store = new Vuex.Store({
       //   contacts.forEach(contact => console.log(contact.firstName))
       //
       state.contacts = contacts
+    },
+
+    [types.ADD_CONVERSATION] (state, conv) {
+      console.log('yeni conv')
+      state.conversations.push(conv)
+    },
+
+    [types.SET_CONVERSATIONS] (state, conversations) {
+      state.conversations = conversations
+    },
+
+    [types.REFRESH_CALLLOGS] (state, logs) {
+      console.log('refresh call logs')
+      state.history = logs
+      console.log(logs)
     }
   }
 })

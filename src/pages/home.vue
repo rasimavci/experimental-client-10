@@ -1,65 +1,46 @@
 <template lang='pug'>
-// Login Screen
 f7-page
-  f7-view
-    f7-page(login-screen='')
-      f7-login-screen-title Login
-        br
-        img(src="../assets/logo.png" class="deneme")
-      f7-list(form='')
-        f7-list-item
-          f7-label Username
-          f7-input(name='username', placeholder='Username', type='text', :value='username', @input='username = $event.target.value')
-        f7-list-item
-          f7-label Password
-          f7-input(name='password', type='password', placeholder='Password')
-      .list
-        ul
-          li
-            a.item-link.list-button.login-button.login-screen-close(href='#', @click='doLogin') Sign In
-        .block-footer
-          | Please check github page for more information.
-          br
-          | Click "Sign In" to Login
-</template>
+  f7-navbar
+    f7-nav-left
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
+    f7-nav-title Welcome - {{credentials.user}}
+    f7-nav-right
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='right')
+  f7-block(strong='')
+    p Here is your blank Framework7 app. Let's see what we have here.
+  f7-block-title Navigation
+  f7-list
+    f7-list-item(link='/about/', title='About')
+    f7-list-item(link='/form/', title='Form')
+  f7-block-title Modals
+  f7-block(strong='')
+    f7-row
+      f7-col(width='50')
+        f7-button(fill='', raised='', popup-open='#popup') Popup
+      f7-col(width='50')
+        f7-button(fill='', raised='', login-screen-open='#login-screen') Login Screen
+  f7-block-title Panels
+  f7-block(strong='')
+    f7-row
+      f7-col(width='50')
+        f7-button(fill='', raised='', panel-open='left') Left Panel
+      f7-col(width='50')
+        f7-button(fill='', raised='', panel-open='right') Right Panel
+  f7-list
+    f7-list-item(link='/dynamic-route/blog/45/post/125/?foo=bar#about', title='Dynamic Route')
+    f7-list-item(link='/load-something-that-doesnt-exist/', title='Default Route (404)')
 
+</template>
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
-  name: 'login',
-  data() {
-    return {
-      username: '',
-      password: ''
-    }
-  },
-  mounted() {
-  },
-  methods: {
-    ...mapActions(['setCredentials']),
-    doLogin() {
-      this.$store.dispatch('connect', {
-        username: 'ravci@genband.com',
-        password: 'yjke9884' // 'Genband.1234'
-      })
-      let vm = this
-      this.$f7.preloader.show()
-      this.setCredentials({
-        user: this.username,
-        admin: true,
-        loged: true,
-        token: 'SOME_TOKEN'
-      })
-      setTimeout(() => {
-        vm.$f7.preloader.hide()
-      }, 600)
-    }
+  name: 'home',
+  computed: {
+    ...mapGetters(['credentials'])
   }
 }
 </script>
-<style>
-.deneme {
-  height: 15%;
-  width: 75%
-}
+<style lang="sass" scoped>
+
 </style>
+

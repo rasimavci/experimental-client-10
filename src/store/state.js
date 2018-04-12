@@ -3,7 +3,11 @@ export default {
     user: null,
     admin: null,
     loged: false,
-    token: null,
-    contacts: []
-  }
+    token: null
+  },
+  contacts: [],
+  activeCall: {},
+  conversations: [],
+  messages: [],
+  history: []
 }
