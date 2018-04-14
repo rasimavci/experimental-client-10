@@ -85,10 +85,11 @@ export default {
   data: function() {
     return {
       showData: 'all',
-      message: ''
+      message: '',
+      showData: 'all',
+      message: '',
     }
   },
-
   methods: {
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true)
@@ -108,18 +109,23 @@ export default {
     getMessages() {
       let convs = this.$store.state.conversations
       console.log('conv obj ' + JSON.stringify(convs))
+      let messages = []
       if (convs && convs[0]) {
-        return this.$store.state.conversations[0].messages
+        convs.forEach((conv, index) => {
+          if(conv.conversationId === 'saynaci@genband.com') {
+            messages = this.$store.state.conversations[index].messages
+          } 
+        })
       } else {
-        return [{
+        messages = [{
           parts: [
             {
-              text: 'wassup'
+              text: 'You have no messages.'
             }]
         }
         ]
       }
-
+return messages
     }
   }
 }
@@ -128,7 +134,6 @@ export default {
 .call-button-container1 {
   padding-top: 160px;
 }
-
 .call-button-container {
   margin: auto;
   width: 233px;
@@ -143,16 +148,13 @@ export default {
   font-size: 17px;
   color: white;
 }
-
 .img1 {
   height: 50%;
   width: 50
 }
-
 .a {
   max-height: 700px
 }
-
 .b {
   max-height: 40px
 }

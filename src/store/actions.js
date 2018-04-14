@@ -46,12 +46,12 @@ function sendMessage (participant, messagetoSend) {
   const message = currentConvo.createMessage(messagetoSend)
 
   // dont add new conv if already exist
-  store.state.conversations.forEach(function (conv) {
-    if (conv.destination === currentConvo.destination) convoExist = true
-  })
-  if (!convoExist) {
-    // store.commit('ADD_CONVERSATION', currentConvo)
-  }
+  // store.state.conversations.forEach(function (conv) {
+  //   if (conv.destination === currentConvo.destination) convoExist = true
+  // })
+  // if (!convoExist) {
+  //   // store.commit('ADD_CONVERSATION', currentConvo)
+  // }
   message.send()
   Object.keys(currentConvo).forEach(function (key) {
     console.log('heyyo ' + key, currentConvo[key])

@@ -21,7 +21,16 @@ f7-page
     f7-row(tag='p')
       f7-button.col(raised='', fill='') Logout
     f7-row(tag='p')
-      f7-button.col(raised='', fill='') Send Feedback
+      f7-button.col(raised='', fill='', popup-open='#popupSendFeedback') Send Feedback
+  f7-list
+    f7-list-item(link='/about/', title='About')      
+  f7-popup#popupSendFeedback
+    f7-view
+      f7-page
+        f7-navbar(title='Send Feeback')
+          f7-nav-right
+            f7-link(popup-close='') Close
+        f7-block-title Send Feedback
 </template>
 
 <script>

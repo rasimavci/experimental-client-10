@@ -6,6 +6,7 @@ f7-page
     f7-list-item(link='/about/', title='About', view='#main-view', panel-close='')
     f7-list-item(link='/form/', title='Form', view='#main-view', panel-close='')
     f7-list-item(media="<img src='../../assets/demo/backspace_blue.png'>", link='/call/', title='Call', view='#main-view', panel-close='')
+    f7-list-item(link='/newMessage/', title='newMessage', view='#main-view', panel-close='')
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
     f7-list-item(link='/form/', title='Form', view='#main-view', panel-close='')
     f7-list-item(link='/presences/', title='Presences', view='#main-view', panel-close='')
