@@ -1,7 +1,4 @@
 <template lang='pug'>
-// Login Screen
-f7-login-screen#login-screen
-  f7-view
     f7-page(login-screen='')
       f7-login-screen-title
         br
@@ -52,6 +49,7 @@ export default {
       })
       setTimeout(() => {
         vm.$f7.preloader.hide()
+        vm.$f7router.navigate('/')
       }, 600)
     }
   }

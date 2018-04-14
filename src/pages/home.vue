@@ -18,7 +18,7 @@ f7-page
       f7-col(width='50')
         f7-button(fill='', raised='', popup-open='#popup') Popup
       f7-col(width='50')
-        f7-button(fill='', raised='', login-screen-open='#login-screen') Login Screen
+        f7-button(fill='', raised='', @click='goLogin') Login Screen
   f7-block-title Panels
   f7-block(strong='')
     f7-row
@@ -37,6 +37,11 @@ export default {
   name: 'home',
   computed: {
     ...mapGetters(['credentials'])
+  },
+  methods: {
+    goLogin () {
+      this.$f7router.navigate('/login/')
+    }
   }
 }
 </script>

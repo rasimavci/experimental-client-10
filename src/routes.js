@@ -23,7 +23,14 @@ import newMessage from './pages/newMessage.vue'
 export default [
   {
     path: '/',
-    component: HomePage
+    component: HomePage,
+    on: {
+      pageBeforeIn: (event, page) => {
+        alert('Check router.js file. path:"/" to manage router guard on HOME')
+        // Validate with store TOKEN, uncomment when implemented!
+        // if (!store.state.credentials.token) this.navigate('/login/')
+      }
+    }
   },
   {
     path: '/login',

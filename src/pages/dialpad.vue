@@ -1,146 +1,96 @@
-<template>
-  <div class="page">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="nav-left">
-          <i class="icon material-icons md-only" @click='openLeftPanel()'>dehaze</i>
-          </f7-link>
+<template lang='pug'>
+.page
+  .navbar
+    .navbar-inner
+      .nav-left
+        i.icon.material-icons.md-only.panel-open dehaze
+      .title Dialpad
+      .right
+        i.icon.material-icons.md-only dehaze
+  .modal-container1
+    .modal-container2
+      .input-group.flex1
+        input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
+        span.input-group-btn
+          button.backspace-button(type='button', @click="callee = ''")
+            i
+            img(slot='icon', src='../assets/demo/backspace_blue.png')
+    .modal-container(display='none')
+      .h3(align='center')
+        img.media-object.pull-center(:src='user')
+      .keypad
+        .keypad-container
+          div
+            button(@click='press(1)')
+              .keypad-button-number 1
+              .keypad-button-text
+            button(@click='press(2)')
+              .keypad-button-number 2
+              .keypad-button-text
+                | ABC
+            button(@click='press(3)')
+              .keypad-button-number 3
+              .keypad-button-text
+                | DEF
+          div
+            button(@click='press(4)')
+              .keypad-button-number 4
+              .keypad-button-text
+                | GHI
+            button(@click='press(5)')
+              .keypad-button-number 5
+              .keypad-button-text
+                | JKL
+            button(@click='press(6)')
+              .keypad-button-number 6
+              .keypad-button-text
+                | MNO
+          div
+            button(@click='press(7)')
+              .keypad-button-number 7
+              .keypad-button-text
+                | PQRS
+            button(@click='press(8)')
+              .keypad-button-number 8
+              .keypad-button-text
+                | TUV
+            button(@click='press(9)')
+              .keypad-button-number 9
+              .keypad-button-text
+                | WXYZ
+          div
+            button(@click="press('*')")
+              | *
+            button(@click='press(0)')
+              | 0
+            button(@click="press('#')")
+              | #
+  // Additional "tabbar-labels" class
+  .toolbar.toolbar-bottom-md.tabbar-labels
+    .toolbar-inner
+      a.tab-link.tab-link-active.b(href='#tab-1')
+        // Different icons for iOS and MD themes
+        i.icon.f7-icons.ios-only email_fill
+        i.icon.material-icons.md-only email
+        span.badge.color-red 5
+        // Label text
+      a.tab-link.b(href='#tab-2')
+        i.icon.f7-icons.ios-only
+          | today_fill
+        i.icon.material-icons.md-only
+          | phone_in_talk
+      a.tab-link.b(href='#tab-3')
+        i.icon.f7-icons.ios-only videocam_fill
+        i.icon.material-icons.md-only videocam
+      a.tab-link.b(href='#tab-4')
+        i.icon.f7-icons.ios-only voicemail_fill
+        i.icon.material-icons.md-only voicemail
+  .tabs
+    #tab-1.page-content.tab.tab-active 1
+    #tab-2.page-content.tab  2 
+    #tab-3.page-content.tab  3 
+    #tab-4.page-content.tab  4 
 
-        </div>
-        <div class="title">Dialpad</div>
-        <div class="right">
-          <i class="icon material-icons md-only">dehaze</i>
-        </div>
-      </div>
-    </div>
-
-    <div class='modal-container1'>
-
-      <div class='modal-container2'>
-        <div class='input-group flex1'>
-          <input type='text' class='form-control' v-model='callee' placeholder='Username or Number...'></input>
-          <span class='input-group-btn'>
-            <button class='backspace-button' type='button' @click="callee = ''">
-              <i></i>
-              <img slot="icon" src="../assets/demo/backspace_blue.png">
-            </button>
-          </span>
-        </div>
-      </div>
-      <div class='modal-container' display='none'>
-        <div align='center' class='h3'>
-
-          <img class='media-object pull-center' :src='user' />
-        </div>
-        <div class='keypad'>
-          <div class='keypad-container'>
-            <div>
-              <button @click='press(1)'>
-                <div class='keypad-button-number'>1</div>
-                <div class='keypad-button-text'></div>
-              </button>
-              <button @click='press(2)'>
-                <div class='keypad-button-number'>2</div>
-                <div class='keypad-button-text'>
-                  ABC
-                </div>
-              </button>
-              <button @click='press(3)'>
-                <div class='keypad-button-number'>3</div>
-                <div class='keypad-button-text'>
-                  DEF
-                </div>
-              </button>
-            </div>
-            <div>
-              <button @click='press(4)'>
-                <div class='keypad-button-number'>4</div>
-                <div class='keypad-button-text'>
-                  GHI
-                </div>
-              </button>
-              <button @click='press(5)'>
-                <div class='keypad-button-number'>5</div>
-                <div class='keypad-button-text'>
-                  JKL
-                </div>
-              </button>
-              <button @click='press(6)'>
-                <div class='keypad-button-number'>6</div>
-                <div class='keypad-button-text'>
-                  MNO
-                </div>
-              </button>
-            </div>
-            <div>
-              <button @click='press(7)'>
-                <div class='keypad-button-number'>7</div>
-                <div class='keypad-button-text'>
-                  PQRS
-                </div>
-              </button>
-              <button @click='press(8)'>
-                <div class='keypad-button-number'>8</div>
-                <div class='keypad-button-text'>
-                  TUV
-                </div>
-              </button>
-              <button @click='press(9)'>
-                <div class='keypad-button-number'>9</div>
-                <div class='keypad-button-text'>
-                  WXYZ
-                </div>
-              </button>
-            </div>
-            <div>
-              <button @click="press('*')">
-                *
-              </button>
-              <button @click='press(0)'>
-                0
-              </button>
-              <button @click="press('#')">
-                #
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional "tabbar-labels" class -->
-    <div class="toolbar toolbar-bottom-md tabbar-labels">
-      <div class="toolbar-inner">
-        <a href="#tab-1" class="tab-link tab-link-active b">
-          <!-- Different icons for iOS and MD themes -->
-          <i class="icon f7-icons ios-only">email_fill</i>
-          <i class="icon material-icons md-only">email</i>
-          <span class="badge color-red">5</span>
-          <!-- Label text -->
-        </a>
-        <a href="#tab-2" class="tab-link b">
-          <i class="icon f7-icons ios-only">today_fill
-          </i>
-          <i class="icon material-icons md-only">phone_in_talk
-          </i>
-        </a>
-        <a href="#tab-3" class="tab-link b">
-          <i class="icon f7-icons ios-only">videocam_fill</i>
-          <i class="icon material-icons md-only">videocam</i>
-        </a>
-        <a href="#tab-4" class="tab-link b">
-          <i class="icon f7-icons ios-only">voicemail_fill</i>
-          <i class="icon material-icons md-only">voicemail</i>
-        </a>
-      </div>
-    </div>
-    <div class="tabs">
-      <div id="tab-1" class="page-content tab tab-active">1</div>
-      <div id="tab-2" class="page-content tab"> 2 </div>
-      <div id="tab-3" class="page-content tab"> 3 </div>
-      <div id="tab-4" class="page-content tab"> 4 </div>
-    </div>
-  </div>
 </template>
 activeCallState
 <script>

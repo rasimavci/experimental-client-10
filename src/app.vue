@@ -17,7 +17,7 @@
   f7-panel(right='', cover='', theme-dark='')
     f7-view(url='/panel-right/')
   // Main View
-  f7-view#main-view(url='/', main='')
+  f7-view#main-view(url='/login/', main='')
   // Popup
   f7-popup#popup
     f7-view
