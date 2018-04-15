@@ -3,9 +3,13 @@ f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title Call
+    f7-nav-title Messages
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='right')
+  f7-list.date(v-for='(groups, key) in groupedMessages' :key="key")
+   h5 {{key}}
+   f7-list
+    f7-list-item(v-for="group in groups" @click='goCall(group)' :key="group.name" :title="group.parts[0].text + ' ' + group.time" href="#popupAddContact")
   f7-list(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
    f7-list-item(v-if='message.sender === conversationId', :contact='selectedContacts[0]') {{message.parts[0].text}}
    f7-list-item.right-chatBuble(v-else, :contact='selectedContacts[0]' class="right-chatBuble") {{message.parts[0].text}}
@@ -19,6 +23,8 @@ import { mapState, mapGetters } from 'vuex';
 import LeftChatBubble from './LeftChatBubble'
 import RightChatBubble from './RightChatBubble'
 import NoImg from '../assets/demo/noimage.jpg'
+import moment from 'moment'
+import _ from 'lodash'
 
 export default {
   data: function() {
@@ -95,7 +101,7 @@ export default {
   computed: {
     getMessages() {
       let convs = this.$store.state.conversations
-      console.log('conv obj ' + JSON.stringify(convs))
+      console.log('conv obj ' + JSON.stringify(convs[0]))
       let messages = []
       if (convs && convs[0]) {
         convs.forEach((conv, index) => {
@@ -113,6 +119,14 @@ export default {
         ]
       }
 return messages
+    },
+    groupedMessages() {
+      let messages = this.getMessages
+      messages.forEach(msg => {
+        msg.time = moment(parseInt(msg.timestamp)).format('h:mm:ss a')
+        msg.date = moment(parseInt(msg.timestamp)).format('MMMM Do YYYY')
+      })
+      return _.groupBy(messages, 'date')
     },
     filtredContacts () {
       this.contacts = this.$store.state.contacts
@@ -137,6 +151,7 @@ return messages
       for (let i = 0; i < this.conversations.length; i++) {
         if (this.conversations[i].conversationId === this.conversationId) {
           resultArray = this.conversations[i].messages
+          console.log(this.conversations[i])
         }
       }
       // process.nextTick(() => {
