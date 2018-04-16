@@ -13,7 +13,7 @@ import Dialpad from './pages/dialpad.vue'
 import Message from './pages/message.vue'
 import Sessions from './pages/sessions'
 import Favorites from './pages/favorites'
-import Collaboration from './pages/collaboration'
+import Conference from './pages/conference'
 import Presences from './pages/presences'
 import Call from './pages/call'
 import Settings from './pages/settings.vue'
@@ -39,7 +39,7 @@ export default [
   {
     path: '/newMessage',
     component: newMessage
-  },  
+  },
   {
     path: '/panel-left/',
     component: PanelLeftPage
@@ -87,9 +87,9 @@ export default [
     component: Sessions
   },
   {
-    path: '/collaboration',
-    name: 'Collaboration',
-    component: Collaboration
+    path: '/conference',
+    name: 'Conference',
+    component: Conference
   },
   {
     path: '/presences',

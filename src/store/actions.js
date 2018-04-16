@@ -1,6 +1,7 @@
 import * as types from './mutation-types'
 import createKandy from '../../kandy.link.js'
 import store from './index'
+import state from './state'
 import IMService from '../IMService'
 import _ from 'lodash'
 
@@ -39,6 +40,77 @@ export const getCallLogs = ({ commit }) => {
   let logs = kandy.call.history.get()
   store.commit('REFRESH_CALLLOGS', logs)
 }
+
+  export const call = ({commit}, params) => {
+let local = document.getElementById("local-container");
+let remote = document.getElementById("remote-container");
+const myVideoResolution = {
+  height: 640,
+  width: 480
+};
+const options = {
+  isAudioEnabled: true, //document.getElementById ('isAudioEnabled').checked,
+  isVideoEnabled: false, // document.getElementById ('isVideoEnabled').checked,
+  sendInitialVideo: false, //document.getElementById ('sendInitialVideo').checked,
+  sendScreenShare: false, //document.getElementById ('sendScreenShare').checked,
+  videoResolution: myVideoResolution,
+  //localVideoContainer: this.$ref.local-container, // document.getElementById('local-container'),
+  //remoteVideoContainer: this.$ref.remote-container //document.getElementById('remote-container')
+  localVideoContainer: local, //document.getElementById ('local-container'), //olmadi this.$refs.container1, //
+  remoteVideoContainer: remote //document.getElementById ('remote-container'),
+};
+
+    console.log("start call to:" + params.callee);
+    // options.isVideoEnabled = false;
+    // options.sendInitialVideo = false;
+    kandy.call.make(params.callee, options);
+    // store.commit("SET_CALLEE", callee);
+  }
+
+  export const callVideo = ({commit}, callee) => {
+    console.log("call to:" + callee);
+    options.isVideoEnabled = true;
+    options.sendInitialVideo = true;
+
+    kandy.call.make(callee, options);
+    // store.commit("SET_CALLEE", callee);
+  }
+
+  export const answer = ({ commit }) => {
+
+  }
+
+  export const reject = ({ commit }) => {
+
+  }
+
+  export const ignore = ({ commit }) => {
+
+  }
+
+  export const hold = ({commit, state}) => {
+    kandy.call.hold(state.activeCall.id);
+  }
+
+function holdCall() {
+  kandy.call.hold(store.state.activeCall.id);
+}
+  export const unhold = ({commit}) => {
+    kandy.call.unhold(state.activeCall.id);
+  }
+
+  export const mute = ({commit}) => {
+    kandy.call.mute(state.activeCall.id);
+  }
+
+  export const unmute = ({commit}) => {
+    kandy.call.unmute(state.activeCall.id);
+  }
+
+  export const end = ({commit}) => {
+    kandy.call.end(state.activeCall.id);
+  }
+
 function sendMessage (participant, messagetoSend) {
   // currentConvo = self.getConversation(participant)
   const currentConvo = kandy.conversation.get(participant)
@@ -80,6 +152,35 @@ function addEventListeners () {
       // Kandyjs.searchDirectory ();
     }
   })
+
+kandy.on('call:stateChange', call => {
+            // Get active calls.
+      // let calls = kandy.call.getAll()
+            // Get active calls.
+      let calls = kandy.call.getAll().filter(function (call) {
+          return call.state !== 'ENDED';
+      // console.log('caller Name: ' + call.callerName)
+      // console.log('call id: ' + call.id)
+      // calls.forEach(call => {
+      //   return call.state !== 'ENDED';
+    })
+       store.commit('UPDATE_CALLS', calls)
+    })
+
+  kandy.on("call:start", function(params) {
+    // store.commit("SET_CALL_START", "");
+    store.commit("SET_ACTIVE_CALL", params);
+    // const calls = kandy.call.getAll();
+    // calls.forEach(function(call) {
+    //   console.log("all call ids currently : " + params.callId);
+    //   //change activeCall
+    //   if (call.id === params.callId) {
+    //     store.commit("SET_ACTIVE_CALL", call);
+    //     store.dispatch("toggleActiveCall");
+    //     // store.commit (types.SET_ACTIVE_CALL, call);
+    //   }
+    // });
+  });
 
   kandy.on('contacts:change', params => {
     store.commit('REFRESH_DIRECTORY', params.contacts)

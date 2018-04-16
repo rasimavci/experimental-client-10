@@ -1,12 +1,12 @@
 <template lang='pug'>
 .page
   .navbar
-    .navbar-inner
+    .navbar-inner.my-class
       .nav-left
-        i.icon.material-icons.md-only.panel-open dehaze
+        i.icon.material-icons.md-only.panel-open menu
       .title Dialpad
       .right
-        i.icon.material-icons.md-only dehaze
+        i.icon.material-icons.md-only menu
   .modal-container1
     .modal-container2
       .input-group.flex1
@@ -71,7 +71,7 @@
       a.tab-link.tab-link-active.b(href='#tab-1')
         // Different icons for iOS and MD themes
         i.icon.f7-icons.ios-only email_fill
-        i.icon.material-icons.md-only email
+        i.icon.material-icons.md-only chat_bubble
         span.badge.color-red 5
         // Label text
       a.tab-link.b(href='#tab-2')
@@ -87,9 +87,9 @@
         i.icon.material-icons.md-only voicemail
   .tabs
     #tab-1.page-content.tab.tab-active 1
-    #tab-2.page-content.tab  2 
-    #tab-3.page-content.tab  3 
-    #tab-4.page-content.tab  4 
+    #tab-2.page-content.tab  2
+    #tab-3.page-content.tab  3
+    #tab-4.page-content.tab  4
 
 </template>
 activeCallState
@@ -354,5 +354,8 @@ export default {
 
 .flex1 {
   border: 0px solid black;
+}
+.my-class {
+    cursor: default;
 }
 </style>

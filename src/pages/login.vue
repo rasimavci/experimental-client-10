@@ -49,7 +49,7 @@ export default {
       })
       setTimeout(() => {
         vm.$f7.preloader.hide()
-        vm.$f7router.navigate('/')
+        vm.$f7router.navigate('/favorites')
       }, 600)
     }
   }

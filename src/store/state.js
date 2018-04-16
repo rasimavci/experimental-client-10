@@ -9,5 +9,9 @@ export default {
   activeCall: {},
   conversations: [],
   messages: [],
-  history: []
+  history: [],
+  calls: [],
+    sounds: {
+    ringing: new Audio('./static/sounds/ringing.mp3')
+  },
 }

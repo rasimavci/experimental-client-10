@@ -38,7 +38,36 @@ const store = new Vuex.Store({
       console.log('refresh call logs')
       state.history = logs
       console.log(logs)
+    },
+
+    [types.UPDATE_CALLS] (state, calls) {
+      state.calls = calls
+    calls.forEach(function(call) {
+      if (call.id === state.activeCall.callId) {
+        state.activeCall = call
+      }
+    });
+    },
+
+    [types.SET_ACTIVE_CALL] (state, call) {
+      state.activeCall = call
+    },
+
+    [types.SET_ACTIVE_CALLID] (state, id) {
+      state.activeCall.id = id
+    },
+
+
+    [types.RINGING_SOUND] (state, options) {
+      if (options.play) {
+        state.sounds.ringing.loop = true
+        state.sounds.ringing.play()
+      } else {
+        state.sounds.ringing.pause()
+        state.sounds.ringing.load()
+      }
     }
+
   }
 })
 export default store
