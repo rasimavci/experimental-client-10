@@ -38,10 +38,10 @@
             i.icon.material-icons.md-only near_me
         .messagebar-sheet
     #tab-2.page-content.tab
-      .call-button-container1
-        .call-button-container(@click='makeCall(false)')
+      .page-content.messages-content.a
+        .call-button-container.action(@click='makeCall(false)')
           img.img1(src='../assets/demo/call_outline_white.png')
-          | Call
+          | Call        
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -57,8 +57,8 @@
             i.icon.f7-icons.ios-only mic_off_fill
             i.icon.material-icons.md-only mic_off
     #tab-3.page-content.tab
-      .call-button-container2
-        .call-button-container(@click='makeCall(true)')
+      .page-content.messages-content.a    
+        .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
           | Call
       .toolbar.toolbar-bottom-md.tabbar-labels
@@ -192,6 +192,10 @@ export default {
 }
 </script>
 <style>
+.call-button-container0 {
+  padding-top: 1px;
+}
+
 .call-button-container2 {
   padding-top: 160px;
 }
@@ -217,12 +221,26 @@ export default {
   width: 50
 }
 .a {
-  max-height: 700px
+  max-height: 700px;
 }
+
+.a2altta {
+  max-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;  
+}
+
 .b {
   max-height: 40px
 }
 .my-class {
     cursor: default;
+}
+.action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
