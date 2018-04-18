@@ -10,10 +10,12 @@ f7-page
    f7-col(width='50')
   f7-button(fill='', raised='', popup-open='#popupAddContact') Edit Contact
    f7-col(width='50')
-  f7-searchbar(cancel-link="Cancel" placeholder="Search in contacts" :clear-button="true")
+  f7-searchbar(disable-link-text="Cancel" search-container="#search-list" placeholder="Search in items" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-list.date(v-for='(groups, key) in groupedContacts' :key="key")
    h5 {{key}}
-   f7-list
+   f7-list.searchbar-not-found
+    f7-list-item(title="No contacts found")
+   f7-list.searchbar-found(id="search-list")
     f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.name" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
   f7-popup#popupContactDetails
     f7-view
@@ -207,8 +209,12 @@ export default {
   },
   on: {
     search(sb, query, previousQuery) {
-      console.log('sth written in search box');
+      console.log(JSON.stringify(query) + ' 1written in search box');
+      console.log(JSON.stringify(sb) + ' written in search box');
       console.log(query, previousQuery);
+    },
+        clear() {
+      console.log('cleared');
     }
   },
   computed: {
