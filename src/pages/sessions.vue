@@ -19,6 +19,9 @@ import _ from 'lodash'
 import Routes from '../routes.js'
 
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'sessions');
+  },
   data: function() {
     return {
       showData: 'all',

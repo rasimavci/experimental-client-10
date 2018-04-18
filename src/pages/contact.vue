@@ -14,7 +14,7 @@ f7-page
   f7-list.date(v-for='(groups, key) in groupedContacts' :key="key")
    h5 {{key}}
    f7-list
-    f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.name" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")  
+    f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.name" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
   f7-popup#popupContactDetails
     f7-view
       f7-page
@@ -85,7 +85,6 @@ f7-page
             f7-input(type='date', placeholder='Birth date', value='2014-04-30')
           f7-list-item(title='Friend')
             f7-toggle(slot='after')
-
   f7-popup#popupEditContact
     f7-view
       f7-page
@@ -120,12 +119,58 @@ f7-page
             f7-label Birth date
             f7-input(type='date', placeholder='Birth date', value='2014-04-30')
           f7-list-item(title='Friend')
-            f7-toggle(slot='after')            
+            f7-toggle(slot='after')
+  f7-popup#popupCreateContact
+    f7-view
+      f7-page
+        f7-navbar(title='Create Profile')
+          f7-nav-right
+            f7-link(popup-close='') Save
+          f7-nav-left
+            f7-link(popup-close='') Back
+        f7-block
+        f7-block-title IDENTIFICATION
+        f7-list(form='')
+          f7-list-item
+            f7-label First Name
+            f7-input(type='text', placeholder='Name')
+          f7-list-item
+            f7-label Last Name
+            f7-input(type='text', placeholder='Name')
+          f7-list-item
+            f7-label Nickname
+            f7-input(type='text', placeholder='Name')
+          f7-list-item
+            f7-label User ID*
+            f7-input(type='tel', placeholder='id')
+          f7-list-item
+            f7-label E-mail
+            f7-input(type='email', placeholder='E-mail')
+        f7-block
+        f7-block-title CONTACT
+        f7-list(form='')
+          f7-list-item
+            f7-label Home*
+            f7-input(type='tel', placeholder='Phone')
+          f7-list-item
+            f7-label Mobile*
+            f7-input(type='tel', placeholder='Phone')
+          f7-list-item
+            f7-label Work*
+            f7-input(type='tel', placeholder='Phone')
+        f7-block
+        f7-block-title SETTINGS
+        f7-list(form='')
+          f7-list-item(title='Show Presence Status')
+            f7-toggle(slot='after')
   </template>
 <script>
 import { mapState, mapGetters } from 'vuex';
 import _ from 'lodash'
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'contact');
+  },
   data: function() {
     return {
       contact: '',
@@ -158,7 +203,12 @@ export default {
       console.log('disable');
     },
     goCall: function(event) {
-
+    },
+  },
+  on: {
+    search(sb, query, previousQuery) {
+      console.log('sth written in search box');
+      console.log(query, previousQuery);
     }
   },
   computed: {
@@ -170,8 +220,8 @@ export default {
         return this.$store.state.contacts
       } else if (this.showdata === 'filtered') {
         return this.$store.state.contacts.filter(note => note.firstName.startsWith(this.filterWord))
-      } else if (this.showdata === 'Global Addressbook') {
-        console.log('global selected')
+      } else if (this.$store.state.contactSource === 'global') {
+        console.log('global was selected')
         return this.$store.state.directory.filter(note => note.firstName.startsWith(this.filterWord))
       } else {
         return this.$store.state.contacts
@@ -183,7 +233,7 @@ export default {
         contact.name = contact.firstName.charAt(0)
       })
       return _.groupBy(contacts, 'name')
-    }    
+    }
   }
 }
 </script>

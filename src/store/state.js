@@ -11,7 +11,9 @@ export default {
   messages: [],
   history: [],
   calls: [],
-    sounds: {
+  sounds: {
     ringing: new Audio('./static/sounds/ringing.mp3')
   },
+  currentPage: '',
+  contactSource: 'personal'
 }

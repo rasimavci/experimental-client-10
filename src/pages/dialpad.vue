@@ -96,6 +96,9 @@ activeCallState
 <script>
 import { mapState, mapGetters } from 'vuex';
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'dialpad');
+  },
   methods: {
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true)

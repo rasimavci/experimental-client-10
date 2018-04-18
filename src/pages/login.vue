@@ -24,6 +24,9 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'login',
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'login');
+  },
   data() {
     return {
       username: '',

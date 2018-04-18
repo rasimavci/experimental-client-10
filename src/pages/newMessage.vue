@@ -27,6 +27,9 @@ import moment from 'moment'
 import _ from 'lodash'
 
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'messages');
+  },
   data: function() {
     return {
       showData: 'all',
@@ -43,7 +46,7 @@ export default {
         criteria: ''
       },
       conversationId: 'saynaci@genband.com', // this.$route.params.id,
-      contactSelected: false      
+      contactSelected: false
     }
   },
 
@@ -96,7 +99,7 @@ export default {
         this.$store.dispatch('end')
       }
       console.log('make call operation finished.')
-    },    
+    },
   },
   computed: {
     getMessages() {
@@ -107,7 +110,7 @@ export default {
         convs.forEach((conv, index) => {
           if(conv.conversationId === 'saynaci@genband.com') {
             messages = this.$store.state.conversations[index].messages
-          } 
+          }
         })
       } else {
         return [{
@@ -144,7 +147,7 @@ return messages
       } else {
         return this.contacts
       }
-    },    
+    },
     filtredMessages () {
       this.conversations = this.$store.state.conversations
       let resultArray = []
@@ -159,7 +162,7 @@ return messages
       // })
       console.log('resultArray ' + resultArray)
       return resultArray
-    },    
+    },
   }
 }
 </script>

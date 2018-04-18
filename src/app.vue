@@ -11,10 +11,10 @@
   // Statusbar
   f7-statusbar
   // Left Panel
-  f7-panel(left='', reveal='', theme-dark='')
+  f7-panel(left='', reveal='', theme-blue='')
     f7-view(url='/panel-left/')
   // Right Panel
-  f7-panel(right='', cover='', theme-dark='')
+  f7-panel(right='', cover='', theme-blue='', v-if="getPage === 'contact' || getPage === 'history' || getPage === 'messages' || getPage === 'favorites'")
     f7-view(url='/panel-right/')
   // Main View
   f7-view#main-view(url='/login/', main='')
@@ -36,6 +36,17 @@ export default {
   name: 'mainApp',
   components: {
     login: Login
-  }
+  },
+  computed: {
+      getPage() {
+        console.log('heyyo ' + this.$store.state.currentPage)
+        return this.$store.state.currentPage
+      }
+    },
 }
 </script>
+<style>
+.statusbar {
+  background: pink;
+}
+</style>

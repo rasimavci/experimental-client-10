@@ -21,7 +21,7 @@ f7-page
         f7-block-title PREFERRED SETTINGS
         f7-list(form='')
          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Call Mode'")
-         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="'IM Mode'")    
+         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="'IM Mode'")
   f7-popup#popupLanguage
     f7-view
       f7-page
@@ -49,7 +49,7 @@ f7-page
         f7-block-title PREFERRED SETTINGS
         f7-list(form='')
          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Call Mode'")
-         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="'IM Mode'")         
+         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="'IM Mode'")
   f7-popup#popupLog
     f7-view
       f7-page
@@ -59,13 +59,16 @@ f7-page
         f7-list(form='')
          f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'BASIC'")
          f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'DETAILED'")
-         f7-list-item(:key='3', radio='', name='my-radio', :checked='3 === 1', :value='3', :title="'VERBOSE'")        
+         f7-list-item(:key='3', radio='', name='my-radio', :checked='3 === 1', :value='3', :title="'VERBOSE'")
 </template>
 
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'settings');
+  },
   data: function() {
     return {
       showData: 'all',
@@ -83,7 +86,7 @@ export default {
     },
     openPopupLog: function() {
       this.$f7.popup.open(popupLog, true)
-    }    
+    }
   }
 }
 </script>

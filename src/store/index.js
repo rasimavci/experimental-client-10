@@ -15,6 +15,13 @@ const store = new Vuex.Store({
   actions,
   getters,
   mutations: {
+    [types.SET_CONTACTSOURCE] (state, source) {
+      state.contactSource = source
+      console.log('contact source ' + source)
+    },
+    [types.UPDATE_CURRENTPAGE] (state, page) {
+      state.currentPage = page
+    },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
     },
@@ -42,11 +49,11 @@ const store = new Vuex.Store({
 
     [types.UPDATE_CALLS] (state, calls) {
       state.calls = calls
-    calls.forEach(function(call) {
-      if (call.id === state.activeCall.callId) {
-        state.activeCall = call
-      }
-    });
+      calls.forEach(function (call) {
+        if (call.id === state.activeCall.callId) {
+          state.activeCall = call
+        }
+      })
     },
 
     [types.SET_ACTIVE_CALL] (state, call) {
@@ -57,7 +64,6 @@ const store = new Vuex.Store({
       state.activeCall.id = id
     },
 
-
     [types.RINGING_SOUND] (state, options) {
       if (options.play) {
         state.sounds.ringing.loop = true
@@ -67,7 +73,6 @@ const store = new Vuex.Store({
         state.sounds.ringing.load()
       }
     }
-
   }
 })
 export default store

@@ -10,5 +10,9 @@ f7-page
     p Your favorites tab is empty. To add favorites, click on the Contacts tab and add a contact to your favotires.
 </template>
 <script>
-export default {}
+export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'favorites');
+  },
+}
 </script>

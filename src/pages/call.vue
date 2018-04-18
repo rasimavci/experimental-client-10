@@ -41,7 +41,7 @@
       .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(false)')
           img.img1(src='../assets/demo/call_outline_white.png')
-          | Call        
+          | Call
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -57,7 +57,7 @@
             i.icon.f7-icons.ios-only mic_off_fill
             i.icon.material-icons.md-only mic_off
     #tab-3.page-content.tab
-      .page-content.messages-content.a    
+      .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
           | Call
@@ -87,6 +87,9 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 export default {
+  created: function() {
+    this.$store.commit("UPDATE_CURRENTPAGE", 'call');
+  },
   data: function() {
     return {
       showData: 'all',
@@ -229,7 +232,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;  
+    height: 100vh;
 }
 
 .b {
