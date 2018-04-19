@@ -1,5 +1,5 @@
 <template lang='pug'>
-f7-list-item
+.container.darker
   //- img(:src='contact.photoUrl', alt='Avatar')
   p {{message.parts[0].text}}
   span.time-right {{moment(message.timestamp).calendar()}}

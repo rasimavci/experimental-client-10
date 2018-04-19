@@ -23,9 +23,9 @@
   .tabs
     #tab-1.page-content.tab.tab-active
       .page-content.messages-content.a
-        .messages.a
-          div(v-for='message in getMessages', :key='message.key')
-            | {{message.parts[0].text}}
+        .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
+          left-chat-bubble.leftBBl(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
+          right-chat-bubble.rightBBl(:message='message', v-else)
       .toolbar.toolbar-bottom-md.messagebar
         .toolbar-inner
           a.link.toggle-sheet(href='#')
@@ -85,6 +85,8 @@
 
 
 <script>
+import LeftChatBubble from './LeftChatBubble'
+import RightChatBubble from './RightChatBubble'
 import { mapState, mapGetters } from 'vuex';
 export default {
   created: function() {
@@ -92,17 +94,38 @@ export default {
   },
   data: function() {
     return {
+      renderMessages: false,
       showData: 'all',
       message: '',
       showData: 'all',
       message: '',
       callee: 'saynaci@genband.com',
-      showbottombar: false
+      showbottombar: false,
+      conversationId: 'bkocak@genband.com',
+      selectedContacts: []
     }
+  },
+  components: {
+    leftChatBubble: LeftChatBubble,
+    rightChatBubble: RightChatBubble
+  },
+  mounted () {
+    this.getContactInfo()
   },
   methods: {
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true)
+    },
+    getContactInfo () {
+      let primaryContact = this.conversationId
+      let contact = this.$_.find(this.contacts, c => {
+        return c.primaryContact === primaryContact
+      })
+      contact.photoUrl = contact.photoUrl || this.noImg
+      this.selectedContacts.push(this.$_.cloneDeep(contact))
+      this.$nextTick(() => {
+        this.renderMessages = true
+      })
     },
     sendMessage() {
       let messageToSend = {
@@ -166,27 +189,19 @@ export default {
     },
   },
   computed: {
-    getMessages() {
-      let convs = this.$store.state.conversations
-      // console.log('conv obj ' + JSON.stringify(convs))
-      let messages = []
-      if (convs && convs[0]) {
-        convs.forEach((conv, index) => {
-          if(conv.conversationId === 'saynaci@genband.com') {
-            messages = this.$store.state.conversations[index].messages
-          }
-        })
-      } else {
-        messages = [{
-          parts: [
-            {
-              text: 'You have no messages.'
-            }]
+    ...mapGetters(['contacts', 'conversations']),
+    filtredMessages () {
+      let resultArray = []
+      for (let i = 0; i < this.conversations.length; i++) {
+        if (this.conversations[i].conversationId === this.conversationId) {
+          resultArray = this.conversations[i].messages
         }
-        ]
       }
-    return messages
-  },
+      this.$nextTick(() => {
+        $('.messages-container').scrollTop($('.messages-container').height())
+      })
+      return resultArray
+    },
     getActiveCall () {
     return  this.$store.state.activeCall.state
     }
