@@ -10,13 +10,18 @@ f7-page
    f7-col(width='50')
   f7-button(fill='', raised='', popup-open='#popupAddContact') Edit Contact
    f7-col(width='50')
-  f7-searchbar(disable-link-text="Cancel" search-container="#search-list" placeholder="Search in items" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
-  f7-list.date(v-for='(groups, key) in groupedContacts' :key="key")
+  
+  f7-searchbar(disable-link-text="Cancel" search-container="#searchList" placeholder="Search in items" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+  f7-list.searchbar-not-found
+   f7-list-item(title="No contacts found")
+  f7-list.searchbar-found(id='searchList')
+   f7-list-item(v-for='contact in contacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
+
+  f7-list.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
    h5 {{key}}
-   f7-list.searchbar-not-found
-    f7-list-item(title="No contacts found")
-   f7-list.searchbar-found(id="search-list")
-    f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.name" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
+   f7-list
+    f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.entryId" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
+      
   f7-popup#popupContactDetails
     f7-view
       f7-page
@@ -176,7 +181,8 @@ export default {
   data: function() {
     return {
       contact: '',
-      showData: 'all'
+      showData: 'all',
+      isSearch: false
     }
   },
   methods: {
@@ -199,9 +205,11 @@ export default {
       console.log('clear');
     },
     onEnable: function(event) {
+      this.isSearch = true
       console.log('enable');
     },
     onDisable: function(event) {
+      this.isSearch = false
       console.log('disable');
     },
     goCall: function(event) {
