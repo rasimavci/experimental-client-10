@@ -2,7 +2,7 @@
 .container.darker
   //- img(:src='contact.photoUrl', alt='Avatar')
   p {{message.parts[0].text}}
-  span.time-right {{moment(message.timestamp).calendar()}}
+  span.time-right.messageLine {{moment(message.timestamp).calendar()}}
 </template>
 
 <script>
@@ -30,5 +30,7 @@ export default {
 </script>
 
 <style scoped>
-
+.messageLine {
+  max-height: 20px;
+}
 </style>

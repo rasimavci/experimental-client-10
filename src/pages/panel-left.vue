@@ -6,10 +6,8 @@ f7-page
     f7-list-item(link='/about/', title='About', view='#main-view', panel-close='')
     f7-list-item(link='/form/', title='Form', view='#main-view', panel-close='')
     f7-list-item(link='/call/', title='Call', view='#main-view', panel-close='')
-      i.icon.material-icons.md-only phone
+      i.icon.material-icons.md-only(align="left") phone
     f7-list-item(link='/presences/', title='Presences', view='#main-view', panel-close='')
-    f7-list-item(icon='icon material-icons md-only inbox', link='/newMessage/', title='newMessage', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only inbox
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
@@ -40,5 +38,9 @@ export default {
 
 .panelColor {
   background-color: #0099FF;
+}
+
+.leftit {
+align:left
 }
 </style>

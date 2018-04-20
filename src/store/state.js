@@ -11,9 +11,11 @@ export default {
   messages: [],
   history: [],
   calls: [],
+  sessions: [],
   sounds: {
     ringing: new Audio('./static/sounds/ringing.mp3')
   },
   currentPage: '',
-  contactSource: 'personal'
+  contactSource: 'personal',
+  activeCallTab: 'chat'
 }

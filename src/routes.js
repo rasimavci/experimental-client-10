@@ -18,7 +18,6 @@ import Presences from './pages/presences'
 import Call from './pages/call'
 import Settings from './pages/settings.vue'
 import Contact from './pages/contact.vue'
-import newMessage from './pages/newMessage.vue'
 
 export default [
   {
@@ -35,10 +34,6 @@ export default [
   {
     path: '/login',
     component: Login
-  },
-  {
-    path: '/newMessage',
-    component: newMessage
   },
   {
     path: '/panel-left/',

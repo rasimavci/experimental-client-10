@@ -61,7 +61,7 @@ const mutations = {
   },
   UPDATE_SELECTEDCONTACT(state, data) {
     state.selectedContact = data;
-  }
+  },
   REFRESH_DIRECTORY(state, data) {
     console.log("data refreshed");
     if (data) state.cardData = data;

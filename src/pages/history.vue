@@ -5,15 +5,7 @@ f7-page
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title History
     f7-nav-right
-      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='right')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Alldd Calls
-   f7-col(width='50')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Outgoing Calls
-   f7-col(width='50')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Incoming Calls
-   f7-col(width='50')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Missed Calls
-   f7-col(width='50')
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   f7-searchbar(cancel-link="Cancel" placeholder="Search in call logs" :clear-button="true")
   f7-list.date(v-for='(groups, key) in groupedLogs' :key="key")
    h5 {{key}}

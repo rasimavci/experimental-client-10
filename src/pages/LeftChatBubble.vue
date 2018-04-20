@@ -1,8 +1,8 @@
 <template lang='pug'>
 .container
-  img(:src='contact.photoUrl', alt='Avatar')
+  img.messageLine.imgSize(:src='contact.photoUrl', alt='Avatar')
   p {{message.parts[0].text}}
-  span.time-right {{moment(message.timestamp).calendar()}}
+  span.time-right.messageLine {{moment(message.timestamp).calendar()}}
 </template>
 
 <script>
@@ -30,5 +30,12 @@ export default {
 </script>
 
 <style>
+.messageLine {
+  max-height: 20px;
+}
 
+.imgSize {
+  max-width: 15px;
+  max-height: 20px;
+}
 </style>

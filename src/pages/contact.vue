@@ -5,13 +5,8 @@ f7-page
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Contacts
     f7-nav-right
-      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='right')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Add Contact
-   f7-col(width='50')
-  f7-button(fill='', raised='', popup-open='#popupAddContact') Edit Contact
-   f7-col(width='50')
-  
-  f7-searchbar(disable-link-text="Cancel" search-container="#searchList" placeholder="Search in items" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
+  f7-searchbar(disable-link-text="Cancel" search-container="#searchList" placeholder="Search in contacts" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-list.searchbar-not-found
    f7-list-item(title="No contacts found")
   f7-list.searchbar-found(id='searchList')
@@ -21,7 +16,7 @@ f7-page
    h5 {{key}}
    f7-list
     f7-list-item(v-for="contact in groups" @click='openContactDetailsPopup(contact)' :key="contact.entryId" :title="contact.firstName + ' ' + contact.lastName" href="#popupAddContact")
-      
+
   f7-popup#popupContactDetails
     f7-view
       f7-page

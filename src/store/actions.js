@@ -88,13 +88,14 @@ const options = {
 
   }
 
+  export const end = ({commit, state}) => {
+    kandy.call.end(state.activeCall.id);
+  }
+
   export const hold = ({commit, state}) => {
     kandy.call.hold(state.activeCall.id);
   }
 
-function holdCall() {
-  kandy.call.hold(store.state.activeCall.id);
-}
   export const unhold = ({commit}) => {
     kandy.call.unhold(state.activeCall.id);
   }
@@ -105,10 +106,6 @@ function holdCall() {
 
   export const unmute = ({commit}) => {
     kandy.call.unmute(state.activeCall.id);
-  }
-
-  export const end = ({commit}) => {
-    kandy.call.end(state.activeCall.id);
   }
 
 function sendMessage (participant, messagetoSend) {
@@ -157,14 +154,22 @@ kandy.on('call:stateChange', call => {
             // Get active calls.
       // let calls = kandy.call.getAll()
             // Get active calls.
-      let calls = kandy.call.getAll().filter(function (call) {
+      // console.log('caller Name: ' + call.callerName)
+      // console.log('call id: ' + call.id)
+      // calls.forEach(call => {
+      //   return call.state !== 'ENDED';
+      let calls = kandy.call.getAll()
+       store.commit('UPDATE_CALLS', calls)
+
+      let calls2 = calls.filter(function (call) {
           return call.state !== 'ENDED';
       // console.log('caller Name: ' + call.callerName)
       // console.log('call id: ' + call.id)
       // calls.forEach(call => {
       //   return call.state !== 'ENDED';
     })
-       store.commit('UPDATE_CALLS', calls)
+       store.commit('UPDATE_SESSIONS', calls2)
+
     })
 
   kandy.on("call:start", function(params) {

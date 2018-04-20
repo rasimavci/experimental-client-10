@@ -1,12 +1,13 @@
 <template lang='pug'>
 .page
-  .navbar
-    .navbar-inner.my-class
-      .nav-left
-        i.icon.material-icons.md-only.panel-open dehaze
-      .title Call
-      .right
-        i.icon.material-icons.md-only dehaze
+  f7-navbar
+    f7-nav-left
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
+    f7-nav-title {{getCalleeName}}
+    f7-nav-right.end-button-color(v-if="onCall")
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
+    f7-nav-right(v-if="!onCall")
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:phone_in_talk', panel-open='right', @click="makeCall(false)")
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
     .toolbar-inner
@@ -24,8 +25,8 @@
     #tab-1.page-content.tab.tab-active
       .page-content.messages-content.a
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
-          left-chat-bubble.leftBBl(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
-          right-chat-bubble.rightBBl(:message='message', v-else)
+          left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
+          right-chat-bubble.rightBBl.messageLine(:message='message', v-else)
       .toolbar.toolbar-bottom-md.messagebar
         .toolbar-inner
           a.link.toggle-sheet(href='#')
@@ -99,24 +100,29 @@ export default {
       message: '',
       showData: 'all',
       message: '',
-      callee: 'saynaci@genband.com',
+      callee: 'bkocak@genband.com',
       showbottombar: false,
       conversationId: 'bkocak@genband.com',
-      selectedContacts: []
+      selectedContacts: [],
+      onCall: true
     }
   },
   components: {
     leftChatBubble: LeftChatBubble,
     rightChatBubble: RightChatBubble
   },
-  mounted () {
+  mounted() {
     this.getContactInfo()
   },
   methods: {
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true)
     },
-    getContactInfo () {
+    end() {
+      // this.onCall = false
+      this.$store.dispatch('end')
+    },
+    getContactInfo() {
       let primaryContact = this.conversationId
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact
@@ -146,12 +152,14 @@ export default {
     add() {
       console.log('sorry, not implemented yet')
     },
-    volumeUp () {
+    volumeUp() {
       console.log('sorry, not implemented yet')
     },
-    makeCall (mode) {
+    makeCall(mode) {
+      this.onCall = true
       // console.log('activeCall State ' + this.activeCall.state)
       // console.log('make call to ' + this.callee)
+      // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
         this.callee = 'saynaci@genband.com'
         const params = {
@@ -168,7 +176,7 @@ export default {
       }
       console.log('make call operation finished.')
     },
-    makeCall2 (mode) {
+    makeCall2(mode) {
       // console.log('activeCall State ' + this.activeCall.state)
       // console.log('make call to ' + this.callee)
       if (this.getActiveCall !== 'true') {
@@ -190,7 +198,7 @@ export default {
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
-    filtredMessages () {
+    filtredMessages() {
       let resultArray = []
       for (let i = 0; i < this.conversations.length; i++) {
         if (this.conversations[i].conversationId === this.conversationId) {
@@ -202,10 +210,21 @@ export default {
       })
       return resultArray
     },
-    getActiveCall () {
-    return  this.$store.state.activeCall.state
+    getActiveCall() {
+      return this.$store.state.activeCall.state
+    },
+    getCalleeName() {
+      let hmm = this.$store.state.activeCall.state
+      let hmm2 = this.$store.state.activeCall.id
+      console.log('active call status ' + hmm)
+      console.log('active call id ' + hmm2)
+      if (this.$store.state.activeCall.state === 'IN_CALL') {
+        this.onCall = true
+      } else {
+        this.onCall = false
+      }
+      return this.$store.state.activeCall.calleeName
     }
-
   }
 }
 </script>
@@ -217,9 +236,11 @@ export default {
 .call-button-container2 {
   padding-top: 160px;
 }
+
 .call-button-container1 {
   padding-top: 590px;
 }
+
 .call-button-container {
   margin: auto;
   width: 233px;
@@ -234,31 +255,44 @@ export default {
   font-size: 17px;
   color: white;
 }
+
+.end-button-color {
+  color: red;
+}
+
 .img1 {
   height: 50%;
   width: 50
 }
+
 .a {
   max-height: 700px;
 }
 
+.messageLine {
+  max-height: 20px;
+}
+
 .a2altta {
   max-height: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .b {
-  max-height: 40px
+  max-height: 40px;
+  min-height: 40px
 }
+
 .my-class {
-    cursor: default;
+  cursor: default;
 }
+
 .action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

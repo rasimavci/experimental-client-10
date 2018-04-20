@@ -1,12 +1,9 @@
 <template lang='pug'>
 .page
-  .navbar
-    .navbar-inner.my-class
-      .nav-left
-        i.icon.material-icons.md-only.panel-open menu
-      .title Dialpad
-      .right
-        i.icon.material-icons.md-only menu
+  f7-navbar
+    f7-nav-left
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
+    f7-nav-title Dialpad
   .modal-container1
     .modal-container2
       .input-group.flex1
@@ -68,28 +65,34 @@
   // Additional "tabbar-labels" class
   .toolbar.toolbar-bottom-md.tabbar-labels
     .toolbar-inner
-      a.tab-link.tab-link-active.b(href='#tab-1')
+      a.tab-link.b(href='#tab-1')
+        i.icon.f7-icons.ios-only
+          | keyboard_fill
+        i.icon.material-icons.md-only
+          | keyboard
+      a.tab-link.tab-link.b(href='#tab-2',@click='goChat()')
         // Different icons for iOS and MD themes
         i.icon.f7-icons.ios-only email_fill
         i.icon.material-icons.md-only chat_bubble
         span.badge.color-red 5
         // Label text
-      a.tab-link.b(href='#tab-2')
+      a.tab-link-active.b(href='#tab-3',@click='goCall()')
         i.icon.f7-icons.ios-only
-          | today_fill
+          | phone_in_talk_fill
         i.icon.material-icons.md-only
           | phone_in_talk
-      a.tab-link.b(href='#tab-3')
+      a.tab-link.b(href='#tab-4',@click='goVideo()')
         i.icon.f7-icons.ios-only videocam_fill
         i.icon.material-icons.md-only videocam
-      a.tab-link.b(href='#tab-4')
+      a.tab-link.b(href='#tab-5')
         i.icon.f7-icons.ios-only voicemail_fill
         i.icon.material-icons.md-only voicemail
   .tabs
-    #tab-1.page-content.tab.tab-active 1
+    #tab-1.page-content.tab  1
     #tab-2.page-content.tab  2
-    #tab-3.page-content.tab  3
+    #tab-3.page-content.tab.tab-active  3
     #tab-4.page-content.tab  4
+    #tab-4.page-content.tab  5
 
 </template>
 activeCallState
@@ -100,6 +103,21 @@ export default {
     this.$store.commit("UPDATE_CURRENTPAGE", 'dialpad');
   },
   methods: {
+   goCall: function() {
+     // this.popup-close=''
+     this.$store.commit("SET_ACTIVECALLTAB", 'call');
+     this.$f7router.navigate('/call')
+    },
+   goVideo: function() {
+     // this.popup-close=''
+      this.$store.commit("SET_ACTIVECALLTAB", 'video');
+      this.$f7router.navigate('/call')
+    },
+   goChat: function() {
+     // this.popup-close=''
+      this.$store.commit("SET_ACTIVECALLTAB", 'chat');
+      this.$f7router.navigate('/call')
+    },
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true)
     },

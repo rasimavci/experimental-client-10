@@ -22,6 +22,10 @@ const store = new Vuex.Store({
     [types.UPDATE_CURRENTPAGE] (state, page) {
       state.currentPage = page
     },
+    [types.SET_ACTIVECALLTAB] (state, tab) {
+      state.activeCallTab = tab
+      console.log('activeCallTab ' +tab)
+    },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
     },
@@ -50,18 +54,22 @@ const store = new Vuex.Store({
     [types.UPDATE_CALLS] (state, calls) {
       state.calls = calls
       calls.forEach(function (call) {
-        if (call.id === state.activeCall.callId) {
+        if (call.id === state.activeCall.callId || call.id === state.activeCall.id) {
           state.activeCall = call
         }
       })
+    },
+
+    [types.UPDATE_SESSIONS] (state, calls) {
+      state.sessions = calls
     },
 
     [types.SET_ACTIVE_CALL] (state, call) {
       state.activeCall = call
     },
 
-    [types.SET_ACTIVE_CALLID] (state, id) {
-      state.activeCall.id = id
+    [types.SET_ACTIVECALLID] (state, to) {
+      state.activeCall.to = to
     },
 
     [types.RINGING_SOUND] (state, options) {
