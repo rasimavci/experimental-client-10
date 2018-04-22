@@ -31,7 +31,9 @@ f7-page(v-if=getContactSource)
           f7-nav-right
             f7-link(popup-close='', @click='openEditContactPopup()') Edit
           f7-nav-left
-            f7-link(popup-close='') Back            
+            f7-link(popup-close='') Back
+        f7-list
+          f7-list-item(@click='openAddContactPopup()', title='Temporary Open Add Popup')                     
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -73,7 +75,7 @@ f7-page(v-if=getContactSource)
       f7-page
         f7-navbar(title='Add Contact')
           f7-nav-right
-            f7-link(popup-close='') Add
+            f7-link(popup-close='',@click='addContact(contact)') Add
           f7-nav-left
             f7-link(popup-close='') Close            
         f7-block
@@ -105,12 +107,43 @@ f7-page(v-if=getContactSource)
             f7-input(type='date', placeholder='Birth date', value='2014-04-30')
           f7-list-item(title='Friend')
             f7-toggle(slot='after')
+  f7-popup#popupEditContact1
+    f7-view  
+      f7-page
+        f7-navbar(title='Edit Contact')
+          f7-nav-right
+            f7-link(popup-close='', @click='editContact()') Save1
+          f7-nav-left
+            f7-link(popup-close='') Back        
+        f7-block            
+        f7-block-title Form Example
+        f7-list(form='')
+          f7-list-item
+          f7-label Name
+          f7-input(:value='firstName', @input="lastName = $event.target.value", type='text', :placeholder="contact.firstName")
+          f7-list-item
+          f7-label E-mail
+          f7-input(type='email', placeholder='E-maill')
+          f7-list-item
+          f7-label URL
+          f7-input(type='url', placeholder='URL')
+          f7-list-item
+          f7-label Password
+          f7-input(type='password', placeholder='Password')
+          f7-list-item
+          f7-label Phone
+          f7-input(type='tel', placeholder='Phone')
+          f7-list-item
+          f7-label Gender
+          f7-input(type='select')
+            option(selected='') Male
+            option Female            
   f7-popup#popupEditContact
     f7-view
       f7-page
         f7-navbar
           f7-nav-right
-            f7-link(popup-close='', @click='editContact()') Save
+            f7-link(popup-close='', @click='editContact()') Save1
           f7-nav-left
             f7-link(popup-close='') Back
         .flex
@@ -124,31 +157,31 @@ f7-page(v-if=getContactSource)
         f7-list(form='')
           f7-list-item
             f7-label First Name*
-            f7-input(type='text', placeholder='contact.firstName') {{contact.firstName}}
+            f7-input(:value='firstName' @input="firstName = $event.target.value",type='text', :placeholder='contact.firstName')
           f7-list-item
             f7-label Last Name*
-            f7-input(:value='name1' @input="name1 = $event.target.value", type='text', placeholder='contact.firstName') {{contact.lastName}}            
+            f7-input(:value='lastName' @input="lastName = $event.target.value", type='text', :placeholder='contact.lastName')
           f7-list-item
             f7-label Nickname
-            f7-input(type='text', placeholder='contact.firstName') {{contact.nickname}}            
+            f7-input(type='text', :placeholder='contact.nickname')
           f7-list-item
             f7-label User Id
-            f7-input(type='url', placeholder='URL') {{contact.primaryContact}}            
+            f7-input(type='url', :placeholder='contact.primaryContact')
           f7-list-item
             f7-label E-mail
-            f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}
+            f7-input(type='email', placeholder='contact.emailAddress')
         f7-block
         f7-block-title CONTACT
         f7-list(form='')
           f7-list-item
             f7-label Home
-            f7-input(type='tel', placeholder='Home') {{contact.homePhone}}
+            f7-input(type='tel', :placeholder='contact.homePhone')
           f7-list-item
             f7-label Mobile
-            f7-input(type='tel', placeholder='Mobile') {{contact.mobilePhone}}
+            f7-input(type='tel', :placeholder='contact.mobilePhone')
           f7-list-item
             f7-label Work
-            f7-input(type='tel', placeholder='Work') {{contact.workPhone}}
+            f7-input(type='tel', :placeholder='contact.workPhone')
         f7-block
         f7-block-title SETTINGS
         f7-list(form='')        
@@ -225,8 +258,20 @@ export default {
       contact: '',
       showData: 'all',
       isSearch: false,
-      name1: '',
-      contactSource: 'personal'
+      id: null,
+      firstName: null,
+      lastName: null,
+      nickname: null,
+      mobilePhone: null,
+      userId: null,
+      username: null,
+      emailAddress: null,
+      homePhone: null,
+      workPhone: null,
+      fax: null,
+      pager: null,
+      friendStatus: false,
+      primaryContact: null
     }
   },
   methods: {
@@ -238,7 +283,7 @@ export default {
       if(this.contactSource === 'personal') {
       this.$f7.popup.open(popupContactDetails, true)        
       } else {
-      this.$f7.popup.open(popupAddContact, true)
+      this.$f7.popup.open(popupContactDetails, true)
       }
 
     },
@@ -246,7 +291,7 @@ export default {
       this.$f7.popup.open(popupAddContact, true)
     },
     openEditContactPopup: function() {
-      this.$f7.popup.open(popupEditContact, true)
+      this.$f7.popup.open(popupAddContact, true)
     },
     openManageFavorites: function() {
       this.$f7.popup.open(popupManageFavorites, true)
@@ -254,7 +299,7 @@ export default {
     onSearch: function(query, found) {
       if(query.value !== ''){
       this.$store.dispatch('search', query.value)
-      console.log('search', query.value);      
+      console.log('search', query.value);       
       }
     },
     onClear: function(event) {
@@ -272,8 +317,28 @@ export default {
        console.log(tab);
     },
     editContact: function() {
-    console.log('name' + this.name1)
+    console.log('name ' + this.firstName + this.lastName)
     },
+    addContact: function(contact) {
+      const newContact = {
+      id: 1, // this.id,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      nickname: contact.nickname,
+      mobilePhone: contact.mobilePhone,
+      userId: contact.userId,
+      username: contact.username,
+      emailAddress: contact.emailAddress,
+      homePhone: contact.homePhone,
+      workPhone: contact.workPhone,
+      fax: contact.fax,
+      pager: contact.pager,
+      friendStatus: false,
+      primaryContact: contact.primaryContact
+      }
+        this.$store.dispatch('addContact', newContact)      
+    console.log('name ' + contact.firstName + contact.lastName)
+    }    
   },
   on: {
     search(sb, query, previousQuery) {
