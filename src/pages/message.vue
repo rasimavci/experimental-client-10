@@ -28,8 +28,9 @@ f7-page
               i.icon.f7-icons.ios-only delete_fill
               i.icon.material-icons.md-only delete
             a.tab-link.b(href='#tab-6', @click='goCall()')
-              i.icon.f7-icons.ios-only reply_fill
-              i.icon.material-icons.md-only reply
+              f7-link(popup-close='')
+               i.icon.f7-icons.ios-only reply_fill
+               i.icon.material-icons.md-only reply
 </template>
 <script>
 import LeftChatBubble from './LeftChatBubble'

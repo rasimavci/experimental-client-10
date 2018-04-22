@@ -6,14 +6,16 @@ f7-page
     f7-list-item(@click="openCreateContactPopup", title='Create Contact', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'contact'") Sort By
   f7-list(v-if="getPage === 'contact'")
-    f7-list-item(link='/about/', title='Last Name', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='First Name', view='#main-view', panel-close='')
+    f7-list-item(@click="setSortBy('lastName')", title='Last Name', view='#main-view', panel-close='')
+     i.icon.material-icons.md-only(v-if="!getSortBy") check
+    f7-list-item(@click="setSortBy('firstName')", title='First Name', view='#main-view', panel-close='')
+     i.icon.material-icons.md-only(v-if="getSortBy") check
   f7-block-title(v-if="getPage === 'contact'") Sources
   f7-list(v-if="getPage === 'contact'")
     f7-list-item(@click="setContactSource('personal')", title='Personal Addressbook', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only check
+     i.icon.material-icons.md-only(v-if="getContactSource") check
     f7-list-item(@click="setContactSource('global')", title='Global Addressbook', view='#main-view', panel-close='')
+     i.icon.material-icons.md-only(v-if="!getContactSource") check    
   f7-block-title(v-if="getPage === 'history'") Show..
   f7-list(v-if="getPage === 'history'")
     f7-list-item(link='/about/', title='Incoming Call', view='#main-view', panel-close='')
@@ -34,9 +36,9 @@ f7-page
     f7-list-item(link='/form/', title='List', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'favorites'") Sort By
   f7-list(v-if="getPage === 'favorites'")
-    f7-list-item(link='/about/', title='Last Name', view='#main-view', panel-close='')
+    f7-list-item(link='/about/', title='Last Name1', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='First Name', view='#main-view', panel-close='')
+    f7-list-item(link='/form/', title='First Name1', view='#main-view', panel-close='')
 </template>
 <script>
 export default {
@@ -50,7 +52,25 @@ export default {
       getPage() {
         console.log('heyyo ' + this.$store.state.currentPage)
         return this.$store.state.currentPage
-      }
+      },
+      getContactSource() {
+        console.log('heyyo ' + this.$store.state.currentPage)
+        if(this.$store.state.contactSource === 'personal') {
+        return true
+        } else {
+          return false
+        }
+
+      },
+      getSortBy() {
+        console.log('heyyo ' + this.$store.state.sortBy)
+        if(this.$store.state.sortBy === 'firstName') {
+        return true
+        } else {
+          return false
+        }
+
+      }            
     },
   methods: {
     openCreateContactPopup: function() {
@@ -58,7 +78,10 @@ export default {
     },
     setContactSource: function(source) {
     this.$store.commit("SET_CONTACTSOURCE", source);
-    }
+    },
+    setSortBy: function(source) {
+    this.$store.commit("SET_SORTBY", source);
+    }    
 }
 }
 </script>

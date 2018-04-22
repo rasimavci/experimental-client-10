@@ -108,6 +108,19 @@ const options = {
     kandy.call.unmute(state.activeCall.id);
   }
 
+  export const updateContact = (id, editContact) => {
+    kandy.contacts.update(btoa(id), editContact)
+  }
+  export const addContact = (newContact) => {
+    kandy.contacts.add(newContact)
+  }
+  export const removeContact = (id) => {
+    kandy.contacts.remove(btoa(id))
+  }
+
+  export const search = ({commit},query) => {
+    kandy.contacts.search(query, "FIRSTNAME");
+  }
 function sendMessage (participant, messagetoSend) {
   // currentConvo = self.getConversation(participant)
   const currentConvo = kandy.conversation.get(participant)
@@ -191,6 +204,15 @@ kandy.on('call:stateChange', call => {
     store.commit('REFRESH_DIRECTORY', params.contacts)
     // store.dispatch ('refresh', params.contacts);
   })
+
+  kandy.on("directory:change", params => {
+    // store.dispatch("refresh");
+    //  store.commit ('REFRESH_DIRECTORY', params.results);
+    //   console.log ('directory' + params[0]);
+    //  store.commit ('SET_USER', params.results[0]);
+    store.commit("REFRESH_CONTACTS", params.results);
+    // store.commit("SET_CALL_NAMES", params.results[0]);
+  });
 
   kandy.on('conversations:change', res => {
     let conv = kandy.conversation.get(res.conversationId)

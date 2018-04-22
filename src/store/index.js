@@ -17,7 +17,10 @@ const store = new Vuex.Store({
   mutations: {
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
-      console.log('contact source ' + source)
+      console.log('contactSource ' + source)
+    },
+    [types.SET_SORTBY] (state, sortBy) {
+      state.sortBy = sortBy
     },
     [types.UPDATE_CURRENTPAGE] (state, page) {
       state.currentPage = page
@@ -34,6 +37,12 @@ const store = new Vuex.Store({
       //   contacts.forEach(contact => console.log(contact.firstName))
       //
       state.contacts = contacts
+    },
+
+    [types.REFRESH_CONTACTS] (state, contacts) {
+      //   contacts.forEach(contact => console.log(contact.firstName))
+      //
+      state.directory = contacts
     },
 
     [types.ADD_CONVERSATION] (state, conv) {

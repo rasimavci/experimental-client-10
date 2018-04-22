@@ -17,5 +17,7 @@ export default {
   },
   currentPage: '',
   contactSource: 'personal',
-  activeCallTab: 'chat'
+  sortBy: 'firstName',
+  activeCallTab: 'chat',
+  directory: [{firstName: '', lastName: ''}]
 }
