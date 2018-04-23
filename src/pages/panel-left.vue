@@ -40,7 +40,7 @@ export default {
   background-color: #0099FF;
 }
 
-.leftit {
-align:left
-}
+/* .leftit {
+  alig: left
+} */
 </style>

@@ -19,7 +19,7 @@ f7-page(v-if=getContactSource)
         li(v-for="contact in groups" @click='openContactDetailsPopup(contact)')
           .item-content
             .item-media
-              img(:src="contact.photoUrl" width="44")
+              img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
             .item-inner
               .item-title-row
                 .item-title {{contact.firstName}} {{contact.lastName}}
@@ -27,13 +27,13 @@ f7-page(v-if=getContactSource)
   f7-popup#popupContactDetails
     f7-view
       f7-page
-        f7-navbar(title='Contact Details')
-          f7-nav-right
-            f7-link(popup-close='', @click='openEditContactPopup()') Edit
-          f7-nav-left
-            f7-link(popup-close='') Back
+        .navbar
+          .navbar-inner
+            .left(@click='backContactDetails') Back
+            .title Contact Details
+            .right(@click='openEditContactPopup') Edit
         f7-list
-          f7-list-item(@click='openAddContactPopup()', title='Temporary Open Add Popup')                     
+          f7-list-item(@click='openAddContactPopup()', title='Temporary Open Add Popup')
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -73,11 +73,16 @@ f7-page(v-if=getContactSource)
   f7-popup#popupAddContact
     f7-view
       f7-page
-        f7-navbar(title='Add Contact')
-          f7-nav-right
-            f7-link(popup-close='',@click='addContact(contact)') Add
-          f7-nav-left
-            f7-link(popup-close='') Close            
+        .navbar
+          .navbar-inner
+            .left(@click='backAddContact') Close
+            .title Add Contact
+            .right(@click='addContact(contact)') Add
+        //- f7-navbar(title='Add Contact')
+        //-   f7-nav-right
+        //-     f7-link(popup-close='',@click='addContact(contact)') Add
+        //-   f7-nav-left
+        //-     f7-link(popup-close='') Close
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -114,8 +119,8 @@ f7-page(v-if=getContactSource)
           f7-nav-right
             f7-link(popup-close='', @click='editContact()') Save1
           f7-nav-left
-            f7-link(popup-close='') Back        
-        f7-block            
+            f7-link(popup-close='') Back
+        f7-block
         f7-block-title Form Example
         f7-list(form='')
           f7-list-item
@@ -141,11 +146,10 @@ f7-page(v-if=getContactSource)
   f7-popup#popupEditContact
     f7-view
       f7-page
-        f7-navbar
-          f7-nav-right
-            f7-link(popup-close='', @click='editContact()') Save1
-          f7-nav-left
-            f7-link(popup-close='') Back
+        .navbar
+          .navbar-inner
+            .left(@click='backEditContact') Back
+            .right(@click='editContact') Save1
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -189,11 +193,11 @@ f7-page(v-if=getContactSource)
   f7-popup#popupCreateContact
     f7-view
       f7-page
-        f7-navbar(title='Create Profile')
-          f7-nav-right
-            f7-link(popup-close='') Save
-          f7-nav-left
-            f7-link(popup-close='') Back
+        .navbar
+          .navbar-inner
+            .left(@click='backProfile') Back
+            .title Create Profile
+            .right(@click='saveProfile') Save
         f7-block
         f7-block-title IDENTIFICATION
         f7-list(form='')
@@ -232,11 +236,11 @@ f7-page(v-if=getContactSource)
   f7-popup#popupManageFavorites
     f7-view
       f7-page
-        f7-navbar(title='Manage Favorites')
-          f7-nav-right
-            f7-link(popup-close='') Back
-          f7-nav-left
-            f7-link(popup-close='') Ok            
+        .navbar
+          .navbar-inner
+            .left(@click='backFavorites') Back
+            .title Manage Favorites
+            .right(@click='saveFavorites') Save
         f7-block
         f7-list(form='')
           f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="contact.primaryContact") Chat
@@ -246,6 +250,7 @@ f7-page(v-if=getContactSource)
 
   </template>
 <script>
+import NoImg from '../assets/demo/noimage.jpg'
 import { mapState, mapGetters } from 'vuex';
 import _ from 'lodash'
 export default {
@@ -255,6 +260,7 @@ export default {
   },
   data: function() {
     return {
+      noImg: NoImg,
       contact: '',
       showData: 'all',
       isSearch: false,
@@ -275,13 +281,32 @@ export default {
     }
   },
   methods: {
+    backAddContact () {
+      this.$f7.popup.close('#popupAddContact', true)
+    },
+    backContactDetails () {
+      this.$f7.popup.close('#popupContactDetails', true)
+    },
+    backEditContact () {
+      this.$f7.popup.close('#popupEditContact', true)
+    },
+    backProfile () {
+      this.$f7.popup.close('#popupCreateContact', true)
+    },
+    saveProfile () {
+      this.$f7.popup.close('#popupCreateContact', true)
+    },
+    backFavorites () {
+      this.$f7.popup.close('#popupManageFavorites', true)
+    },
+    saveFavorites () {
+      this.$f7.popup.close('#popupManageFavorites', true)
+    },
     openContactDetailsPopup: function(contact) {
       this.contact = contact
-      // console.log(JSON.stringify(contact))
-      // this.$store.dispatch('UPDATE_SELECTEDCONTACT', 'contact')
       console.log('contact ' + contact.firstName)
       if(this.contactSource === 'personal') {
-      this.$f7.popup.open(popupContactDetails, true)        
+      this.$f7.popup.open(popupContactDetails, true)
       } else {
       this.$f7.popup.open(popupContactDetails, true)
       }
@@ -291,7 +316,8 @@ export default {
       this.$f7.popup.open(popupAddContact, true)
     },
     openEditContactPopup: function() {
-      this.$f7.popup.open(popupAddContact, true)
+      this.$f7.popup.close('#popupEditContact', true)
+      this.$f7.popup.open('#popupAddContact', true)
     },
     openManageFavorites: function() {
       this.$f7.popup.open(popupManageFavorites, true)
@@ -336,9 +362,10 @@ export default {
       friendStatus: false,
       primaryContact: contact.primaryContact
       }
-        this.$store.dispatch('addContact', newContact)      
+        this.$store.dispatch('addContact', newContact)
     console.log('name ' + contact.firstName + contact.lastName)
-    }    
+    this.$f7.popup.close('#popupAddContact', true)
+    }
   },
   on: {
     search(sb, query, previousQuery) {
@@ -427,5 +454,9 @@ export default {
 
   .imgSize {
     height: 50%
+  }
+
+  .avatar-circle{
+        border-radius: 25px;
   }
 </style>

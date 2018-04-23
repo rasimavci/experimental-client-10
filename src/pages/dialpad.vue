@@ -102,6 +102,11 @@ export default {
   created: function() {
     this.$store.commit("UPDATE_CURRENTPAGE", 'dialpad');
   },
+  mounted () {
+    this.$nextTick(()=>{
+      document.getElementsByClassName('modal-container')[0].style.width = document.body.offsetWidth + 'px'
+    })
+  },
   methods: {
    goCall: function() {
      // this.popup-close=''
@@ -166,12 +171,12 @@ export default {
 }
 
 .modal-container2 {
-  padding-top: 300px;
+  padding-top: 50px;
 }
 
 
 .modal-container {
-  width: 400px;
+  /* width: 400px; */
   background-color: #fff;
   border-radius: 0px;
   box-shadow: 0;
