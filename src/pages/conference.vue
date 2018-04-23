@@ -4,8 +4,9 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Collaboration
-  f7-button.col(raised='', fill='') START COLLABORATION
-  f7-button(big round open-popup='#popup') START COLLABORATION
+  .button-container
+    f7-button.col(raised='', fill='') START COLLABORATION
+    f7-button.col(big round open-popup='#popup') START COLLABORATION
   f7-block(strong='')
     p You can also send an automated invitation
 </template>
@@ -13,3 +14,9 @@ f7-page
 <script>
 export default {}
 </script>
+
+<style scoped>
+.button-container{
+  margin: 15px;
+}
+</style>

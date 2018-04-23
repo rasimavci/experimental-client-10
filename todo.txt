@@ -1,0 +1,20 @@
+
+"code issues"...
+call - video call issue- (maybe done later)
+contact- global search issue (sync problem, sth result doesnt come ..)
+contact - add and edit issue (cant add properly, also problem with edit)
+favorites - need a service ?
+presences - show contatc presence
+
+"UI"....
+popups (title is not centered, left and right words are so big)
+leftPanel (logged user image with presence status at top and opens presences when clicked, settings icon at bottom)
+right panel (check icon done with computed value, maybe a more simple solution)
+contact page (circle images, empty avatar image when there is no image)
+contact page - when do a global search, show Add popup when clicked instead of contact details (actually decide it when person is not in addressbook)
+contact page - make size smaller for letter titles
+contact page - for ContactDeails and Edit popups, fix image and icons, please compare with real SO mobile (can send images)
+contact page - try to fit ContactDetails and Edit popups in one screen as in real SO mobile
+call page - fix keypad and number area
+settings page- make bottom buttons not full size in width
+Conference- fix and put data in page
