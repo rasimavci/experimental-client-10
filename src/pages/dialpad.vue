@@ -1,17 +1,17 @@
 <template lang='pug'>
-.page
+.page#aPage
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
-  .modal-container1
-    .modal-container2(v-show='hasInput')
+  .modal-container2()
       .input-group.flex1
         input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
-        span.input-group-btn
+        span.input-group-btn(v-show='hasInput')
           button.backspace-button(type='button', @click="callee = ''")
             i
             img(slot='icon', src='../assets/demo/backspace_blue.png')
+  .modal-container1
     .modal-container(display='none')
       .h3(align='center')
         img.media-object.pull-center(:src='user')
@@ -104,7 +104,7 @@ export default {
   },
   mounted () {
     this.$nextTick(()=>{
-      document.getElementsByClassName('modal-container')[0].style.width = document.body.offsetWidth + 'px'
+      document.getElementsByClassName('modal-container1')[0].style.width = document.body.offsetWidth + 'px'
     })
   },
   methods: {
@@ -142,6 +142,9 @@ export default {
 }
 </script>
 <style>
+#aPage{
+  background-color: #fff;
+}
 .b {
   max-height: 30px
 }
@@ -173,7 +176,8 @@ export default {
 }
 
 .modal-container2 {
-  padding-top: 50px;
+  padding-top: 44px;
+  background-color: #fff;
 }
 
 
