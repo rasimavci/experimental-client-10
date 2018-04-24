@@ -5,7 +5,7 @@
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
   .modal-container1
-    .modal-container2
+    .modal-container2(v-show='hasInput')
       .input-group.flex1
         input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
         span.input-group-btn
@@ -90,7 +90,7 @@
   .tabs
     #tab-1.page-content.tab  1
     #tab-2.page-content.tab  2
-    #tab-3.page-content.tab.tab-active  3
+    #tab-3.page-content.tab.tab-active
     #tab-4.page-content.tab  4
     #tab-4.page-content.tab  5
 
@@ -135,7 +135,8 @@ export default {
     return {
       activeCallState: 'IN_CALL',
       callee: '',
-      user: ''
+      user: '',
+      hasInput: false
     }
   }
 }
@@ -161,7 +162,8 @@ export default {
 }
 
 .modal-container1 {
-  height: 550px;
+  position: absolute;
+  bottom: 50px;
   padding: 1px 1px;
   background-color: #fff;
   border-radius: 2px;
@@ -363,7 +365,6 @@ export default {
 
 #bloc2 {
   display: inline;
-  float: right;
 }
 
 #localVideoContainer,
