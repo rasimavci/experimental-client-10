@@ -5,7 +5,6 @@
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
   .modal-container2()
-      .input-group.flex1
         input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
         span.input-group-btn(v-show='hasInput')
           button.backspace-button(type='button', @click="callee = ''")
@@ -63,7 +62,7 @@
             button(@click="press('#')")
               | #
   // Additional "tabbar-labels" class
-  .toolbar.toolbar-bottom-md.tabbar-labels
+  .toolbar.toolbar-bottom-md.tabbar-labels.tabBackground
     .toolbar-inner
       a.tab-link.b(href='#tab-1')
         i.icon.f7-icons.ios-only
@@ -77,10 +76,7 @@
         span.badge.color-red 5
         // Label text
       a.tab-link-active.b(href='#tab-3',@click='goCall()')
-        i.icon.f7-icons.ios-only
-          | phone_in_talk_fill
-        i.icon.material-icons.md-only
-          | phone_in_talk
+       img(slot='icon', src='../assets/demo/camera_outline_white.png')
       a.tab-link.b(href='#tab-4',@click='goVideo()')
         i.icon.f7-icons.ios-only videocam_fill
         i.icon.material-icons.md-only videocam
@@ -100,34 +96,35 @@ activeCallState
 import { mapState, mapGetters } from 'vuex';
 export default {
   created: function() {
-    this.$store.commit("UPDATE_CURRENTPAGE", 'dialpad');
+    this.$store.commit('UPDATE_CURRENTPAGE', 'dialpad');
   },
-  mounted () {
-    this.$nextTick(()=>{
-      document.getElementsByClassName('modal-container1')[0].style.width = document.body.offsetWidth + 'px'
-    })
+  mounted() {
+    this.$nextTick(() => {
+      document.getElementsByClassName('modal-container1')[0].style.width =
+        document.body.offsetWidth + 'px';
+    });
   },
   methods: {
-   goCall: function() {
-     // this.popup-close=''
-     this.$store.commit("SET_ACTIVECALLTAB", 'call');
-     this.$f7router.navigate('/call')
+    goCall: function() {
+      // this.popup-close=''
+      this.$store.commit('SET_ACTIVECALLTAB', 'call');
+      this.$f7router.navigate('/call');
     },
-   goVideo: function() {
-     // this.popup-close=''
-      this.$store.commit("SET_ACTIVECALLTAB", 'video');
-      this.$f7router.navigate('/call')
+    goVideo: function() {
+      // this.popup-close=''
+      this.$store.commit('SET_ACTIVECALLTAB', 'video');
+      this.$f7router.navigate('/call');
     },
-   goChat: function() {
-     // this.popup-close=''
-      this.$store.commit("SET_ACTIVECALLTAB", 'chat');
-      this.$f7router.navigate('/call')
+    goChat: function() {
+      // this.popup-close=''
+      this.$store.commit('SET_ACTIVECALLTAB', 'chat');
+      this.$f7router.navigate('/call');
     },
     openLeftPanel: function() {
-      this.$f7.popup.open(popupLanguage, true)
+      this.$f7.popup.open(popupLanguage, true);
     },
     press(character) {
-      this.callee = this.callee + character
+      this.callee = this.callee + character;
       // vm.dialValue = vm.dialValue + '6'
     },
   },
@@ -136,17 +133,17 @@ export default {
       activeCallState: 'IN_CALL',
       callee: '',
       user: '',
-      hasInput: false
-    }
-  }
-}
+      hasInput: false,
+    };
+  },
+};
 </script>
 <style>
-#aPage{
+#aPage {
   background-color: #fff;
 }
 .b {
-  max-height: 30px
+  max-height: 30px;
 }
 
 .h3 {
@@ -179,7 +176,6 @@ export default {
   padding-top: 44px;
   background-color: #fff;
 }
-
 
 .modal-container {
   /* width: 400px; */
@@ -244,7 +240,6 @@ export default {
   margin: 5px 0;
 }
 
-
 .keypad-button-number {
   font-size: 28px;
   display: block;
@@ -300,7 +295,7 @@ export default {
 }
 
 .keypad-menu button:hover {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
 }
 
 .keypad-menu myhover {
@@ -342,11 +337,11 @@ export default {
 .keypad-container button {
   border: none !important;
   border-radius: 0px !important;
-  color: #1E90FF !important;
+  color: #1e90ff !important;
 }
 
 .keypad-container button div {
-  color: #1E90FF !important;
+  color: #1e90ff !important;
 }
 
 .keypad-container button:hover {
@@ -387,6 +382,11 @@ export default {
   border: 0px solid black;
 }
 .my-class {
-    cursor: default;
+  cursor: default;
+}
+
+.tabBackground {
+  background-color: white;
+  color: white;
 }
 </style>

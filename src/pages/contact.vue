@@ -39,14 +39,14 @@ f7-page(v-if=getContactSource)
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
           .flex.column
             .flex
-             h3  {{contact.firstName}} {{contact.lastName}} 
+             h3  {{contact.firstName}} {{contact.lastName}}
             .flex
              img.imgSize(src="../assets/demo/call_outline_blue.png" @click="goCall(1)")
              img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCall(2)")
-             div(hspace="20")  
+             div(hspace="20")
              img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCall(0)")
-        f7-block-title CONTACT             
-        f7-list(form='')       
+        f7-block-title CONTACT
+        f7-list(form='')
           f7-list-item
             f7-label Home
             f7-input(type='text', value="contact.homePhone") {{contact.homePhone}}
@@ -61,15 +61,15 @@ f7-page(v-if=getContactSource)
             f7-input(type='tel', placeholder='Phone') {{contact.nickname}}
           f7-list-item
             f7-label User Id
-            f7-input(type='text', value="contact.homePhone") {{contact.primaryContact}}            
+            f7-input(type='text', value="contact.homePhone") {{contact.primaryContact}}
           f7-list-item
             f7-label E-mail
-            f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}            
+            f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}
         f7-block-title SETTINGS
         f7-list
           f7-list-item(@click='openManageFavorites()', title='Manage Favorites')
-          f7-list-item(@click='goCall()', title='Remove From Contacts List')            
-          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")        
+          f7-list-item(@click='removeContact(contact)', title='Remove From Contacts List')
+          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")
   f7-popup#popupAddContact
     f7-view
       f7-page
@@ -78,11 +78,6 @@ f7-page(v-if=getContactSource)
             .left(@click='backAddContact') Close
             .title Add Contact
             .right(@click='addContact(contact)') Add
-        //- f7-navbar(title='Add Contact')
-        //-   f7-nav-right
-        //-     f7-link(popup-close='',@click='addContact(contact)') Add
-        //-   f7-nav-left
-        //-     f7-link(popup-close='') Close
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -113,7 +108,7 @@ f7-page(v-if=getContactSource)
           f7-list-item(title='Friend')
             f7-toggle(slot='after')
   f7-popup#popupEditContact1
-    f7-view  
+    f7-view
       f7-page
         f7-navbar(title='Edit Contact')
           f7-nav-right
@@ -142,7 +137,7 @@ f7-page(v-if=getContactSource)
           f7-label Gender
           f7-input(type='select')
             option(selected='') Male
-            option Female            
+            option Female
   f7-popup#popupEditContact
     f7-view
       f7-page
@@ -155,7 +150,7 @@ f7-page(v-if=getContactSource)
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
           .flex.column
             .flex
-             h3  {{contact.firstName}} {{contact.lastName}}             
+             h3  {{contact.firstName}} {{contact.lastName}}
         f7-block
         f7-block-title IDENFIFICATION
         f7-list(form='')
@@ -188,8 +183,8 @@ f7-page(v-if=getContactSource)
             f7-input(type='tel', :placeholder='contact.workPhone')
         f7-block
         f7-block-title SETTINGS
-        f7-list(form='')        
-            f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")                    
+        f7-list(form='')
+            f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")
   f7-popup#popupCreateContact
     f7-view
       f7-page
@@ -250,16 +245,17 @@ f7-page(v-if=getContactSource)
 
   </template>
 <script>
-import NoImg from '../assets/demo/noimage.jpg'
+import NoImg from '../assets/demo/noimage.jpg';
 import { mapState, mapGetters } from 'vuex';
-import _ from 'lodash'
+import _ from 'lodash';
 export default {
   created: function() {
-    this.$store.commit("UPDATE_CURRENTPAGE", 'contact');
-    this.$store.dispatch('search', 'Ahmet')
+    this.$store.commit('UPDATE_CURRENTPAGE', 'contact');
+    this.$store.dispatch('search', 'Ahmet');
   },
   data: function() {
     return {
+      contacts: [],
       noImg: NoImg,
       contact: '',
       showData: 'all',
@@ -275,157 +271,128 @@ export default {
       homePhone: null,
       workPhone: null,
       fax: null,
-      pager: null,
+      pager: 'netas',
       friendStatus: false,
-      primaryContact: null
-    }
+      primaryContact: null,
+    };
   },
   methods: {
-    backAddContact () {
-      this.$f7.popup.close('#popupAddContact', true)
+    backAddContact() {
+      this.$f7.popup.close('#popupAddContact', true);
     },
-    backContactDetails () {
-      this.$f7.popup.close('#popupContactDetails', true)
+    backContactDetails() {
+      this.$f7.popup.close('#popupContactDetails', true);
     },
-    backEditContact () {
-      this.$f7.popup.close('#popupEditContact', true)
+    backEditContact() {
+      this.$f7.popup.close('#popupEditContact', true);
     },
-    backProfile () {
-      this.$f7.popup.close('#popupCreateContact', true)
+    backProfile() {
+      this.$f7.popup.close('#popupCreateContact', true);
     },
-    saveProfile () {
-      this.$f7.popup.close('#popupCreateContact', true)
+    saveProfile() {
+      this.$f7.popup.close('#popupCreateContact', true);
     },
-    backFavorites () {
-      this.$f7.popup.close('#popupManageFavorites', true)
+    backFavorites() {
+      this.$f7.popup.close('#popupManageFavorites', true);
     },
-    saveFavorites () {
-      this.$f7.popup.close('#popupManageFavorites', true)
+    saveFavorites() {
+      this.$f7.popup.close('#popupManageFavorites', true);
     },
     openContactDetailsPopup: function(contact) {
-      this.contact = contact
-      console.log('contact ' + contact.firstName)
-      if(this.contactSource === 'personal') {
-      this.$f7.popup.open(popupContactDetails, true)
+      this.contact = contact;
+      console.log('selected contact ' + JSON.stringify(contact));
+      if (this.contactSource === 'personal') {
+        this.$f7.popup.open(popupContactDetails, true);
       } else {
-      this.$f7.popup.open(popupContactDetails, true)
+        this.$f7.popup.open(popupContactDetails, true);
       }
-
     },
     openAddContactPopup: function() {
-      this.$f7.popup.open(popupAddContact, true)
+      this.$f7.popup.open(popupAddContact, true);
     },
     openEditContactPopup: function() {
-      this.$f7.popup.close('#popupEditContact', true)
-      this.$f7.popup.open('#popupAddContact', true)
+      this.$f7.popup.close('#popupEditContact', true);
+      this.$f7.popup.open('#popupAddContact', true);
     },
     openManageFavorites: function() {
-      this.$f7.popup.open(popupManageFavorites, true)
-    },    
+      this.$f7.popup.open(popupManageFavorites, true);
+    },
     onSearch: function(query, found) {
-      if(query.value !== ''){
-      this.$store.dispatch('search', query.value)
-      console.log('search', query.value);       
+      if (query.value !== '') {
+        this.$store.dispatch('search', query.value);
+        console.log('search', query.value);
       }
     },
     onClear: function(event) {
       console.log('clear');
     },
     onEnable: function(event) {
-      this.isSearch = true
+      this.isSearch = true;
       console.log('enable');
     },
     onDisable: function(event) {
-      this.isSearch = false
+      this.isSearch = false;
       console.log('disable');
     },
     goCall: function(tab) {
-       console.log(tab);
+      console.log(tab);
+    },
+    removeContact: function(contact) {
+      this.$store.dispatch('removeContact', contact.entryId);
     },
     editContact: function() {
-    console.log('name ' + this.firstName + this.lastName)
+      console.log('name ' + this.firstName + this.lastName);
     },
     addContact: function(contact) {
       const newContact = {
-      id: 1, // this.id,
-      firstName: contact.firstName,
-      lastName: contact.lastName,
-      nickname: contact.nickname,
-      mobilePhone: contact.mobilePhone,
-      userId: contact.userId,
-      username: contact.username,
-      emailAddress: contact.emailAddress,
-      homePhone: contact.homePhone,
-      workPhone: contact.workPhone,
-      fax: contact.fax,
-      pager: contact.pager,
-      friendStatus: false,
-      primaryContact: contact.primaryContact
-      }
-        this.$store.dispatch('addContact', newContact)
-    console.log('name ' + contact.firstName + contact.lastName)
-    this.$f7.popup.close('#popupAddContact', true)
-    }
-  },
-  on: {
-    search(sb, query, previousQuery) {
-    // this.$store.dispatch('search')
-      // console.log(JSON.stringify(query) + ' 1written in search box');
-      // console.log(JSON.stringify(sb) + ' written in search box');
-      // console.log(query, previousQuery);
+        id: this.contacts.length,
+        emailAddress: contact.email ? contact.email : null,
+        fax: contact.fax ? contact.fax : null,
+        firstName: contact.firstName ? contact.firstName : null,
+        friendStatus: false,
+        homePhone: contact.homePhone ? contact.homePhone : null,
+        lastName: contact.lastName ? contact.lastName : null,
+        mobilePhone: contact.mobilePhone ? contact.mobilePhone : null,
+        nickname: contact.nickname ? contact.nickname : 'nickname',
+        pager: contact.pager ? contact.pager : null,
+        primaryContact: contact.userId ? contact.userId : null,
+        userId: contact.userId ? contact.userId : null,
+        username: contact.username ? contact.username : null,
+        workPhone: contact.workPhone ? contact.workPhone : null,
+      };
+      this.$store.dispatch('addContact', newContact);
+      this.$f7.popup.close('#popupAddContact', true);
     },
-        clear() {
-      console.log('cleared');
-    }
   },
   computed: {
-    ...mapGetters(['contacts', ]),
-    getContacts2() {
-      if (this.showdata === 'all') {
-        // console.log(this.$store.state.contacts)
-        // this.list = this.$store.state.contacts
-        return this.$store.state.contacts
-      } else if (this.showdata === 'filtered') {
-        return this.$store.state.contacts.filter(note => note.firstName.startsWith(this.filterWord))
-      } else if (this.$store.state.contactSource === 'global') {
-        console.log('global was selected')
-        return this.$store.state.directory.filter(note => note.firstName.startsWith(this.filterWord))
-      } else {
-        return this.$store.state.contacts
-      }
-    }, // x.charAt(0)
-
+    ...mapGetters(['contacts']),
     getContacts() {
-      let contactSource = this.$store.state.contactSource
-      console.log('contactSource' + contactSource)
+      this.contacts = this.$store.state.contacts;
+      let contactSource = this.$store.state.contactSource;
       if (contactSource === 'personal') {
-        // console.log(this.$store.state.contacts)
-        // this.list = this.$store.state.contacts
-        return this.$store.state.contacts
+        return this.contacts;
       } else {
-        let directory = this.$store.state.directory
-          return directory
+        let directory = this.$store.state.directory;
+        return directory;
       }
-    }, // x.charAt(0)    
+    },
     groupedContacts() {
-      let contacts = this.getContacts // this.$store.state.vux.history
+      let contacts = this.getContacts;
       contacts.forEach(contact => {
-        contact.name = contact.firstName.charAt(0)
-      })
-      return _.groupBy(contacts, 'name')
+        contact.name = contact.firstName.charAt(0);
+      });
+      return _.groupBy(contacts, 'name');
     },
     getContactSource() {
-      this.contactSource = this.$store.state.contactSource ==='personal'
-      // this.contactSource = style
-      if(this.contactSource ==='personal'){
-      return true
+      this.contactSource = this.$store.state.contactSource === 'personal';
+      if (this.contactSource === 'personal') {
+        return true;
       } else {
-        return false
+        return false;
       }
-
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style>
 .flex {
@@ -449,14 +416,14 @@ export default {
   margin: 10px;
   padding: 5px;
   border: 0px solid black;
-  width: 100%
-  }
+  width: 100%;
+}
 
-  .imgSize {
-    height: 50%
-  }
+.imgSize {
+  height: 50%;
+}
 
-  .avatar-circle{
-        border-radius: 25px;
-  }
+.avatar-circle {
+  border-radius: 25px;
+}
 </style>
