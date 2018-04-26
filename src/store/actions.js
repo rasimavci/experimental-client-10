@@ -281,3 +281,49 @@ const kandy = createKandy({
 })
 
 createKandy()
+
+export const setPresence = ({ commit }, args) => {
+  var params = {
+      status: "",
+      activity: "",
+      note: '' // args.note
+  };
+  
+
+  switch (args) {
+      case "0":
+          params.status = "open"
+          params.activity = "unknown"
+          break;
+      case "1":
+          params.status = "closed"
+          params.activity = "unknown"
+          break;
+      case "2":
+          params.status = "open"
+          params.activity = "away"
+          break;
+      case "3":
+          params.status = "open"
+          params.activity = "lunch"
+          break;
+      case "4":
+          params.status = "closed"
+          params.activity = "busy"
+          break;
+      case "5":
+          params.status = "closed"
+          params.activity = "vacation"
+          break;
+      case "6":
+          params.status = "open"
+          params.activity = "other"
+          params.note = "be right Back"
+          break;
+
+      default:
+          break;
+  }
+  console.log('Peer: setPresence state.. : ' + params.status + '' + params.activity);
+  kandy.presence.update(params.status, params.activity, params.note);
+}

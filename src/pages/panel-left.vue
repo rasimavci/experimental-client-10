@@ -17,18 +17,18 @@ f7-page
     f7-list-item(badge="3" link='/message/', title='Inbox', view='#main-view', panel-close='')
      i.icon.material-icons.md-only.test-icon-left inbox
     f7-list-item(link='/dialpad/', title='Dialpad', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only inbox
+     i.icon.material-icons.md-only phone
     f7-list-item(link='/sessions/', title='Sessions', view='#main-view', panel-close='')
      i.icon.material-icons.md-only content_copy
     f7-list-item(link='/conference/', title='Conference', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only transform
+     i.icon.material-icons.md-only supervisor_account
     f7-list-item(link='/settings/', title='Settings', view='#main-view', panel-close='')
      i.icon.material-icons.md-only settings
 </template>
 <script>
 export default {
-  name: 'leftPanel'
-}
+  name: 'leftPanel',
+};
 </script>
 
 <style>
@@ -37,7 +37,7 @@ export default {
 }
 
 .panelColor {
-  background-color: #0099FF;
+  background-color: #0099ff;
 }
 
 /* .leftit {

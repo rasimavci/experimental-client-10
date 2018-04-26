@@ -6,13 +6,13 @@ f7-page
     f7-nav-title ravci@genband.com
   f7-block-title Presence
   f7-list(form='')
-    f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'Available'")
-    f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'Busy'")
-    f7-list-item(:key='3', radio='', name='my-radio', :checked='3 === 1', :value='3', :title="'On Vacation'")
-    f7-list-item(:key='4', radio='', name='my-radio', :checked='4 === 1', :value='4', :title="'Away'")
-    f7-list-item(:key='5', radio='', name='my-radio', :checked='5 === 1', :value='5', :title="'Out to Lunch'")
-    f7-list-item(:key='6', radio='', name='my-radio', :checked='6 === 1', :value='6', :title="'Be Right Back'")
-    f7-list-item(:key='7', radio='', name='my-radio', :checked='7 === 1', :value='7', :title="'Appear Offline'")
+    f7-list-item(:key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="'Available'" @change="setPresence('0')")
+    f7-list-item(:key='2', radio='', name='my-radio', :checked='fruit === 1', :value='2', :title="'Busy'" @change="setPresence('1')")
+    f7-list-item(:key='3', radio='', name='my-radio', :checked='fruit === 1', :value='3', :title="'On Vacation'" @change="setPresence('2')")
+    f7-list-item(:key='4', radio='', name='my-radio', :checked='fruit === 1', :value='4', :title="'Away'" @change="setPresence('3')")
+    f7-list-item(:key='5', radio='', name='my-radio', :checked='fruit === 1', :value='5', :title="'Out to Lunch'" @change="setPresence('4')")
+    f7-list-item(:key='6', radio='', name='my-radio', :checked='fruit === 1', :value='6', :title="'Be Right Back'" @change="setPresence('5')")
+    f7-list-item(:key='7', radio='', name='my-radio', :checked='fruit === 1', :value='7', :title="'Appear Offline'" @change="setPresence('6')")
   f7-grid
     f7-col(width='150')
     f7-row(tag='p')
@@ -30,8 +30,31 @@ f7-page
           f7-nav-right
             f7-link(popup-close='') Close
         f7-block-title Send Feedback
+
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      fruit: 'apple',
+    };
+  },
+  computed: {
+    getPresence() {
+      // console.log('heyyo ' + this.$store.state.sortBy)
+      // if(this.$store.state.sortBy === 'firstName') {
+      // return true
+      // } else {
+      //   return false
+      // }
+      return true;
+    },
+  },
+  methods: {
+    setPresence: function(mode) {
+      this.$store.dispatch('setPresence', mode);
+    },
+  },
+};
 </script>

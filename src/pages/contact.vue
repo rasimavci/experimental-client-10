@@ -20,9 +20,12 @@ f7-page(v-if=getContactSource)
           .item-content
             .item-media
               img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
+              //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
+              //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
             .item-inner
               .item-title-row
                 .item-title {{contact.firstName}} {{contact.lastName}}
+              img(:src='presenceConnected')
               .item-subtitle Personal
   f7-popup#popupContactDetails
     f7-view
@@ -246,6 +249,10 @@ f7-page(v-if=getContactSource)
   </template>
 <script>
 import NoImg from '../assets/demo/noimage.jpg';
+import PresenceConnected from '../assets/icon/presence_connected.png';
+import PresenceClosed from '../assets/icon/presence_not.png';
+import PresenceClosedMessage from '../assets/icon/presence_away.png';
+
 import { mapState, mapGetters } from 'vuex';
 import _ from 'lodash';
 export default {
@@ -257,6 +264,9 @@ export default {
     return {
       contacts: [],
       noImg: NoImg,
+      presenceConnected: PresenceConnected,
+      presenceClosed: PresenceClosed,
+      presenceClosedMessage: PresenceClosedMessage,
       contact: '',
       showData: 'all',
       isSearch: false,

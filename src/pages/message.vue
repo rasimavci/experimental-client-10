@@ -12,11 +12,11 @@ f7-page
   f7-popup#popupMessage
     f7-view
       f7-page
-        f7-navbar(title='Inbox')
-          f7-nav-right
-            f7-link(popup-close='') Save
-          f7-nav-right
-            f7-link(popup-close='') Close
+        .navbar
+          .navbar-inner
+            .left(@click='closePopup') Save
+            .title Inbox
+            .right(@click='closePopup') Close
         f7-block
         .page-content.messages-content.a
           .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
@@ -33,12 +33,12 @@ f7-page
                i.icon.material-icons.md-only reply
 </template>
 <script>
-import LeftChatBubble from './LeftChatBubble'
-import RightChatBubble from './RightChatBubble'
+import LeftChatBubble from './LeftChatBubble';
+import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
 export default {
   created: function() {
-    this.$store.commit("UPDATE_CURRENTPAGE", 'call');
+    this.$store.commit('UPDATE_CURRENTPAGE', 'call');
   },
   data: function() {
     return {
@@ -50,59 +50,61 @@ export default {
       callee: 'bkocak@genband.com',
       showbottombar: false,
       conversationId: 'bkocak@genband.com',
-      selectedContacts: []
-    }
+      selectedContacts: [],
+    };
   },
   components: {
     leftChatBubble: LeftChatBubble,
-    rightChatBubble: RightChatBubble
+    rightChatBubble: RightChatBubble,
   },
   mounted() {
-    this.getContactInfo()
+    this.getContactInfo();
   },
   methods: {
+    closePopup() {
+      this.$f7.popup.close('#popupMessage', true);
+    },
     goCall: function() {
       // this.popup-close=''
-      this.$f7router.navigate('/call')
+      this.$f7router.navigate('/call');
     },
     openPopupMessage: function() {
-      this.$f7.popup.open(popupMessage, true)
+      this.$f7.popup.open(popupMessage, true);
     },
     deleteMessage: function() {
-      console.log('sorry not implemented yet')
+      console.log('sorry not implemented yet');
     },
     getContactInfo() {
-      let primaryContact = this.conversationId
+      let primaryContact = this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
-        return c.primaryContact === primaryContact
-      })
-      contact.photoUrl = contact.photoUrl || this.noImg
-      this.selectedContacts.push(this.$_.cloneDeep(contact))
+        return c.primaryContact === primaryContact;
+      });
+      contact.photoUrl = contact.photoUrl || this.noImg;
+      this.selectedContacts.push(this.$_.cloneDeep(contact));
       this.$nextTick(() => {
-        this.renderMessages = true
-      })
-    }
+        this.renderMessages = true;
+      });
+    },
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
     filtredMessages() {
-      let resultArray = []
+      let resultArray = [];
       for (let i = 0; i < this.conversations.length; i++) {
         if (this.conversations[i].conversationId === this.conversationId) {
-          resultArray = this.conversations[i].messages
+          resultArray = this.conversations[i].messages;
         }
       }
       this.$nextTick(() => {
-        $('.messages-container').scrollTop($('.messages-container').height())
-      })
-      return resultArray
+        $('.messages-container').scrollTop($('.messages-container').height());
+      });
+      return resultArray;
     },
     getActiveCall() {
-      return this.$store.state.activeCall.state
-    }
-
-  }
-}
+      return this.$store.state.activeCall.state;
+    },
+  },
+};
 </script>
 <style>
 .call-button-container0 {
@@ -123,7 +125,7 @@ export default {
   height: 80px;
   vertical-align: middle;
   padding: 10px;
-  background: #29A3D8;
+  background: #29a3d8;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -134,7 +136,7 @@ export default {
 
 .img1 {
   height: 50%;
-  width: 50
+  width: 50;
 }
 
 .a {
@@ -150,7 +152,7 @@ export default {
 }
 
 .b {
-  max-height: 40px
+  max-height: 40px;
 }
 
 .my-class {
