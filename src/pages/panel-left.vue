@@ -10,6 +10,7 @@ f7-page
             .flex
              h3  ravci
   f7-list#navList
+    f7-list-item(link='/presences/', title='Presences', view='#main-view', panel-close='')
     f7-list-item(link='/call/', title='Call -Temporary', view='#main-view', panel-close='')
       i.icon.material-icons.md-only.test-icon-left phone
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')

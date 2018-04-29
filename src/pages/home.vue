@@ -15,10 +15,16 @@ f7-page
   f7-block-title Modals
   f7-block(strong='')
     f7-row
-      f7-col(width='50')
+      f7-col(width='75')
         f7-button(fill='', raised='', popup-open='#popup') Popup
-      f7-col(width='50')
+      f7-col(width='75')
         f7-button(fill='', raised='', @click='goLogin') Login Screen
+      f7-col(width='75')
+        f7-button(fill='', raised='', @click="alert('Hello')") Popup About
+    p.row
+      button.col.button.open-alert Alert
+      button.col.button.open-confirm Confirm
+      button.col.button.open-prompt Prompt
   f7-block-title Panels
   f7-block(strong='')
     f7-row
@@ -26,24 +32,25 @@ f7-page
         f7-button(fill='', raised='', panel-open='left') Left Panel
       f7-col(width='50')
         f7-button(fill='', raised='', panel-open='right') Right Panel
+
   f7-list
     f7-list-item(link='/dynamic-route/blog/45/post/125/?foo=bar#about', title='Dynamic Route')
     f7-list-item(link='/load-something-that-doesnt-exist/', title='Default Route (404)')
 
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   name: 'home',
   computed: {
-    ...mapGetters(['credentials'])
+    ...mapGetters(['credentials']),
   },
   methods: {
-    goLogin () {
-      this.$f7router.navigate('/login/')
-    }
-  }
-}
+    goLogin() {
+      this.$f7router.navigate('/login/');
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 

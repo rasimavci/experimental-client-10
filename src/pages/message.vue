@@ -19,7 +19,7 @@ f7-page
             .item-title-row
               .item-title {{conv.conversationId}}
             img(:src='presenceConnected')
-            .item-subtitle Personal
+            .item-subtitle {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
   f7-popup#popupMessage
     f7-view
       f7-page

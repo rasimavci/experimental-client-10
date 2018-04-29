@@ -24,26 +24,49 @@
       f7-page
         f7-navbar(title='Popup')
           f7-nav-right
-            f7-link(popup-close='') Close
+          f7-link(popup-close='') Close
         f7-block
           | Lorem ipsum dolor sit amet.
+  f7-popup#popupAbout
+    f7-view
+      f7-page
+        f7-navbar(title='About')
+          f7-nav-right
+            f7-link(popup-close='') Close
+        f7-block(strong='')
+        p Smart Office
+        p
+          | You can go
+          f7-link(back='') back
+          | .
+        p
+          | Version Number 4.0.0
+        p
+          | Platform: Web/Mobile.
+  .popup.popup-about
+    .block
+      p About
+        // Close Popup
+      p
+        a.link.popup-close(href='#') Close popup
+      p Lorem ipsum dolor sit amet...
   login
 </template>
 
 <script>
-import Login from './pages/login'
+import Login from './pages/login';
 export default {
   name: 'mainApp',
   components: {
-    login: Login
+    login: Login,
   },
   computed: {
-      getPage() {
-        console.log('heyyo ' + this.$store.state.currentPage)
-        return this.$store.state.currentPage
-      }
+    getPage() {
+      console.log('heyyo ' + this.$store.state.currentPage);
+      return this.$store.state.currentPage;
     },
-}
+  },
+};
 </script>
 <style>
 .statusbar {

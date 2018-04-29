@@ -151,8 +151,8 @@ function addEventListeners () {
       // this.refreshContacts ();
       kandy.call.history.fetch()
       // kandy.contacts.getSelf ()
-      kandy.contacts.fetch ('ravci@genband.com')
-      kandy.contacts.fetchDetails()
+      // kandy.contacts.fetch ('ravci@genband.com')
+      // kandy.contacts.fetchDetails()
       // 
       // retrieveCallLogs()
       // Kandyjs.getCallLogs ();

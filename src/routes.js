@@ -44,6 +44,10 @@ export default [
     component: PanelRightPage
   },
   {
+    path: '/home/',
+    component: HomePage
+  },  
+  {
     path: '/about/',
     component: AboutPage
   },
