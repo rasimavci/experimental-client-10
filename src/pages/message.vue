@@ -8,7 +8,18 @@ f7-page
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   f7-block-title Saved
   f7-list
-    f7-list-item(@click='openPopupMessage()', title='Burak KOCAK')
+    ul
+      li(v-for='conv in getConversations' :key="conv.key" @click='openPopupMessage(conv.conversationId)')
+        .item-content
+          .item-media
+            img.avatar-circle(:src="conv.photoUrl || noImg" width="44")
+            //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
+            //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
+          .item-inner
+            .item-title-row
+              .item-title {{conv.conversationId}}
+            img(:src='presenceConnected')
+            .item-subtitle Personal
   f7-popup#popupMessage
     f7-view
       f7-page
@@ -36,12 +47,15 @@ f7-page
 import LeftChatBubble from './LeftChatBubble';
 import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
+import NoImg from '../assets/demo/noimage1.jpg';
+
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
   },
   data: function() {
     return {
+      noImg: NoImg,
       renderMessages: false,
       showData: 'all',
       message: '',
@@ -68,7 +82,8 @@ export default {
       // this.popup-close=''
       this.$f7router.navigate('/call');
     },
-    openPopupMessage: function() {
+    openPopupMessage: function(conversationId) {
+      this.conversationId = conversationId;
       this.$f7.popup.open(popupMessage, true);
     },
     deleteMessage: function() {
@@ -90,15 +105,33 @@ export default {
     ...mapGetters(['contacts', 'conversations']),
     filtredMessages() {
       let resultArray = [];
-      for (let i = 0; i < this.conversations.length; i++) {
-        if (this.conversations[i].conversationId === this.conversationId) {
-          resultArray = this.conversations[i].messages;
+      if (this.conversations) {
+        for (let i = 0; i < this.conversations.length; i++) {
+          if (this.conversations[i].conversationId === this.conversationId) {
+            resultArray = this.conversations[i].messages;
+          }
         }
+        this.$nextTick(() => {
+          $('.messages-container').scrollTop($('.messages-container').height());
+        });
+        console.log(
+          'first message in the Array ' + resultArray[0].parts[0].text
+        );
+        return resultArray;
       }
-      this.$nextTick(() => {
-        $('.messages-container').scrollTop($('.messages-container').height());
+    },
+    getConversations() {
+      let conversations = this.$store.state.conversations;
+      let contacts = this.$store.state.contacts;
+      conversations.forEach(conv => {
+        contacts.forEach(contact => {
+          if (contact.primaryContact === conv.conversationId) {
+            conv.photoUrl = contact.photoUrl;
+            console.log('conv photo url' + conv.photoUrl);
+          }
+        });
       });
-      return resultArray;
+      return conversations;
     },
     getActiveCall() {
       return this.$store.state.activeCall.state;

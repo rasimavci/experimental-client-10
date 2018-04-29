@@ -7,7 +7,7 @@ export default {
   },
   contacts: [],
   activeCall: {},
-  conversations: [],
+  conversations: [{conversationId: 'no conversations', messages:[]}],
   messages: [],
   history: [],
   calls: [],
@@ -19,5 +19,6 @@ export default {
   contactSource: 'personal',
   sortBy: 'firstName',
   activeCallTab: 'chat',
-  directory: [{firstName: '', lastName: ''}]
+  directory: [{firstName: '', lastName: ''}],
+  self: {}
 }

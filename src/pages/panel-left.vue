@@ -1,13 +1,17 @@
 <template lang='pug'>
 f7-page
-  f7-navbar(link='/about/', title='ravci')
-    i.icon.material-icons.md-only account_box
+  f7-navbar
+    .item-content
+      .item-media(@click='goPresences()')
+        .flex
+          .flex2
+            img.avatar-circle(src="http://pa-ucc.genband.com:80/pa/direct/pictureServlet?user=ravci@genband.com" width="50" height="50")
+          .flex.column
+            .flex
+             h3  ravci
   f7-list#navList
-    f7-list-item.no-icon(link='/about/', title='About', view='#main-view', panel-close='')
-    f7-list-item(link='/form/', title='Form', view='#main-view', panel-close='')
-    f7-list-item(link='/call/', title='Call', view='#main-view', panel-close='')
+    f7-list-item(link='/call/', title='Call -Temporary', view='#main-view', panel-close='')
       i.icon.material-icons.md-only.test-icon-left phone
-    f7-list-item(link='/presences/', title='Presences', view='#main-view', panel-close='')
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
@@ -26,8 +30,38 @@ f7-page
      i.icon.material-icons.md-only settings
 </template>
 <script>
+import NoImg from '../assets/demo/noimage1.jpg';
 export default {
   name: 'leftPanel',
+  created: function() {
+    this.getContactInfo();
+  },
+  data: function() {
+    return {
+      noImg: NoImg,
+      photoUrl: '',
+    };
+  },
+  methods: {
+    getContactInfo() {
+      let self = this.$store.state.self; // this.conversationId;
+      // let contact = this.$_.find(this.contacts, c => {
+      //   return c.primaryContact === primaryContact;
+      // });
+      // contact.photoUrl = contact.photoUrl || this.noImg;
+      // this.selectedContacts.push(this.$_.cloneDeep(contact));
+      // this.$nextTick(() => {
+      //   this.renderMessages = true;
+      // });
+    },
+    getSelfInfo() {
+      return this.$store.state.self;
+    },
+    goPresences: function() {
+      // this.$f7router.view = '#main-view';
+      this.$f7router.navigate('/presences');
+    },
+  },
 };
 </script>
 
@@ -43,4 +77,28 @@ export default {
 /* .leftit {
   alig: left
 } */
+
+.flex {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid black;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.link {
+  color: blue;
+  font-size: 10px;
+}
+
+.flex2 {
+  display: flex;
+  margin: 10px;
+  padding: 0px;
+  border: 0px solid black;
+  width: 50%;
+}
 </style>

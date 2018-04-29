@@ -1,14 +1,17 @@
 
 "code issues"...
 call - video call issue- (maybe done later)
-contact- global search issue (sync problem, mostly result doesnt come ..)
 contact - add and edit issue (cant add properly, also problem with edit)
 favorites - needs a service,
 presences - show contact presences in contacts page
+login - login check at every page transition, go back to login if not logged in
+Dialog - A dialog should come from top whenever there is a call or message, (and they should be queued ad an improvement)
+history - ok - show contact image and icon for call direction
+message - ok - show contact image for conversations
 
 "UI"....
 popups (title is not centered, left and right words are so big)
-leftPanel (logged user image with presence status at top and opens presences when clicked, settings icon at bottom)
+leftPanel ok - logged user image with presence status at top and opens presences when clicked, settings icon at bottom
 right panel (check icon done with computed value, maybe a more simple solution)
 contact page (circle images, empty avatar image when there is no image)
 contact page - when do a global search, show Add popup when clicked instead of contact details (actually decide it when person is not in addressbook)
@@ -18,3 +21,12 @@ contact page - try to fit ContactDetails and Edit popups in one screen as in rea
 dialpad page - fix keypad and number area
 presences page- make bottom buttons not full size in width
 Conference - fix and put conference URL in page
+
+"bugs"....
+Message - when open Call or Message page, if initial -hardcoded- id is not in contacts then there is problem and messages not seen.
+-just delete contact that has conversation with  and open those pages
+contact- global search issue (sync problem, mostly result doesnt come ..)
+leftPanel - route on top (via a method) does not go in mainview
+	  - can not get loggedin contact info, currently hardcoded
+          - no seperator between items
+          - empty space before top item (username) and empty space before bottom item (settings)

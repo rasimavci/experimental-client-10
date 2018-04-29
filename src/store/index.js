@@ -15,6 +15,10 @@ const store = new Vuex.Store({
   actions,
   getters,
   mutations: {
+    [types.SET_SELF] (state, self) {
+      state.self = self
+      console.log('self ' + self)
+    },
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
       console.log('contactSource ' + source)
@@ -27,7 +31,7 @@ const store = new Vuex.Store({
     },
     [types.SET_ACTIVECALLTAB] (state, tab) {
       state.activeCallTab = tab
-      console.log('activeCallTab ' +tab)
+      console.log('activeCallTab ' + tab)
     },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
@@ -63,7 +67,10 @@ const store = new Vuex.Store({
     [types.UPDATE_CALLS] (state, calls) {
       state.calls = calls
       calls.forEach(function (call) {
-        if (call.id === state.activeCall.callId || call.id === state.activeCall.id) {
+        if (
+          call.id === state.activeCall.callId ||
+          call.id === state.activeCall.id
+        ) {
           state.activeCall = call
         }
       })

@@ -11,7 +11,6 @@ f7-page(v-if=getContactSource)
    f7-list-item(title="No contacts found")
   f7-list.searchbar-found(id='searchList')
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
-
   f7-list.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
    h5 {{key}}
    f7-list(media-list="")

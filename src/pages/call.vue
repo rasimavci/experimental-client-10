@@ -86,12 +86,12 @@
 
 
 <script>
-import LeftChatBubble from './LeftChatBubble'
-import RightChatBubble from './RightChatBubble'
+import LeftChatBubble from './LeftChatBubble';
+import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
 export default {
   created: function() {
-    this.$store.commit("UPDATE_CURRENTPAGE", 'call');
+    this.$store.commit('UPDATE_CURRENTPAGE', 'call');
   },
   data: function() {
     return {
@@ -104,129 +104,146 @@ export default {
       showbottombar: false,
       conversationId: 'bkocak@genband.com',
       selectedContacts: [],
-      onCall: true
-    }
+      onCall: true,
+    };
   },
   components: {
     leftChatBubble: LeftChatBubble,
-    rightChatBubble: RightChatBubble
+    rightChatBubble: RightChatBubble,
   },
   mounted() {
-    this.getContactInfo()
+    this.getContactInfo();
   },
   methods: {
     openLeftPanel: function() {
-      this.$f7.popup.open(popupLanguage, true)
+      this.$f7.popup.open(popupLanguage, true);
     },
     end() {
       // this.onCall = false
-      this.$store.dispatch('end')
+      this.$store.dispatch('end');
     },
     getContactInfo() {
-      let primaryContact = this.conversationId
+      let primaryContact = this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
-        return c.primaryContact === primaryContact
-      })
-      contact.photoUrl = contact.photoUrl || this.noImg
-      this.selectedContacts.push(this.$_.cloneDeep(contact))
+        return c.primaryContact === primaryContact;
+      });
+      contact.photoUrl = contact.photoUrl || this.noImg;
+      this.selectedContacts.push(this.$_.cloneDeep(contact));
       this.$nextTick(() => {
-        this.renderMessages = true
-      })
+        this.renderMessages = true;
+      });
     },
     sendMessage() {
       let messageToSend = {
         type: 'IM',
         text: this.message,
-        participant: 'saynaci@genband.com'
-      }
-      console.log('send message ' + this.message)
-      this.message = ''
-      this.$store.dispatch('send', messageToSend)
+        participant: 'saynaci@genband.com',
+      };
+      console.log('send message ' + this.message);
+      this.message = '';
+      this.$store.dispatch('send', messageToSend);
     },
     hold() {
-      this.$store.dispatch('hold', '')
+      this.$store.dispatch('hold', '');
     },
     mute() {
-      this.$store.dispatch('mute', '')
+      this.$store.dispatch('mute', '');
     },
     add() {
-      console.log('sorry, not implemented yet')
+      console.log('sorry, not implemented yet');
     },
     volumeUp() {
-      console.log('sorry, not implemented yet')
+      console.log('sorry, not implemented yet');
     },
     makeCall(mode) {
-      this.onCall = true
+      this.onCall = true;
       // console.log('activeCall State ' + this.activeCall.state)
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = 'saynaci@genband.com'
+        this.callee = 'saynaci@genband.com';
         const params = {
           callee: this.callee,
-          mode: mode
-        }
-        let options = [{ key: 'localVideoContainer', value: document.getElementById('localVideoContainer') },
-        { key: 'remoteVideoContainer', value: document.getElementById('remoteVideoContainer') }
-        ]
-        params.options = options
-        this.$store.dispatch('call', params)
+          mode: mode,
+        };
+        let options = [
+          {
+            key: 'localVideoContainer',
+            value: document.getElementById('localVideoContainer'),
+          },
+          {
+            key: 'remoteVideoContainer',
+            value: document.getElementById('remoteVideoContainer'),
+          },
+        ];
+        params.options = options;
+        this.$store.dispatch('call', params);
       } else {
-        this.$store.dispatch('end')
+        this.$store.dispatch('end');
       }
-      console.log('make call operation finished.')
+      console.log('make call operation finished.');
     },
     makeCall2(mode) {
       // console.log('activeCall State ' + this.activeCall.state)
       // console.log('make call to ' + this.callee)
       if (this.getActiveCall !== 'true') {
-        this.callee = 'oztemur@genband.com'
+        this.callee = 'oztemur@genband.com';
         const params = {
           callee: this.callee,
-          mode: mode
-        }
-        let options = [{ key: 'localVideoContainer', value: document.getElementById('localVideoContainer') },
-        { key: 'remoteVideoContainer', value: document.getElementById('remoteVideoContainer') }
-        ]
-        params.options = options
-        this.$store.dispatch('call', params)
+          mode: mode,
+        };
+        let options = [
+          {
+            key: 'localVideoContainer',
+            value: document.getElementById('localVideoContainer'),
+          },
+          {
+            key: 'remoteVideoContainer',
+            value: document.getElementById('remoteVideoContainer'),
+          },
+        ];
+        params.options = options;
+        this.$store.dispatch('call', params);
       } else {
-        this.$store.dispatch('end')
+        this.$store.dispatch('end');
       }
-      console.log('make call operation finished.')
+      console.log('make call operation finished.');
     },
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
     filtredMessages() {
-      let resultArray = []
-      for (let i = 0; i < this.conversations.length; i++) {
-        if (this.conversations[i].conversationId === this.conversationId) {
-          resultArray = this.conversations[i].messages
+      let resultArray = [];
+      if (this.conversations) {
+        for (let i = 0; i < this.conversations.length; i++) {
+          if (this.conversations[i].conversationId === this.conversationId) {
+            resultArray = this.conversations[i].messages;
+          }
         }
+        this.$nextTick(() => {
+          $('.messages-container').scrollTop($('.messages-container').height());
+        });
+
+        return resultArray;
       }
-      this.$nextTick(() => {
-        $('.messages-container').scrollTop($('.messages-container').height())
-      })
-      return resultArray
     },
     getActiveCall() {
-      return this.$store.state.activeCall.state
+      return this.$store.state.activeCall.state;
     },
     getCalleeName() {
-      let hmm = this.$store.state.activeCall.state
-      let hmm2 = this.$store.state.activeCall.id
-      console.log('active call status ' + hmm)
-      console.log('active call id ' + hmm2)
+      let hmm = this.$store.state.activeCall.state;
+      let hmm2 = this.$store.state.activeCall.id;
+      console.log('active call status ' + hmm);
+      console.log('active call id ' + hmm2);
       if (this.$store.state.activeCall.state === 'IN_CALL') {
-        this.onCall = true
+        this.onCall = true;
       } else {
-        this.onCall = false
+        this.onCall = false;
       }
-      return this.$store.state.activeCall.calleeName
-    }
-  }
-}
+      return this.$store.state.activeCall.calleeName;
+    },
+  },
+};
 </script>
 <style>
 .call-button-container0 {
@@ -247,7 +264,7 @@ export default {
   height: 80px;
   vertical-align: middle;
   padding: 10px;
-  background: #29A3D8;
+  background: #29a3d8;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -262,7 +279,7 @@ export default {
 
 .img1 {
   height: 50%;
-  width: 50
+  width: 50;
 }
 
 .a {
@@ -283,7 +300,7 @@ export default {
 
 .b {
   max-height: 40px;
-  min-height: 40px
+  min-height: 40px;
 }
 
 .my-class {

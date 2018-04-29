@@ -150,6 +150,10 @@ function addEventListeners () {
       getMessages()
       // this.refreshContacts ();
       kandy.call.history.fetch()
+      // kandy.contacts.getSelf ()
+      kandy.contacts.fetch ('ravci@genband.com')
+      kandy.contacts.fetchDetails()
+      // 
       // retrieveCallLogs()
       // Kandyjs.getCallLogs ();
       // Kandyjs.fetchConversations ();
@@ -227,6 +231,11 @@ function addEventListeners () {
     getMessages()
   })
 
+  kandy.on('user:fetch', res => {
+    console.log('user fetch ' + JSON.stringify(res))
+    store.commit('SET_SELF', res)
+  })
+  
   //   kandy.on('callHistory:change', res => {
   //     let history = kandy.call.history.get()
   //     console.log('history ' + history)
