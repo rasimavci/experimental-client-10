@@ -17,7 +17,7 @@ f7-page
   f7-block(strong='')
     f7-row.block_container
       f7-col(width='85')
-        f7-button(fill='', raised='',onclick="{alert('Smart Office Demo')}") About
+        f7-button(fill='', raised='',onclick="{alert('Demo', 'Smart Office')}") About
     f7-row.block_container(tag='p')
       f7-col(width='85')
         f7-button(fill='', raised='', @click='doLogout') Logout

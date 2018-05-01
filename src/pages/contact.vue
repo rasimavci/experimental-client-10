@@ -1,5 +1,5 @@
 <template lang='pug'>
-f7-page(v-if=getContactSource)
+f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -15,7 +15,7 @@ f7-page(v-if=getContactSource)
    h5 {{key}}
    f7-list(media-list="")
       ul
-        li(v-for="contact in groups" @click='openContactDetailsPopup(contact)')
+        li(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
           .item-content
             .item-media
               img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
@@ -24,8 +24,9 @@ f7-page(v-if=getContactSource)
             .item-inner
               .item-title-row
                 .item-title {{contact.firstName}} {{contact.lastName}}
-              img(:src='presenceConnected')
-              .item-subtitle Personal
+                .item-subtitle Personal
+              //- img(:src='presenceConnected')
+
   f7-popup#popupContactDetails
     f7-view
       f7-page
@@ -34,8 +35,6 @@ f7-page(v-if=getContactSource)
             .left(@click='backContactDetails') Back
             .title Contact Details
             .right(@click='openEditContactPopup') Edit
-        f7-list
-          f7-list-item(@click='openAddContactPopup()', title='Temporary Open Add Popup')
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -79,7 +78,7 @@ f7-page(v-if=getContactSource)
           .navbar-inner
             .left(@click='backAddContact') Close
             .title Add Contact
-            .right(@click='addContact(contact)') Add
+            .right(@click='openEditContactPopup()') Add
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -146,7 +145,7 @@ f7-page(v-if=getContactSource)
         .navbar
           .navbar-inner
             .left(@click='backEditContact') Back
-            .right(@click='editContact') Save1
+            .right(@click='addContact(contact)') Save
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -244,7 +243,17 @@ f7-page(v-if=getContactSource)
           f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.primaryContact") Voice
           f7-list-item(:key='3', checkbox='', name='my-checkbox', :value='3', :title="contact.primaryContact") Video
           f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.workPhone") Work
-
+  f7-popup#popupContextMenu
+    f7-view
+      f7-page
+        .navbar
+          .navbar-inner
+            .left(@click='backProfile') Back
+            .title Context Menu
+            .right(@click='saveProfile') Save
+        f7-block
+        f7-block-title IDENTIFICATION
+        f7-list(form='')
   </template>
 <script>
 import NoImg from '../assets/demo/noimage.jpg';
@@ -254,6 +263,8 @@ import PresenceClosedMessage from '../assets/icon/presence_away.png';
 
 import { mapState, mapGetters } from 'vuex';
 import _ from 'lodash';
+import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'contact');
@@ -283,6 +294,7 @@ export default {
       pager: 'netas',
       friendStatus: false,
       primaryContact: null,
+      // contactSource: '',
     };
   },
   methods: {
@@ -309,28 +321,37 @@ export default {
     },
     openContactDetailsPopup: function(contact) {
       this.contact = contact;
+      let contactSource1 = this.$store.state.contactSource;
       console.log('selected contact ' + JSON.stringify(contact));
-      if (this.contactSource === 'personal') {
+      if (contactSource1 === 'personal') {
         this.$f7.popup.open(popupContactDetails, true);
       } else {
-        this.$f7.popup.open(popupContactDetails, true);
+        this.$f7.popup.open(popupAddContact, true);
       }
     },
     openAddContactPopup: function() {
       this.$f7.popup.open(popupAddContact, true);
     },
     openEditContactPopup: function() {
-      this.$f7.popup.close('#popupEditContact', true);
-      this.$f7.popup.open('#popupAddContact', true);
+      this.$f7.popup.open('#popupEditContact', true);
+      //this.$f7.popup.open('#popupAddContact', true);
     },
     openManageFavorites: function() {
       this.$f7.popup.open(popupManageFavorites, true);
     },
+    openContextMenuPopup: function() {
+      this.$f7.popup.open(popupContextMenu, true);
+    },
     onSearch: function(query, found) {
+      setTimeout(() => {}, 2000);
+
       if (query.value !== '') {
         this.$store.dispatch('search', query.value);
-        console.log('search', query.value);
       }
+      setTimeout(() => {
+        //document.getElementById('f7-searchbar').search(query);
+        this.dene; // this.$store.dispatch('search', query.value);
+      }, 2000);
     },
     onClear: function(event) {
       console.log('clear');
@@ -346,15 +367,44 @@ export default {
     goCall: function(tab) {
       console.log(tab);
     },
+
+    dene: function simulateKeyPress() {
+      var evt = document.createEvent('KeyboardEvent');
+      evt.initKeyEvent(
+        'keypress',
+        true,
+        true,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        'e'.charCodeAt(0)
+      );
+      var body = document.body;
+      var canceled = !body.dispatchEvent(evt);
+      if (canceled) {
+        // A handler called preventDefault
+        alert('canceled');
+      } else {
+        // None of the handlers called preventDefault
+        alert('not canceled');
+      }
+    },
     removeContact: function(contact) {
-      this.$store.dispatch('removeContact', contact.entryId);
+      Framework7.app.confirm('Delete Contact', 'Are You Sure ?', function() {
+        this.$store.dispatch('removeContact', contact.entryId);
+      });
     },
     editContact: function() {
       console.log('name ' + this.firstName + this.lastName);
     },
     addContact: function(contact) {
+      // this.$f7.popup.close('#popupEditContact', true);
       const newContact = {
         id: this.contacts.length,
+        entryId: this.contacts.length,
         emailAddress: contact.email ? contact.email : null,
         fax: contact.fax ? contact.fax : null,
         firstName: contact.firstName ? contact.firstName : null,
@@ -369,20 +419,68 @@ export default {
         username: contact.username ? contact.username : null,
         workPhone: contact.workPhone ? contact.workPhone : null,
       };
-      this.$store.dispatch('addContact', newContact);
+
+      let contacts = this.$store.state.contacts;
+      let contactExist = false;
+      contacts.forEach(contact1 => {
+        if (contact.primaryContact === contact1.primaryContact) {
+          contactExist = true;
+        }
+      });
+
+      if (contactExist) {
+        const newContact = {
+          // id: this.contacts.length,
+          entryId: contact.entryId,
+          emailAddress: contact.email ? contact.email : null,
+          fax: contact.fax ? contact.fax : null,
+          firstName: contact.firstName ? contact.firstName : null,
+          friendStatus: false,
+          homePhone: contact.homePhone ? contact.homePhone : null,
+          lastName: contact.lastName ? contact.lastName : null,
+          mobilePhone: contact.mobilePhone ? contact.mobilePhone : null,
+          nickname: contact.nickname ? contact.nickname : 'nickname',
+          pager: contact.pager ? contact.pager : null,
+          primaryContact: contact.primaryContact
+            ? contact.primaryContact
+            : null,
+          userId: contact.userId ? contact.userId : null,
+          username: contact.username ? contact.username : null,
+          workPhone: contact.workPhone ? contact.workPhone : null,
+        };
+        console.log('edit contact ' + newContact.primaryContact);
+        // this.$store.dispatch('addContact', newContact);
+      } else {
+        this.$store.dispatch('addContact', newContact);
+        console.log('add contact ' + newContact.primaryContact);
+      }
+
       this.$f7.popup.close('#popupAddContact', true);
     },
   },
   computed: {
-    ...mapGetters(['contacts']),
+    ...mapGetters(['contacts']), // not used anymore, instead store.state used
     getContacts() {
-      this.contacts = this.$store.state.contacts;
+      var resultArray = [];
       let contactSource = this.$store.state.contactSource;
       if (contactSource === 'personal') {
+        let sortBy = this.$store.state.sortBy;
+        if (sortBy === 'firstName') {
+          this.contacts = _.sortBy(this.$store.state.contacts, [
+            function(o) {
+              return o.firstName;
+            },
+          ]);
+        } else {
+          this.contacts = _.sortBy(this.$store.state.contacts, [
+            function(o) {
+              return o.lastName;
+            },
+          ]);
+        }
         return this.contacts;
       } else {
-        let directory = this.$store.state.directory;
-        return directory;
+        return this.$store.state.directory;
       }
     },
     groupedContacts() {
@@ -434,5 +532,9 @@ export default {
 
 .avatar-circle {
   border-radius: 25px;
+}
+
+.rows {
+  max-height: 50px;
 }
 </style>

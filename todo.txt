@@ -1,6 +1,7 @@
 
 "code issues"...
-call - video call issue- (maybe done later)
+call page - video call issue- (maybe done later)
+call page - change active tab programmatically (when come from dialpad or contacts, call oage should open with chatr,audio or video call active) maybe We can control tabs using the app methods in docs
 contact - add and edit issue (cant add properly, also problem with edit)
 favorites - needs a service,
 presences - show contact presences in contacts page
@@ -13,8 +14,8 @@ message - ok - show contact image for conversations
 popups (title is not centered, left and right words are so big)
 leftPanel ok - logged user image with presence status at top and opens presences when clicked, settings icon at bottom
 right panel (check icon done with computed value, maybe a more simple solution)
-contact page (circle images, empty avatar image when there is no image)
-contact page - when do a global search, show Add popup when clicked instead of contact details (actually decide it when person is not in addressbook)
+contact page - ok (circle images, empty avatar image when there is no image)
+contact page - ok - when do a global search, show Add popup when clicked instead of contact details (actually decide it when person is not in addressbook)
 contact page - make size smaller for letter titles
 contact page - for ContactDeails and Edit popups, fix image and icons, please compare with real SO mobile (can send images)
 contact page - try to fit ContactDetails and Edit popups in one screen as in real SO mobile
@@ -23,10 +24,20 @@ presences page- make bottom buttons not full size in width
 Conference - fix and put conference URL in page
 
 "bugs"....
-Message - when open Call or Message page, if initial -hardcoded- id is not in contacts then there is problem and messages not seen.
+call page - ok after route from code, tabs are not working et all (for example go Dialpad and click bottom tabs)
+          - fixed with just route to another page first, for example history
 -just delete contact that has conversation with  and open those pages
-contact- global search issue (sync problem, mostly result doesnt come ..)
+contact page - global search issue (sync problem, mostly result doesnt come ..)
+	 preventDefault/stopPropagation on the search event and we should then handle things manually - currenlty f7-searchbar
 leftPanel - route on top (via a method) does not go in mainview
 	  - can not get loggedin contact info, currently hardcoded
-          - no seperator between items
+          - dont want seperator between items
           - empty space before top item (username) and empty space before bottom item (settings)
+Message - when open Call or Message page, if initial -hardcoded- id is not in contacts then there is problem and messages not seen.
+
+-------------------------------------------------------------------------------
+donw know how to access elements from code, classic geElementbyId doesnt work
+
+I need to acccess
+- f7searchbar fpr global search issue,
+- tabs in call page in order to change tab from code at 

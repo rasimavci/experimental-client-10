@@ -1,15 +1,15 @@
 <template lang='pug'>
-.page#aPage
+.page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
-  .modal-container2()
-        input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
-        span.input-group-btn(v-show='hasInput')
-          button.backspace-button(type='button', @click="callee = ''")
-            i
-            img(slot='icon', src='../assets/demo/backspace_blue.png')
+  .modal-container2
+    input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
+    span.input-group-btn(v-show='hasInput')
+      button.backspace-button(type='button', @click="callee = ''")
+        i
+        img(slot='icon', src='../assets/demo/backspace_blue.png')
   .modal-container1
     .modal-container(display='none')
       .h3(align='center')
@@ -69,15 +69,17 @@
           | keyboard_fill
         i.icon.material-icons.md-only
           | keyboard
-      a.tab-link.tab-link.b(href='#tab-2',@click='goChat()')
+      a.tab-link.tab-link.b(href='#tab-2',@click='goCallPage("chat")')
         // Different icons for iOS and MD themes
         i.icon.f7-icons.ios-only email_fill
         i.icon.material-icons.md-only chat_bubble
         span.badge.color-red 5
         // Label text
-      a.tab-link-active.b(href='#tab-3',@click='goCall()')
-       img(slot='icon', src='../assets/demo/camera_outline_white.png')
-      a.tab-link.b(href='#tab-4',@click='goVideo()')
+      a.tab-link.b(href='#tab-3',@click='goCallPage("audio")')
+        // -img(slot='icon', src='../assets/demo/camera_outline_white.png')
+        i.icon.f7-icons.ios-only phone_fill
+        i.icon.material-icons.md-only phone
+      a.tab-link.b(href='#tab-4',@click='goCallPage("video")')
         i.icon.f7-icons.ios-only videocam_fill
         i.icon.material-icons.md-only videocam
       a.tab-link.b(href='#tab-5')
@@ -105,19 +107,9 @@ export default {
     });
   },
   methods: {
-    goCall: function() {
-      // this.popup-close=''
-      this.$store.commit('SET_ACTIVECALLTAB', 'call');
-      this.$f7router.navigate('/call');
-    },
-    goVideo: function() {
-      // this.popup-close=''
-      this.$store.commit('SET_ACTIVECALLTAB', 'video');
-      this.$f7router.navigate('/call');
-    },
-    goChat: function() {
-      // this.popup-close=''
-      this.$store.commit('SET_ACTIVECALLTAB', 'chat');
+    goCallPage: function(mode) {
+      this.$store.commit('SET_ACTIVECALLTAB', mode);
+      this.$f7router.navigate('/history');
       this.$f7router.navigate('/call');
     },
     openLeftPanel: function() {
@@ -173,7 +165,7 @@ export default {
 }
 
 .modal-container2 {
-  padding-top: 44px;
+  padding-top: 100px;
   background-color: #fff;
 }
 
