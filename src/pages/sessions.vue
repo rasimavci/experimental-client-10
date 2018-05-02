@@ -4,9 +4,10 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Sessions
-  f7-searchbar(cancel-link="Cancel" placeholder="Search in calls" :clear-button="true")
+  f7-searchbar(cancel-link="Cancel" placeholder="Search in sessions" :clear-button="true")
   f7-list.date(v-for='(groups, key) in groupedCalls' :key="key")
    h5 {{key}}
+   f7-block-title Application SettingsACtive Call
    f7-list
     f7-list-item.my-class(v-for="group in groups" @click='goCall(group)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
 </template>
@@ -94,6 +95,6 @@ export default {
 }
 
 .my-class {
-    cursor: default;
+  cursor: default;
 }
 </style>

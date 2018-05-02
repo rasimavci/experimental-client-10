@@ -77,11 +77,20 @@
             i.icon.f7-icons.ios-only mic_off_fill
             i.icon.material-icons.md-only mic_off
     #tab-4.page-content.tab
-      f7-list(media-list='')
-       f7-list-item(media="../assets/demo/avatar_generic.png", text="Some text", @click='openContactDetailsPopup(contact)' :title="callee" href="#popupAddContact") Corporate
+      //-f7-list(media-list='')
+      //- f7-list-item(media="../assets/demo/avatar_generic.png", text="Some text", @click='openContactDetailsPopup(contact)' :title="callee" href="#popupAddContact") Corporate
       f7-list
-        f7-list-item(@click='makeCall(false)' :title="callee" href="#popupAddContact") Corporate
-         img.img1(src='../assets/demo/avatar_generic.png')
+        .item-content
+          .item-media
+            img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
+              //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
+              //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
+          .item-inner
+            .item-title-row
+              .item-title {{callee}}
+               .item-subtitle {{contactType}}
+        //- f7-list-item(@click='makeCall(false)' :title="callee" href="#popupAddContact") Corporate
+        //-  img.avatar-circle.test-icon-left(:src="noImg")
 </template>
 
 
@@ -89,12 +98,22 @@
 import LeftChatBubble from './LeftChatBubble';
 import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
+import NoImg from '../assets/demo/noimage1.jpg';
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
+    let contacts = this.$store.state.contacts;
+    this.contactType = 'corporate'
+    contacts.forEach(contact1 => {
+      if (contact1.primaryContact === 'saynaci@genband.com') {
+        this.contact = contact1;
+        this.contactType = 'personal'
+      }
+    })
   },
   data: function() {
     return {
+      noImg: NoImg,
       renderMessages: false,
       showData: 'all',
       message: '',
@@ -105,6 +124,9 @@ export default {
       conversationId: 'bkocak@genband.com',
       selectedContacts: [],
       onCall: true,
+      contact: {},
+      contactType: '',
+      activeTab: false
     };
   },
   components: {
@@ -212,6 +234,15 @@ export default {
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
+    getCalleeInfo() {
+      let contacts = this.$store.state.contacts;
+      contacts.forEach(contact1 => {
+        if (contact1.primaryContact === 'saynaci@genband.com') {
+          this.contact = contact1;
+          console.log('contact.photoUrl' + contact.photoUrl)
+        }
+      });
+    },
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {

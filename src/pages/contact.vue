@@ -37,15 +37,15 @@ f7-page
             .right(@click='openEditContactPopup') Edit
         .flex
           .flex2
-            img(src="../assets/demo/avatar_generic.png" width="150" height="150")
+            img(src="../assets/demo/avatar_generic.png" width="115" height="115")
           .flex.column
             .flex
              h3  {{contact.firstName}} {{contact.lastName}}
             .flex
-             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="goCall(1)")
-             img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCall(2)")
+             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="goCallPage('audio')")
+             img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCallPage('video')")
              div(hspace="20")
-             img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCall(0)")
+             img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCallPage('chat')")
         f7-block-title CONTACT
         f7-list(form='')
           f7-list-item
@@ -343,7 +343,7 @@ export default {
       this.$f7.popup.open(popupContextMenu, true);
     },
     onSearch: function(query, found) {
-      setTimeout(() => {}, 2000);
+      setTimeout(() => { }, 2000);
 
       if (query.value !== '') {
         this.$store.dispatch('search', query.value);
@@ -364,10 +364,14 @@ export default {
       this.isSearch = false;
       console.log('disable');
     },
-    goCall: function(tab) {
-      console.log(tab);
-    },
+    goCallPage: function(mode) {
+      this.$f7.popup.close('#popupContactDetails', true);
+      this.$store.commit('SET_ACTIVECALLTAB', mode);
+      setTimeout(() => {
+        this.$f7router.navigate('/call');
+      }, 100);
 
+    },
     dene: function simulateKeyPress() {
       var evt = document.createEvent('KeyboardEvent');
       evt.initKeyEvent(
@@ -393,9 +397,18 @@ export default {
       }
     },
     removeContact: function(contact) {
-      Framework7.app.confirm('Delete Contact', 'Are You Sure ?', function() {
+      var r = confirm('Delete Contact', 'Are You Sure ?');
+      if (r == true) {
         this.$store.dispatch('removeContact', contact.entryId);
-      });
+      } else {
+        console.log('remove contact canceled')
+      }
+
+      //Framework7.app.
+      // confirm('Delete Contact', 'Are You Sure ?', function() {
+      //   console.log('confirmed')
+      //   this.$store.dispatch('removeContact', contact.entryId);
+      // });
     },
     editContact: function() {
       console.log('name ' + this.firstName + this.lastName);
@@ -404,7 +417,7 @@ export default {
       // this.$f7.popup.close('#popupEditContact', true);
       const newContact = {
         id: this.contacts.length,
-        entryId: this.contacts.length,
+        // entryId: this.contacts.length,
         emailAddress: contact.email ? contact.email : null,
         fax: contact.fax ? contact.fax : null,
         firstName: contact.firstName ? contact.firstName : null,
@@ -412,7 +425,7 @@ export default {
         homePhone: contact.homePhone ? contact.homePhone : null,
         lastName: contact.lastName ? contact.lastName : null,
         mobilePhone: contact.mobilePhone ? contact.mobilePhone : null,
-        nickname: contact.nickname ? contact.nickname : 'nickname',
+        nickname: contact.nickname ? contact.nickname : 'nickname' + this.contacts.length,
         pager: contact.pager ? contact.pager : null,
         primaryContact: contact.userId ? contact.userId : null,
         userId: contact.userId ? contact.userId : null,
@@ -511,6 +524,7 @@ export default {
 
 .column {
   flex-direction: column;
+  padding: 0px;
 }
 
 .link {
@@ -527,7 +541,8 @@ export default {
 }
 
 .imgSize {
-  height: 50%;
+  max-height: 50px;
+  max-width: 50px;
 }
 
 .avatar-circle {

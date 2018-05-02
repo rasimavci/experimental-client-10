@@ -109,7 +109,7 @@ export default {
   methods: {
     goCallPage: function(mode) {
       this.$store.commit('SET_ACTIVECALLTAB', mode);
-      this.$f7router.navigate('/history');
+      this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       this.$f7router.navigate('/call');
     },
     openLeftPanel: function() {
@@ -134,6 +134,7 @@ export default {
 #aPage {
   background-color: #fff;
 }
+
 .b {
   max-height: 30px;
 }
@@ -373,6 +374,7 @@ export default {
 .flex1 {
   border: 0px solid black;
 }
+
 .my-class {
   cursor: default;
 }
