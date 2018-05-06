@@ -94,7 +94,7 @@ export default {
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact;
       });
-      contact.photoUrl = contact.photoUrl || this.noImg;
+      // contact.photoUrl = contact.photoUrl || this.noImg;
       this.selectedContacts.push(this.$_.cloneDeep(contact));
       this.$nextTick(() => {
         this.renderMessages = true;
@@ -196,5 +196,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatar-circle {
+  border-radius: 25px;
 }
 </style>

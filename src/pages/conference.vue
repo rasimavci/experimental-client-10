@@ -6,17 +6,17 @@ f7-page
     f7-nav-title Collaboration
   .button-container
     f7-button.col(raised='', fill='') START COLLABORATION
-    f7-button.col(big round open-popup='#popup') START COLLABORATION
+    //-f7-button.col(big round open-popup='#popup') START COLLABORATION
   f7-block(strong='')
     p You can also send an automated invitation
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style scoped>
-.button-container{
+.button-container {
   margin: 15px;
 }
 </style>

@@ -1,18 +1,16 @@
 <template lang='pug'>
 f7-page
   f7-navbar
-    .item-content
-      .item-media(@click='goPresences()')
-        .flex
-          .flex2
-            img.avatar-circle(src="http://pa-ucc.genband.com:80/pa/direct/pictureServlet?user=ravci@genband.com" width="50" height="50")
-          .flex.column
-            .flex
-             h3  ravci
+    f7-list-item(link='/presences/', view='#main-view', panel-close='')
+      .item-content
+        .item-media()
+          .flex
+            .flex2
+              img.avatar-circle(:src="getPhotoUrl" width="50" height="50")
+            .flex.column
+              .flex
+              h3 {{getUserName}}
   f7-list#navList
-    f7-list-item(link='/presences/', title='Presences', view='#main-view', panel-close='')
-    f7-list-item(link='/call/', title='Call -Temporary', view='#main-view', panel-close='')
-      i.icon.material-icons.md-only.test-icon-left phone
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
@@ -34,13 +32,24 @@ f7-page
 import NoImg from '../assets/demo/noimage1.jpg';
 export default {
   name: 'leftPanel',
-  created: function() {
-    this.getContactInfo();
+  computed: {
+    getUserName() {
+      return this.$store.state.credentials.user;
+    },
+    getPhotoUrl() {
+      const photoUrl1 =
+        'http://pa-ucc.genband.com:80/pa/direct/pictureServlet?user=' +
+        this.$store.state.credentials.user +
+        '';
+      console.log('photoUrl1' + photoUrl1);
+      return photoUrl1;
+    },
   },
   data: function() {
     return {
       noImg: NoImg,
       photoUrl: '',
+      username: '',
     };
   },
   methods: {
@@ -49,7 +58,12 @@ export default {
       // let contact = this.$_.find(this.contacts, c => {
       //   return c.primaryContact === primaryContact;
       // });
-      // contact.photoUrl = contact.photoUrl || this.noImg;
+      this.photoUrl =
+        'http://pa-ucc.genband.com:80/pa/direct/pictureServlet?user=' +
+        this.$store.state.credentials.user; // ravci@genband.com"
+      this.username = this.$store.state.credentials.user;
+      console.log('this.photoUrl ' + this.photoUrl);
+      // contact.photoUrl || this.noImg;
       // this.selectedContacts.push(this.$_.cloneDeep(contact));
       // this.$nextTick(() => {
       //   this.renderMessages = true;
@@ -101,5 +115,9 @@ export default {
   padding: 0px;
   border: 0px solid black;
   width: 50%;
+}
+
+.avatar-circle {
+  border-radius: 25px;
 }
 </style>

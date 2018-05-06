@@ -3,7 +3,7 @@ f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title ravci@genband.com
+    f7-nav-title {{username}}
   f7-block-title Presence
   f7-list(form='')
     f7-list-item(:key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="'Available'" @change="setPresence('0')")
@@ -44,9 +44,13 @@ f7-page
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 
 export default {
+  created: function() {
+    this.username = this.$store.state.credentials.user;
+  },
   data() {
     return {
       fruit: 'apple',
+      username: '',
     };
   },
   computed: {
@@ -80,7 +84,7 @@ export default {
       setTimeout(() => {
         vm.$f7.preloader.hide();
         vm.$f7router.navigate('/login');
-      }, 600);
+      }, 2000);
     },
   },
 };

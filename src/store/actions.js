@@ -4,6 +4,7 @@ import store from './index'
 import state from './state'
 import IMService from '../IMService'
 import _ from 'lodash'
+var kandy
 
 export const setCredentials = ({ commit }, credentials) => {
   if (credentials) {
@@ -135,80 +136,165 @@ function sendMessage (participant, messagetoSend) {
   // console.log('currentConvo: ' + currentConvo)
 }
 
+export const startVideo = ({commit}) => {
+  kandy.startVideo(state.activeCall.id);
+}
+
+export const stopVideo = ({commit} )=> {
+  kandy.stopVideo(state.activeCall.id);
+}
+
+export const startScreenshare = ({commit}) => {
+  var callId = firstCallId; //getSelectedCall();
+  getMediaStreamId()
+      .then(function (mediaSourceId) {
+          kandy.startScreenshare(callId, {
+              mediaSourceId: mediaSourceId
+          });
+      })
+      .catch();
+}
+
+export const stopScreenshare =({commit}) => {
+  kandy.stopScreenshare(state.activeCall.id);
+}
+
+export const directTransfer = ({commit}, destination) => {
+  var callId = firstCallId; //getSelectedCall();
+  //var destination = document.getElementById('transfer-to').value;
+  kandy.directTransfer(callId, destination);
+}
+
+/**
+* Do consultative transfer as a two-step process, just like
+*      the join operation.
+*/
+
+export const consultativeTransfer = ({commit}, firstCallId, destination) => {
+  /*
+  if (step === 'select') {
+      transferCallOne = firstCallId; //getSelectedCall();
+  } else if (step === 'transfer') {
+      */
+  var destination = firstCallId; //getSelectedCall();
+  console.log('Consul. transfering call (' + transferCallOne + ') to call (' + destination + '.');
+  kandy.consultativeTransfer(transferCallOne, destination);
+  //  transferCallOne = undefined;
+  // }
+}
+
+/*
+  Join Call functionality. Intended UI usage:
+      1. Select first call using 'Active Calls' select list.
+      2. Click 'Select First Call' (step === 'select').
+      3. Select second call using 'Active Calls' select list.
+      4. Click 'Join Second Call' (step === 'join').
+*/
+
+export const joinCall = ({commit}, step) => {
+  if (step === 'select') {
+      callOne = firstCallId; //getSelectedCall();
+  } else if (step === 'join') {
+      var callTwo = firstCallId; //getSelectedCall();
+      console.log('Joining callOne (' + callOne + ') to callTwo (' + callTwo + ').');
+      kandy.joinCall(callOne, callTwo);
+      callOne = undefined;
+  }
+}
+
+export const sendDtmf = ({commit}, tone) => {
+  if (tone !== '#') {
+      tone = parseInt(tone);
+      if (tone < 0 || tone > 9 || isNaN(tone)) {
+          console.error('Invalid DTMF tone.');
+          return;
+      }
+  }
+  kandy.sendDTMF(state.activeCall.id, tone);
+};
+
+  // Devices.
+  export const getDevices = () => {
+      // kandy.device.get();
+  }
+
+  export const selectDevice= () => {
+      var device = getSelectedDevice();
+      var defaultDevice = {};
+      defaultDevice[device.type] = device.id;
+      kandy.setDefaultDevices(defaultDevice);
+  }
+
+  export const changeSpeaker= () => {
+      // No guarentee that the selected device is a speaker.
+      var device = getSelectedDevice();
+      kandy.changeSpeaker(device.id);
+  }
+
+  export const changeInputDevices= () => {
+      kandy.changeInputDevices(state.activeCall.id);
+  }
+
+// Functions
+
+// Service functions
 function getMessages () {
   let messages = IMService.getMessages()
   // store.dispatch('setConversations', _.cloneDeep(messages))
   store.commit('SET_CONVERSATIONS', _.cloneDeep(messages))
 }
 
+function getMediaStreamId() {
+  return new Promise(function (resolve, reject) {
+      var extId = document.getElementById('extension-id').value;
+      // Send our extension a message, asking for the media source id.
+      window.chrome.runtime.sendMessage(extId, {
+          message: 'chooseDesktopMedia'
+      },
+          function (response) {
+              if (response && response.mediaSourceId) {
+                  resolve(response.mediaSourceId);
+              } else {
+                  console.error('Could not get mediaSourceId.');
+                  reject();
+              }
+          });
+  });
+}
+
 function addEventListeners () {
   kandy.on('auth:change', function (data) {
     console.log('auth:change Event Data: ' + JSON.stringify(data))
     if (kandy.getConnection().isConnected === true) {
-      //  store.dispatch ('refresh');
-      kandy.contacts.refresh()
+      getDevices()
       getMessages()
-      // this.refreshContacts ();
+      fetchCallHistory()
+      store.commit('SET_ISCONNECTED', true)
+      kandy.contacts.refresh()
       kandy.call.history.fetch()
-      // kandy.contacts.getSelf ()
-      // kandy.contacts.fetch ('ravci@genband.com')
-      // kandy.contacts.fetchDetails()
-      // 
-      // retrieveCallLogs()
-      // Kandyjs.getCallLogs ();
-      // Kandyjs.fetchConversations ();
-      // Kandyjs.searchDirectory ();
     }
   })
 
   kandy.on('call:stateChange', call => {
-    // Get active calls.
-    // let calls = kandy.call.getAll()
-    // Get active calls.
-    // console.log('caller Name: ' + call.callerName)
-    // console.log('call id: ' + call.id)
-    // calls.forEach(call => {
-    //   return call.state !== 'ENDED';
-    let calls = kandy.call.getAll()
+    const calls = kandy.call.getAll()
     store.commit('UPDATE_CALLS', calls)
 
-    let calls2 = calls.filter(function (call) {
+    const activeCall = calls.filter(function (call) {
       return call.state !== 'ENDED'
-      // console.log('caller Name: ' + call.callerName)
-      // console.log('call id: ' + call.id)
-      // calls.forEach(call => {
-      //   return call.state !== 'ENDED';
     })
-    store.commit('UPDATE_SESSIONS', calls2)
+    store.commit('UPDATE_SESSIONS', activeCall)
   })
 
   kandy.on('call:start', function (params) {
-    // store.commit("SET_CALL_START", "");
     store.commit('SET_ACTIVE_CALL', params)
-    // const calls = kandy.call.getAll();
-    // calls.forEach(function(call) {
-    //   console.log("all call ids currently : " + params.callId);
-    //   //change activeCall
-    //   if (call.id === params.callId) {
-    //     store.commit("SET_ACTIVE_CALL", call);
-    //     store.dispatch("toggleActiveCall");
-    //     // store.commit (types.SET_ACTIVE_CALL, call);
-    //   }
-    // });
   })
 
   kandy.on('contacts:change', params => {
-    store.commit('REFRESH_DIRECTORY', params.contacts)
-    // store.dispatch ('refresh', params.contacts);
+    store.commit('REFRESH_CONTACTS', params.contacts)
   })
 
   kandy.on('directory:change', params => {
-    // store.dispatch("refresh");
-    //  store.commit ('REFRESH_DIRECTORY', params.results);
-    //   console.log ('directory' + params[0]);
-    //  store.commit ('SET_USER', params.results[0]);
-    store.commit('REFRESH_CONTACTS', params.results)
-    // store.commit("SET_CALL_NAMES", params.results[0]);
+    store.commit('REFRESH_DIRECTORY', params.results)
   })
 
   kandy.on('conversations:change', res => {
@@ -233,9 +319,16 @@ function addEventListeners () {
 
   kandy.on('user:fetch', res => {
     console.log('user fetch ' + JSON.stringify(res))
+    let dene = kandy.user.get()
     store.commit('SET_SELF', res)
   })
-  
+
+  kandy.on('user:get', res => {
+    console.log('user fetch ' + JSON.stringify(res))
+    let dene = kandy.user.get(res)
+    store.commit('SET_SELF', res)
+  })
+
   //   kandy.on('callHistory:change', res => {
   //     let history = kandy.call.history.get()
   //     console.log('history ' + history)
@@ -246,93 +339,85 @@ function addEventListeners () {
     store.commit('REFRESH_CALLLOGS', logs)
   })
 }
-// This line is used to create a new instans of Kandy
-const kandy = createKandy({
-  authentication: {
-    subscription: {
-      expires: 3600,
-      service: ['IM', 'Presence', 'call'],
-      protocol: 'https',
-      server: 'spidr-ucc.genband.com',
-      version: '1',
-      port: '443'
-    },
-    websocket: {
-      protocol: 'wss',
-      server: 'spidr-ucc.genband.com',
-      port: '443'
-    }
-  },
-  logs: {
-    logLevel: 'debug',
-    enableFcsLogs: true
-  },
-  call: {
-    chromeExtensionId: 'put real extension ID here',
-    serverProvidedTurnCredentials: true,
-    iceserver: [
-      {
-        url: 'stun:turn-ucc-1.genband.com:3478?transport=udp'
-      },
-      {
-        url: 'stun:turn-ucc-2.genband.com:3478?transport=udp'
-      },
-      {
-        url: 'turns:turn-ucc-1.genband.com:443?transport=tcp',
-        credential: ''
-      },
-      {
-        url: 'turns:turn-ucc-2.genband.com:443?transport=tcp',
-        credential: ''
-      }
-    ]
-  }
-})
 
-createKandy()
+function fetchCallHistory (amount = 50, offset = 0) {
+  kandy.call.history.fetch(amount, offset)
+}
+
+function start () {
+  console.log('>>>>>STARTING KANDY<<<<<<')
+  loadClientConfig().then(res => {
+    // This line is used to create a new instans of Kandy
+    kandy = createKandy(res)
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+function loadClientConfig () {
+  return new Promise((resolve, reject) => {
+    var xobj = new XMLHttpRequest()
+    xobj.overrideMimeType('application/json')
+    xobj.open('GET', 'static/js/config.json', true)
+    xobj.onreadystatechange = function () {
+      if (xobj.readyState === 4) {
+        if (xobj.status === 200) {
+          resolve(JSON.parse(xobj.responseText))
+        } else {
+          reject(xobj.statusText)
+        }
+      }
+    }
+    xobj.send(null)
+  })
+}
+
+start()
+//createKandy()
 
 export const setPresence = ({ commit }, args) => {
   var params = {
-      status: "",
-      activity: "",
-      note: '' // args.note
-  };
-  
+    status: '',
+    activity: '',
+    note: '' // args.note
+  }
 
   switch (args) {
-      case "0":
-          params.status = "open"
-          params.activity = "unknown"
-          break;
-      case "1":
-          params.status = "closed"
-          params.activity = "unknown"
-          break;
-      case "2":
-          params.status = "open"
-          params.activity = "away"
-          break;
-      case "3":
-          params.status = "open"
-          params.activity = "lunch"
-          break;
-      case "4":
-          params.status = "closed"
-          params.activity = "busy"
-          break;
-      case "5":
-          params.status = "closed"
-          params.activity = "vacation"
-          break;
-      case "6":
-          params.status = "open"
-          params.activity = "other"
-          params.note = "be right Back"
-          break;
+    case '0':
+      params.status = 'open'
+      params.activity = 'unknown'
+      break
+    case '1':
+      params.status = 'closed'
+      params.activity = 'unknown'
+      break
+    case '2':
+      params.status = 'open'
+      params.activity = 'away'
+      break
+    case '3':
+      params.status = 'open'
+      params.activity = 'lunch'
+      break
+    case '4':
+      params.status = 'closed'
+      params.activity = 'busy'
+      break
+    case '5':
+      params.status = 'closed'
+      params.activity = 'vacation'
+      break
+    case '6':
+      params.status = 'open'
+      params.activity = 'other'
+      params.note = 'be right Back'
+      break
 
-      default:
-          break;
+    default:
+      break
   }
-  console.log('Peer: setPresence state.. : ' + params.status + '' + params.activity);
-  kandy.presence.update(params.status, params.activity, params.note);
+  console.log(
+    'Peer: setPresence state.. : ' + params.status + '' + params.activity
+  )
+  kandy.presence.update(params.status, params.activity, params.note)
 }

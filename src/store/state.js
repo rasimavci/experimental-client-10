@@ -5,6 +5,7 @@ export default {
     loged: false,
     token: null
   },
+  isConnected: false,
   contacts: [],
   activeCall: {},
   conversations: [{conversationId: 'no conversations', messages:[]}],

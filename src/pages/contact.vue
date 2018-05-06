@@ -343,15 +343,15 @@ export default {
       this.$f7.popup.open(popupContextMenu, true);
     },
     onSearch: function(query, found) {
-      setTimeout(() => { }, 2000);
+      setTimeout(() => {}, 2000);
 
       if (query.value !== '') {
         this.$store.dispatch('search', query.value);
       }
-      setTimeout(() => {
-        //document.getElementById('f7-searchbar').search(query);
-        this.dene; // this.$store.dispatch('search', query.value);
-      }, 2000);
+      // setTimeout(() => {
+      //   //document.getElementById('f7-searchbar').search(query);
+      //   this.dene; // this.$store.dispatch('search', query.value);
+      // }, 2000);
     },
     onClear: function(event) {
       console.log('clear');
@@ -370,7 +370,6 @@ export default {
       setTimeout(() => {
         this.$f7router.navigate('/call');
       }, 100);
-
     },
     dene: function simulateKeyPress() {
       var evt = document.createEvent('KeyboardEvent');
@@ -401,7 +400,7 @@ export default {
       if (r == true) {
         this.$store.dispatch('removeContact', contact.entryId);
       } else {
-        console.log('remove contact canceled')
+        console.log('remove contact canceled');
       }
 
       //Framework7.app.
@@ -425,7 +424,9 @@ export default {
         homePhone: contact.homePhone ? contact.homePhone : null,
         lastName: contact.lastName ? contact.lastName : null,
         mobilePhone: contact.mobilePhone ? contact.mobilePhone : null,
-        nickname: contact.nickname ? contact.nickname : 'nickname' + this.contacts.length,
+        nickname: contact.nickname
+          ? contact.nickname
+          : 'nickname' + this.contacts.length,
         pager: contact.pager ? contact.pager : null,
         primaryContact: contact.userId ? contact.userId : null,
         userId: contact.userId ? contact.userId : null,
@@ -493,6 +494,10 @@ export default {
         }
         return this.contacts;
       } else {
+        setTimeout(() => {
+          //document.getElementById('f7-searchbar').search(query);
+          // this.$store.dispatch('search', query.value);
+        }, 2000);
         return this.$store.state.directory;
       }
     },

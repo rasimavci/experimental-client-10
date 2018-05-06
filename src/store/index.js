@@ -23,6 +23,9 @@ const store = new Vuex.Store({
       state.contactSource = source
       console.log('contactSource ' + source)
     },
+    [types.SET_ISCONNECTED] (state, isConnected) {
+      state.isConnected = isConnected
+    },
     [types.SET_SORTBY] (state, sortBy) {
       state.sortBy = sortBy
     },
@@ -37,16 +40,12 @@ const store = new Vuex.Store({
       state.credentials = credentials
     },
 
-    [types.REFRESH_DIRECTORY] (state, contacts) {
-      //   contacts.forEach(contact => console.log(contact.firstName))
-      //
-      state.contacts = contacts
+    [types.REFRESH_DIRECTORY] (state, directory) {
+      state.directory = directory
     },
 
     [types.REFRESH_CONTACTS] (state, contacts) {
-      //   contacts.forEach(contact => console.log(contact.firstName))
-      //
-      state.directory = contacts
+      state.contacts = contacts
     },
 
     [types.ADD_CONVERSATION] (state, conv) {

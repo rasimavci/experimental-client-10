@@ -151,4 +151,8 @@ export default {
 .date p {
   font-size: 0.8em;
 }
+
+.avatar-circle {
+  border-radius: 25px;
+}
 </style>
