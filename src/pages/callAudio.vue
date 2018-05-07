@@ -11,18 +11,18 @@
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
     .toolbar-inner
-      a.tab-link.b.tab-link-active(href='#tab-1')
+      a.tab-link.b(href='#tab-1')
         // Different icons for iOS and MD themes
         // Label text
         span.tabbar-label CHAT
-      a.tab-link.b(href='#tab-2')
+      a.tab-link.b.tab-link-active(href='#tab-2')
         span.tabbar-label VOICE
       a.tab-link.b(href='#tab-3')
         span.tabbar-label VIDEO
       a.tab-link.b(href='#tab-4')
         span.tabbar-label PEOPLE
   .tabs
-    #tab-1.page-content.tab.tab-active
+    #tab-1.page-content.tab
       .page-content.messages-content.a
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
           left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
@@ -38,9 +38,9 @@
             i.icon.f7-icons.ios-only more_vert_fill
             i.icon.material-icons.md-only near_me
         .messagebar-sheet
-    #tab-2.page-content.tab
+    #tab-2.page-content.tab.tab-active
       .page-content.messages-content.a
-        .keypad
+        .keypad(v-if="checkActiveCall")
           .keypad-container
             div
               button(@click='press(1)')
@@ -49,11 +49,11 @@
               button(@click='press(2)')
                 .keypad-button-number 2
                 .keypad-button-text
-                | ABC
+                  | ABC
               button(@click='press(3)')
                .keypad-button-number 3
                .keypad-button-text
-                 | DEF
+                  | DEF
             div
               button(@click='press(4)')
                 .keypad-button-number 4
@@ -87,9 +87,9 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(@click='makeCall(false)')
+        .call-button-container.action.my-cursor(v-if="!checkActiveCall" @click='makeCall(false)')
           img.img1(src='../assets/demo/call_outline_white.png')
-          | Call
+          | Call {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -108,7 +108,7 @@
       .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
-          | Call
+          | Call {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -149,27 +149,26 @@ import NoImg from '../assets/demo/noimage1.jpg';
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
-    let contacts = this.$store.state.contacts;
-    this.contactType = 'corporate'
-    contacts.forEach(contact1 => {
-      if (contact1.primaryContact === 'saynaci@genband.com') {
-        this.contact = contact1;
-        this.contactType = 'personal'
-      }
-    })
+    // let contacts = this.$store.state.contacts;
+    // this.contactType = 'corporate'
+    // contacts.forEach(contact1 => {
+    //   if (contact1.primaryContact === this.callee) {
+    //     this.contact = contact1;
+    //     this.contactType = 'personal'
+    //   }
+    // })
   },
   data: function() {
     return {
-      page: 'currentPage1',
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
       message: '',
       showData: 'all',
       message: '',
-      callee: 'saynaci@genband.com',
+      callee: '',
       showbottombar: false,
-      conversationId: 'saynaci@genband.com',
+      conversationId: '',
       selectedContacts: [],
       onCall: true,
       contact: {},
@@ -182,10 +181,20 @@ export default {
     rightChatBubble: RightChatBubble,
   },
   mounted() {
+    let contacts = this.$store.state.contacts;
+        this.contactType = 'corporate'
+    contacts.forEach(contact1 => {
+      if (contact1.primaryContact === this.$store.state.callee) {
+        this.contact = contact1;
+        this.contactType = 'personal'
+      }
+    })
     this.getContactInfo();
-
+    this.callee = this.$store.state.callee
+    this.conversationId = this.$store.state.callee
     if(this.$store.state.activeCallTab === 'audio') {
-      console.log('call with adudio')
+      console.log('call with audio to ' + this.$store.state.callee)
+      this.makeCall(false)
     } else if(this.$store.state.activeCallTab === 'video') {
       console.log('call with video')
     } else if(this.$store.state.activeCallTab === 'chat') {
@@ -203,7 +212,7 @@ export default {
       this.$store.dispatch('end');
     },
     getContactInfo() {
-      let primaryContact = this.conversationId;
+      let primaryContact = this.$store.state.callee // this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact;
       });
@@ -241,7 +250,7 @@ export default {
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = 'saynaci@genband.com';
+        this.callee = this.$store.state.callee // 'saynaci@genband.com';
         const params = {
           callee: this.callee,
           mode: mode,
@@ -259,7 +268,8 @@ export default {
         params.options = options;
         this.$store.dispatch('call', params);
       } else {
-        this.$store.dispatch('end');
+        // this.callee = this.$store.state.callee
+         this.$store.dispatch('end');
       }
       console.log('make call operation finished.');
     },
@@ -329,8 +339,18 @@ export default {
       } else {
         this.onCall = false;
       }
-      return this.$store.state.activeCall.calleeName;
+      return '  ' + this.$store.state.activeCall.calleeName;
     },
+
+    checkActiveCall () {
+      const ActiveCallState = this.$store.state.activeCall.state
+      if(ActiveCallState === 'IN_CALL') {
+      return true
+      } else {
+      return false
+      }
+
+    }
   },
 };
 </script>
@@ -401,31 +421,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-.keypad {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  border: 0px solid black;
+.my-cursor {
+  cursor: default;
 }
-
-.input-number {
-  width: 100%;
-  margin: 0 auto;
-  /* margin-top: 5px; */
-  border: 0;
-  background-color: #eceff0;
-  height: 50px;
-  font-size: 1.5em;
-  text-align: center;
-}
-
-.keypad-container {
-  overflow: hidden;
-  border: 0px solid black;
-  padding: 1px;
-}
-
-
 </style>

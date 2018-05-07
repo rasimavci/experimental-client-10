@@ -21,5 +21,7 @@ export default {
   sortBy: 'firstName',
   activeCallTab: 'chat',
   directory: [{firstName: '', lastName: ''}],
-  self: {}
+  self: {},
+  callee: '',
+  participant: ''
 }

@@ -19,6 +19,10 @@ const store = new Vuex.Store({
       state.self = self
       console.log('self ' + self)
     },
+    [types.SET_CALLEE] (state, callee) {
+      state.callee = callee
+      console.log('callee ' + callee)
+    },
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
       console.log('contactSource ' + source)

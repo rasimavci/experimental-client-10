@@ -1,11 +1,12 @@
 <template lang='pug'>
-.page
+.page.fontSize
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
   .modal-container2
-    input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
+    //-input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
+    f7-input.fontSize(name='callee', placeholder='Username or Number...', type='text', :value='callee', @input='callee = $event.target.value')
     span.input-group-btn(v-show='hasInput')
       button.backspace-button(type='button', @click="callee = ''")
         i
@@ -75,7 +76,7 @@
         i.icon.material-icons.md-only chat_bubble
         span.badge.color-red 5
         // Label text
-      a.tab-link.b(href='#tab-3',@click='goCallPage("audio")')
+      a.tab-link.b.tab-link-active(href='#tab-3',@click='goCallPage("audio")')
         // -img(slot='icon', src='../assets/demo/camera_outline_white.png')
         i.icon.f7-icons.ios-only phone_fill
         i.icon.material-icons.md-only phone
@@ -101,6 +102,7 @@ export default {
     this.$store.commit('UPDATE_CURRENTPAGE', 'dialpad');
   },
   mounted() {
+    this.callee = ''
     this.$nextTick(() => {
       document.getElementsByClassName('modal-container1')[0].style.width =
         document.body.offsetWidth + 'px';
@@ -108,9 +110,23 @@ export default {
   },
   methods: {
     goCallPage: function(mode) {
+      const callee1 = this.$store.state.callee
+      if(this.callee === '') {
+        this.callee = callee1 // this.$store.state.callee
+
+      } else {
+      console.log('callee ' + this.callee)
       this.$store.commit('SET_ACTIVECALLTAB', mode);
+      this.$store.commit('SET_CALLEE', this.callee);
       this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
-      this.$f7router.navigate('/call');
+      if(mode === 'audio') {
+       this.$f7router.navigate('/callAudio');
+      } else if (mode ==='video') {
+        this.$f7router.navigate('/callVideo');
+      }else {this.$f7router.navigate('/call');
+      }
+      }
+
     },
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true);
@@ -126,6 +142,7 @@ export default {
       callee: '',
       user: '',
       hasInput: false,
+      callee: ''
     };
   },
 };
@@ -382,5 +399,9 @@ export default {
 .tabBackground {
   background-color: white;
   color: white;
+}
+
+.fontSize {
+    font-size: large;
 }
 </style>

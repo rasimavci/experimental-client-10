@@ -16,6 +16,8 @@ import Favorites from './pages/favorites'
 import Conference from './pages/conference'
 import Presences from './pages/presences'
 import Call from './pages/call'
+import CallAudio from './pages/callAudio'
+import CallVideo from './pages/callVideo'
 import Settings from './pages/settings.vue'
 import Contact from './pages/contact.vue'
 
@@ -46,7 +48,7 @@ export default [
   {
     path: '/home/',
     component: HomePage
-  },  
+  },
   {
     path: '/about/',
     component: AboutPage
@@ -99,6 +101,16 @@ export default [
     path: '/call',
     name: 'Call',
     component: Call
+  },
+  {
+    path: '/callAudio',
+    name: 'CallAduio',
+    component: CallAudio
+  },
+  {
+    path: '/callVideo',
+    name: 'CallVideo',
+    component: CallVideo
   },
   {
     path: '/settings',

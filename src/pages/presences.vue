@@ -6,7 +6,7 @@ f7-page
     f7-nav-title {{username}}
   f7-block-title Presence
   f7-list(form='')
-    f7-list-item(:key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="'Available'" @change="setPresence('0')")
+    f7-list-item(:key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="'Available'" @change="setPresence('0')" checked)
     f7-list-item(:key='2', radio='', name='my-radio', :checked='fruit === 1', :value='2', :title="'Busy'" @change="setPresence('1')")
     f7-list-item(:key='3', radio='', name='my-radio', :checked='fruit === 1', :value='3', :title="'On Vacation'" @change="setPresence('2')")
     f7-list-item(:key='4', radio='', name='my-radio', :checked='fruit === 1', :value='4', :title="'Away'" @change="setPresence('3')")
@@ -89,7 +89,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .block_container {
   margin: auto;
   width: 100%;

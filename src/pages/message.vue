@@ -6,7 +6,7 @@ f7-page
     f7-nav-title Inbox
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
-  f7-block-title Saved
+  f7-block-title Saved {{getConvLength}}
   f7-list
     ul
       li(v-for='conv in getConversations' :key="conv.key" @click='openPopupMessage(conv.conversationId)')
@@ -18,7 +18,7 @@ f7-page
           .item-inner
             .item-title-row
               .item-title {{conv.conversationId}}
-            img(:src='presenceConnected')
+            //-img(:src='presenceConnected')
             .item-subtitle {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
   f7-popup#popupMessage
     f7-view
@@ -48,6 +48,7 @@ import LeftChatBubble from './LeftChatBubble';
 import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
 import NoImg from '../assets/demo/noimage1.jpg';
+import PresenceConnected from '../assets/icon/presence_connected.png';
 
 export default {
   created: function() {
@@ -55,6 +56,7 @@ export default {
   },
   data: function() {
     return {
+      PresenceConnected: '',
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
@@ -115,9 +117,12 @@ export default {
           $('.messages-container').scrollTop($('.messages-container').height());
         });
         console.log(
-          'first message in the Array ' + resultArray[0].parts[0].text
+          //'first message in the Array ' + resultArray[0].parts[0].text
         );
-        return resultArray;
+        if(resultArray) {
+          return resultArray
+        }
+        // return resultArray;
       }
     },
     getConversations() {
@@ -133,13 +138,18 @@ export default {
       });
       return conversations;
     },
+
+    getConvLength() {
+      const conversations = this.$store.state.conversations;
+      return conversations.length;
+    },
     getActiveCall() {
-      return this.$store.state.activeCall.state;
+      return '- ' + this.$store.state.activeCall.state;
     },
   },
 };
 </script>
-<style>
+<style scoped>
 .call-button-container0 {
   padding-top: 1px;
 }

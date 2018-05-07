@@ -6,8 +6,8 @@ f7-page
     f7-nav-title History
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
-  f7-searchbar(cancel-link="Cancel" placeholder="Search in history" :clear-button="true")
-  f7-list.date(v-for='(groups, key) in groupedLogs' :key="key")
+  //-f7-searchbar(cancel-link="Cancel" placeholder="Search in history" :clear-button="true")
+  f7-list.dateX(v-for='(groups, key) in groupedLogs' :key="key")
    h5 {{key}}
    f7-list
       ul
@@ -137,18 +137,18 @@ export default {
   },
 };
 </script>
-<style>
-.date {
+<style scoped>
+.dateX {
   /* width: 17%; */
   padding: 0% 1% 0 0;
   /* float: left; */
 }
 
-.date h3 {
+.dateX h3 {
   font-size: 1.5em;
 }
 
-.date p {
+.dateX p {
   font-size: 0.8em;
 }
 

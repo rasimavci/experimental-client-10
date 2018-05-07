@@ -8,8 +8,7 @@ f7-page
             .flex2
               img.avatar-circle(:src="getPhotoUrl" width="50" height="50")
             .flex.column
-              .flex
-              h3 {{getUserName}}
+               h3 {{getUserName}}
   f7-list#navList
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
@@ -34,7 +33,9 @@ export default {
   name: 'leftPanel',
   computed: {
     getUserName() {
-      return this.$store.state.credentials.user;
+      const user = this.$store.state.credentials.user;
+      const name = user.substring(0, user.indexOf('@'));
+      return name
     },
     getPhotoUrl() {
       const photoUrl1 =

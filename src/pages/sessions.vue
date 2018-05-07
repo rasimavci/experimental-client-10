@@ -4,97 +4,226 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Sessions
-  f7-searchbar(cancel-link="Cancel" placeholder="Search in sessions" :clear-button="true")
-  f7-list.date(v-for='(groups, key) in groupedCalls' :key="key")
-   h5 {{key}}
-   f7-block-title Application SettingsACtive Call
-   f7-list
-    f7-list-item.my-class(v-for="group in groups" @click='goCall(group)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
+    f7-nav-right
+      f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
+  f7-block-title(v-if="getCalls1") ACTIVE CALL
+  f7-list
+   f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("call", group)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
+  f7-block-title ACTIVE CHAT
+  f7-list
+    ul
+      li(v-for='conv in getConversations' :key="conv.key" @click='goCallPage("chat", conv.conversationId)')
+        .item-content
+          .item-media
+            img.avatar-circle(:src="conv.photoUrl || noImg" width="44")
+            //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
+            //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
+          .item-inner
+            .item-title-row
+              .item-title {{conv.conversationId}}
+            img(:src='presenceConnected')
+            .item-subtitle {{' '}} {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
+  f7-popup#popupMessage
+    f7-view
+      f7-page
+        .navbar
+          .navbar-inner
+            .left(@click='closePopup') Save
+            .title Sessions
+            .right(@click='closePopup') Close
+        f7-block
+        .page-content.messages-content.a
+          .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
+            left-chat-bubble.leftBBl(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
+            right-chat-bubble.rightBBl(:message='message', v-else)
+        .toolbar.toolbar-bottom-md.tabbar-labels
+          .toolbar-inner
+            a.tab-link.tab-link-active.b(href='#tab-5', @click='deleteMessage()')
+              i.icon.f7-icons.ios-only delete_fill
+              i.icon.material-icons.md-only delete
+            a.tab-link.b(href='#tab-6', @click='goCall()')
+              f7-link(popup-close='')
+               i.icon.f7-icons.ios-only reply_fill
+               i.icon.material-icons.md-only reply
 </template>
 <script>
+import LeftChatBubble from './LeftChatBubble';
+import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
-import moment from 'moment'
-import _ from 'lodash'
-import Routes from '../routes.js'
+import NoImg from '../assets/demo/noimage1.jpg';
 
 export default {
   created: function() {
-    this.$store.commit("UPDATE_CURRENTPAGE", 'sessions');
+    this.$store.commit('UPDATE_CURRENTPAGE', 'call');
   },
   data: function() {
     return {
+      noImg: NoImg,
+      renderMessages: false,
       showData: 'all',
-    }
+      message: '',
+      showData: 'all',
+      message: '',
+      callee: 'bkocak@genband.com',
+      showbottombar: false,
+      conversationId: 'bkocak@genband.com',
+      selectedContacts: [],
+    };
+  },
+  components: {
+    leftChatBubble: LeftChatBubble,
+    rightChatBubble: RightChatBubble,
+  },
+  mounted() {
+    this.getContactInfo();
   },
   methods: {
-    goCall(logrecord) {
-      // console.log('go call page for ' + logrecord.callerDisplayNumber)
-      // const params = {
-      //   callee: 'saynaci@genband.com',
-      //   mode: false
-      // }
-      //this.$store.dispatch('call', params)
-      // Routes.push('call')
-      this.$f7router.navigate('/call')
+    closePopup() {
+      this.$f7.popup.close('#popupMessage', true);
     },
-    openContactDetailsPopup: function() {
-      this.$f7.popup.open(popupContactDetails, true)
+    goCallPage: function(mode, id) {
+      this.$store.commit('SET_PARTICIPANT', id);
+      this.$store.commit('SET_CALLEE', id);
+      // this.popup-close=''
+      if(mode === 'chat') {
+      this.$f7router.navigate('/call');
+      } else {
+      this.$f7router.navigate('/callAudio');
+      }
+
     },
-    openAddContactPopup: function() {
-      this.$f7.popup.open(popupAddContact, true)
+
+    openPopupMessage: function(conversationId) {
+      this.conversationId = conversationId;
+      this.$f7.popup.open(popupMessage, true);
     },
-    openEditContactPopup: function() {
-      this.$f7.popup.open(popupEditContact, true)
+    deleteMessage: function() {
+      console.log('sorry not implemented yet');
     },
-    onSearch: function(query, found) {
-      console.log('search', query);
-    },
-    onClear: function(event) {
-      console.log('clear');
-    },
-    onEnable: function(event) {
-      console.log('enable');
-    },
-    onDisable: function(event) {
-      console.log('disable');
+    getContactInfo() {
+      let primaryContact = this.conversationId;
+      let contact = this.$_.find(this.contacts, c => {
+        return c.primaryContact === primaryContact;
+      });
+      // contact.photoUrl = contact.photoUrl || this.noImg;
+      this.selectedContacts.push(this.$_.cloneDeep(contact));
+      this.$nextTick(() => {
+        this.renderMessages = true;
+      });
     },
   },
   computed: {
-    ...mapGetters(['contacts']),
+    ...mapGetters(['contacts', 'conversations']),
     getCalls() {
-      // if (this.showdata === 'all') {
-      console.log(this.$store.state.sessions)
-      // this.list = this.$store.state.contacts
       return this.$store.state.sessions
-      // return [{startTime:"1523550312000", name: 'deneme', callerName: 'saynaci'}]
     },
-    groupedCalls() {
-      let calls = this.getCalls // this.$store.state.vux.history
-      calls.forEach(log => {
-        log.date1 = moment(parseInt(log.startTime)).format('h:mm:ss a')
-        log.date = moment(parseInt(log.startTime)).format('MMMM Do YYYY')
-      })
-      return _.groupBy(calls, 'date')
-    }
-  }
-}
+    getCalls1() {
+      const dene = this.$store.state.sessions
+      if (dene) {
+        return true
+      } else {
+        return false
+      }
+    },
+    filtredMessages() {
+      let resultArray = [];
+      if (this.conversations) {
+        for (let i = 0; i < this.conversations.length; i++) {
+          if (this.conversations[i].conversationId === this.conversationId) {
+            resultArray = this.conversations[i].messages;
+          }
+        }
+        this.$nextTick(() => {
+          $('.messages-container').scrollTop($('.messages-container').height());
+        });
+        console.log(
+          //'first message in the Array ' + resultArray[0].parts[0].text
+        );
+        if(resultArray) {
+          return resultArray
+        }
+        // return resultArray;
+      }
+    },
+    getConversations() {
+      let conversations = this.$store.state.conversations;
+      let contacts = this.$store.state.contacts;
+      conversations.forEach(conv => {
+        contacts.forEach(contact => {
+          if (contact.primaryContact === conv.conversationId) {
+            conv.photoUrl = contact.photoUrl;
+            console.log('conv photo url' + conv.photoUrl);
+          }
+        });
+      });
+      return conversations;
+    },
+    getActiveCall() {
+      return this.$store.state.activeCall.state;
+    },
+  },
+};
 </script>
-<style>
-.date {
-  /* width: 17%; */
-  padding: 0% 1% 0 0;
-  /* float: left; */
+<style scoped>
+.call-button-container0 {
+  padding-top: 1px;
 }
 
-.date h3 {
-  font-size: 1.5em;
+.call-button-container2 {
+  padding-top: 160px;
 }
 
-.date p {
-  font-size: .8em;
+.call-button-container1 {
+  padding-top: 590px;
+}
+
+.call-button-container {
+  margin: auto;
+  width: 233px;
+  height: 80px;
+  vertical-align: middle;
+  padding: 10px;
+  background: #29a3d8;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  font-family: lato-bold;
+  font-size: 17px;
+  color: white;
+}
+
+.img1 {
+  height: 50%;
+  width: 50;
+}
+
+.a {
+  max-height: 700px;
+}
+
+.a2altta {
+  max-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.b {
+  max-height: 40px;
 }
 
 .my-class {
   cursor: default;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-circle {
+  border-radius: 25px;
 }
 </style>

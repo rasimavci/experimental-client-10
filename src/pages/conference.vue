@@ -4,7 +4,7 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Collaboration
-  .button-container
+  .button-containerX
     f7-button.col(raised='', fill='') START COLLABORATION
     //-f7-button.col(big round open-popup='#popup') START COLLABORATION
   f7-block(strong='')
@@ -16,7 +16,7 @@ export default {};
 </script>
 
 <style scoped>
-.button-container {
+.button-containerX {
   margin: 15px;
 }
 </style>

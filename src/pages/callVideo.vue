@@ -11,18 +11,18 @@
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
     .toolbar-inner
-      a.tab-link.b.tab-link-active(href='#tab-1')
+      a.tab-link.b(href='#tab-1')
         // Different icons for iOS and MD themes
         // Label text
         span.tabbar-label CHAT
       a.tab-link.b(href='#tab-2')
         span.tabbar-label VOICE
-      a.tab-link.b(href='#tab-3')
+      a.tab-link.b.tab-link-active(href='#tab-3')
         span.tabbar-label VIDEO
       a.tab-link.b(href='#tab-4')
         span.tabbar-label PEOPLE
   .tabs
-    #tab-1.page-content.tab.tab-active
+    #tab-1.page-content.tab
       .page-content.messages-content.a
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
           left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
@@ -40,53 +40,6 @@
         .messagebar-sheet
     #tab-2.page-content.tab
       .page-content.messages-content.a
-        .keypad
-          .keypad-container
-            div
-              button(@click='press(1)')
-                .keypad-button-number 1
-                .keypad-button-text
-              button(@click='press(2)')
-                .keypad-button-number 2
-                .keypad-button-text
-                | ABC
-              button(@click='press(3)')
-               .keypad-button-number 3
-               .keypad-button-text
-                 | DEF
-            div
-              button(@click='press(4)')
-                .keypad-button-number 4
-                .keypad-button-text
-                  | GHI
-              button(@click='press(5)')
-                .keypad-button-number 5
-                .keypad-button-text
-                  | JKL
-              button(@click='press(6)')
-                .keypad-button-number 6
-                .keypad-button-text
-                  | MNO
-            div
-              button(@click='press(7)')
-                .keypad-button-number 7
-                .keypad-button-text
-                  | PQRS
-              button(@click='press(8)')
-                .keypad-button-number 8
-                .keypad-button-text
-                  | TUV
-              button(@click='press(9)')
-                .keypad-button-number 9
-                .keypad-button-text
-                  | WXYZ
-            div
-              button(@click="press('*')")
-                | *
-              button(@click='press(0)')
-                | 0
-              button(@click="press('#')")
-                | #
         .call-button-container.action.my-cursor(@click='makeCall(false)')
           img.img1(src='../assets/demo/call_outline_white.png')
           | Call
@@ -104,9 +57,9 @@
           a.tab-link.b(href='#tab-8', @click='mute()')
             i.icon.f7-icons.ios-only mic_off_fill
             i.icon.material-icons.md-only mic_off
-    #tab-3.page-content.tab
+    #tab-3.page-content.tab.tab-active
       .page-content.messages-content.a
-        .call-button-container.action(@click='makeCall(true)')
+        .call-button-container.action.my-cursor(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
           | Call
       .toolbar.toolbar-bottom-md.tabbar-labels
@@ -160,16 +113,15 @@ export default {
   },
   data: function() {
     return {
-      page: 'currentPage1',
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
       message: '',
       showData: 'all',
       message: '',
-      callee: 'saynaci@genband.com',
+      callee: 'bkocak@genband.com',
       showbottombar: false,
-      conversationId: 'saynaci@genband.com',
+      conversationId: 'bkocak@genband.com',
       selectedContacts: [],
       onCall: true,
       contact: {},
@@ -188,6 +140,7 @@ export default {
       console.log('call with adudio')
     } else if(this.$store.state.activeCallTab === 'video') {
       console.log('call with video')
+      this.makeCall(true)
     } else if(this.$store.state.activeCallTab === 'chat') {
       console.log('call with chat')
     } else {
@@ -241,7 +194,7 @@ export default {
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = 'saynaci@genband.com';
+        this.callee = this.$store.state.callee // 'saynaci@genband.com';
         const params = {
           callee: this.callee,
           mode: mode,
@@ -402,30 +355,7 @@ export default {
   justify-content: center;
 }
 
-.keypad {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  border: 0px solid black;
+.my-cursor {
+  cursor: default;
 }
-
-.input-number {
-  width: 100%;
-  margin: 0 auto;
-  /* margin-top: 5px; */
-  border: 0;
-  background-color: #eceff0;
-  height: 50px;
-  font-size: 1.5em;
-  text-align: center;
-}
-
-.keypad-container {
-  overflow: hidden;
-  border: 0px solid black;
-  padding: 1px;
-}
-
-
 </style>
