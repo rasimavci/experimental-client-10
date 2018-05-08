@@ -4,9 +4,9 @@
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{getCalleeName}}
-    f7-nav-right.end-button-color(v-if="onCall")
+    f7-nav-right.end-button-color(v-if="checkActiveCall")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
-    f7-nav-right(v-if="!onCall")
+    f7-nav-right(v-if="!checkActiveCall")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:phone_in_talk', panel-open='right', @click="makeCall(false)")
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
@@ -40,7 +40,7 @@
         .messagebar-sheet
     #tab-2.page-content.tab
       .page-content.messages-content.a
-        .keypad
+        .keypad(v-if="checkActiveCall")
           .keypad-container
             div
               button(@click='press(1)')
@@ -49,11 +49,11 @@
               button(@click='press(2)')
                 .keypad-button-number 2
                 .keypad-button-text
-                | ABC
+                  | ABC
               button(@click='press(3)')
                .keypad-button-number 3
                .keypad-button-text
-                 | DEF
+                  | DEF
             div
               button(@click='press(4)')
                 .keypad-button-number 4
@@ -87,9 +87,9 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(@click='makeCall(false)')
+        .call-button-container.action.my-cursor(v-if="!checkActiveCall" @click='makeCall(false)')
           img.img1(src='../assets/demo/call_outline_white.png')
-          | Call
+          | Call {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -108,7 +108,7 @@
       .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
-          | Call
+          | Video {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -149,32 +149,31 @@ import NoImg from '../assets/demo/noimage1.jpg';
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
-    let contacts = this.$store.state.contacts;
-    this.contactType = 'corporate'
-    contacts.forEach(contact1 => {
-      if (contact1.primaryContact === 'saynaci@genband.com') {
-        this.contact = contact1;
-        this.contactType = 'personal'
-      }
-    })
+    // let contacts = this.$store.state.contacts;
+    // this.contactType = 'corporate'
+    // contacts.forEach(contact1 => {
+    //   if (contact1.primaryContact === this.callee) {
+    //     this.contact = contact1;
+    //     this.contactType = 'personal'
+    //   }
+    // })
   },
   data: function() {
     return {
-      page: 'currentPage1',
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
       message: '',
       showData: 'all',
       message: '',
-      callee: 'saynaci@genband.com',
+      callee: '',
       showbottombar: false,
-      conversationId: 'saynaci@genband.com',
+      conversationId: '',
       selectedContacts: [],
       onCall: true,
       contact: {},
       contactType: '',
-      activeTab: false
+      activeTab: false,
     };
   },
   components: {
@@ -182,16 +181,26 @@ export default {
     rightChatBubble: RightChatBubble,
   },
   mounted() {
+    let contacts = this.$store.state.contacts;
+    this.contactType = 'corporate';
+    contacts.forEach(contact1 => {
+      if (contact1.primaryContact === this.$store.state.callee) {
+        this.contact = contact1;
+        this.contactType = 'personal';
+      }
+    });
     this.getContactInfo();
-
-    if(this.$store.state.activeCallTab === 'audio') {
-      console.log('call with adudio')
-    } else if(this.$store.state.activeCallTab === 'video') {
-      console.log('call with video')
-    } else if(this.$store.state.activeCallTab === 'chat') {
-      console.log('call with chat')
+    this.callee = this.$store.state.callee;
+    this.conversationId = this.$store.state.callee;
+    if (this.$store.state.activeCallTab === 'audio') {
+      console.log('call with audio to ' + this.$store.state.callee);
+      this.makeCall(false);
+    } else if (this.$store.state.activeCallTab === 'video') {
+      console.log('call with video');
+    } else if (this.$store.state.activeCallTab === 'chat') {
+      console.log('call with chat');
     } else {
-      console.log('call with')
+      console.log('call with');
     }
   },
   methods: {
@@ -203,11 +212,14 @@ export default {
       this.$store.dispatch('end');
     },
     getContactInfo() {
-      let primaryContact = this.conversationId;
+      let primaryContact = this.$store.state.callee; // this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact;
       });
-      contact.photoUrl = contact.photoUrl || this.noImg;
+      if (contact) {
+        contact.photoUrl = contact.photoUrl || this.noImg;
+      }
+
       this.selectedContacts.push(this.$_.cloneDeep(contact));
       this.$nextTick(() => {
         this.renderMessages = true;
@@ -217,7 +229,7 @@ export default {
       let messageToSend = {
         type: 'IM',
         text: this.message,
-        participant: 'saynaci@genband.com',
+        participant: this.callee,
       };
       console.log('send message ' + this.message);
       this.message = '';
@@ -241,7 +253,7 @@ export default {
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = 'saynaci@genband.com';
+        this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
           mode: mode,
@@ -259,6 +271,7 @@ export default {
         params.options = options;
         this.$store.dispatch('call', params);
       } else {
+        // this.callee = this.$store.state.callee
         this.$store.dispatch('end');
       }
       console.log('make call operation finished.');
@@ -292,17 +305,9 @@ export default {
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
-    getCalleeInfo() {
-      let contacts = this.$store.state.contacts;
-      contacts.forEach(contact1 => {
-        if (contact1.primaryContact === 'saynaci@genband.com') {
-          this.contact = contact1;
-          console.log('contact.photoUrl' + contact.photoUrl)
-        }
-      });
-    },
     filtredMessages() {
       let resultArray = [];
+      //this.conversationId = this.$store.state.callee;
       if (this.conversations) {
         for (let i = 0; i < this.conversations.length; i++) {
           if (this.conversations[i].conversationId === this.conversationId) {
@@ -320,16 +325,34 @@ export default {
       return this.$store.state.activeCall.state;
     },
     getCalleeName() {
-      let hmm = this.$store.state.activeCall.state;
-      let hmm2 = this.$store.state.activeCall.id;
-      console.log('active call status ' + hmm);
-      console.log('active call id ' + hmm2);
-      if (this.$store.state.activeCall.state === 'IN_CALL') {
-        this.onCall = true;
+      // let hmm = this.$store.state.activeCall.state;
+      // let hmm2 = this.$store.state.activeCall.id;
+      // console.log('active call status ' + hmm);
+      // console.log('active call id ' + hmm2);
+      // if (this.$store.state.activeCall.state === 'IN_CALL') {
+      //   this.onCall = true;
+      // } else {
+      //   this.onCall = false;
+      // }
+      return '  ' + this.$store.state.participant; // .calleeName;
+    },
+
+    checkActiveCall() {
+      const ActiveCallState = this.$store.state.activeCall.state;
+      if (ActiveCallState === 'IN_CALL') {
+        return true;
       } else {
-        this.onCall = false;
+        return false;
       }
-      return this.$store.state.activeCall.calleeName;
+    },
+
+    getActiveCallState() {
+      const ActiveCallState = this.$store.state.activeCall.state;
+      if (ActiveCallState === 'IN_CALL') {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
@@ -401,31 +424,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-.keypad {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  border: 0px solid black;
+.my-cursor {
+  cursor: default;
 }
-
-.input-number {
-  width: 100%;
-  margin: 0 auto;
-  /* margin-top: 5px; */
-  border: 0;
-  background-color: #eceff0;
-  height: 50px;
-  font-size: 1.5em;
-  text-align: center;
-}
-
-.keypad-container {
-  overflow: hidden;
-  border: 0px solid black;
-  padding: 1px;
-}
-
-
 </style>

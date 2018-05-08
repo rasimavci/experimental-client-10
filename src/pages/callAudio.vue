@@ -108,7 +108,7 @@
       .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
-          | Call {{getCalleeName}}
+          | Video {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -173,7 +173,7 @@ export default {
       onCall: true,
       contact: {},
       contactType: '',
-      activeTab: false
+      activeTab: false,
     };
   },
   components: {
@@ -182,25 +182,25 @@ export default {
   },
   mounted() {
     let contacts = this.$store.state.contacts;
-        this.contactType = 'corporate'
+    this.contactType = 'corporate';
     contacts.forEach(contact1 => {
       if (contact1.primaryContact === this.$store.state.callee) {
         this.contact = contact1;
-        this.contactType = 'personal'
+        this.contactType = 'personal';
       }
-    })
+    });
     this.getContactInfo();
-    this.callee = this.$store.state.callee
-    this.conversationId = this.$store.state.callee
-    if(this.$store.state.activeCallTab === 'audio') {
-      console.log('call with audio to ' + this.$store.state.callee)
-      this.makeCall(false)
-    } else if(this.$store.state.activeCallTab === 'video') {
-      console.log('call with video')
-    } else if(this.$store.state.activeCallTab === 'chat') {
-      console.log('call with chat')
+    this.callee = this.$store.state.callee;
+    this.conversationId = this.$store.state.callee;
+    if (this.$store.state.activeCallTab === 'audio') {
+      console.log('call with audio to ' + this.$store.state.callee);
+      this.makeCall(false);
+    } else if (this.$store.state.activeCallTab === 'video') {
+      console.log('call with video');
+    } else if (this.$store.state.activeCallTab === 'chat') {
+      console.log('call with chat');
     } else {
-      console.log('call with')
+      console.log('call with');
     }
   },
   methods: {
@@ -212,11 +212,14 @@ export default {
       this.$store.dispatch('end');
     },
     getContactInfo() {
-      let primaryContact = this.$store.state.callee // this.conversationId;
+      let primaryContact = this.$store.state.callee; // this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact;
       });
-      contact.photoUrl = contact.photoUrl || this.noImg;
+      if (contact) {
+        contact.photoUrl = contact.photoUrl || this.noImg;
+      }
+
       this.selectedContacts.push(this.$_.cloneDeep(contact));
       this.$nextTick(() => {
         this.renderMessages = true;
@@ -226,7 +229,7 @@ export default {
       let messageToSend = {
         type: 'IM',
         text: this.message,
-        participant: 'saynaci@genband.com',
+        participant: this.callee,
       };
       console.log('send message ' + this.message);
       this.message = '';
@@ -250,7 +253,7 @@ export default {
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = this.$store.state.callee // 'saynaci@genband.com';
+        this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
           mode: mode,
@@ -269,7 +272,7 @@ export default {
         this.$store.dispatch('call', params);
       } else {
         // this.callee = this.$store.state.callee
-         this.$store.dispatch('end');
+        this.$store.dispatch('end');
       }
       console.log('make call operation finished.');
     },
@@ -302,15 +305,6 @@ export default {
   },
   computed: {
     ...mapGetters(['contacts', 'conversations']),
-    getCalleeInfo() {
-      let contacts = this.$store.state.contacts;
-      contacts.forEach(contact1 => {
-        if (contact1.primaryContact === 'saynaci@genband.com') {
-          this.contact = contact1;
-          console.log('contact.photoUrl' + contact.photoUrl)
-        }
-      });
-    },
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {
@@ -342,15 +336,14 @@ export default {
       return '  ' + this.$store.state.activeCall.calleeName;
     },
 
-    checkActiveCall () {
-      const ActiveCallState = this.$store.state.activeCall.state
-      if(ActiveCallState === 'IN_CALL') {
-      return true
+    checkActiveCall() {
+      const ActiveCallState = this.$store.state.activeCall.state;
+      if (ActiveCallState === 'IN_CALL') {
+        return true;
       } else {
-      return false
+        return false;
       }
-
-    }
+    },
   },
 };
 </script>

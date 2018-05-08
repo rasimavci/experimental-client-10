@@ -22,10 +22,12 @@ const store = new Vuex.Store({
     [types.SET_CALLEE] (state, callee) {
       state.callee = callee
       console.log('callee ' + callee)
+    },    
+    [types.SET_PARTICIPANT] (state, participant) {
+      state.participant = participant
     },
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
-      console.log('contactSource ' + source)
     },
     [types.SET_ISCONNECTED] (state, isConnected) {
       state.isConnected = isConnected

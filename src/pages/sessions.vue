@@ -8,11 +8,11 @@ f7-page
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   f7-block-title(v-if="getCalls1") ACTIVE CALL
   f7-list
-   f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("call", group)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
+   f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("call", group.calleeName, group.to)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
   f7-block-title ACTIVE CHAT
   f7-list
     ul
-      li(v-for='conv in getConversations' :key="conv.key" @click='goCallPage("chat", conv.conversationId)')
+      li(v-for='conv in getConversations' :key="conv.key" @click='goCallPage("chat", conv.fullName, conv.conversationId)')
         .item-content
           .item-media
             img.avatar-circle(:src="conv.photoUrl || noImg" width="44")
@@ -20,7 +20,7 @@ f7-page
             //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
           .item-inner
             .item-title-row
-              .item-title {{conv.conversationId}}
+              .item-title {{conv.fullName}}
             img(:src='presenceConnected')
             .item-subtitle {{' '}} {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
   f7-popup#popupMessage
@@ -51,6 +51,9 @@ import LeftChatBubble from './LeftChatBubble';
 import RightChatBubble from './RightChatBubble';
 import { mapState, mapGetters } from 'vuex';
 import NoImg from '../assets/demo/noimage1.jpg';
+import PresenceConnected from '../assets/icon/presence_connected.png';
+import PresenceClosed from '../assets/icon/presence_not.png';
+import PresenceClosedMessage from '../assets/icon/presence_away.png';
 
 export default {
   created: function() {
@@ -58,6 +61,7 @@ export default {
   },
   data: function() {
     return {
+      presenceConnected: '',
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
@@ -81,16 +85,16 @@ export default {
     closePopup() {
       this.$f7.popup.close('#popupMessage', true);
     },
-    goCallPage: function(mode, id) {
-      this.$store.commit('SET_PARTICIPANT', id);
+    goCallPage: function(mode, fullName, id) {
+      this.$store.commit('SET_PARTICIPANT', fullName);
       this.$store.commit('SET_CALLEE', id);
       // this.popup-close=''
-      if(mode === 'chat') {
-      this.$f7router.navigate('/call');
+      this.$store.commit('SET_ACTIVECALLTAB', mode);
+      if (mode === 'chat') {
+        this.$f7router.navigate('/call');
       } else {
-      this.$f7router.navigate('/callAudio');
+        this.$f7router.navigate('/callAudio');
       }
-
     },
 
     openPopupMessage: function(conversationId) {
@@ -115,14 +119,14 @@ export default {
   computed: {
     ...mapGetters(['contacts', 'conversations']),
     getCalls() {
-      return this.$store.state.sessions
+      return this.$store.state.sessions;
     },
     getCalls1() {
-      const dene = this.$store.state.sessions
-      if (dene) {
-        return true
+      const dene = this.$store.state.sessions;
+      if (dene.length === 0) {
+        return false;
       } else {
-        return false
+        return true;
       }
     },
     filtredMessages() {
@@ -136,11 +140,12 @@ export default {
         this.$nextTick(() => {
           $('.messages-container').scrollTop($('.messages-container').height());
         });
-        console.log(
+        console
+          .log
           //'first message in the Array ' + resultArray[0].parts[0].text
-        );
-        if(resultArray) {
-          return resultArray
+          ();
+        if (resultArray) {
+          return resultArray;
         }
         // return resultArray;
       }
@@ -149,9 +154,11 @@ export default {
       let conversations = this.$store.state.conversations;
       let contacts = this.$store.state.contacts;
       conversations.forEach(conv => {
+        conv.fullName = conv.conversationId;
         contacts.forEach(contact => {
           if (contact.primaryContact === conv.conversationId) {
             conv.photoUrl = contact.photoUrl;
+            conv.fullName = contact.firstName + ' ' + contact.lastName;
             console.log('conv photo url' + conv.photoUrl);
           }
         });

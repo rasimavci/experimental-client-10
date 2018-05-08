@@ -61,7 +61,7 @@
       .page-content.messages-content.a
         .call-button-container.action.my-cursor(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
-          | Call
+          | Video
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
@@ -103,13 +103,13 @@ export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
     let contacts = this.$store.state.contacts;
-    this.contactType = 'corporate'
+    this.contactType = 'corporate';
     contacts.forEach(contact1 => {
       if (contact1.primaryContact === 'saynaci@genband.com') {
         this.contact = contact1;
-        this.contactType = 'personal'
+        this.contactType = 'personal';
       }
-    })
+    });
   },
   data: function() {
     return {
@@ -126,7 +126,7 @@ export default {
       onCall: true,
       contact: {},
       contactType: '',
-      activeTab: false
+      activeTab: false,
     };
   },
   components: {
@@ -136,15 +136,15 @@ export default {
   mounted() {
     this.getContactInfo();
 
-    if(this.$store.state.activeCallTab === 'audio') {
-      console.log('call with adudio')
-    } else if(this.$store.state.activeCallTab === 'video') {
-      console.log('call with video')
-      this.makeCall(true)
-    } else if(this.$store.state.activeCallTab === 'chat') {
-      console.log('call with chat')
+    if (this.$store.state.activeCallTab === 'audio') {
+      console.log('call with adudio');
+    } else if (this.$store.state.activeCallTab === 'video') {
+      console.log('call with video');
+      this.makeCall(true);
+    } else if (this.$store.state.activeCallTab === 'chat') {
+      console.log('call with chat');
     } else {
-      console.log('call with')
+      console.log('call with');
     }
   },
   methods: {
@@ -194,7 +194,7 @@ export default {
       // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
       if (this.getActiveCall !== 'true') {
-        this.callee = this.$store.state.callee // 'saynaci@genband.com';
+        this.callee = this.$store.state.callee; // 'saynaci@genband.com';
         const params = {
           callee: this.callee,
           mode: mode,
@@ -250,7 +250,7 @@ export default {
       contacts.forEach(contact1 => {
         if (contact1.primaryContact === 'saynaci@genband.com') {
           this.contact = contact1;
-          console.log('contact.photoUrl' + contact.photoUrl)
+          console.log('contact.photoUrl' + contact.photoUrl);
         }
       });
     },
