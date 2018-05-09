@@ -64,3 +64,7 @@
   position: absolute !important;
   left: 45px;
 }
+
+.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render{
+  width: 100% !important;
+}
