@@ -18,8 +18,8 @@ contact page - ok (circle images, empty avatar image when there is no image)
 contact page - ok - when do a global search, show Add popup when clicked instead of contact details (actually decide it when person is not in addressbook)
 contact page - make size smaller for letter titles
 contact page - for ContactDeails and Edit popups, fix image and icons, please compare with real SO mobile (can send images)
-contact page - try to fit ContactDetails and Edit popups in one screen as in real SO mobile
-dialpad page - fix keypad and number area
+contact page - try to fit ContactDetails and Edit popups in one screen without scrolling, as in real SO mobile
+dialpad page - ok ? fix keypad and number area. make fontSize bigger for number area
 presences page- make bottom buttons not full size in width
 Conference - fix and put conference URL in page
 
@@ -36,8 +36,20 @@ leftPanel - route on top (via a method) does not go in mainview
 Message - when open Call or Message page, if initial -hardcoded- id is not in contacts then there is problem and messages not seen.
 
 -------------------------------------------------------------------------------
-donw know how to access elements from code, classic geElementbyId doesnt work
+I need to acccess and run html elements inside code, dont know how to access elements from code, classic geElementbyId doesnt work
 
-I need to acccess
-- f7searchbar fpr global search issue,
-- tabs in call page in order to change tab from code at 
+
+- f7searchbar for global search issue,
+cant be solved yet
+----------------------------------------
+- tabs in call page in order to change tab from code
+
+workaorund:currently I defined 3 different call pages in which every one has another active tab item
+
+----------------------------------------
+
+if I go some pages and return dialpad, makes buttons shrink
+couldnt solve it yet
+
+making every page style scoped doesnt solve the problem
+and if I remove scoped in dialpad, bottom tabs gone
