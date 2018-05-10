@@ -5,8 +5,7 @@
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title Dialpad
   .modal-container2
-    //-input.form-control(type='text', v-model='callee', placeholder='Username or Number...')
-    f7-input(name='callee', placeholder='Username or Number...', type='text', :value='callee', @input='callee = $event.target.value')
+    f7-input(autofocus=true, name='callee', placeholder='Enter a name or number...', type='text', :value='callee', @input='callee = $event.target.value')
     span.input-group-btn(v-show='hasInput')
       button.backspace-button(type='button', @click="callee = ''")
         i
@@ -18,49 +17,49 @@
       .keypad.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
         .keypad-container.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
           div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
-            button
+            button(type='button', @click="press(1)")
               .keypad-button-number 1
               .keypad-button-text
-            button
+            button(@click='press(2)')
               .keypad-button-number 2
               .keypad-button-text
                 | ABC
-            button
+            button(@click='press(3)')
               .keypad-button-number 3
               .keypad-button-text
                 | DEF
           div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
-            button
+            button(@click='press(4)')
               .keypad-button-number 4
               .keypad-button-text
                 | GHI
-            button
+            button(@click='press(5)')
               .keypad-button-number 5
               .keypad-button-text
                 | JKL
-            button
+            button(@click='press(6)')
               .keypad-button-number 6
               .keypad-button-text
                 | MNO
           div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
-            button
+            button(@click='press(7)')
               .keypad-button-number 7
               .keypad-button-text
                 | PQRS
-            button
+            button(@click='press(8)')
               .keypad-button-number 8
               .keypad-button-text
                 | TUV
-            button
+            button(@click='press(9)')
               .keypad-button-number 9
               .keypad-button-text
                 | WXYZ
           div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
-            button
+            button(@click='press(1)')
               | *
-            button
+            button(@click='press(1)')
               | 0
-            button
+            button(@click='press(1)')
               | #
   // Additional "tabbar-labels" class
   .toolbar.toolbar-bottom-md.tabbar-labels.tabBackground
@@ -132,6 +131,7 @@ export default {
       this.$f7.popup.open(popupLanguage, true);
     },
     press(character) {
+      console.log('pressed ' + character)
       this.callee = this.callee + character;
       // vm.dialValue = vm.dialValue + '6'
     },
@@ -404,7 +404,8 @@ export default {
 
 input[type="text"]
 {
-    font-size:24px;
+    font-size:20px;
     color: #1e90ff;
+    font-style: italic;
 }
 </style>
