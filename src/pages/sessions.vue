@@ -8,7 +8,7 @@ f7-page
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   f7-block-title(v-if="getCalls1") ACTIVE CALL
   f7-list
-   f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("call", group.calleeName, group.to)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
+   f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("audio", group.calleeName, group.to)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
   f7-block-title ACTIVE CHAT
   f7-list
     ul
@@ -88,13 +88,10 @@ export default {
     goCallPage: function(mode, fullName, id) {
       this.$store.commit('SET_PARTICIPANT', fullName);
       this.$store.commit('SET_CALLEE', id);
+      this.$store.commit('SET_STARTCALL', false);
       // this.popup-close=''
       this.$store.commit('SET_ACTIVECALLTAB', mode);
-      if (mode === 'chat') {
-        this.$f7router.navigate('/call');
-      } else {
-        this.$f7router.navigate('/callAudio');
-      }
+      this.$f7router.navigate('/call');
     },
 
     openPopupMessage: function(conversationId) {

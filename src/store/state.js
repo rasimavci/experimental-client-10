@@ -23,5 +23,6 @@ export default {
   directory: [{firstName: '', lastName: ''}],
   self: {},
   callee: '',
-  participant: ''
+  participant: '',
+  startCall: false
 }

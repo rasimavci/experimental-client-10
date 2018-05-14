@@ -93,7 +93,7 @@
     #tab-4.page-content.tab  5
 
 </template>
-activeCallState
+
 <script>
 import { mapState, mapGetters } from 'vuex';
 export default {
@@ -117,13 +117,10 @@ export default {
       console.log('callee ' + this.callee)
       this.$store.commit('SET_ACTIVECALLTAB', mode);
       this.$store.commit('SET_CALLEE', this.callee);
+      this.$store.commit('SET_STARTCALL', true);
       this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
-      if(mode === 'audio') {
-       this.$f7router.navigate('/callAudio');
-      } else if (mode ==='video') {
-        this.$f7router.navigate('/callVideo');
-      }else {this.$f7router.navigate('/call');
-      }
+      this.$f7router.navigate('/call');
+
       }
 
     },

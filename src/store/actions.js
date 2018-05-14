@@ -235,6 +235,7 @@ export const sendDtmf = ({commit}, tone) => {
       kandy.changeInputDevices(state.activeCall.id);
   }
 
+
 // Functions
 
 // Service functions
@@ -289,6 +290,15 @@ function addEventListeners () {
     store.commit('SET_ACTIVE_CALL', params)
   })
 
+  kandy.on('call:receive', params => {
+    let incomingCallData = {
+      callId: params.callId,
+      active: true
+    }
+    store.commit('SET_INCOMING_CALL', incomingCallData)
+    store.commit('TOGGLE_INCOMING_CALL_MODAL')
+  })
+
   kandy.on('contacts:change', params => {
     store.commit('REFRESH_CONTACTS', params.contacts)
   })
@@ -337,6 +347,11 @@ function addEventListeners () {
   kandy.on('callHistory:change', params => {
     let logs = kandy.call.history.get()
     store.commit('REFRESH_CALLLOGS', logs)
+  })
+
+  kandy.on('presence:change', res => {
+    // console.log(res)
+    // store.dispatch('setContactPresence', res)
   })
 }
 
@@ -421,3 +436,9 @@ export const setPresence = ({ commit }, args) => {
   )
   kandy.presence.update(params.status, params.activity, params.note)
 }
+
+export const getPresence = ({ commit }, args) => {
+  const deneme = kandy.presence.get('ravci@genband.com')
+  console.log('presence' + deneme)
+}
+

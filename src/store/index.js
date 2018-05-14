@@ -22,9 +22,12 @@ const store = new Vuex.Store({
     [types.SET_CALLEE] (state, callee) {
       state.callee = callee
       console.log('callee ' + callee)
-    },    
+    },
     [types.SET_PARTICIPANT] (state, participant) {
       state.participant = participant
+    },
+    [types.SET_STARTCALL] (state, startCall) {
+      state.startCall = startCall
     },
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source

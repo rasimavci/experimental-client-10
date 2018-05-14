@@ -4,25 +4,25 @@
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{getCalleeName}}
-    f7-nav-right.end-button-color(v-if="checkActiveCall")
+    f7-nav-right.end-button-color(v-if="onCall")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
-    f7-nav-right(v-if="!checkActiveCall")
+    f7-nav-right(v-if="!onCall")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:phone_in_talk', panel-open='right', @click="makeCall(false)")
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
     .toolbar-inner
-      a.tab-link.b.tab-link-active(href='#tab-1')
+      a.tab-link.b(href='#tab-1', :class="getActiveTabChat")
         // Different icons for iOS and MD themes
         // Label text
         span.tabbar-label CHAT
-      a.tab-link.b(href='#tab-2')
-        span.tabbar-label VOICE
-      a.tab-link.b(href='#tab-3')
+      a.tab-link.b(href='#tab-2', :class="getActiveTabAudio")
+       span.tabbar-label VOICE
+      a.tab-link.b(href='#tab-3', :class="getActiveTabVideo")
         span.tabbar-label VIDEO
       a.tab-link.b(href='#tab-4')
         span.tabbar-label PEOPLE
   .tabs
-    #tab-1.page-content.tab.tab-active
+    #tab-1.page-content.tab(:class="tabActiveChat")
       .page-content.messages-content.a
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
           left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
@@ -38,7 +38,7 @@
             i.icon.f7-icons.ios-only more_vert_fill
             i.icon.material-icons.md-only near_me
         .messagebar-sheet
-    #tab-2.page-content.tab
+    #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
         .keypad(v-if="checkActiveCall")
           .keypad-container
@@ -104,7 +104,7 @@
           a.tab-link.b(href='#tab-8', @click='mute()')
             i.icon.f7-icons.ios-only mic_off_fill
             i.icon.material-icons.md-only mic_off
-    #tab-3.page-content.tab
+    #tab-3.page-content.tab(:class="tabActiveVideo")
       .page-content.messages-content.a
         .call-button-container.action(@click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
@@ -174,6 +174,7 @@ export default {
       contact: {},
       contactType: '',
       activeTab: false,
+      getActiveTab: true,
     };
   },
   components: {
@@ -182,6 +183,8 @@ export default {
   },
   mounted() {
     let contacts = this.$store.state.contacts;
+    const startCall = this.$store.state.startCall
+    this.$store.commit('SET_STARTCALL', false);
     this.contactType = 'corporate';
     contacts.forEach(contact1 => {
       if (contact1.primaryContact === this.$store.state.callee) {
@@ -192,15 +195,11 @@ export default {
     this.getContactInfo();
     this.callee = this.$store.state.callee;
     this.conversationId = this.$store.state.callee;
-    if (this.$store.state.activeCallTab === 'audio') {
+    if (this.$store.state.activeCallTab === 'audio' & startCall) {
       console.log('call with audio to ' + this.$store.state.callee);
       this.makeCall(false);
-    } else if (this.$store.state.activeCallTab === 'video') {
+    } else if (this.$store.state.activeCallTab === 'video' && startCall) {
       console.log('call with video');
-    } else if (this.$store.state.activeCallTab === 'chat') {
-      console.log('call with chat');
-    } else {
-      console.log('call with');
     }
   },
   methods: {
@@ -307,7 +306,6 @@ export default {
     ...mapGetters(['contacts', 'conversations']),
     filtredMessages() {
       let resultArray = [];
-      //this.conversationId = this.$store.state.callee;
       if (this.conversations) {
         for (let i = 0; i < this.conversations.length; i++) {
           if (this.conversations[i].conversationId === this.conversationId) {
@@ -325,16 +323,16 @@ export default {
       return this.$store.state.activeCall.state;
     },
     getCalleeName() {
-      // let hmm = this.$store.state.activeCall.state;
-      // let hmm2 = this.$store.state.activeCall.id;
-      // console.log('active call status ' + hmm);
-      // console.log('active call id ' + hmm2);
-      // if (this.$store.state.activeCall.state === 'IN_CALL') {
-      //   this.onCall = true;
-      // } else {
-      //   this.onCall = false;
-      // }
-      return '  ' + this.$store.state.participant; // .calleeName;
+      let hmm = this.$store.state.activeCall.state;
+      let hmm2 = this.$store.state.activeCall.id;
+      console.log('active call status ' + hmm);
+      console.log('active call id ' + hmm2);
+      if (this.$store.state.activeCall.state === 'IN_CALL') {
+        this.onCall = true;
+      } else {
+        this.onCall = false;
+      }
+      return '  ' + this.$store.state.activeCall.calleeName;
     },
 
     checkActiveCall() {
@@ -345,15 +343,54 @@ export default {
         return false;
       }
     },
-
-    getActiveCallState() {
-      const ActiveCallState = this.$store.state.activeCall.state;
-      if (ActiveCallState === 'IN_CALL') {
-        return true;
+    getActiveTabAudio() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'audio') {
+        return 'tab-link-active'
       } else {
-        return false;
+        return ''
       }
     },
+    getActiveTabVideo() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'video') {
+        return 'tab-link-active'
+      } else {
+        return ''
+      }
+    },
+    getActiveTabChat() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'chat') {
+        return 'tab-link-active'
+      } else {
+        return ''
+      }
+    },
+    tabActiveChat() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'chat') {
+        return 'tab-active'
+      } else {
+        return ''
+      }
+    },
+    tabActiveAudio() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'audio') {
+        return 'tab-active'
+      } else {
+        return ''
+      }
+    },
+    tabActiveVideo() {
+      const activeTab = this.$store.state.activeCallTab;
+      if (activeTab === 'video') {
+        return 'tab-active'
+      } else {
+        return ''
+      }
+    }
   },
 };
 </script>

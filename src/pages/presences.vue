@@ -17,7 +17,7 @@ f7-page
   f7-block(strong='')
     f7-row.block_container
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='',onclick="{alert('Demo', 'Smart Office')}") About
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='',@click="about") About
     f7-row.block_container(tag='p')
       f7-col(width='85')
         f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='', @click='doLogout') Logout
@@ -65,22 +65,17 @@ export default {
     },
   },
   methods: {
-    dene: function() {
-      // myApp.alert('You clicked first button!');
+    about() {
+       this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
     },
     setPresence: function(mode) {
       this.$store.dispatch('setPresence', mode);
+      this.$store.dispatch('getPresence', mode);
     },
     doLogout() {
       this.$store.dispatch('disconnect');
       let vm = this;
       this.$f7.preloader.show();
-      // this.setCredentials({
-      //   user: this.username,
-      //   admin: true,
-      //   loged: true,
-      //   token: 'SOME_TOKEN'
-      // })
       setTimeout(() => {
         vm.$f7.preloader.hide();
         vm.$f7router.navigate('/login');
