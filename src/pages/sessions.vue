@@ -9,8 +9,8 @@ f7-page
   f7-block-title(v-if="getCalls1") ACTIVE CALL
   f7-list
    f7-list-item.my-class(v-for="group in getCalls" @click='goCallPage("audio", group.calleeName, group.to)' :key="group.name" :title="group.calleeName + ' ' + group.state" href="#popupAddContact")
-  f7-block-title ACTIVE CHAT
-  f7-list
+  f7-block-title(v-if="checkActiveConv") ACTIVE CHAT
+  f7-list.my-class
     ul
       li(v-for='conv in getConversations' :key="conv.key" @click='goCallPage("chat", conv.fullName, conv.conversationId)')
         .item-content
@@ -41,7 +41,7 @@ f7-page
             a.tab-link.tab-link-active.b(href='#tab-5', @click='deleteMessage()')
               i.icon.f7-icons.ios-only delete_fill
               i.icon.material-icons.md-only delete
-            a.tab-link.b(href='#tab-6', @click='goCall()')
+            a.tab-link.b(href='#tab-6', @click='goCallPage("chat")')
               f7-link(popup-close='')
                i.icon.f7-icons.ios-only reply_fill
                i.icon.material-icons.md-only reply
@@ -114,13 +114,21 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['contacts', 'conversations']),
+    ...mapGetters(['contacts', 'conversations', 'activeConversations']),
     getCalls() {
       return this.$store.state.sessions;
     },
     getCalls1() {
       const dene = this.$store.state.sessions;
       if (dene.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    checkActiveConv() {
+      const dene = this.$store.state.sessions;
+      if (this.activeConversations.length === 0) {
         return false;
       } else {
         return true;
@@ -144,23 +152,25 @@ export default {
         if (resultArray) {
           return resultArray;
         }
-        // return resultArray;
       }
     },
     getConversations() {
-      let conversations = this.$store.state.conversations;
+      // arrow function needs to be used here in order to access this inside filter.
+      var filtered = this.conversations.filter(o => this.activeConversations.indexOf(o.conversationId) > -1);
+      // ES 6
+
       let contacts = this.$store.state.contacts;
-      conversations.forEach(conv => {
+      filtered.forEach(conv => {
         conv.fullName = conv.conversationId;
-        contacts.forEach(contact => {
+        contacts.some(contact => {
           if (contact.primaryContact === conv.conversationId) {
             conv.photoUrl = contact.photoUrl;
             conv.fullName = contact.firstName + ' ' + contact.lastName;
-            console.log('conv photo url' + conv.photoUrl);
+            return true
           }
         });
       });
-      return conversations;
+      return filtered
     },
     getActiveCall() {
       return this.$store.state.activeCall.state;

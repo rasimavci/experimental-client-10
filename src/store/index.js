@@ -65,7 +65,18 @@ const store = new Vuex.Store({
     [types.SET_CONVERSATIONS] (state, conversations) {
       state.conversations = conversations
     },
+    [types.ADD_ACTIVECONVERSATIONS] (state, conversationId) {
+      state.activeConversations.indexOf(conversationId) === -1 ? state.activeConversations.push(conversationId) : console.log("This conv already exists");
 
+      // state.conversations.forEach((conv) => {
+      //   if (conv.conversationId = conversationId)
+      // })
+      // state.conversations = conversations
+    },
+
+    [types.CLEAR_ACTIVECONVERSATIONS] (state) {
+      state.activeConversations = []
+    },
     [types.REFRESH_CALLLOGS] (state, logs) {
       console.log('refresh call logs')
       state.history = logs

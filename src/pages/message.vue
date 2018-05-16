@@ -7,9 +7,9 @@ f7-page
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   f7-block-title Saved {{getConvLength}}
-  f7-list
+  f7-list.my-class
     ul
-      li(v-for='conv in getConversations' :key="conv.key" @click='openPopupMessage(conv.conversationId)')
+      li(v-for='conv in getConversations' :key="conv.key" @click='openPopupMessage(true, conv.fullName, conv.conversationId)')
         .item-content
           .item-media
             img.avatar-circle(:src="conv.photoUrl || noImg" width="44")
@@ -17,7 +17,7 @@ f7-page
             //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
           .item-inner
             .item-title-row
-              .item-title {{conv.conversationId}}
+              .item-title {{conv.fullName}}
             //-img(:src='presenceConnected')
             .item-subtitle {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
   f7-popup#popupMessage
@@ -38,7 +38,7 @@ f7-page
             a.tab-link.tab-link-active.b(href='#tab-5', @click='deleteMessage()')
               i.icon.f7-icons.ios-only delete_fill
               i.icon.material-icons.md-only delete
-            a.tab-link.b(href='#tab-6', @click='goCall()')
+            a.tab-link.b(href='#tab-6', @click='goCallPage()')
               f7-link(popup-close='')
                i.icon.f7-icons.ios-only reply_fill
                i.icon.material-icons.md-only reply
@@ -80,13 +80,16 @@ export default {
     closePopup() {
       this.$f7.popup.close('#popupMessage', true);
     },
-    goCall: function() {
+    goCallPage: function() {
       // this.popup-close=''
       this.$f7router.navigate('/call');
     },
-    openPopupMessage: function(conversationId) {
+    openPopupMessage: function(mode, fullName, conversationId) {
       this.conversationId = conversationId;
       this.$f7.popup.open(popupMessage, true);
+      this.$store.commit('SET_PARTICIPANT', fullName);
+      this.$store.commit('SET_CALLEE', conversationId);
+      this.$store.commit('SET_STARTCALL', false);
     },
     deleteMessage: function() {
       console.log('sorry not implemented yet');
@@ -132,6 +135,7 @@ export default {
         contacts.forEach(contact => {
           if (contact.primaryContact === conv.conversationId) {
             conv.photoUrl = contact.photoUrl;
+            conv.fullName = contact.firstName + ' ' + contact.lastName;
             console.log('conv photo url' + conv.photoUrl);
           }
         });
@@ -141,7 +145,12 @@ export default {
 
     getConvLength() {
       const conversations = this.$store.state.conversations;
-      return conversations.length;
+      if(conversations) {
+        return conversations.length;
+      } else {
+        return ''
+      }
+
     },
     getActiveCall() {
       return '- ' + this.$store.state.activeCall.state;

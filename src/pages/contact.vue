@@ -6,11 +6,14 @@ f7-page
     f7-nav-title Contacts
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
-  f7-searchbar(customSearch: true, disable-link-text="Cancel" search-container="#searchList" placeholder="Search in contacts" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+  f7-searchbar(v-show='getContactSource', disable-link-text="Cancel" search-container="#searchList" placeholder="Search in contacts" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+  f7-searchbar(v-show='!getContactSource', custom-search=true, disable-link-text="Cancel" placeholder="Search in directory" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-list.searchbar-not-found
    f7-list-item(title="No contacts found")
-  f7-list.searchbar-found(id='searchList')
+  f7-list.searchbar-found(v-show='getContactSource', id='searchList')
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
+  f7-list(v-show='!getContactSource')
+   f7-list-item(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
    h5 {{key}}
    f7-list(media-list="")
@@ -268,10 +271,11 @@ import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'contact');
-    this.$store.dispatch('search', 'Ahmet');
+    // this.$store.dispatch('search', 'Ahmet');
   },
   data: function() {
     return {
+      foundItems: [],
       contacts: [],
       noImg: NoImg,
       presenceConnected: PresenceConnected,
@@ -343,15 +347,7 @@ export default {
       this.$f7.popup.open(popupContextMenu, true);
     },
     onSearch: function(query, found) {
-      setTimeout(() => {}, 2000);
-
-      if (query.value !== '') {
-        this.$store.dispatch('search', query.value);
-      }
-      // setTimeout(() => {
-      //   //document.getElementById('f7-searchbar').search(query);
-      //   this.dene; // this.$store.dispatch('search', query.value);
-      // }, 2000);
+      setTimeout(() => {this.$store.dispatch('search', query.value);}, 2000);
     },
     onClear: function(event) {
       console.log('clear');
@@ -494,10 +490,11 @@ export default {
         }
         return this.contacts;
       } else {
-        setTimeout(() => {
-          //document.getElementById('f7-searchbar').search(query);
-          // this.$store.dispatch('search', query.value);
-        }, 2000);
+        // setTimeout(() => {
+        //   //document.getElementById('f7-searchbar').search(query);
+        //   // this.$store.dispatch('search', query.value);
+        // }, 2000);
+        this.foundItems = this.$store.state.directory;
         return this.$store.state.directory;
       }
     },
@@ -509,8 +506,8 @@ export default {
       return _.groupBy(contacts, 'name');
     },
     getContactSource() {
-      this.contactSource = this.$store.state.contactSource === 'personal';
-      if (this.contactSource === 'personal') {
+      let contactSource = this.$store.state.contactSource;
+      if (contactSource === 'personal') {
         return true;
       } else {
         return false;

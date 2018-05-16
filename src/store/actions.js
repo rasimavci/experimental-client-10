@@ -267,6 +267,7 @@ function addEventListeners () {
   kandy.on('auth:change', function (data) {
     console.log('auth:change Event Data: ' + JSON.stringify(data))
     if (kandy.getConnection().isConnected === true) {
+      store.commit('CLEAR_ACTIVECONVERSATIONS')
       getDevices()
       getMessages()
       fetchCallHistory()
@@ -308,6 +309,7 @@ function addEventListeners () {
   })
 
   kandy.on('conversations:change', res => {
+    store.commit('ADD_ACTIVECONVERSATIONS', res.conversationId)
     let conv = kandy.conversation.get(res.conversationId)
     let messages = {
       conversationId: res.conversationId,
@@ -318,6 +320,7 @@ function addEventListeners () {
   })
 
   kandy.on('messages:change', res => {
+    store.commit('ADD_ACTIVECONVERSATIONS', res.conversationId)
     let conv = kandy.conversation.get(res.conversationId)
     let messages = {
       conversationId: res.conversationId,

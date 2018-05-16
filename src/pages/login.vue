@@ -9,7 +9,7 @@
           f7-input(name='username', placeholder='Username', type='text', :value='username', @input='username = $event.target.value')
         f7-list-item
           f7-label Password
-          f7-input(name='password', type='password', placeholder='Password', :value='username', @input='password = $event.target.value')
+          f7-input(name='password', type='password', placeholder='Password', :value='password', @input='password = $event.target.value')
       .list
         ul
           li

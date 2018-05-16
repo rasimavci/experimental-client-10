@@ -3,7 +3,7 @@
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title {{getCalleeName}}
+    f7-nav-title {{getParticipant}}
     f7-nav-right.end-button-color(v-if="onCall")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
     f7-nav-right(v-if="!onCall")
@@ -334,7 +334,9 @@ export default {
       }
       return '  ' + this.$store.state.activeCall.calleeName;
     },
-
+    getParticipant() {
+      return this.$store.state.participant;
+    },
     checkActiveCall() {
       const ActiveCallState = this.$store.state.activeCall.state;
       if (ActiveCallState === 'IN_CALL') {

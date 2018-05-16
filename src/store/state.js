@@ -9,6 +9,7 @@ export default {
   contacts: [],
   activeCall: {},
   conversations: [{conversationId: 'no conversations', messages:[]}],
+  activeConversations: [],
   messages: [],
   history: [],
   calls: [],
