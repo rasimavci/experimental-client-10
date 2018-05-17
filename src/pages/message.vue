@@ -122,7 +122,7 @@ export default {
         console.log(
           //'first message in the Array ' + resultArray[0].parts[0].text
         );
-        if(resultArray) {
+        if (resultArray) {
           return resultArray
         }
         // return resultArray;
@@ -131,6 +131,7 @@ export default {
     getConversations() {
       let conversations = this.$store.state.conversations;
       let contacts = this.$store.state.contacts;
+      if (conversations) {
       conversations.forEach(conv => {
         contacts.forEach(contact => {
           if (contact.primaryContact === conv.conversationId) {
@@ -140,6 +141,7 @@ export default {
           }
         });
       });
+      }
       return conversations;
     },
 

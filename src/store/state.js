@@ -20,6 +20,7 @@ export default {
   currentPage: '',
   contactSource: 'personal',
   sortBy: 'firstName',
+  logType: 'all',
   activeCallTab: 'chat',
   directory: [{firstName: '', lastName: ''}],
   self: {},

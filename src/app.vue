@@ -62,7 +62,6 @@ export default {
   },
   computed: {
     getPage() {
-      console.log('heyyo ' + this.$store.state.currentPage);
       return this.$store.state.currentPage;
     },
   },

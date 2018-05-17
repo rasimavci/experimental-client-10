@@ -1,5 +1,5 @@
 <template lang='pug'>
-f7-page
+f7-page.div-container
   f7-navbar
     f7-list-item(link='/presences/', view='#main-view', panel-close='')
       .item-content
@@ -9,7 +9,7 @@ f7-page
               img.avatar-circle(:src="getPhotoUrl" width="50" height="50")
             .flex.column
                h3 {{getUserName}}
-  f7-list#navList
+  f7-list.thick#navList(no-hairlines-between)
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
@@ -24,7 +24,7 @@ f7-page
      i.icon.material-icons.md-only content_copy
     f7-list-item(link='/conference/', title='Conference', view='#main-view', panel-close='')
      i.icon.material-icons.md-only supervisor_account
-    f7-list-item(link='/settings/', title='Settings', view='#main-view', panel-close='')
+    f7-list-item.my-image-botton(link='/settings/', title='Settings', view='#main-view', panel-close='')
      i.icon.material-icons.md-only settings
 </template>
 <script>
@@ -34,8 +34,10 @@ export default {
   computed: {
     getUserName() {
       const user = this.$store.state.credentials.user;
+      if(user) {
       const name = user.substring(0, user.indexOf('@'));
       return name
+            }
     },
     getPhotoUrl() {
       const photoUrl1 =
@@ -120,5 +122,17 @@ export default {
 
 .avatar-circle {
   border-radius: 25px;
+}
+
+.thick {
+    font-weight: bold;
+}
+
+.div-container{
+    	position:relative;
+}
+.my-image-botton{
+    	position:absolute;
+    	bottom:-400px;
 }
 </style>

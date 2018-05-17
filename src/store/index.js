@@ -38,6 +38,9 @@ const store = new Vuex.Store({
     [types.SET_SORTBY] (state, sortBy) {
       state.sortBy = sortBy
     },
+    [types.SET_LOGTYPE] (state, logType) {
+      state.logType = logType
+    },
     [types.UPDATE_CURRENTPAGE] (state, page) {
       state.currentPage = page
     },

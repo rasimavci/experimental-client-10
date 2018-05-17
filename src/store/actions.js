@@ -121,19 +121,10 @@ function sendMessage (participant, messagetoSend) {
   const currentConvo = kandy.conversation.get(participant)
   let convoExist = false
   const message = currentConvo.createMessage(messagetoSend)
-
-  // dont add new conv if already exist
-  // store.state.conversations.forEach(function (conv) {
-  //   if (conv.destination === currentConvo.destination) convoExist = true
-  // })
-  // if (!convoExist) {
-  //   // store.commit('ADD_CONVERSATION', currentConvo)
-  // }
   message.send()
   Object.keys(currentConvo).forEach(function (key) {
-    console.log('heyyo ' + key, currentConvo[key])
+    //console.log(key, currentConvo[key])
   })
-  // console.log('currentConvo: ' + currentConvo)
 }
 
 export const startVideo = ({commit}) => {
@@ -160,9 +151,7 @@ export const stopScreenshare =({commit}) => {
 }
 
 export const directTransfer = ({commit}, destination) => {
-  var callId = firstCallId; //getSelectedCall();
-  //var destination = document.getElementById('transfer-to').value;
-  kandy.directTransfer(callId, destination);
+  kandy.directTransfer(state.activeCall.id, destination);
 }
 
 /**
@@ -234,7 +223,6 @@ export const sendDtmf = ({commit}, tone) => {
   export const changeInputDevices= () => {
       kandy.changeInputDevices(state.activeCall.id);
   }
-
 
 // Functions
 

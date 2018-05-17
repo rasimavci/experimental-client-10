@@ -3,42 +3,42 @@ f7-page
   f7-navbar(title='', sliding='')
   f7-block-title(v-if="getPage === 'contact'") Manage
   f7-list(v-if="getPage === 'contact'")
-    f7-list-item(@click="openCreateContactPopup", title='Create Contact', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="openCreateContactPopup", title='Create Contact', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'contact'") Sort By
   f7-list(v-if="getPage === 'contact'")
-    f7-list-item(@click="setSortBy('lastName')", title='Last Name', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setSortBy('lastName')", title='Last Name', view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="!getSortBy") check
-    f7-list-item(@click="setSortBy('firstName')", title='First Name', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setSortBy('firstName')", title='First Name', view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getSortBy") check
   f7-block-title(v-if="getPage === 'contact'") Sources
   f7-list(v-if="getPage === 'contact'")
-    f7-list-item(@click="setContactSource('personal')", title='Personal Addressbook', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setContactSource('personal')", title='Personal Addressbook', view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getContactSource") check
-    f7-list-item(@click="setContactSource('global')", title='Global Addressbook', view='#main-view', panel-close='')
-     i.icon.material-icons.md-only(v-if="!getContactSource") check    
+    f7-list-item.my-class(@click="setContactSource('global')", title='Global Addressbook', view='#main-view', panel-close='')
+     i.icon.material-icons.md-only(v-if="!getContactSource") check
   f7-block-title(v-if="getPage === 'history'") Show..
   f7-list(v-if="getPage === 'history'")
-    f7-list-item(link='/about/', title='Incoming Call', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='Incoming Call', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='Outgoing Call', view='#main-view', panel-close='')
-    f7-list-item(link='/about/', title='Missed Call', view='#main-view', panel-close='')
-    f7-list-item(link='/form/', title='Message', view='#main-view', panel-close='')
-    f7-list-item(link='/form/', title='Conference', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='Outgoing Call', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('missed')", title='Missed Call', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('message')", title='Message', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('conference')", title='Conference', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'messages'") View
   f7-list(v-if="getPage === 'messages'")
-    f7-list-item(link='/about/', title='New', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='New', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='Saved', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='Saved', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'favorites'") Display As
   f7-list(v-if="getPage === 'favorites'")
-    f7-list-item(link='/about/', title='Tiles', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='Tiles', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='List', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='List', view='#main-view', panel-close='')
   f7-block-title(v-if="getPage === 'favorites'") Sort By
   f7-list(v-if="getPage === 'favorites'")
-    f7-list-item(link='/about/', title='Last Name1', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='Last Name1', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(link='/form/', title='First Name1', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", title='First Name1', view='#main-view', panel-close='')
 </template>
 <script>
 export default {
@@ -50,11 +50,9 @@ export default {
   },
   computed: {
       getPage() {
-        console.log('heyyo ' + this.$store.state.currentPage)
         return this.$store.state.currentPage
       },
       getContactSource() {
-        console.log('heyyo ' + this.$store.state.currentPage)
         if(this.$store.state.contactSource === 'personal') {
         return true
         } else {
@@ -63,14 +61,13 @@ export default {
 
       },
       getSortBy() {
-        console.log('heyyo ' + this.$store.state.sortBy)
         if(this.$store.state.sortBy === 'firstName') {
         return true
         } else {
           return false
         }
 
-      }            
+      }
     },
   methods: {
     openCreateContactPopup: function() {
@@ -81,7 +78,16 @@ export default {
     },
     setSortBy: function(source) {
     this.$store.commit("SET_SORTBY", source);
-    }    
+    },
+    setLogType: function(type) {
+    this.$store.commit("SET_LOGTYPE", source);
+    }
 }
 }
 </script>
+
+<style>
+.my-class {
+  cursor: default;
+}
+</style>

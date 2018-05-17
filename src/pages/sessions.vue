@@ -156,9 +156,9 @@ export default {
     },
     getConversations() {
       // arrow function needs to be used here in order to access this inside filter.
-      var filtered = this.conversations.filter(o => this.activeConversations.indexOf(o.conversationId) > -1);
+      if (this.conversations) {
+        var filtered = this.conversations.filter(o => this.activeConversations.indexOf(o.conversationId) > -1);
       // ES 6
-
       let contacts = this.$store.state.contacts;
       filtered.forEach(conv => {
         conv.fullName = conv.conversationId;
@@ -171,6 +171,7 @@ export default {
         });
       });
       return filtered
+      }
     },
     getActiveCall() {
       return this.$store.state.activeCall.state;
