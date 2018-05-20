@@ -4,9 +4,9 @@
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{getParticipant}}
-    f7-nav-right.end-button-color(v-if="onCall")
+    f7-nav-right.end-button-color(v-if="activeCall.state !== 'ENDED'")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
-    f7-nav-right(v-if="!onCall")
+    f7-nav-right(v-if="activeCall.state === 'ENDED'")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:phone_in_talk', panel-open='right', @click="makeCall(false)")
   // Additional "tabbar-labels" class
   .toolbar.tabbar-labels
@@ -22,7 +22,7 @@
       a.tab-link.b(href='#tab-4')
         span.tabbar-label PEOPLE
   .tabs
-    #tab-1.page-content.tab(:class="tabActiveChat")
+    #tab-1.page-content.tab.sheet-open(:class="tabActiveChat", data-sheet=".my-sheet2")
       .page-content.messages-content.a
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
           left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
@@ -40,6 +40,9 @@
         .messagebar-sheet
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
+        //-f7-block(strong='')
+        p.a2altta2.my-font(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
+        p.a2altta2.my-font(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
         .keypad(v-if="checkActiveCall")
           .keypad-container
             div
@@ -92,7 +95,7 @@
           | Call {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
-          a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
+          a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
             i.icon.f7-icons.ios-only volume_up_fill
             i.icon.material-icons.md-only volume_up
           a.tab-link.b(href='#tab-6', @click='add()')
@@ -100,18 +103,21 @@
             i.icon.material-icons.md-only person_add
           a.tab-link.b(href='#tab-7', @click='hold()')
             i.icon.f7-icons.ios-only phone_paused_fill
-            i.icon.material-icons.md-only phone_paused
+            i.icon.material-icons.md-only(v-if="activeCall.state !== 'ON_HOLD'") phone_paused
+            i.icon.material-icons.md-only.my-color(v-if="activeCall.state === 'ON_HOLD'") phone_paused
           a.tab-link.b(href='#tab-8', @click='mute()')
-            i.icon.f7-icons.ios-only mic_off_fill
-            i.icon.material-icons.md-only mic_off
+            i.icon.f7-icons.ios-onlymic_off_fill
+            i.icon.material-icons.md-only(v-if="!activeCall.muted") mic_off
+            i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
       .page-content.messages-content.a
-        .call-button-container.action(@click='makeCall(true)')
+        p.a2altta2(v-if="activeCall.state !== 'ENDED'") {{activeCall.state}}
+        .call-button-container.action.my-cursor(v-if="getVideoCallOption", @click='makeCall(true)')
           img(src='../assets/demo/camera_outline_white.png')
           | Video {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
-          a.tab-link.tab-link-active.b(href='#tab-5', @click='volumeUp()')
+          a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
             i.icon.f7-icons.ios-only volume_up_fill
             i.icon.material-icons.md-only volume_up
           a.tab-link.b(href='#tab-6', @click='add()')
@@ -138,6 +144,19 @@
                .item-subtitle {{contactType}}
         //- f7-list-item(@click='makeCall(false)' :title="callee" href="#popupAddContact") Corporate
         //-  img.avatar-circle.test-icon-left(:src="noImg")
+
+  .sheet-modal.my-sheet2
+    .toolbar
+      .toolbar-inner
+        .left
+        .right
+          a.link.sheet-close.Linklarge(href="#") Cancel
+    .sheet-modal-inner
+      .block
+        f7-list(form='')
+         f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'Spearkerphone'")
+         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'Earpiece'")
+         f7-list-item(:key='3', radio='', name='my-radio', :checked='3 === 1', :value='3', :title="'Blootooth Headset'")
 </template>
 
 
@@ -170,7 +189,6 @@ export default {
       showbottombar: false,
       conversationId: '',
       selectedContacts: [],
-      onCall: true,
       contact: {},
       contactType: '',
       activeTab: false,
@@ -197,7 +215,7 @@ export default {
     this.conversationId = this.$store.state.callee;
     if (this.$store.state.activeCallTab === 'audio' & startCall) {
       console.log('call with audio to ' + this.$store.state.callee);
-      this.makeCall(false);
+      this.makeInitialCall(false);
     } else if (this.$store.state.activeCallTab === 'video' && startCall) {
       console.log('call with video');
     }
@@ -207,7 +225,6 @@ export default {
       this.$f7.popup.open(popupLanguage, true);
     },
     end() {
-      // this.onCall = false
       this.$store.dispatch('end');
     },
     getContactInfo() {
@@ -235,23 +252,33 @@ export default {
       this.$store.dispatch('send', messageToSend);
     },
     hold() {
-      this.$store.dispatch('hold', '');
+      if(this.activeCall.state === 'ON_HOLD') {
+        this.$store.dispatch('unhold', '');
+      } else {
+        this.$store.dispatch('hold', '');
+      }
+
     },
     mute() {
-      this.$store.dispatch('mute', '');
+      console.log(JSON.stringify(this.activeCall))
+      if(this.activeCall.muted === true) {
+        this.$store.dispatch('unmute', '');
+      } else {
+        this.$store.dispatch('mute', '');
+      }
     },
     add() {
       console.log('sorry, not implemented yet');
+      this.$store.commit('SET_STARTCALL', false);
+      this.$f7router.navigate('/history');
+      this.$f7router.navigate('/contact');
     },
     volumeUp() {
       console.log('sorry, not implemented yet');
     },
     makeCall(mode) {
-      this.onCall = true;
-      // console.log('activeCall State ' + this.activeCall.state)
-      // console.log('make call to ' + this.callee)
       // SET_ACTIVE_CALLID
-      if (this.getActiveCall !== 'true') {
+      if (!this.activeCall || this.activeCall.state === 'ENDED') {
         this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
@@ -269,17 +296,18 @@ export default {
         ];
         params.options = options;
         this.$store.dispatch('call', params);
-      } else {
-        // this.callee = this.$store.state.callee
-        this.$store.dispatch('end');
       }
-      console.log('make call operation finished.');
+      else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
+          this.$store.dispatch('startVideo');
+        } else {
+          this.$store.dispatch('end');
+        }
     },
-    makeCall2(mode) {
-      // console.log('activeCall State ' + this.activeCall.state)
-      // console.log('make call to ' + this.callee)
-      if (this.getActiveCall !== 'true') {
-        this.callee = 'oztemur@genband.com';
+    makeInitialCall(mode) {
+      // SET_ACTIVE_CALLID
+     // if there is no already session with the contact
+     // if (!this.activeCall || this.activeCall.state === 'ENDED') {
+        this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
           mode: mode,
@@ -296,14 +324,11 @@ export default {
         ];
         params.options = options;
         this.$store.dispatch('call', params);
-      } else {
-        this.$store.dispatch('end');
-      }
-      console.log('make call operation finished.');
-    },
+      //}
+    }
   },
   computed: {
-    ...mapGetters(['contacts', 'conversations']),
+    ...mapGetters(['contacts', 'conversations', 'activeCall']),
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {
@@ -319,19 +344,7 @@ export default {
         return resultArray;
       }
     },
-    getActiveCall() {
-      return this.$store.state.activeCall.state;
-    },
     getCalleeName() {
-      let hmm = this.$store.state.activeCall.state;
-      let hmm2 = this.$store.state.activeCall.id;
-      console.log('active call status ' + hmm);
-      console.log('active call id ' + hmm2);
-      if (this.$store.state.activeCall.state === 'IN_CALL') {
-        this.onCall = true;
-      } else {
-        this.onCall = false;
-      }
       return '  ' + this.$store.state.activeCall.calleeName;
     },
     getParticipant() {
@@ -392,6 +405,16 @@ export default {
       } else {
         return ''
       }
+    },
+    getVideoCallOption() {
+      //v-if="activeCall.state === 'ENDED' || (activeCall.state === 'IN_CALL' && !activeCall.sendingVideo)"
+      if(this.activeCall.state === 'ENDED') {
+        return true
+      } else if (this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
+        return true
+      } else {
+        return false
+      }
     }
   },
 };
@@ -449,6 +472,11 @@ export default {
   height: 100vh;
 }
 
+.a2altta2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .b {
   max-height: 40px;
   min-height: 40px;
@@ -458,6 +486,9 @@ export default {
   cursor: default;
 }
 
+.my-color {
+  color: red;
+}
 .action {
   display: flex;
   align-items: center;
@@ -465,5 +496,11 @@ export default {
 }
 .my-cursor {
   cursor: default;
+}
+
+.my-font[type="text"]
+{
+    font-size:20px;
+    font-weight: bold;
 }
 </style>

@@ -51,7 +51,7 @@ export const call = ({ commit }, params) => {
   }
   const options = {
     isAudioEnabled: true, // document.getElementById ('isAudioEnabled').checked,
-    isVideoEnabled: false, // document.getElementById ('isVideoEnabled').checked,
+    isVideoEnabled: true, // document.getElementById ('isVideoEnabled').checked,
     sendInitialVideo: false, // document.getElementById ('sendInitialVideo').checked,
     sendScreenShare: false, // document.getElementById ('sendScreenShare').checked,
     videoResolution: myVideoResolution,
@@ -84,14 +84,16 @@ export const reject = ({ commit }) => {}
 export const ignore = ({ commit }) => {}
 
 export const end = ({ commit, state }) => {
-  kandy.call.end(state.activeCall.id)
+  if (state.activeCall) {
+    kandy.call.end(state.activeCall.id)
+  }
 }
 
 export const hold = ({ commit, state }) => {
   kandy.call.hold(state.activeCall.id)
 }
 
-export const unhold = ({ commit }) => {
+export const unhold = ({ commit, state }) => {
   kandy.call.unhold(state.activeCall.id)
 }
 
@@ -117,7 +119,6 @@ export const search = ({ commit }, query) => {
   kandy.contacts.search(query, 'FIRSTNAME')
 }
 function sendMessage (participant, messagetoSend) {
-  // currentConvo = self.getConversation(participant)
   const currentConvo = kandy.conversation.get(participant)
   let convoExist = false
   const message = currentConvo.createMessage(messagetoSend)
@@ -128,11 +129,11 @@ function sendMessage (participant, messagetoSend) {
 }
 
 export const startVideo = ({commit}) => {
-  kandy.startVideo(state.activeCall.id);
+  kandy.call.startVideo(state.activeCall.id);
 }
 
 export const stopVideo = ({commit} )=> {
-  kandy.stopVideo(state.activeCall.id);
+  kandy.call.stopVideo(state.activeCall.id);
 }
 
 export const startScreenshare = ({commit}) => {

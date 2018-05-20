@@ -6,7 +6,10 @@ contact - add and edit issue (cant add properly, also problem with edit)
 favorites - needs a service,
 presences - show contact presences in contacts page
 login - login check at every page transition, go back to login if not logged in
-Dialog - A dialog should come from top whenever there is a call or message, (and they should be queued ad an improvement)
+notification - A notification should come from top whenever there is a call or message, (and they should be queued ad an improvement)
+	need 2 notifications
+	-one for incoming call
+	-one for active call, that one will be visible in other pages when there is active call
 history - ok - show contact image and icon for call direction
 message - ok - show contact image for conversations
 
@@ -21,10 +24,10 @@ contact page - for ContactDeails and Edit popups, fix image and icons, please co
 contact page - try to fit ContactDetails and Edit popups in one screen without scrolling, as in real SO mobile
 dialpad page - ok ? fix keypad and number area. make fontSize bigger for number area
 presences page- make bottom buttons not full size in width
-Conference - fix and put conference URL in page
+Conference - ok fix and put conference URL in page
 
 "bugs"....
-call page - ok after route from code, tabs are not working et all (for example go Dialpad and click bottom tabs)
+call page - ok - fixed- after route from code, tabs are not working et all (for example go Dialpad and click bottom tabs)
           - fixed with just route to another page first, for example history
 -just delete contact that has conversation with  and open those pages
 contact page - global search issue (sync problem, mostly result doesnt come ..)
@@ -39,17 +42,13 @@ Message - when open Call or Message page, if initial -hardcoded- id is not in co
 I need to acccess and run html elements inside code, dont know how to access elements from code, classic geElementbyId doesnt work
 
 
-- f7searchbar for global search issue,
-cant be solved yet
+- global search - fixed f7searchbar for global search issue
 ----------------------------------------
-- tabs in call page in order to change tab from code
+- change tab from code - fixed - changed with computedtabs in call page in order to change tab from code
 
-workaorund:currently I defined 3 different call pages in which every one has another active tab item
+deleted-workaorund:currently I defined 3 different call pages in which every one has another active tab item
 
 ----------------------------------------
-
-if I go some pages and return dialpad, makes buttons shrink
-couldnt solve it yet
-
-making every page style scoped doesnt solve the problem
-and if I remove scoped in dialpad, bottom tabs gone
+dialpad shrink problem - fixed - if I go some pages and return dialpad, makes buttons shrink
+	making every page style scoped doesnt solve the problem
+	and if I remove scoped in dialpad, bottom tabs gone

@@ -42,13 +42,17 @@ f7-page
 
 <script>
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+import NoImg from '../assets/demo/noimage.jpg';
 
 export default {
+
+
   created: function() {
     this.username = this.$store.state.credentials.user;
   },
   data() {
     return {
+      noImg: NoImg,
       fruit: 'apple',
       username: '',
     };
@@ -66,11 +70,53 @@ export default {
   },
   methods: {
     about() {
-       this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
+       //this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
+//        var notificationFull = this.$f7.notification.create({
+//   img: '<src="noImg">',
+//   icon: '<i class="icon demo-icon">7</i>',
+//   title: 'Framework7',
+//   titleRightText: 'now',
+//   subtitle: 'This is a subtitle',
+//   text: 'This is a simple notification message',
+//   closeTimeout: 3000,
+// });
+var that = this
+var notificationCallbackOnClose = this.$f7.notification.create({
+  icon: '<i class="icon demo-icon">7</i>',
+  title: 'Incoming Call',
+  titleRightText: 'now',
+  subtitle: 'Notification with close on click',
+  text: 'Answer',
+  closeOnClick: true,
+  on: {
+    close: function () {
+      //that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+      //that.$store.commit('SET_CALLEE', this.callee);
+      that.$store.commit('SET_STARTCALL', false);
+      that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      that.$f7router.navigate('/call');
+    }
+  },
+});
+
+notificationCallbackOnClose.open();
+
+// notificationCallbackOnClose.on('closed', function (popover) {
+//   console.log('answer notification closed');
+//         this.$store.commit('SET_ACTIVECALLTAB', mode);
+//       this.$store.commit('SET_CALLEE', this.callee);
+// });
     },
     setPresence: function(mode) {
       this.$store.dispatch('setPresence', mode);
       this.$store.dispatch('getPresence', mode);
+    },
+    answer: function(mode) {
+      this.$store.commit('SET_ACTIVECALLTAB', mode);
+      this.$store.commit('SET_CALLEE', this.callee);
+      //this.$store.commit('SET_STARTCALL', true);
+      this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      this.$f7router.navigate('/call');
     },
     doLogout() {
       this.$store.dispatch('disconnect');

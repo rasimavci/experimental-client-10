@@ -90,6 +90,7 @@ export default {
       this.$store.commit('SET_PARTICIPANT', fullName);
       this.$store.commit('SET_CALLEE', conversationId);
       this.$store.commit('SET_STARTCALL', false);
+      this.$store.commit('SET_ACTIVECALLTAB', 'chat');
     },
     deleteMessage: function() {
       console.log('sorry not implemented yet');

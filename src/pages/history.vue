@@ -44,14 +44,17 @@ export default {
     };
   },
   methods: {
-    goCall(logrecord) {
-      console.log('go call page for ' + logrecord.callerDisplayNumber);
-      const params = {
-        callee: 'saynaci@genband.com',
-        mode: false,
-      };
-      //this.$store.dispatch('call', params)
-      Routes.push('call');
+    goCall(log) {
+      let contacts = this.contacts
+      //let primaryContact = this.conversationId;
+      const contact = this.$_.find(contacts, c => {
+        return c.primaryContact === log.callerDisplayNumber;
+      });
+      this.$store.commit('SET_PARTICIPANT', contact.firstName + ' ' + contact.lastName);
+      this.$store.commit('SET_CALLEE', log.callerDisplayNumber);
+      this.$store.commit('SET_STARTCALL', true);
+      this.$store.commit('SET_ACTIVECALLTAB', 'audio');
+      this.$f7router.navigate('/call');
     },
     openContactDetailsPopup: function() {
       this.$f7.popup.open(popupContactDetails, true);

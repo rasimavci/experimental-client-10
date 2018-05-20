@@ -14,7 +14,7 @@
   f7-panel(left='', reveal='', theme-blue='')
     f7-view(url='/panel-left/')
   // Right Panel
-  f7-panel(right='', cover='', theme-blue='', v-if="getPage === 'contact' || getPage === 'history' || getPage === 'messages' || getPage === 'favorites'")
+  f7-panel(right=getIncomingCall, cover='', theme-blue='', v-if="getPage === 'contact' || getPage === 'history' || getPage === 'messages' || getPage === 'favorites'")
     f7-view(url='/panel-right/')
   // Main View
   f7-view#main-view(url='/login/', main='')
@@ -27,7 +27,7 @@
           f7-link(popup-close='') Close
         f7-block
           | Lorem ipsum dolor sit amet.
-  f7-popup#popupAbout
+  f7-popup(v-if='incomingCallModal')
     f7-view
       f7-page
         f7-navbar(title='About')
@@ -55,15 +55,48 @@
 
 <script>
 import Login from './pages/login';
+import IncomingCallModal from './pages/ModalIncomingCall'
+import { mapGetters } from 'vuex'
 export default {
   name: 'mainApp',
   components: {
     login: Login,
+    incomingCallModal: IncomingCallModal
   },
   computed: {
+    ...mapGetters(['incomingCallModal']),
     getPage() {
       return this.$store.state.currentPage;
     },
+    getIncomingCall() {
+      var that = this
+var notificationCallbackOnClose = this.$f7.notification.create({
+  icon: '<i class="icon demo-icon">7</i>',
+  title: 'Incoming Call',
+  titleRightText: 'now',
+  subtitle: 'Notification with close on click',
+  text: 'Answer',
+  closeOnClick: true,
+  on: {
+    close: function () {
+      //that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+      //that.$store.commit('SET_CALLEE', this.callee);
+      that.$store.commit('SET_STARTCALL', false);
+      that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      that.$f7router.navigate('/call');
+    }
+  },
+});
+
+      const incomingCall = this.$store.state.incomingCall
+      if(this.incomingCall.active === true) {
+        //this.callee = callee1 // this.$store.state.callee
+        notificationCallbackOnClose.open();
+      }
+
+return true
+    }
+
   },
 };
 </script>

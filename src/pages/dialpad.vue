@@ -86,11 +86,11 @@
         i.icon.f7-icons.ios-only voicemail_fill
         i.icon.material-icons.md-only voicemail
   .tabs
-    #tab-1.page-content.tab  1
-    #tab-2.page-content.tab  2
+    #tab-1.page-content.tab
+    #tab-2.page-content.tab
     #tab-3.page-content.tab.tab-active
-    #tab-4.page-content.tab  4
-    #tab-4.page-content.tab  5
+    #tab-4.page-content.tab
+    #tab-4.page-content.tab
 
 </template>
 

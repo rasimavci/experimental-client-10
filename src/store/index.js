@@ -48,6 +48,9 @@ const store = new Vuex.Store({
       state.activeCallTab = tab
       console.log('activeCallTab ' + tab)
     },
+    [types.SET_INCOMING_CALL] (state, incomingCall) {
+      state.incomingCall = incomingCall
+    },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
     },

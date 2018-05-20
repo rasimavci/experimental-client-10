@@ -13,12 +13,12 @@ f7-page
   f7-list.searchbar-found(v-show='getContactSource', id='searchList')
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list(v-show='!getContactSource')
-   f7-list-item(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
+   f7-list-item.my-class(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
    h5 {{key}}
    f7-list(media-list="")
       ul
-        li(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
+        li.my-class(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
           .item-content
             .item-media
               img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
@@ -35,9 +35,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backContactDetails') Back
+            .left.my-class(@click='backContactDetails') Back
             .title Contact Details
-            .right(@click='openEditContactPopup') Edit
+            .right.my-class(@click='openEditContactPopup') Edit
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="115" height="115")
@@ -79,9 +79,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backAddContact') Close
+            .left.my-class(@click='backAddContact') Close
             .title Add Contact
-            .right(@click='openEditContactPopup()') Add
+            .right.my-class(@click='openEditContactPopup()') Add
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -363,6 +363,8 @@ export default {
     goCallPage: function(mode) {
       this.$f7.popup.close('#popupContactDetails', true);
       this.$store.commit('SET_ACTIVECALLTAB', mode);
+      this.$store.commit('SET_CALLEE', this.contact.id);
+      this.$store.commit('SET_STARTCALL', true);
       setTimeout(() => {
         this.$f7router.navigate('/call');
       }, 100);
@@ -553,5 +555,9 @@ export default {
 
 .rows {
   max-height: 50px;
+}
+
+.my-class {
+  cursor: default;
 }
 </style>
