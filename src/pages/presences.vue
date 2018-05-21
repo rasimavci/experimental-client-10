@@ -119,6 +119,7 @@ notificationCallbackOnClose.open();
       this.$f7router.navigate('/call');
     },
     doLogout() {
+      this.$store.commit('SET_LOGOUT', true);
       this.$store.dispatch('disconnect');
       let vm = this;
       this.$f7.preloader.show();

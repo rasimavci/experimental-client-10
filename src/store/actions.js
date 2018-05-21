@@ -5,6 +5,7 @@ import state from './state'
 import IMService from '../IMService'
 import _ from 'lodash'
 var kandy
+var logout = false
 
 export const setCredentials = ({ commit }, credentials) => {
   if (credentials) {
@@ -13,12 +14,19 @@ export const setCredentials = ({ commit }, credentials) => {
 }
 
 export const connect = ({ commit }, credentials) => {
+  logout = true
   addEventListeners()
   console.log(
     'credentials ' + credentials.username + ' ' + credentials.password
   )
   kandy.connect(credentials)
 }
+
+export const disconnect = ({ commit }) => {
+  logout = false
+  kandy.disconnect()
+}
+
 export const send = ({ commit }, message) => {
   // send;
   // context.commit (types.SEND, participant, message);
@@ -255,7 +263,8 @@ function getMediaStreamId() {
 function addEventListeners () {
   kandy.on('auth:change', function (data) {
     console.log('auth:change Event Data: ' + JSON.stringify(data))
-    if (kandy.getConnection().isConnected === true) {
+    // somehow store.state.logout did not worked here
+    if (logout && kandy.getConnection().isConnected === true) {
       store.commit('CLEAR_ACTIVECONVERSATIONS')
       getDevices()
       getMessages()

@@ -211,6 +211,11 @@ export default {
       }
     });
     this.getContactInfo();
+    //checkCallee.then(
+    //)
+
+
+
     this.callee = this.$store.state.callee;
     this.conversationId = this.$store.state.callee;
     if (this.$store.state.activeCallTab === 'audio' & startCall) {
@@ -223,6 +228,14 @@ export default {
   methods: {
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true);
+    },
+    checkCallee: function() {
+       return new Promise(function (resolve, reject) {
+            this.callee = this.$store.state.callee
+            if (this.callee) {
+              resolve
+            }
+        });
     },
     end() {
       this.$store.dispatch('end');

@@ -503,7 +503,9 @@ export default {
     groupedContacts() {
       let contacts = this.getContacts;
       contacts.forEach(contact => {
-        contact.name = contact.firstName.charAt(0);
+        if (contact.firstName) {
+          contact.name = contact.firstName.charAt(0);
+        }
       });
       return _.groupBy(contacts, 'name');
     },

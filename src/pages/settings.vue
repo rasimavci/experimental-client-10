@@ -80,7 +80,10 @@ f7-page
         f7-list(form='')
          f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'English'")
          f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")
-
+  f7-popover
+        f7-list(form='')
+         f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'English'")
+         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")   
 </template>
 
 

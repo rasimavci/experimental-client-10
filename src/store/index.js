@@ -26,6 +26,9 @@ const store = new Vuex.Store({
     [types.SET_PARTICIPANT] (state, participant) {
       state.participant = participant
     },
+    [types.SET_LOGOUT] (state, logout) {
+      state.logout = true
+    },
     [types.SET_STARTCALL] (state, startCall) {
       state.startCall = startCall
     },

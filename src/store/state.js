@@ -27,5 +27,6 @@ export default {
   callee: '',
   participant: '',
   startCall: false,
-  incomingCall: {}
+  incomingCall: {},
+  logout:false,
 }

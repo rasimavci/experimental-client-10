@@ -63,7 +63,7 @@ export default {
       // });
       this.photoUrl =
         'http://pa-ucc.genband.com:80/pa/direct/pictureServlet?user=' +
-        this.$store.state.credentials.user; // ravci@genband.com"
+        this.$store.state.credentials.user;
       this.username = this.$store.state.credentials.user;
       console.log('this.photoUrl ' + this.photoUrl);
       // contact.photoUrl || this.noImg;
