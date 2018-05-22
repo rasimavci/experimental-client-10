@@ -61,8 +61,53 @@ export default {
       this.isConnected = this.$store.state.isConnected;
       // console.log('isConnected' + isConnected);
     },
-  },
-};
+
+     doLogin() {
+      console.log('credentials ' + this.username, this.password);
+      this.$store.dispatch('connect', {
+        username: this.username,
+        password: this.password,
+      });
+
+var that = this
+
+      this.setCredentials({
+        user: this.username,
+        admin: true,
+        loged: true,
+        token: 'SOME_TOKEN',
+      });
+      this.checkResult().then((interval) =>  {
+        if(interval === 'ok') {
+        this.$f7router.navigate('/favorites');
+       }  else {
+         this.$f7.dialog.alert('Unable to login.', 'Smart Office', false)
+       }
+      })
+
+    },
+    checkResult() {
+        return new Promise((resolve) =>  {
+        this.$f7.preloader.show();
+        var that = this
+        var id = setInterval(() => {
+        let condition = that.$store.state.isConnected
+        if (condition === true) {
+         clearInterval(id);
+         resolve('ok');
+         that.$f7.preloader.hide();
+                }
+        setTimeout(() => {
+                that.$f7.preloader.hide();
+                clearInterval(id);
+                resolve('notok');
+            }, 10000);
+        }, 10);
+    });
+  }
+
+  }
+}
 </script>
 <style>
 .deneme {

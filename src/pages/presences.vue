@@ -70,16 +70,9 @@ export default {
   },
   methods: {
     about() {
-       //this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
-//        var notificationFull = this.$f7.notification.create({
-//   img: '<src="noImg">',
-//   icon: '<i class="icon demo-icon">7</i>',
-//   title: 'Framework7',
-//   titleRightText: 'now',
-//   subtitle: 'This is a subtitle',
-//   text: 'This is a simple notification message',
-//   closeTimeout: 3000,
-// });
+       this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
+    },
+    about2() {
 var that = this
 var notificationCallbackOnClose = this.$f7.notification.create({
   icon: '<i class="icon demo-icon">7</i>',
@@ -90,8 +83,6 @@ var notificationCallbackOnClose = this.$f7.notification.create({
   closeOnClick: true,
   on: {
     close: function () {
-      //that.$store.commit('SET_ACTIVECALLTAB', 'audio');
-      //that.$store.commit('SET_CALLEE', this.callee);
       that.$store.commit('SET_STARTCALL', false);
       that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       that.$f7router.navigate('/call');
@@ -107,6 +98,7 @@ notificationCallbackOnClose.open();
 //       this.$store.commit('SET_CALLEE', this.callee);
 // });
     },
+
     setPresence: function(mode) {
       this.$store.dispatch('setPresence', mode);
       this.$store.dispatch('getPresence', mode);
@@ -119,6 +111,7 @@ notificationCallbackOnClose.open();
       this.$f7router.navigate('/call');
     },
     doLogout() {
+      this.$store.commit('SET_ISCONNECTED', false);
       this.$store.commit('SET_LOGOUT', true);
       this.$store.dispatch('disconnect');
       let vm = this;
