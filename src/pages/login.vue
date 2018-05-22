@@ -78,16 +78,14 @@ var that = this
         token: 'SOME_TOKEN',
       });
       this.checkResult().then((interval) =>  {
-        if(interval === 'ok') {
         this.$f7router.navigate('/favorites');
-       }  else {
-         this.$f7.dialog.alert('Unable to login.', 'Smart Office', false)
-       }
+      }).catch(() =>  {
+        this.$f7.dialog.alert('Unable to login.', 'Smart Office', false)
       })
 
     },
     checkResult() {
-        return new Promise((resolve) =>  {
+        return new Promise((resolve,reject) =>  {
         this.$f7.preloader.show();
         var that = this
         var id = setInterval(() => {
@@ -100,7 +98,7 @@ var that = this
         setTimeout(() => {
                 that.$f7.preloader.hide();
                 clearInterval(id);
-                resolve('notok');
+                reject();
             }, 10000);
         }, 10);
     });
