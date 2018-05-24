@@ -41,8 +41,10 @@
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
         //-f7-block(strong='')
-        p.a2altta2.my-font(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
-        p.a2altta2.my-font(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
+        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
+        p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
+        p.a2altta2.my-font1(v-if="callStarted && activeCall.state === 'ENDED'") Connecting...
         .keypad(v-if="checkActiveCall")
           .keypad-container
             div
@@ -90,9 +92,9 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(v-if="!checkActiveCall" @click='makeCall(false)')
-          img.img1(src='../assets/demo/call_outline_white.png')
-          | Call {{getCalleeName}}
+        .call-button-container.action.my-cursor(v-if="!callStarted && activeCall.state === 'ENDED'" @click='makeCall(false)')
+          img.my-size(src='../assets/demo/call_outline_white.png')
+          p.my-font1s Call {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
@@ -111,10 +113,13 @@
             i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
       .page-content.messages-content.a
-        p.a2altta2(v-if="activeCall.state !== 'ENDED'") {{activeCall.state}}
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
+        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
+        p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
+        p.a2altta2.my-font1(v-if="callStarted && activeCall.state === 'ENDED'") Connecting...
         .call-button-container.action.my-cursor(v-if="getVideoCallOption", @click='makeCall(true)')
-          img(src='../assets/demo/camera_outline_white.png')
-          | Video {{getCalleeName}}
+          img.my-size2(src='../assets/demo/camera_outline_white.png')
+          p.my-font1s Video {{getCalleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
@@ -179,6 +184,7 @@ export default {
   },
   data: function() {
     return {
+      callStarted: false,
       noImg: NoImg,
       renderMessages: false,
       showData: 'all',
@@ -211,17 +217,15 @@ export default {
       }
     });
     this.getContactInfo();
-    //checkCallee.then(
-    //)
-
-
-
     this.callee = this.$store.state.callee;
     this.conversationId = this.$store.state.callee;
     if (this.$store.state.activeCallTab === 'audio' & startCall) {
       console.log('call with audio to ' + this.$store.state.callee);
       this.makeInitialCall(false);
     } else if (this.$store.state.activeCallTab === 'video' && startCall) {
+      console.log('call with video');
+    } else if (this.$store.state.activeCallTab === 'audio' && startCall === 'answer') {
+      this.answer()
       console.log('call with video');
     }
   },
@@ -238,6 +242,7 @@ export default {
         });
     },
     end() {
+      this.callStarted = false
       this.$store.dispatch('end');
     },
     getContactInfo() {
@@ -289,6 +294,11 @@ export default {
     volumeUp() {
       console.log('sorry, not implemented yet');
     },
+    answer() {
+      this.$f7.preloader.show();
+      this.$store.dispatch('answer', false);
+      console.log('call answer');
+    },
     makeCall(mode) {
       // SET_ACTIVE_CALLID
       if (!this.activeCall || this.activeCall.state === 'ENDED') {
@@ -308,11 +318,14 @@ export default {
           },
         ];
         params.options = options;
+        this.$f7.preloader.show();
+        this.callStarted = true
         this.$store.dispatch('call', params);
       }
       else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
           this.$store.dispatch('startVideo');
         } else {
+          this.callStarted = false
           this.$store.dispatch('end');
         }
     },
@@ -320,6 +333,8 @@ export default {
       // SET_ACTIVE_CALLID
      // if there is no already session with the contact
      // if (!this.activeCall || this.activeCall.state === 'ENDED') {
+        this.callStarted = true
+        this.$f7.preloader.show();
         this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
@@ -358,6 +373,13 @@ export default {
       }
     },
     getCalleeName() {
+      let activeState = this.$store.state.activeCall.state;
+      if (activeState === 'RINGING' || activeState === 'IN_CALL') {
+        this.$f7.preloader.hide();
+      } else if (activeState === 'ENDED') {
+        this.callStarted = false;
+      }
+
       return '  ' + this.$store.state.activeCall.calleeName;
     },
     getParticipant() {
@@ -421,9 +443,9 @@ export default {
     },
     getVideoCallOption() {
       //v-if="activeCall.state === 'ENDED' || (activeCall.state === 'IN_CALL' && !activeCall.sendingVideo)"
-      if(this.activeCall.state === 'ENDED') {
+      if(!this.callStarted && this.activeCall.state === 'ENDED') {
         return true
-      } else if (this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
+      } else if (this.activeCall.state !== 'ENDED' && this.activeCall.state !== 'RINGING' && !this.activeCall.sendingVideo) {
         return true
       } else {
         return false
@@ -513,7 +535,60 @@ export default {
 
 .my-font[type="text"]
 {
-    font-size:20px;
+    font-size:24px;
     font-weight: bold;
+}
+
+.my-font2 {
+  cursor: default;
+  font-size:24px;
+  color:#29a3d8;
+  font-family: Arial;
+}
+
+.my-font1 {
+  cursor: default;
+  font-size:24px;
+  font-family: Arial;
+}
+
+.my-font1s {
+  cursor: default;
+  font-family: Arial;
+  font-size: 17px
+}
+
+.my-size {
+ width: 24px;
+ height: 24px;
+}
+
+.my-size2 {
+ width: 24px;
+ height: 24px;
+}
+.flex {
+  display: flex;
+  margin: 10px;
+  padding: 5px;
+  border: 0px solid black;
+}
+
+.column {
+  flex-direction: column;
+  padding: 0px;
+}
+
+.link {
+  color: blue;
+  font-size: 30px;
+}
+
+.flex2 {
+  display: flex;
+  margin: 40px;
+  padding: 5px;
+  border: 0px solid black;
+  width: 100%;
 }
 </style>

@@ -19,7 +19,7 @@
   // Main View
   f7-view#main-view(url='/login/', main='')
   // Popup
-  f7-popup#popup
+  f7-popup(v-if="getIncomingCall")#popup
     f7-view
       f7-page
         f7-navbar(title='Popup')
@@ -27,7 +27,7 @@
           f7-link(popup-close='') Close
         f7-block
           | Lorem ipsum dolor sit amet.
-  f7-popup(v-if='incomingCallModal')
+  f7-popups
     f7-view
       f7-page
         f7-navbar(title='About')
@@ -63,39 +63,37 @@ export default {
     login: Login,
     incomingCallModal: IncomingCallModal
   },
-  computed: {
-    ...mapGetters(['incomingCallModal']),
-    getPage() {
-      return this.$store.state.currentPage;
-    },
-    getIncomingCall() {
+  watch: {
+    getIncomingCall: function() {
       var that = this
 var notificationCallbackOnClose = this.$f7.notification.create({
   icon: '<i class="icon demo-icon">7</i>',
   title: 'Incoming Call',
   titleRightText: 'now',
-  subtitle: 'Notification with close on click',
+  subtitle: 'Incoming Call',
   text: 'Answer',
   closeOnClick: true,
   on: {
-    close: function () {
-      //that.$store.commit('SET_ACTIVECALLTAB', 'audio');
-      //that.$store.commit('SET_CALLEE', this.callee);
-      that.$store.commit('SET_STARTCALL', false);
+    close: () => {
+      that.$store.commit('SET_STARTCALL', 'answer');
+      this.$store.commit('SET_ACTIVECALLTAB', 'audio');
       that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       that.$f7router.navigate('/call');
+       let incomingCallData = {
+      callId: '',
+      active: true
+    }
+    this.$store.commit('SET_INCOMING_CALL', incomingCallData)
     }
   },
 });
 
-      const incomingCall = this.$store.state.incomingCall
-      if(this.incomingCall.active === true) {
-        //this.callee = callee1 // this.$store.state.callee
+     let incoming = this.$store.state.incomingCall.active
+      if (incoming) {
         notificationCallbackOnClose.open();
       }
-
-return true
-    }
+      //return true;
+    },
 
   },
 };

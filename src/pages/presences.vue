@@ -37,7 +37,7 @@ f7-page
             f7-input(type='textarea', placeholder='Enter your feedback')
           f7-row(tag='p')
             f7-col(width='85')
-              f7-button(fill='', raised='', popup-open='#popupSendFeedback') Send Feedback
+              f7-button(v-if="getPresence", fill='', raised='', popup-open='#popupSendFeedback') Send Feedback
 </template>
 
 <script>
@@ -58,13 +58,36 @@ export default {
     };
   },
   computed: {
+
     getPresence() {
-      // console.log('heyyo ' + this.$store.state.sortBy)
-      // if(this.$store.state.sortBy === 'firstName') {
-      // return true
-      // } else {
-      //   return false
-      // }
+      var that = this
+var notificationCallbackOnClose = this.$f7.notification.create({
+  icon: '<i class="icon demo-icon">7</i>',
+  title: 'Incoming Call',
+  titleRightText: 'now',
+  subtitle: 'Incoming Call',
+  text: 'Answer',
+  closeOnClick: true,
+  on: {
+    close: () => {
+              that.$store.commit('SET_STARTCALL', 'answer');
+        that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+      that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      that.$f7router.navigate('/call');
+    }
+  },
+});
+
+            let incoming = this.$store.state.incomingCall.active
+      if (incoming) {
+        notificationCallbackOnClose.open();
+      let incomingCallData = {
+      callId: '',
+      active: true
+    }
+    this.$store.commit('SET_INCOMING_CALL', incomingCallData)
+      }
+
       return true;
     },
   },
@@ -111,6 +134,7 @@ notificationCallbackOnClose.open();
       this.$f7router.navigate('/call');
     },
     doLogout() {
+
       this.$store.commit('SET_ISCONNECTED', false);
       this.$store.commit('SET_LOGOUT', true);
       this.$store.dispatch('disconnect');
@@ -130,5 +154,8 @@ notificationCallbackOnClose.open();
   width: 100%;
   padding: 5px;
   padding-top: 2px;
+}
+.my-class {
+  cursor: default;
 }
 </style>
