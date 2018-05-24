@@ -26,9 +26,6 @@ const store = new Vuex.Store({
     [types.SET_PARTICIPANT] (state, participant) {
       state.participant = participant
     },
-    [types.SET_LOGOUT] (state, logout) {
-      state.logout = true
-    },
     [types.SET_STARTCALL] (state, startCall) {
       state.startCall = startCall
     },
@@ -110,6 +107,14 @@ const store = new Vuex.Store({
 
     [types.SET_ACTIVE_CALL] (state, call) {
       state.activeCall = call
+    },
+    [types.TOGGLE_ACTIVE_CALL] (state, callId) {
+      //search calls and toggle call if not already active call
+      state.calls.forEach(function (call) {
+        if (call.id === callId && state.activeCall.id !== callId) {
+          state.activeCall = call
+        }
+      })
     },
 
     [types.SET_ACTIVECALLID] (state, to) {

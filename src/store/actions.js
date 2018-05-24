@@ -265,13 +265,13 @@ function getMediaStreamId() {
 function addEventListeners () {
   kandy.on('auth:change', function (data) {
     console.log('auth:change Event Data: ' + JSON.stringify(data))
-    // somehow store.state.logout did not worked here
+    // store.state.logout did not worked here
     if (logout && kandy.getConnection().isConnected === true) {
       store.commit('CLEAR_ACTIVECONVERSATIONS')
+      store.commit('SET_ISCONNECTED', true)
       getDevices()
       getMessages()
       fetchCallHistory()
-      store.commit('SET_ISCONNECTED', true)
       kandy.contacts.refresh()
       kandy.call.history.fetch()
     }
