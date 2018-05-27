@@ -40,6 +40,8 @@
         .messagebar-sheet
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
+        #localVideoContainer
+        #remoteVideoContainer
         //-f7-block(strong='')
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
@@ -208,7 +210,7 @@ export default {
   mounted() {
     let contacts = this.$store.state.contacts;
     const startCall = this.$store.state.startCall
-    this.$store.commit('SET_STARTCALL', false);
+
     this.contactType = 'corporate';
     contacts.forEach(contact1 => {
       if (contact1.primaryContact === this.$store.state.callee) {
@@ -228,6 +230,7 @@ export default {
       this.answer()
       console.log('call with video');
     }
+    this.$store.commit('SET_STARTCALL', false);
   },
   methods: {
     openLeftPanel: function() {
@@ -297,7 +300,16 @@ export default {
     },
     answer() {
       this.$f7.preloader.show();
-      this.$store.dispatch('answer', false);
+              //if(mode === 'video') {
+                let options = [{key: 'localVideoContainer', value: document.getElementById('localVideoContainer')},
+          {
+            key: 'remoteVideoContainer', value: document.getElementById('remoteVideoContainer')
+          }]
+          this.$store.commit('SET_CALL_OPTIONS', options);
+
+        //}
+
+      this.$store.dispatch('answer');
       console.log('call answer');
     },
     makeCall(mode) {
@@ -321,6 +333,7 @@ export default {
         params.options = options;
         this.$f7.preloader.show();
         this.callStarted = true
+
         this.$store.dispatch('call', params);
       }
       else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {

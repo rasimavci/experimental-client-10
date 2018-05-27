@@ -86,7 +86,7 @@ export const callVideo = ({ commit }, callee) => {
 }
 
 export const answer = ({ commit, state }) => {
-  kandy.call.answer(state.incomingCall.callId)
+  kandy.call.answer(state.incomingCall.callId, state.callOptions)
 }
 
 export const reject = ({ commit }) => {}

@@ -27,5 +27,14 @@ export default {
   callee: '',
   participant: '',
   startCall: false,
-  incomingCall: {}
+  incomingCall: {},
+    callOptions: {
+    isAudioEnabled: true,
+    isVideoEnabled: false,
+    sendInitialVideo: false,
+    sendScreenShare: false,
+    videoResolution: { height: 200, width: 200 },
+    localVideoContainer: null,
+    remoteVideoContainer: null
+  },
 }

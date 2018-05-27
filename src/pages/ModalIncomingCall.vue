@@ -53,9 +53,11 @@ var notificationCallbackOnClose = this.$f7.notification.create({
   closeOnClick: true,
   on: {
     close: () => {
-      this.$store.commit('SET_PARTICIPANT', 'Rasim babo');
-      //that.$store.commit('SET_STARTCALL', 'answer');
+      that.$store.commit('SET_PARTICIPANT', 'Sevda Aynaci');
+      that.$store.commit('SET_STARTCALL', 'answer');
+      //this.$store.dispatch('answer');
       that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+
       //that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       that.$f7router.navigate('/call');
        let incomingCallData = {

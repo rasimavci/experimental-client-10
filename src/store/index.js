@@ -54,6 +54,15 @@ const store = new Vuex.Store({
     [types.UPDATE_INCOMINGCALL] (state) {
       state.incomingCall.active = false
     },
+    [types.SET_CALL_OPTIONS] (state, options) {
+      try {
+        for (let i = 0; i < options.length; i++) {
+          state.callOptions[options[i].key] = options[i].value
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
     },
