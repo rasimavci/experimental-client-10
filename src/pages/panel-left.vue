@@ -1,5 +1,6 @@
 <template lang='pug'>
 f7-page.div-container
+  //-incomingCallModal(v-if='incomingCall')
   f7-navbar
     f7-list-item(link='/presences/', view='#main-view', panel-close='')
       .item-content
@@ -29,9 +30,17 @@ f7-page.div-container
 </template>
 <script>
 import NoImg from '../assets/demo/noimage1.jpg';
+import IncomingCallModal from './ModalIncomingCall'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'leftPanel',
+    components: {
+    incomingCallModal: IncomingCallModal
+
+  },
   computed: {
+    ...mapGetters(['incomingCall']),
     getUserName() {
       const user = this.$store.state.credentials.user;
       if(user) {

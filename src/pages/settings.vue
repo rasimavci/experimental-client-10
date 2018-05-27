@@ -1,5 +1,6 @@
 <template lang='pug'>
 f7-page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -83,12 +84,14 @@ f7-page
   f7-popover
         f7-list(form='')
          f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'English'")
-         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")   
+         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")
 </template>
 
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import IncomingCallModal from './ModalIncomingCall'
+
 export default {
   created: function() {
     this.$store.commit("UPDATE_CURRENTPAGE", 'settings');
@@ -97,6 +100,9 @@ export default {
     return {
       showData: 'all',
     }
+  },
+  components: {
+    incomingCallModal: IncomingCallModal
   },
   methods: {
     openPopupLanguage: function() {

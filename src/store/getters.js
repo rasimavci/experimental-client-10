@@ -4,4 +4,5 @@ const mystate = state => state
 const conversations = state => state.conversations
 const activeConversations = state => state.activeConversations
 const activeCall = state => state.activeCall
-export { credentials, contacts, mystate, conversations, activeConversations, activeCall }
+const incomingCall = state => state.incomingCall.active
+export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall }

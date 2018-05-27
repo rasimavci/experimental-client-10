@@ -1,5 +1,6 @@
 <template lang='pug'>
 .page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -96,6 +97,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import IncomingCallModal from './ModalIncomingCall'
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'dialpad');
@@ -106,6 +108,9 @@ export default {
       document.getElementsByClassName('modal-container1')[0].style.width =
         document.body.offsetWidth + 'px';
     });
+  },
+  components: {
+    incomingCallModal: IncomingCallModal
   },
   methods: {
     goCallPage: function(mode) {

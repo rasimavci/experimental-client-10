@@ -270,6 +270,7 @@ export default {
       this.$store.dispatch('send', messageToSend);
     },
     hold() {
+      this.$f7.preloader.show();
       if(this.activeCall.state === 'ON_HOLD') {
         this.$store.dispatch('unhold', '');
       } else {
@@ -374,7 +375,7 @@ export default {
     },
     getCalleeName() {
       let activeState = this.$store.state.activeCall.state;
-      if (activeState === 'RINGING' || activeState === 'IN_CALL') {
+      if (activeState === 'RINGING' || activeState === 'IN_CALL'|| activeState === 'ON_HOLD') {
         this.$f7.preloader.hide();
       } else if (activeState === 'ENDED') {
         this.callStarted = false;

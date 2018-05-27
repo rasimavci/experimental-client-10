@@ -51,10 +51,12 @@ const store = new Vuex.Store({
     [types.SET_INCOMING_CALL] (state, incomingCall) {
       state.incomingCall = incomingCall
     },
+    [types.UPDATE_INCOMINGCALL] (state) {
+      state.incomingCall.active = false
+    },
     [types.SET_CREDENTIALS] (state, credentials) {
       state.credentials = credentials
     },
-
     [types.REFRESH_DIRECTORY] (state, directory) {
       state.directory = directory
     },

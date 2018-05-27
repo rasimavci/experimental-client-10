@@ -1,5 +1,6 @@
 <template lang="pug">
 f7-page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -37,15 +38,14 @@ f7-page
             f7-input(type='textarea', placeholder='Enter your feedback')
           f7-row(tag='p')
             f7-col(width='85')
-              f7-button(v-if="getPresence", fill='', raised='', popup-open='#popupSendFeedback') Send Feedback
+              f7-button(fill='', raised='', popup-open='#popupSendFeedback') Send Feedback
 </template>
 
 <script>
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 import NoImg from '../assets/demo/noimage.jpg';
-
+import IncomingCallModal from './ModalIncomingCall'
 export default {
-
 
   created: function() {
     this.username = this.$store.state.credentials.user;
@@ -57,71 +57,13 @@ export default {
       username: '',
     };
   },
-  computed: {
-
-    getPresence() {
-      var that = this
-var notificationCallbackOnClose = this.$f7.notification.create({
-  icon: '<i class="icon demo-icon">7</i>',
-  title: 'Incoming Call',
-  titleRightText: 'now',
-  subtitle: 'Incoming Call',
-  text: 'Answer',
-  closeOnClick: true,
-  on: {
-    close: () => {
-              that.$store.commit('SET_STARTCALL', 'answer');
-        that.$store.commit('SET_ACTIVECALLTAB', 'audio');
-      that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
-      that.$f7router.navigate('/call');
-    }
+    components: {
+    incomingCallModal: IncomingCallModal
   },
-});
-
-            let incoming = this.$store.state.incomingCall.active
-      if (incoming) {
-        notificationCallbackOnClose.open();
-      let incomingCallData = {
-      callId: '',
-      active: true
-    }
-    this.$store.commit('SET_INCOMING_CALL', incomingCallData)
-      }
-
-      return true;
-    },
-  },
-  methods: {
+   methods: {
     about() {
        this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
     },
-    about2() {
-var that = this
-var notificationCallbackOnClose = this.$f7.notification.create({
-  icon: '<i class="icon demo-icon">7</i>',
-  title: 'Incoming Call',
-  titleRightText: 'now',
-  subtitle: 'Notification with close on click',
-  text: 'Answer',
-  closeOnClick: true,
-  on: {
-    close: function () {
-      that.$store.commit('SET_STARTCALL', false);
-      that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
-      that.$f7router.navigate('/call');
-    }
-  },
-});
-
-notificationCallbackOnClose.open();
-
-// notificationCallbackOnClose.on('closed', function (popover) {
-//   console.log('answer notification closed');
-//         this.$store.commit('SET_ACTIVECALLTAB', mode);
-//       this.$store.commit('SET_CALLEE', this.callee);
-// });
-    },
-
     setPresence: function(mode) {
       this.$store.dispatch('setPresence', mode);
       this.$store.dispatch('getPresence', mode);
@@ -134,7 +76,6 @@ notificationCallbackOnClose.open();
       this.$f7router.navigate('/call');
     },
     doLogout() {
-
       this.$store.commit('SET_ISCONNECTED', false);
       this.$store.commit('SET_LOGOUT', true);
       this.$store.dispatch('disconnect');

@@ -297,7 +297,7 @@ function addEventListeners () {
       active: true
     }
     store.commit('SET_INCOMING_CALL', incomingCallData)
-    store.commit('TOGGLE_INCOMING_CALL_MODAL')
+    //store.commit('TOGGLE_INCOMING_CALL_MODAL')
   })
 
   kandy.on('contacts:change', params => {

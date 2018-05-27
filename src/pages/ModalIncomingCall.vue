@@ -1,14 +1,16 @@
 <template lang="pug">
-  #modalIncomingCall.modal-mask(@click='closeModal')
-    .incoming-call-container
-      .answer-call(@click='anserCall')
-        i.fas.fa-spinner.fa-pulse
-      .decline-call(@click='rejectCall')
-        //- i.fas.fa-phone
-        i.fas.fa-spinner.fa-pulse
+  p(v-if="incomingCall")
+
+  //-   .incoming-call-container
+  //-     .answer-call(@click='anserCall')
+  //-       i.fas.fa-spinner.fa-pulse
+  //-     .decline-call(@click='rejectCall')
+  //-       //- i.fas.fa-phone
+  //-       i.fas.fa-spinner.fa-pulse
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'modalIncomingCall',
   data () {
@@ -16,9 +18,13 @@ export default {
 
     }
   },
-  computed: {
-    ...mapGetters(['incomingCall'])
+  created: function() {
+    let hey = this.incomingCall
   },
+  // computed: {
+  //   ...mapGetters(['incomingCall'])
+  // },
+
   methods: {
     ...mapActions(['toggleIncomingCallModal']),
     closeModal () {
@@ -26,15 +32,49 @@ export default {
         this.toggleIncomingCallModal()
       }
     },
-    anserCall () {
+    answerCall () {
       //this.$kandyJS.answerCall()
       //this.toggleIncomingCallModal()
     },
     rejectCall () {
       //this.$kandyJS.rejectCall()
       //this.toggleIncomingCallModal()
+    },
+  },
+  computed: {
+    incomingCall () {
+          var that = this
+var notificationCallbackOnClose = this.$f7.notification.create({
+  icon: '<i class="icon demo-icon">7</i>',
+  title: 'Incoming Call',
+  titleRightText: 'now',
+  subtitle: 'Incoming Call',
+  text: 'Answer',
+  closeOnClick: true,
+  on: {
+    close: () => {
+      this.$store.commit('SET_PARTICIPANT', 'Rasim babo');
+      //that.$store.commit('SET_STARTCALL', 'answer');
+      that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+      //that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      that.$f7router.navigate('/call');
+       let incomingCallData = {
+      callId: '',
+      active: true
     }
+    this.$store.commit('UPDATE_INCOMINGCALL')
+    }
+  },
+});
+
+     let incoming = this.$store.state.incomingCall.active
+      if (incoming) {
+        notificationCallbackOnClose.open();
+      }
+      return true
   }
+
+}
 }
 </script>
 <style scoped>

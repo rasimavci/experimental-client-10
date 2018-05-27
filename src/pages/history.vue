@@ -1,5 +1,6 @@
 <template lang='pug'>
 f7-page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -32,7 +33,7 @@ import _ from 'lodash';
 import { find } from 'lodash/fp';
 import Routes from '../routes.js';
 import NoImg from '../assets/demo/noimage1.jpg';
-
+import IncomingCallModal from './ModalIncomingCall'
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'history');
@@ -42,6 +43,9 @@ export default {
       showData: 'all',
       noImg: NoImg,
     };
+  },
+      components: {
+    incomingCallModal: IncomingCallModal
   },
   methods: {
     goCall(log) {

@@ -28,9 +28,11 @@ import App from './app'
 
 // Import Store
 import store from './store'
+import Notifications from 'vue-notification'
 
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
+Vue.use(Notifications)
 Vue.prototype.$moment = moment
 Vue.prototype.$_ = _
 // Init App

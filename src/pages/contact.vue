@@ -1,5 +1,6 @@
 <template lang='pug'>
 f7-page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -263,7 +264,7 @@ import NoImg from '../assets/demo/noimage.jpg';
 import PresenceConnected from '../assets/icon/presence_connected.png';
 import PresenceClosed from '../assets/icon/presence_not.png';
 import PresenceClosedMessage from '../assets/icon/presence_away.png';
-
+import IncomingCallModal from './ModalIncomingCall'
 import { mapState, mapGetters } from 'vuex';
 import _ from 'lodash';
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
@@ -300,6 +301,9 @@ export default {
       primaryContact: null,
       // contactSource: '',
     };
+  },
+  components: {
+    incomingCallModal: IncomingCallModal
   },
   methods: {
     backAddContact() {

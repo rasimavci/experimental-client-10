@@ -1,5 +1,6 @@
 <template lang='pug'>
 f7-page
+  incomingCallModal
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
@@ -54,7 +55,7 @@ import NoImg from '../assets/demo/noimage1.jpg';
 import PresenceConnected from '../assets/icon/presence_connected.png';
 import PresenceClosed from '../assets/icon/presence_not.png';
 import PresenceClosedMessage from '../assets/icon/presence_away.png';
-
+import IncomingCallModal from './ModalIncomingCall'
 export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'call');
