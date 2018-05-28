@@ -40,8 +40,6 @@
         .messagebar-sheet
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
-        #localVideoContainer
-        #remoteVideoContainer
         //-f7-block(strong='')
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
@@ -115,6 +113,8 @@
             i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
       .page-content.messages-content.a
+        #remoteVideoContainer(v-if="activeCall.state === 'IN_CALL'")
+        #localVideoContainer(v-if="activeCall.state === 'IN_CALL' && activeCall.sendingVideo")
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
@@ -151,7 +151,6 @@
                .item-subtitle {{contactType}}
         //- f7-list-item(@click='makeCall(false)' :title="callee" href="#popupAddContact") Corporate
         //-  img.avatar-circle.test-icon-left(:src="noImg")
-
   .sheet-modal.my-sheet2
     .toolbar
       .toolbar-inner
@@ -330,9 +329,11 @@ export default {
             value: document.getElementById('remoteVideoContainer'),
           },
         ];
-        params.options = options;
+        //params.options = options;
         this.$f7.preloader.show();
         this.callStarted = true
+
+          this.$store.commit('SET_CALL_OPTIONS', options);
 
         this.$store.dispatch('call', params);
       }

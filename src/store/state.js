@@ -30,7 +30,7 @@ export default {
   incomingCall: {},
     callOptions: {
     isAudioEnabled: true,
-    isVideoEnabled: false,
+    isVideoEnabled: true,
     sendInitialVideo: false,
     sendScreenShare: false,
     videoResolution: { height: 200, width: 200 },
