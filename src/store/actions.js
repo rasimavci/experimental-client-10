@@ -50,29 +50,9 @@ export const getCallLogs = ({ commit }) => {
   store.commit('REFRESH_CALLLOGS', logs)
 }
 
-export const call = ({ commit }, params) => {
-  let local = document.getElementById('local-container')
-  let remote = document.getElementById('remote-container')
-  const myVideoResolution = {
-    height: 640,
-    width: 480
-  }
-  const options = {
-    isAudioEnabled: true, // document.getElementById ('isAudioEnabled').checked,
-    isVideoEnabled: true, // document.getElementById ('isVideoEnabled').checked,
-    sendInitialVideo: false, // document.getElementById ('sendInitialVideo').checked,
-    sendScreenShare: false, // document.getElementById ('sendScreenShare').checked,
-    videoResolution: myVideoResolution,
-    // localVideoContainer: this.$ref.local-container, // document.getElementById('local-container'),
-    // remoteVideoContainer: this.$ref.remote-container //document.getElementById('remote-container')
-    localVideoContainer: local, // document.getElementById ('local-container'), //olmadi this.$refs.container1, //
-    remoteVideoContainer: remote // document.getElementById ('remote-container'),
-  }
-
+export const call = ({ commit, state }, params) => {
   console.log('start call to:' + params.callee)
-  // options.isVideoEnabled = false;
-  // options.sendInitialVideo = false;
-  kandy.call.make(params.callee, options)
+  kandy.call.make(params.callee, state.callOptions)
   // store.commit("SET_CALLEE", callee);
 }
 

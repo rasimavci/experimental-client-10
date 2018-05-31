@@ -112,9 +112,11 @@
             i.icon.material-icons.md-only(v-if="!activeCall.muted") mic_off
             i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
-      .page-content.messages-content.a
-        #remoteVideoContainer(v-if="activeCall.state === 'IN_CALL'")
-        #localVideoContainer(v-if="activeCall.state === 'IN_CALL' && activeCall.sendingVideo")
+      .page-content.messages-content.a2
+      #remoteVideoContainer
+      //-(v-if="activeCall.state === 'IN_CALL'")
+      #localVideoContainer
+        //-(v-if="activeCall.state === 'IN_CALL' && activeCall.sendingVideo")
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
@@ -134,8 +136,9 @@
             i.icon.f7-icons.ios-only phone_paused_fill
             i.icon.material-icons.md-only phone_paused
           a.tab-link.b(href='#tab-8', @click='mute()')
-            i.icon.f7-icons.ios-only mic_off_fill
-            i.icon.material-icons.md-only mic_off
+            i.icon.f7-icons.ios-only camera_fill
+            i.icon.material-icons.md-only videocam
+            //-i.icon.material-icons.md-only videocam
     #tab-4.page-content.tab
       //-f7-list(media-list='')
       //- f7-list-item(media="../assets/demo/avatar_generic.png", text="Some text", @click='openContactDetailsPopup(contact)' :title="callee" href="#popupAddContact") Corporate
@@ -333,7 +336,7 @@ export default {
         this.$f7.preloader.show();
         this.callStarted = true
 
-          this.$store.commit('SET_CALL_OPTIONS', options);
+        this.$store.commit('SET_CALL_OPTIONS', options);
 
         this.$store.dispatch('call', params);
       }
@@ -365,7 +368,8 @@ export default {
             value: document.getElementById('remoteVideoContainer'),
           },
         ];
-        params.options = options;
+        //params.options = options;
+        this.$store.commit('SET_CALL_OPTIONS', options);
         this.$store.dispatch('call', params);
       //}
     }
@@ -508,6 +512,10 @@ export default {
 
 .a {
   max-height: 700px;
+}
+
+.a2 {
+  max-height: 100px;
 }
 
 .messageLine {
