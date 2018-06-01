@@ -11,6 +11,8 @@ f7-page.div-container
             .flex.column
                h3 {{getUserName}}
   f7-list.thick#navList(no-hairlines-between)
+    f7-list-item(link='/call/', title='Call', view='#main-view', panel-close='')
+     i.icon.material-icons.md-only star_border
     f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')

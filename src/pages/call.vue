@@ -9,7 +9,7 @@
     f7-nav-right(v-if="activeCall.state === 'ENDED'")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:phone_in_talk', panel-open='right', @click="makeCall(false)")
   // Additional "tabbar-labels" class
-  .toolbar.tabbar-labels
+  .toolbar.tabbar-labels(v-if="getCalleeName")
     .toolbar-inner
       a.tab-link.b(href='#tab-1', :class="getActiveTabChat")
         // Different icons for iOS and MD themes
@@ -41,10 +41,11 @@
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
         //-f7-block(strong='')
-        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{activeCall.calleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
-        p.a2altta2.my-font1(v-if="callStarted && activeCall.state === 'ENDED'") Connecting...
+        p.a2altta2.my-font1(v-if="startCall") Connecting...
+        //-&& activeCall.state === 'ENDED'"
         .keypad(v-if="checkActiveCall")
           .keypad-container
             div
@@ -92,12 +93,13 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(v-if="!callStarted && activeCall.state === 'ENDED'" @click='makeCall(false)')
+        .call-button-container.action.my-cursor(v-if="!startCall && activeCall.state === 'ENDED'" @click='makeCall(false)')
           img.my-size(src='../assets/demo/call_outline_white.png')
-          p.my-font1s Call {{getCalleeName}}
+          p.my-font1s Call {{activeCall.calleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
-          a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
+          a.tab-link.tab-link-active.b(@click='volumeUp()')
+            //-.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
             i.icon.f7-icons.ios-only volume_up_fill
             i.icon.material-icons.md-only volume_up
           a.tab-link.b(href='#tab-6', @click='add()')
@@ -112,18 +114,19 @@
             i.icon.material-icons.md-only(v-if="!activeCall.muted") mic_off
             i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
-      .page-content.messages-content.a2
-      #remoteVideoContainer
-      //-(v-if="activeCall.state === 'IN_CALL'")
-      #localVideoContainer
-        //-(v-if="activeCall.state === 'IN_CALL' && activeCall.sendingVideo")
-        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{getCalleeName}}
+      .page-content.messages-content.a
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{activeCall.calleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
-        p.a2altta2.my-font1(v-if="callStarted && activeCall.state === 'ENDED'") Connecting...
-        .call-button-container.action.my-cursor(v-if="getVideoCallOption", @click='makeCall(true)')
+        p.a2altta2.my-font1(v-if="startCall") Connecting...
+        //-&& activeCall.state === 'ENDED'"
+        .call-button-container.action.my-cursor(v-if="getVideoCallOption && !startCall", @click='makeCall(true)')
           img.my-size2(src='../assets/demo/camera_outline_white.png')
-          p.my-font1s Video {{getCalleeName}}
+          p.my-font1s Video {{activeCall.calleeName}}
+        #remoteVideoContainer(v-bind:class="{ a2: isActive2 }")
+        //-(v-if="activeCall.state === 'IN_CALL'")
+        #localVideoContainer.localVideo(v-bind:class="{ a2: !activeCall.sendingVideo }")
+        //-(v-if="activeCall.state === 'IN_CALL' && activeCall.sendingVideo")
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
           a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
@@ -132,12 +135,16 @@
           a.tab-link.b(href='#tab-6', @click='add()')
             i.icon.f7-icons.ios-only person_add_fill
             i.icon.material-icons.md-only person_add
-          a.tab-link.b(href='#tab-7', @click='hold()')
-            i.icon.f7-icons.ios-only phone_paused_fill
-            i.icon.material-icons.md-only phone_paused
-          a.tab-link.b(href='#tab-8', @click='mute()')
+          a.tab-link.b(href='#tab-7', @click='startVideo()')
             i.icon.f7-icons.ios-only camera_fill
             i.icon.material-icons.md-only videocam
+          a.tab-link.b(href='#tab-8', @click='hold()')
+            i.icon.f7-icons.ios-only phone_paused_fill
+            i.icon.material-icons.md-only phone_paused
+          a.tab-link.b(href='#tab-9', @click='mute()')
+            i.icon.f7-icons.ios-onlymic_off_fill
+            i.icon.material-icons.md-only(v-if="!activeCall.muted") mic_off
+            i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
             //-i.icon.material-icons.md-only videocam
     #tab-4.page-content.tab
       //-f7-list(media-list='')
@@ -188,6 +195,9 @@ export default {
   },
   data: function() {
     return {
+      isActive: false,
+      isActive2: false,
+      isVideo: false,
       callStarted: false,
       noImg: NoImg,
       renderMessages: false,
@@ -232,7 +242,7 @@ export default {
       this.answer()
       console.log('call with video');
     }
-    this.$store.commit('SET_STARTCALL', false);
+    //this.$store.commit('SET_STARTCALL', false);
   },
   methods: {
     openLeftPanel: function() {
@@ -298,6 +308,9 @@ export default {
       this.$f7router.navigate('/contact');
     },
     volumeUp() {
+      console.log(JSON.stringify(this.activeCall));
+      //console.log(JSON.stringify('callStarted ' + this.callStarted));
+
       console.log('sorry, not implemented yet');
     },
     answer() {
@@ -315,6 +328,8 @@ export default {
       console.log('call answer');
     },
     makeCall(mode) {
+      this.$store.commit('SET_STARTCALL', true);
+      this.isVideo = mode
       // SET_ACTIVE_CALLID
       if (!this.activeCall || this.activeCall.state === 'ENDED') {
         this.callee = this.$store.state.callee;
@@ -337,21 +352,28 @@ export default {
         this.callStarted = true
 
         this.$store.commit('SET_CALL_OPTIONS', options);
-
         this.$store.dispatch('call', params);
       }
       else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
+          this.isVideo
           this.$store.dispatch('startVideo');
         } else {
           this.callStarted = false
           this.$store.dispatch('end');
         }
     },
+    startVideo(mode) {
+      if(!this.activeCall.sendingVideo) {
+          this.$store.dispatch('startVideo');
+      } else {
+          this.$store.dispatch('stopVideo');
+      }
+    },
     makeInitialCall(mode) {
       // SET_ACTIVE_CALLID
      // if there is no already session with the contact
      // if (!this.activeCall || this.activeCall.state === 'ENDED') {
-        this.callStarted = true
+        //this.callStarted = true
         this.$f7.preloader.show();
         this.callee = this.$store.state.callee;
         const params = {
@@ -375,7 +397,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['contacts', 'conversations', 'activeCall']),
+    ...mapGetters(['contacts', 'conversations', 'activeCall','startCall']),
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {
@@ -394,12 +416,23 @@ export default {
     getCalleeName() {
       let activeState = this.$store.state.activeCall.state;
       if (activeState === 'RINGING' || activeState === 'IN_CALL'|| activeState === 'ON_HOLD') {
+        //this.callStarted = false;
         this.$f7.preloader.hide();
       } else if (activeState === 'ENDED') {
-        this.callStarted = false;
+        //this.callStarted = false;
+      }
+      if (this.activeCall.sendingVideo) { //activeState !== 'IN_CALL' &&
+        this.isActive = false
+      } else {
+        this.isActive = true
       }
 
-      return '  ' + this.$store.state.activeCall.calleeName;
+      // if (this.activeCall.sendingVideo) {
+      //   this.isActive2 = true
+      // }
+
+
+      return true //'  ' + this.$store.state.activeCall.calleeName;
     },
     getParticipant() {
       return this.$store.state.participant;
@@ -462,7 +495,7 @@ export default {
     },
     getVideoCallOption() {
       //v-if="activeCall.state === 'ENDED' || (activeCall.state === 'IN_CALL' && !activeCall.sendingVideo)"
-      if(!this.callStarted && this.activeCall.state === 'ENDED') {
+      if(!this.startCall && this.activeCall.state === 'ENDED') {
         return true
       } else if (this.activeCall.state !== 'ENDED' && this.activeCall.state !== 'RINGING' && !this.activeCall.sendingVideo) {
         return true
@@ -515,7 +548,8 @@ export default {
 }
 
 .a2 {
-  max-height: 100px;
+  max-height: 700px;
+  visibility: hidden
 }
 
 .messageLine {
@@ -613,5 +647,10 @@ export default {
   padding: 5px;
   border: 0px solid black;
   width: 100%;
+}
+
+.localVideo {
+  height: 40px;
+  height: 40px;
 }
 </style>

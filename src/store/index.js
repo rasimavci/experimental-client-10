@@ -108,6 +108,10 @@ const store = new Vuex.Store({
           call.id === state.activeCall.id
         ) {
           state.activeCall = call
+
+          if(call.state === 'RINGING' || call.state === 'IN_CALL') {
+            state.startCall = false
+          }
         }
       })
     },
