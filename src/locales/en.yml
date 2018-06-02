@@ -1,0 +1,291 @@
+LOGIN:
+USERNAME: username@domain.com
+PASSWORD: Password
+SIGN_IN: SIGN IN
+USERNAME_MIN: Username is required to be at least 2 characters
+MAX_CHAR:  You exceeded maximum number of 80 characters
+PASSWORD_MIN: Password is required to be at least 2 characters
+LOGIN_ERROR_INTRO: A login error occurred
+LOGIN_ERROR_END: Please try again.
+LOGOUT: Logout
+REMEMBER_ME: Remember me
+SIGNING_IN: Signing in, please wait...
+FEEDBACK: Please send us your comments and feedback here.
+SERVER_UNAVAILABLE: server is currently unavailable
+DEMO: Smart Office Client for Demonstration
+
+FCS_ERRORS:
+NETWORK: Check your user name and password. Check network connectivity
+AUTH: Authentication / Authorization failures
+STATE: Invalid state
+PRIV: Privilege failures
+UNKNOWN: Unknown failures
+LOGIN_LIMIT_CLIENT: Login limit exceeded
+LOGIN_LIMIT_TABLET: Login limit exceeded
+FORCE_LOGOUT_ERROR: Force logout error
+INCORRECT_LOGIN_PASS: Incorrect username or password
+INVALID_LOGIN: Invalid username
+TOKEN_NOT_FOUND: Token provided is not valid
+SESSION_EXPIRED: Session generated from token is expired
+VIDEO_SESSION_NOT_AVAILABLE: Video Session is not available
+PENDING_REQUEST: There is a pending request
+
+ERRORS:
+USER_NOT_FOUND: User not found
+NOT_ACCEPTABLE: Not acceptable
+FORBIDDEN: Forbidden
+NO_CALL_TO_GRAB: No call to grab
+TEMPORARILY_UNAVAILABLE: Temporarily Unavailable
+CALLEE_BUSY: Callee Busy
+CALL_FAILURE: Call Failed
+SERVER_ERROR: Server Error
+CALL_RECONNECT_ERROR: Call could not be reconnected
+
+GENERAL:
+NETWORK_ESTABLISHED: Network connection is established.
+NO_NETWORK: No network connection
+NO_NETWORK_TIP: Connect to a network to use client
+GONE_TITLE: You have been forced out
+GONE_MESSAGE: Please contact your system administrator
+NOTIFICATION_PROBLEM:
+TITLE: Connectivity Problem
+MESSAGE: You have a connectivity issue. Tap to open the app and see the details.
+GUIDE_TITLE: You have a connectivity issue that may affect your communication. Followings may help
+GUIDE_STEP_1: 1. First, make sure your device's internet connection (WiFi, Mobile data etc.) is on.
+GUIDE_STEP_2: 2. Then, you may prefer to report this issue from menu.
+GUIDE_STEP_3: 3. Logout/Login may recover your connection.
+GUIDE_STEP_4: 4. As a last solution, please restart your application.
+TRY_RECOVER: Connectivity problem! Trying recovery...
+
+MENU:
+PROFILE: Profile
+FAVORITES: Favorites
+CONTACTS: Contacts
+INBOX: Chat
+HISTORY: History
+SESSIONS: Sessions
+DIALPAD: Dialpad
+CONFERENCE: Collaboration
+
+VOICE: voice
+VIDEO: video
+CHAT: chat
+HOME: home
+MOBILE: mobile
+WORK: work
+SERVICE: service
+REMOVE: Remove
+
+CONTEXT_MENU:
+VIEW_PROFILE: View Profile
+VOICE_CALL: Audio Call
+VIDEO_CALL: Video Call
+HOME_CALL: Call Home
+WORK_CALL: Call Work
+MOBILE_CALL: Call Mobile
+SEND_MESSAGE: Send Message
+CALL: Call
+BACK: Back
+CLOSE: Close
+SAVE: Save
+OK: Ok
+EDIT: Edit
+ADD: Add
+DELETE: Delete
+CANCEL: Cancel
+CANCEL_BIG: CANCEL
+
+SETTINGS: Settings
+NAME: Application Settings
+LANGUAGE_SETTINGS: Language Settings
+PREFERRED_LANGUAGE: Preferred Language
+VIBRATION_SETTINGS: Vibration Settings
+PREFERRED_SETTINGS: Preferred Settings
+CALL_VIBRATION_MODE: Call Mode
+IM_VIBRATION_MODE: IM Mode
+LOG_SETTINGS: Log Settings
+LOG_LEVEL: Log Level
+VERBOSE: VERBOSE
+DEBUG: DEBUG
+INFO: INFO
+WARN: WARN
+ERROR: ERROR
+BATTERY_SETTINGS: Battery Settings
+BATTERY_OPTIMIZATION: Stay connected while the app is in the background
+BATTERY_OPTIMIZATION_REQUIRED_ENABLE: Recommended Check 'stay connected' in order to receive calls and messages while the app is in the background.
+BATTERY_OPTIMIZATION_REQUIRED_DISABLE: You have the recommended setting. If you want to change use the Android Battery settings.
+SERVICE_SETTINGS: Add or Remove Services to Favorites
+SERVICE_SETTINGS_TITLE: Service Settings
+SERVICE_SETTINGS_DESCRIPTION: Select the service you want to see in your favorites
+SERVICES: Services
+BOOST_SETTINGS: Boost Settings
+
+MANAGE: Manage
+SERVICE_SHORTCUTS: Service Shortcuts
+DISPLAY_AS: Display As
+TILES: Tiles
+LIST: List
+SORT_BY: Sort By
+SORT_LAST_NAME: Last Name
+SORT_FIRST_NAME: First Name
+
+EDIT_PROFILE: Edit Profile
+ADD_PROFILE: Create Profile
+ADD_PHOTO: Add Photo
+IDENTIFICATION: IDENTIFICATION
+NICKNAME: Nickname
+FIRST_NAME: First Name
+LAST_NAME: Last Name
+USER_ID: User ID
+EMAIL: Email
+
+MANAGE_FAVS: Manage Favorites
+REMOVE_FROM_PAB: Remove From Personals Contact List
+CONTACT_DETAIL: CONTACT
+SHOW_AVAILABILITY: Show Presence Status
+CONTACT_EXISTS_ERROR: Contact does already exist.
+CONTACT_MAXIMUM_ENTRIES_ERROR: Your contact list has exceeded the size limit allowed on the server.
+CONTACT_INSUFFICIENT_INFO_ERROR: Insufficient information to create/edit contact. Please check that all mandatory fields are filled.
+CONTACT_INVALID_PARAMETER_ERROR: Invalid Input please check all field entries and remove all special characters.
+UNKNOWN_ERROR: An unknown error occurred.
+ADD_FAVORITE_TEXT: Select one or multiple entries to add to your Favorites
+
+CONTEXT_MENU2:
+DELETE_CONTACT: Delete Contact
+EDIT_CONTACT: Edit Contact
+ADD_CONTACT: Add Contact
+FAV_CHAT: Chat
+FAV_VOICE: Voice
+FAV_VIDEO: Video
+FAV_HOME: Home
+FAV_MOBILE: Mobile
+FAV_WORK: Work
+MANAGE_FAVORITES: Manage Favorites
+ADD_FAVORITE: Add
+DELETE_FAVORITE : Delete
+TO_FAVORITES: to Favorites
+FROM_FAVORITES: from Favorites
+
+INBOX_PAGE:
+DISPLAY: Display
+CAPTION_NEW: New
+CAPTION_SAVED: Saved
+
+SHOW: Show...
+INCOMING_CALL: Incoming Call
+OUTGOING_CALL: Outgoing Call
+MISSED_CALL: Missed Call
+INSTANT_MESSAGES: Message
+NO_FAV: Your favorites tab is empty. To add favorites click on the Contacts tab and add a contact to your favorites tab.
+
+CHAT_TAB: CHAT
+VOICE_TAB: VOICE
+VIDEO_TAB: VIDEO
+PEOPLE_TAB: PEOPLE
+
+DIALPAD_PAGE: Dialpad
+PLACEHOLDER_DIALPAD: Enter a number
+EMPTY_ADDRESS: Please enter an address.
+INVALID_ADDRESS: Please enter a valid address.
+
+ACTIONS:
+CONNECTING: Connecting...
+CALLING: Calling
+TRANSFERRING: Transferring to
+BLIND_TRANSFER: Blind Transfer
+
+STATES:
+RINGING: Ringing
+ON_HOLD: On Hold
+CALL_HELD_REMOTELY: Call Held Remotely
+ANSWERING_STATE: Answering
+RENEGOTIATION: Active Call
+IN_CALL: Active Call
+INCOMING_CALL_STATE: Incoming Call
+OUTGOING_CALL_STATE: Outgoing Call
+REJECTED_STATE: Rejected
+JOINED_STATE: Joined
+TRANSFERRED_STATE: Transferred
+CALL_ENDED: Call Ended
+GSM_CALL_STATE: Active Gsm Call
+EARLY_MEDIA: Ringing
+TRANSFER_FAILURE: Transfer Failed
+INVALID_NUMBER: No valid number found. Please contact your Local Administrator.
+NO_MOBILE_NUMBER: Your mobile number not found
+
+MERGE:
+ADD_PARTY: Add Party,
+NO_CALL_FOUND: No held call found to merge with.
+TRYING: Trying to merge calls...
+SUCCESS: Calls have been merged successfully.
+FAILURE: Merge calls failed
+
+CALL_MENU:
+MUTE: mute
+TRANSFER: transfer
+SPEAKER: audio
+ADD_TO_CALL: add
+HOLD: hold
+BOOST: boost
+HIDE: Hide
+TRANSFER_VIA: Transfer Call Via
+DIALER: Dialer
+
+ADDRESS_BOOK_TRANSFER_TO_ROW_PREFIX: Transfer to
+
+INFOS:
+IN_BETWEEN_STATE: Please wait until your previous call operation finished.
+WAIT_FOR_JOIN: There is pending operations. Please try in a few seconds again!
+JOIN_STATE_FAILURE: Merge failed since calls are not in proper states.
+REQUEST_FAILURE: Your request could not be completed. Please try again later
+REQUEST_FAILURE_NO_RETRY: Your request could not be completed.
+PREV_CALL_NOT_ENDED: Your previous call could not be ended.
+PREV_CALL_END: Your previous call will be ended.
+CALL_SESSION_EXIT: You have an active call session, do you want to exit?
+GSM_CALL_AND_START_SO_CALL: You have a gsm active call session, please try again later
+PERMISSION_REQUIRED: Please make sure camera & microphone permissions provided
+FAIL_HOLD: There was a problem while hold or unhold
+FORWARD_CALL_START : The system is attempting to call your mobile number. Please answer and you will then be connected with the requested number.
+NO_MOBILE_NUMBER_INFO: You don't have a mobile phone number. Please, Enter a mobile phone
+INCORRECT_PHONE_NUMBER: Incorrect phone number. Please make sure correct phone number.
+
+___________BU_ARADA_VAR:
+
+IM:
+TEMPORARILY_UNAVAILABLE_IM: User temporarily unavailable
+EMPTY_MESSAGE: Empty messages are not allowed.
+INPUT_LENGTH_LIMIT_REACH: Message input length limit reached
+
+PRESENCES:
+PRESENCE: Presence
+PLATFORM: Platform
+VERSION: Version
+OFFLINE: Appear Offline
+BE_RIGHT_BACK: Be Right Back
+OUT_TO_LUNCH: Out to Lunch
+AWAY: Away
+ON_VACATION: On Vacation
+BUSY: Busy
+AVAILABLE: Available
+
+CONFERENCE_MENU:
+CONFERENCE_CONNECTION_TITLE: Connection information for your permanent collaboration room
+URL: URL
+PSTN_NUMBER: Dial In Number
+MEETME_NUMBER: MeetMe Dial In Number
+ACCESS_CODE: Access code
+CONFERENCE_INVITATION_TITLE: You can also send an automated invitation
+SEND_AN_EMAIL: Invite by Email
+START_MY_CONFERENCE_NOW: START COLLABORATION
+COPY_TO_CLIPBOARD: Copy to clipboard
+CONFERENCE_INVITE: Please join my collaboration room at
+CONFERENCE_INVITE_DIAL_NUMBER: Or dial in for audio only using one of the following number(s)
+CONFERENCE_INVITE_ACCESS_CODE: Access Code
+CONFERENCE_INVITE_MEETME_ACCESS_CODE: MeetMe Access Code
+
+SEARCH_IN_CONTACTS: Search in contacts
+SEARCH_IN_DIRECTORY: Search in directory
+
+PROFILE_PAGE:
+ABOUT_BUTTON: ABOUT
+SEND_FEEDBACK: SEND FEEDBACK

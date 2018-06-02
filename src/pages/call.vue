@@ -14,13 +14,13 @@
       a.tab-link.b(href='#tab-1', :class="getActiveTabChat")
         // Different icons for iOS and MD themes
         // Label text
-        span.tabbar-label CHAT
+        span.tabbar-label {{ $t('CHAT_TAB') }}
       a.tab-link.b(href='#tab-2', :class="getActiveTabAudio")
-       span.tabbar-label VOICE
+       span.tabbar-label {{ $t('VOICE_TAB') }}
       a.tab-link.b(href='#tab-3', :class="getActiveTabVideo")
-        span.tabbar-label VIDEO
+        span.tabbar-label {{ $t('VIDEO_TAB') }}
       a.tab-link.b(href='#tab-4')
-        span.tabbar-label PEOPLE
+        span.tabbar-label {{ $t('PEOPLE_TAB') }}
   .tabs
     #tab-1.page-content.tab.sheet-open(:class="tabActiveChat", data-sheet=".my-sheet2")
       .page-content.messages-content.a
@@ -33,7 +33,7 @@
             i.icon.f7-icons.ios-only more_vert_fill
             i.icon.material-icons.md-only more_vert
           .messagebar-area
-            textarea(v-model='message', placeholder='Message')
+            textarea(v-model='message', :placeholder="$t('MESSAGE_PLACEHOLDER')")
           a.link(href='#', @click='sendMessage()')
             i.icon.f7-icons.ios-only more_vert_fill
             i.icon.material-icons.md-only near_me
@@ -41,10 +41,10 @@
     #tab-2.page-content.tab(:class="tabActiveAudio")
       .page-content.messages-content.a
         //-f7-block(strong='')
-        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{activeCall.calleeName}}
-        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
-        p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
-        p.a2altta2.my-font1(v-if="startCall") Connecting...
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") {{ $t('CALLING') }} {{activeCall.calleeName}}
+        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") {{ $t('CANCEL_BIG') }}
+        p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{ $t(activeCall.state) }}
+        p.a2altta2.my-font1(v-if="startCall") {{ $t('CONNECTING') }}
         //-&& activeCall.state === 'ENDED'"
         .keypad(v-if="checkActiveCall")
           .keypad-container
@@ -95,30 +95,30 @@
                 | #
         .call-button-container.action.my-cursor(v-if="!startCall && activeCall.state === 'ENDED'" @click='makeCall(false)')
           img.my-size(src='../assets/demo/call_outline_white.png')
-          p.my-font1s Call {{activeCall.calleeName}}
+          p.my-font1s {{ $t('CALL') }} {{activeCall.calleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
         .toolbar-inner
-          a.tab-link.tab-link-active.b(@click='volumeUp()')
-            //-.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
+          a.tab-link.tab-link-active.b.sheet-open(href='#tab-5', data-sheet=".my-sheet2")
             i.icon.f7-icons.ios-only volume_up_fill
             i.icon.material-icons.md-only volume_up
-          a.tab-link.b(href='#tab-6', @click='add()')
+          a.tab-link.b(href='#tab-6', @click='volumeUp()')
             i.icon.f7-icons.ios-only person_add_fill
             i.icon.material-icons.md-only person_add
           a.tab-link.b(href='#tab-7', @click='hold()')
             i.icon.f7-icons.ios-only phone_paused_fill
-            i.icon.material-icons.md-only(v-if="activeCall.state !== 'ON_HOLD'") phone_paused
-            i.icon.material-icons.md-only.my-color(v-if="activeCall.state === 'ON_HOLD'") phone_paused
+            i.icon.material-icons.md-only phone_paused
+            //-(v-bind:class="{ my-color: isHold }")
+            //-i.icon.material-icons.md-only.my-color(v-if="activeCall.state === 'ON_HOLD'") phone_paused
           a.tab-link.b(href='#tab-8', @click='mute()')
             i.icon.f7-icons.ios-onlymic_off_fill
             i.icon.material-icons.md-only(v-if="!activeCall.muted") mic_off
             i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") mic_off
     #tab-3.page-content.tab(:class="tabActiveVideo")
       .page-content.messages-content.a
-        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") Calling {{activeCall.calleeName}}
-        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") CANCEL
+        p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") {{ $t('CALLING') }} {{activeCall.calleeName}}
+        p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") {{ $t('CANCEL_BIG') }}
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{activeCall.state}}
-        p.a2altta2.my-font1(v-if="startCall") Connecting...
+        p.a2altta2.my-font1(v-if="startCall") {{ $t('CONNECTING') }}
         //-&& activeCall.state === 'ENDED'"
         .call-button-container.action.my-cursor(v-if="getVideoCallOption && !startCall", @click='makeCall(true)')
           img.my-size2(src='../assets/demo/camera_outline_white.png')
@@ -173,6 +173,27 @@
          f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'Spearkerphone'")
          f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'Earpiece'")
          f7-list-item(:key='3', radio='', name='my-radio', :checked='3 === 1', :value='3', :title="'Blootooth Headset'")
+  .sheet-modal.my-sheet2a
+    .toolbar
+      .toolbar-inner
+        .left
+        .right
+          a.link.sheet-close(href="#") Cancel
+    .block-title Volume
+    .list.simple-list
+      ul
+        li
+          .item-cell.width-auto.flex-shrink-0
+            i.icon.f7-icons.ios-only volume_mute_fill
+            i.icon.material-icons.md-only volume_mute
+          .item-cell.flex-shrink-3
+            // range slider
+            .range-slider.range-slider-init
+              input(type="range" min="0" max="100" step="1" value="10")
+          .item-cell.width-auto.flex-shrink-0
+            i.icon.f7-icons.ios-only volume_fill
+            i.icon.material-icons.md-only volume_up
+
 </template>
 
 
@@ -197,6 +218,7 @@ export default {
     return {
       isActive: false,
       isActive2: false,
+      isHold: false,
       isVideo: false,
       callStarted: false,
       noImg: NoImg,
@@ -328,7 +350,6 @@ export default {
       console.log('call answer');
     },
     makeCall(mode) {
-      this.$store.commit('SET_STARTCALL', true);
       this.isVideo = mode
       // SET_ACTIVE_CALLID
       if (!this.activeCall || this.activeCall.state === 'ENDED') {
@@ -350,12 +371,12 @@ export default {
         //params.options = options;
         this.$f7.preloader.show();
         this.callStarted = true
-
+        this.$store.commit('SET_STARTCALL', true);
         this.$store.commit('SET_CALL_OPTIONS', options);
         this.$store.dispatch('call', params);
       }
       else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
-          this.isVideo
+          //this.isVideo
           this.$store.dispatch('startVideo');
         } else {
           this.callStarted = false
@@ -651,6 +672,6 @@ export default {
 
 .localVideo {
   height: 40px;
-  height: 40px;
+  width: 40px;
 }
 </style>

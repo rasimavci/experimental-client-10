@@ -1,0 +1,278 @@
+LOGIN:
+USERNAME: nombredeusuario@dominio.com
+PASSWORD: Contraseña
+SIGN_IN: REGISTRARSE
+USERNAME_MIN: Se requiere que el nombre de usuario tenga al menos 2 caracteres
+MAX_CHAR: Ha superado el número máximo de 80 caracteres
+PASSWORD_MIN: Se requiere que la contraseña tenga al menos 2 caracteres
+LOGIN_ERROR_INTRO: Ha ocurrido un error de inicio de sesión
+LOGIN_ERROR_END: Por favor inténtelo de nuevo.
+LOGOUT: Cerrar Sesión
+REMEMBER_ME: Recordarme
+SIGNING_IN: Registrándose por favor espere…
+FEEDBACK: Por favor envíe sus comentarios y sugerencias aquí.
+SERVER_UNAVAILABLE: servidor no disponible actualmente
+DEMO: Smart Office Client para demostración
+
+FCS_ERRORS:
+NETWORK: Compruebe su nombre de usuario y contraseña. Verifique conectividad de la red
+AUTH:  Fallas de Autenticación/Autorización
+STATE: Estado Inválido
+PRIV: Fallas de Privilegios
+UNKNOWN: Fallas desconocidas
+LOGIN_LIMIT_CLIENT: Límite de inicio de sesión excedido
+LOGIN_LIMIT_TABLET: Límite de inicio de sesión excedido
+FORCE_LOGOUT_ERROR: Error de cierre forzoso de sesión
+INCORRECT_LOGIN_PASS: Nombre de usuario o contraseña incorrecta
+INVALID_LOGIN: Nombre de usuario inválido
+TOKEN_NOT_FOUND: Token proporcionado no es válido
+SESSION_EXPIRED: Se ha caducado la sesión generada desde el token
+VIDEO_SESSION_NOT_AVAILABLE: Sesión de video no disponible
+PENDING_REQUEST_FCS: Hay una solicitud pendiente
+
+GENERAL:
+NETWORK_ESTABLISHED: Conexión de red establecida.
+NO_NETWORK: No hay conexión de red
+NO_NETWORK_TIP: Conéctese a una red para utilizar el cliente
+GONE_TITLE: Usted ha sido forzado a salir
+GONE_MESSAGE: Por favor, póngase en contacto con el administrador del sistema
+
+NOTIFICATION_PROBLEM:
+TITLE: Problema de Conectividad
+MESSAGE: Usted tiene un problema de conectividad. Toque para abrir la aplicación y ver los detalles.
+GUIDE_TITLE: Tiene un problema de conectividad que puede afectar la comunicación. Lo siguiente podría ayudarle
+GUIDE_STEP_1: 1. Primero, asegúrese de que la conexión a Internet de su dispositivo (WiFi, Datos Móviles, etc.) está encendida.
+GUIDE_STEP_2: 2. Luego, es posible que desee reportar este problema desde el menú.
+GUIDE_STEP_3: 3. Salir y entrar nuevamente a su sesión puede recuperar su conexión.
+GUIDE_STEP_4: 4. Como última solución, por favor reinicie su aplicación.
+TRY_RECOVER: ¡Problema de conectividad! Intentando recuperar...
+
+NO_FAV: Seu guia de Favoritos está vazio. Para adicionar favoritos, clique no ícone de lista de endereços e adicione um contato para o seu guia de favoritos
+
+PROFILE: Perfil
+FAVORITES: Favoritos
+CONTACTS: Contactos
+INBOX: Mensajería
+HISTORY: Historia
+SESSIONS: Sesiones
+DIALPAD: Teclado
+CONFERENCE: Colaboración
+SETTINGS: Ajustes
+
+VOICE: voz
+VIDEO: video
+CHAT: chat
+HOME: casa
+MOBILE: móvil
+WORK: trabajo
+REMOVE: Remover
+FROM_FAVORITES: de Favoritos
+VIEW_PROFILE: Ver Perfil
+SEND_MESSAGE: Enviar Mensaje
+CALL: Llamar
+
+APP_SETTINGS:
+NAME: Ajustes de Aplicación
+LANGUAGE_SETTINGS: Ajustes de Idioma
+PREFERRED_LANGUAGE: Idioma Preferido
+VIBRATION_SETTINGS: Ajustes de Vibración
+PREFERRED_SETTINGS: Ajustes Preferidos
+
+CALL_VIBRATION_MODE: Modo de llamada
+IM_VIBRATION_MODE: Modo de Mensaje Instantáneo
+LOG_SETTINGS: Ajustes de Registro
+LOG_LEVEL: Nivel de Registro
+
+LOG_LEVELS:
+VERBOSE: VERBOSE
+DEBUG: DEBUG
+INFO: INFO
+WARN: WARN
+ERROR: ERROR
+
+CALL_MODE:
+NONE: Bloqueado
+VoIP: Conexión Internet
+CELLULAR: Llamada Celular
+CALL_MY_FIRST_MOBILE: Recuérdame
+ASK_EVERY_TIME: Preguntar a Cada Llamada
+ASK_EVERY_CALL:
+CHANGE_DEFAULT_MODE: Cambiar el Modo Predeterminado
+
+PLACEHOLDER: Ingrese su numero celular
+BATTERY_SETTINGS: Ajustes de Batería
+BATTERY_OPTIMIZATION: Permanecer conectado en segundo plano
+BATTERY_OPTIMIZATION_REQUIRED_ENABLE: Recomendado Seleccione 'permanecer conectado' para recibir llamadas y mensajes mientras la aplicación está en segundo plano.
+BATTERY_OPTIMIZATION_REQUIRED_DISABLE: Tiene la configuración recomendada. Si desea cambiar utilice la configuración de batería de Android.
+
+SERVICE_SETTINGS: Agregar o Quitar Servicios a Favoritos
+SERVICE_SETTINGS_TITLE: Configuración del servicio
+SERVICE_SETTINGS_DESCRIPTION: Seleccione el servicio que desea ver en sus favoritos
+SERVICES: Servicios
+
+BOOST_SETTINGS: Configuraciones de Transferir a Móvil
+BOOST_STEP:
+DESCRIPTION: Transferir a Móvil permite transferir una llamada actual a una llamada celular.
+FIRST_STEP: 1. Seleccione el punto de acceso al servicio más cercano
+
+SECOND_STEP:
+DESCRIPTION_2: 2. Autorice su número de teléfono móvil para la Capturar Llamadas
+QUICK_STEP1: a través del
+QUICK_STEP1_1: portal web del usuario
+QUICK_STEP2: (se recomienda el uso de un navegador de escritorio)
+
+THIRD_STEP: 3. Para mover una llamada activa a una llamada celular presione el botón Transferir a Móvil en la pantalla de llamada activa. La transferencia tarda unos pocos segundos para completar
+
+INBOX_PAGE:
+DISPLAY: Display
+CAPTION_NEW: New
+CAPTION_SAVED: Saved
+
+DIALPAD_PAGE:
+PLACEHOLDER_DIALPAD: Introduzca un número
+EMPTY_ADDRESS: Por favor, introduzca una dirección.
+INVALID_ADDRESS: Por favor introduzca una dirección válida.
+
+LOCKED_ALERT: Desbloquee su dispositivo para otra funcionalidad
+
+TABS:
+CHAT_TAB: CHAT
+VOICE_TAB: VOZ
+VIDEO_TAB: VIDEO
+PEOPLE_TAB: PERSONAS
+MERGE_USER: Conferencia
+
+ACTIONS:
+CONNECTING: Conectando ...
+CALLING: Llamando
+CANCEL_BIG: CANCELAR
+TRANSFERRING: Transfiriendo a
+BLIND_TRANSFER: Transferencia sin Consulta
+
+STATES:
+RINGING: Llamando
+ON_HOLD: En Espera
+CALL_HELD_REMOTELY: Llamada retenida remotamente
+ANSWERING_STATE: Contestando
+RENEGOTIATION: Llamada Activa
+IN_CALL: Llamada Activa
+INCOMING_CALL_STATE: Llamada Entrante
+OUTGOING_CALL_STATE: Llamada Saliente
+REJECTED_STATE: Rechazada
+JOINED_STATE: Unida
+TRANSFERRED_STATE: Transferida
+CALL_ENDED: Llamada Terminada
+GSM_CALL_STATE: Llamada GSM Activa
+EARLY_MEDIA: Llamando
+TRANSFER_FAILURE: Transferencia Fallida
+INVALID_NUMBER: Número inválido. Por favor póngase en contacto con el Administrador Local.
+NO_MOBILE_NUMBER: Tu número de móvil no encontrado
+
+MERGE:
+ADD_PARTY: Agregar participante
+NO_CALL_FOUND: No se encontró llamada para unir.
+TRYING: Intentando unir llamadas…
+SUCCESS: Las llamadas se han unido satisfactoriamente.
+FAILURE: La unión de llamadas falló
+
+BACK: Regresar
+CLOSE: Cerrar
+SAVE: Guardar
+OK: Aceptar
+EDIT: Editar
+ADD: Agregar
+DELETE: Eliminar
+CANCEL: Cancelar
+REPLY: Responder
+
+CALL_:
+MUTE: mudo
+TRANSFER: transferir
+SPEAKER: altavoz
+ADD_TO_CALL: agregar a la llamada
+HOLD: sostener
+BOOST: transferir a móvil
+DIALPAD2: teclado de marcación
+HIDE: Esconder
+TRANSFER_VIA: Transfiere la llamada via
+DIALER: Teclado
+
+SESSION:
+NO_SESSION: No hay sesiones abiertas.
+CURRENT_CALLS: Sesiones
+ACTIVE_CALL: LLAMADA ACTIVA
+ON_HOLD_BIG: EN ESPERA
+NEW_IM: NUEVO MENSAJE INSTÁNTANEO
+ACTIVE_CHAT: CHAT ACTIVO
+
+ABOUT_:
+ABOUT: Acerca de
+VERSION: Versión
+UPDATE: Actualizar Cliente
+UPDATE_CONFIRM: Actualizaciones disponibles. ¿Actualizar ahora?
+INIT_CLIENT: Actualizando cliente...
+INIT_CONFIG: Actualizando configuración...
+PRIVACY_POLICY: Enlace a la política de privacidad
+
+BACKBUTTON:
+QUIT_STATE: Salir
+QUIT: ¿Desea salir?
+
+BACKGROUND_MODE:
+
+NOTIFICATION:
+TITLE_NOTIF: corriendo en segundo plano
+TEXT: Toque la pantalla para regresar
+
+ERRORS:
+USER_NOT_FOUND: Usuario no encontrado
+NOT_ACCEPTABLE: No es aceptable
+FORBIDDEN: Prohibido
+NO_CALL_TO_GRAB: No hay llamada para capturar
+TEMPORARILY_UNAVAILABLE: No disponible temporalmente
+CALLEE_BUSY: Número de destino ocupado
+CALL_FAILURE: Llamada Fallida
+SERVER_ERROR: Error del Servidor
+PENDING_REQUEST: Requerimiento Pendiente
+CALL_RECONNECT_ERROR: No se pudo reconectar la llamada
+
+MESSAGE_PLACEHOLDER: Mensaje ...
+SEND_CONFERENCE_LINK: Enviar enlace de Colaboración
+
+IM1:
+TEMPORARILY_UNAVAILABLE_IM: Usuario temporalmente no disponible
+EMPTY_MESSAGE: Mensajes vacíos no son permitidos.
+INPUT_LENGTH_LIMIT_REACH: Alcanzó el límite de caracteres por mensaje
+
+PRESENCE1:
+PRESENCE: Presencia
+PLATFORM: Plataforma
+OFFLINE: Aparecer Desconectado
+BE_RIGHT_BACK: Vuelvo Enseguida
+OUT_TO_LUNCH: Salí a Comer
+AWAY: Ausente
+ON_VACATION: De Vacaciones
+BUSY: Ocupado
+AVAILABLE: Disponible
+
+CONFERENCE_PAGE:
+CONFERENCE_CONNECTION_TITLE: Información de acceso a su sala permanente de colaboración
+URL: URL
+PSTN_NUMBER: Número de Discado Entrante
+MEETME_NUMBER: Número para llamar a Meetme
+ACCESS_CODE: Código de Acceso
+CONFERENCE_INVITATION_TITLE: También puede enviar una invitación automática
+SEND_AN_EMAIL: Invitar vía correo electrónico
+START_MY_CONFERENCE_NOW: COMENZAR COLABORACIÓN
+COPY_TO_CLIPBOARD: Copiar al portapapeles
+CONFERENCE_INVITE: Por favor, unirse a mi salón de colaboración siguiendo el enlace
+CONFERENCE_INVITE_DIAL_NUMBER: O acceda sólo con audio a través del número telefónico correspondiente
+CONFERENCE_INVITE_ACCESS_CODE: Código de Acceso
+CONFERENCE_INVITE_MEETME_ACCESS_CODE: Código de Acceso a Meetme
+
+SEARCH_IN_CONTACTS: Buscar en contactos
+SEARCH_IN_DIRECTORY: Buscar en el directorio
+
+PROFILE_PAGE:
+ABOUT_BUTTON: ACERCA DE
+SEND_FEEDBACK: enviar comentarios

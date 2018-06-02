@@ -6,10 +6,14 @@ import * as getters from './getters'
 // import mutations from './mutations'
 import * as types from './mutation-types'
 import _ from 'lodash'
+import vuexI18n from 'vuex-i18n'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  modules: {
+    i18n: vuexI18n.store
+  },
   strict: true,
   state,
   actions,

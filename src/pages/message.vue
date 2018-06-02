@@ -4,10 +4,10 @@ f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title Inbox
+    f7-nav-title {{ $t('INBOX') }}
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
-  f7-block-title Saved {{getConvLength}}
+  f7-block-title {{ $t('CAPTION_SAVED') }} {{getConvLength}}
   f7-list.my-class
     ul
       li(v-for='conv in getConversations' :key="conv.key" @click='openPopupMessage(true, conv.fullName, conv.conversationId)')
@@ -26,9 +26,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='closePopup') Save
-            .title Inbox
-            .right(@click='closePopup') Close
+            .left(@click='closePopup') {{ $t('SAVE') }}
+            .title {{ $t('INBOX') }}
+            .right(@click='closePopup') {{ $t('CLOSE') }}
         f7-block
         .page-content.messages-content.a
           .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
@@ -47,10 +47,10 @@ f7-page
 <script>
 import LeftChatBubble from './LeftChatBubble';
 import RightChatBubble from './RightChatBubble';
-import { mapState, mapGetters } from 'vuex';
 import NoImg from '../assets/demo/noimage1.jpg';
 import PresenceConnected from '../assets/icon/presence_connected.png';
 import IncomingCallModal from './ModalIncomingCall'
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   created: function() {

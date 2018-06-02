@@ -4,7 +4,7 @@ f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title History
+    f7-nav-title {{ $t('HISTORY') }}
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   //-f7-searchbar(cancel-link="Cancel" placeholder="Search in history" :clear-button="true")
@@ -23,8 +23,6 @@ f7-page
               i.icon.material-icons.md-only(v-if="group.direction === 'outgoing'") call_made
               i.icon.material-icons.md-only(v-if="group.direction === 'incoming'") call_received
               i.icon.material-icons.md-only(v-if="group.direction === 'missed'") call_missed
-
-
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex';

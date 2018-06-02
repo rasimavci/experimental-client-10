@@ -4,63 +4,63 @@ f7-page
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title Settings
-  f7-block-title Application Settings
+    f7-nav-title {{ $t('SETTINGS') }}
+  f7-block-title {{ $t('NAME') }}
   f7-list
-    f7-list-item(@click='openPopupLanguage()', title='Language Settings')
-    f7-list-item(@click='openPopupVibration()', title='Vibration Settings')
-    f7-list-item(@click='openPopupLog()', title='Log Settings')
-    f7-list-item(@click='openPopupBattery()', title='Battery Settings')
+    f7-list-item(@click='openPopupLanguage()', :title="$t('LANGUAGE_SETTINGS')")
+    f7-list-item(@click='openPopupVibration()', :title="$t('VIBRATION_SETTINGS')")
+    f7-list-item(@click='openPopupLog()', :title="$t('LOG_SETTINGS')")
+    f7-list-item(@click='openPopupBattery()', :title="$t('BATTERY_SETTINGS')")
   f7-popup#popupVibration
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left.cursor1(@click='closePopupVibration') Back
-            .title Vibration Settings
-            .right.cursor1(@click='saveVibrationSettings') Save
-        f7-block-title PREFERRED SETTINGS
+            .left.cursor1(@click='closePopupVibration') {{ $t('BACK') }}
+            .title {{ $t('VIBRATION_SETTINGS') }}
+            .right.cursor1(@click='saveVibrationSettings') {{ $t('SAVE') }}
+        f7-block-title {{ $t('PREFERRED_SETTINGS') }}
         f7-list(form='')
-         f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Call Mode'")
-         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="'IM Mode'")
+         f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="$t('CALL_VIBRATION_MODE')")
+         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="$t('IM_VIBRATION_MODE')")
   f7-popup#popupLanguage
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left.cursor1(@click='closePopupLanguage') Back
-            .title Language Settings
-            .right.cursor1(@click='saveLanguageSetting') Save
+            .left.cursor1(@click='closePopupLanguage') {{ $t('BACK') }}
+            .title {{ $t('LANGUAGE_SETTINGS') }}
+            .right.cursor1(@click='saveLanguageSetting') {{ $t('SAVE') }}
         f7-list(form='')
-         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet2" :title="'Preferred Language'") English
+         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet2" :title="$t('PREFERRED_LANGUAGE')") English
   f7-popup#popupBattery
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left.cursor1(@click='closePopupBattery') Back
-            .title Battery Settings
+            .left.cursor1(@click='closePopupBattery') {{ $t('BACK') }}
+            .title {{ $t('BATTERY_SETTINGS') }}
         f7-list(form='')
-         f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Stay Connected while app is in background'")
+         f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="$t('BATTERY_OPTIMIZATION')")
         f7-block
-          | You have the recommended setting.
+          | {{ $t('BATTERY_OPTIMIZATION_REQUIRED_DISABLE') }}
   f7-popup#popupLog
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left.cursor1(@click='closePopupLog') Back
-            .title Log Settings
-            .right.cursor1(@click='saveLogSettings') Save
+            .left.cursor1(@click='closePopupLog') {{ $t('BACK') }}
+            .title {{ $t('LOG_SETTINGS') }}
+            .right.cursor1(@click='saveLogSettings') {{ $t('SAVE') }}
         f7-list(form='')
-         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet" :title="'Log Level'") WARN
+         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet" :title="$t('LOG_LEVEL')") WARN
           //-a.link.sheet-open(href="#" data-sheet=".my-sheet") Sheet Open
   .sheet-modal.my-sheet
     .toolbar
       .toolbar-inner
         .left
         .right
-          a.link.sheet-close.Linklarge(href="#") Cancel
+          a.link.sheet-close.Linklarge(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
     .sheet-modal-inner
       .block
         f7-list(form='')
@@ -75,16 +75,18 @@ f7-page
       .toolbar-inner
         .left
         .right
-          a.link.sheet-close.Linklarge(href="#") Cancel
+         a.link.sheet-close.Linklarge(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
     .sheet-modal-inner
       .block
-        f7-list(form='')
-         f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'English'")
-         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")
+        f7-list(formLanguage='')
+         f7-list-item(:key='1', radio='', name='language', :checked="language === 'en'", @change="language = 'en'", :title="'English'")
+         f7-list-item(:key='2', radio='', name='language', :checked="language === 'pt'", @change="language = 'pt'", :title="'Portuguese'")
+         f7-list-item(:key='3', radio='', name='language', :checked="language === 'es'", @change="language = 'es'", :title="'Espanol'")
+         f7-list-item(:key='4', radio='', name='language', :checked="language === 'fr'", @change="language = 'fr'", :title="'French'")
   f7-popover
-        f7-list(form='')
-         f7-list-item(:key='1', radio='', name='my-radio', :checked='1 === 1', :value='1', :title="'English'")
-         f7-list-item(:key='2', radio='', name='my-radio', :checked='2 === 1', :value='2', :title="'French'")
+        f7-list(formLanguage2='')
+         f7-list-item(:key='1', radio='', name='my-radio2', :checked='1 === 1', :value='1', :title="'English'")
+         f7-list-item(:key='2', radio='', name='my-radio2', :checked='2 === 1', :value='2', :title="'French'")
 </template>
 
 
@@ -99,12 +101,20 @@ export default {
   data: function() {
     return {
       showData: 'all',
+      language: 'english'
     }
   },
   components: {
     incomingCallModal: IncomingCallModal
   },
   methods: {
+
+
+    onChange: function(ev){
+    console.log('changed to ' + ev)
+   //console.log($$(ev.currentTarget).val());
+},
+
     openPopupLanguage: function() {
       this.$f7.popup.open(popupLanguage, true)
     },
@@ -133,7 +143,8 @@ export default {
 
     },
     saveLanguageSetting:function() {
-
+        this.$i18n.set(this.language)
+      console.log('selected language ' + this.language)
     },
     saveVibrationSettings: function() {
 

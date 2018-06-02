@@ -1,0 +1,445 @@
+LOGIN:
+USERNAME: Nom d'utilisateur
+PASSWORD: Mot de passe
+SIGN_IN: DÉBUTER
+USERNAME_MIN: Le nom d'utilisateur doit contenir au moins 2 caract\u00E8res
+MAX_CHAR: Vous avez d\u00E9passez le nombre maximum de 80 caract\u00E8res
+PASSWORD_MIN: Le mot de passe doit contenir au moins 2 caract\u00E8res
+LOGIN_ERROR_INTRO: Une erreur est survenue lors de l'ouverture de session
+LOGIN_ERROR_END: Veuillez essayer \u00E0 nouveau.
+LOGOUT: D\u00E9connexion
+REMEMBER_ME: M\u00E9moriser mes donn\u00E9es
+SIGNING_IN: Connexion en cours, veuillez patienter...
+FEEDBACK: S'il vous plaît envoyez-nous vos commentaires ici.
+SERVER_UNAVAILABLE: Le serveur n'est pas disponible actuellement
+DEMO: Smart Office Client for Demonstration
+
+FCS_ERRORS:
+NETWORK: Vérifiez votre nom d'utilisateur et mot de passe. Vérifiez la connectivité réseau
+AUTH: D\u00E9faillance authentification / autorisation
+STATE: \u00C9tat non valide
+PRIV: D\u00E9faillances privil\u00E8ges
+UNKNOWN: D\u00E9faillances inconnues
+LOGIN_LIMIT_CLIENT: Limite d'ouverture de sessions d\u00E9pass\u00E9e
+LOGIN_LIMIT_TABLET: Limite d'ouverture de sessions d\u00E9pass\u00E9e
+FORCE_LOGOUT_ERROR: Erreur de d\u00E9connexion impos\u00E9e
+INCORRECT_LOGIN_PASS: Nom d'utilisateur ou mot de passe incorrect
+INVALID_LOGIN: Nom d'utilisateur incorrect
+TOKEN_NOT_FOUND: Le jeton fourni n'est pas valide
+SESSION_EXPIRED: La session cr\u00E9\u00E9e \u00E0 partir du jeton ext expir\u00E9e
+VIDEO_SESSION_NOT_AVAILABLE: Session vid\u00E9o non disponible
+PENDING_REQUEST: Une autre demande est en traitement
+
+GENERAL:
+NETWORK_ESTABLISHED: La connexion réseau est établie.,
+NO_NETWORK: Connection réseau non disponible,
+NO_NETWORK_TIP: Se connecter à un réseau pour utiliser le client,
+GONE_TITLE: Vous avez \u00E9t\u00E9 d\u00E9connect\u00E9,
+GONE_MESSAGE: Veuillez contacter votre administrateur syst\u00E8me,
+NOTIFICATION_PROBLEM:
+
+TITLE: Problème de connection
+MESSAGE: Vous avez un problème de connectivité. Tapez pour ouvrir l'application et voir les détails.
+GUIDE_TITLE: You have a connectivity issue that may affect your communication. Followings may help
+GUIDE_STEP_1: 1. Tout d'abord, assurez-vous que la connexion Internet de votre appareil (WiFi, données mobiles, etc.) est activée.
+GUIDE_STEP_2: 2. Ensuite, vous pouvez choisir de signaler ce problème à partir du menu.
+GUIDE_STEP_3: 3. Essayez une déconnexion / connexion peut récupérer votre connexion.,
+GUIDE_STEP_4: 4. Dernière optio  redémarrer votre application.
+TRY_RECOVER: Problème de connection! Trying recovery...
+
+MENU:
+PROFILE: Profil
+FAVORITES: Favoris
+CONTACTS: Contacts
+INBOX: Messagerie
+HISTORY: Historique
+SESSIONS: Session
+DIALPAD: Pavé numérique
+CONFERENCE: Conférence
+SETTINGS: Options de réglage
+
+FAVORITES_PAGE:
+METHODS:
+VOICE_FAV: voix
+VIDEO_FAV: vidéo
+CHAT_FAV: messagerie
+HOME_FAV: maison
+MOBILE_FAV: cellulaire
+WORK_FAV: travail
+SERVICE_FAV: service
+
+CONTEXT_MENU:
+REMOVE: Enlever
+FROM_FAVORITES: des Favoris
+VOICE_CALL: Appel Voix
+VIDEO_CALL: Appel Vidéo
+HOME_CALL: Appeler numéro Maison
+WORK_CALL: Appeler numéro Travail
+MOBILE_CALL: Appeler numéro Cellulaire
+SEND_MESSAGE: Envoyer message
+CALL: Appeler,
+
+
+SETTINGS_:
+MANAGE: Gérer
+SERVICE_SHORTCUTS: Raccourcis de service
+DISPLAY_AS: Affichage
+TILES: Tuiles
+LIST: Liste
+SORT_BY: Ordre de Tri
+SORT_LAST_NAME: Tri par nom de famille
+SORT_FIRST_NAME: Tri par prénom
+
+CONTACTS_PAGE:
+PROFILE_MENU:
+EDIT_PROFILE: Modification du profil,
+ADD_PHOTO: Ajouter une photo,
+IDENTIFICATION: IDENTIFICATION,
+NICKNAME: Surnom,
+FIRST_NAME: Prénom,
+LAST_NAME: Nom de famille,
+MOBILE: Cellulaire,
+HOME: Maison,
+WORK: Travail,
+USER_ID: Identifiant,
+EMAIL: Courriel,
+CHAT: Messagerie,
+VOICE: Voix,
+VIDEO: Vidéo,
+SETTINGS_CONTACTS: Paramètres,
+MANAGE_FAVS: Gérer les favoris,
+REMOVE_FROM_PAB: Effacer des contacts personnels,
+CONTACT_DETAIL: Contact,
+SHOW_AVAILABILITY: Montrer l'état de présence,
+CONTACT_EXISTS_ERROR: Ce contact existe déjà.,
+CONTACT_MAXIMUM_ENTRIES_ERROR: Votre liste de contacts a dépassé la limite de taille autorisée sur le serveur.,
+CONTACT_INSUFFICIENT_INFO_ERROR:  Informations insuffisantes pour créer / modifier un contact. Veuillez vérifier que tous les champs obligatoires sont remplis.,
+CONTACT_INVALID_PARAMETER_ERROR: Invalid Input, veuillez cocher toutes les entrées de champs et supprimer tous les caractères spéciaux.,
+UNKNOWN_ERROR: Une erreur inconnue est survenue.,
+ADD_FAVORITE_TEXT: Sélectionnez une ou plusieurs entrées à ajouter à vos favoris
+
+___MANAGE_FAV_ATLANDI:
+
+SEARCH:
+PERSONAL_SEARCH: Personnel
+DIRECTORY_SEARCH: Répertoire
+MOBILE1: Cellulaire
+GLOBAL1: Global
+FILTER_PLACEHOLDER: Prénom, Nom de famille
+FILTER_PLACEHOLDER_LN: Nom de famille, Prénom
+NO_RESULT: Aucun résultat trouvé
+NO_CONTACT: Aucun contact trouvé. Pour ajouter des contacts, cliquez l'icône Ajout de nouveau contact
+MIN_SEARCH_CRITERIA: Le critère de recherche doit contenir au moins 3 caractères
+SERVICES: Services
+MEETME_SERVICE: Service d'audioconférence
+CALL_GRAB_SERVICE: Saisie d'appel
+VOICEMAIL_SERVICE: Messagerie vocale
+PLACEHOLDER: Contact
+
+INBOX__:
+SWIPE_ACTIONS:
+
+CONTEXT_MENU_INBOX:
+VIEW_PROFILE: Visualiser profil
+VIEW_MESSAGE: Visualiser Message
+REPLY_DOTTED: Repondre...
+REPLY: Repondre,
+SAVE: Sauvegarder
+DELETE: Supprimer
+CLOSE: Fermer
+CANCEL: Cancela
+BACK: Dos
+
+SETTINGS_INBOX:
+DISPLAY: Affichage,
+CAPTION_NEW: NOUVEAU,
+CAPTION_SAVED: SAUVEGARDÉ
+
+MESSAGE_INBOX:
+DELETE_CONVERSATION_NOTIFICATION_MESSAGE: La conversation a été supprimée.
+DELETE_CONVERSATION_CONFIRM_MESSAGE: Etes-vous certain de vouloir supprimer toute la conversation?
+DELETE_CONVERSATION_CONFIRM_CANCEL_MESSAGE: Annulation de la demande de supprimer la conversation
+DELETE_SINGLE_MESSAGE_NOTIFICATION_MESSAGE: Le message a été supprimé.
+DELETE_SELECTED_MESSAGES_NOTIFICATION_MESSAGE: Les messages sélectionnés ont été supprimé.
+DELETE_SINGLE_MESSAGE_CONFIRM_MESSAGE: Etes-vous certain de vouloir supprimer ce message?
+DELETE_SELECTED_MESSAGES_CONFIRM_MESSAGE: Etes-vous certain de vouloir supprimer ces messages?
+DELETE_SINGLE_MESSAGE_CONFIRM_CANCEL_MESSAGE: Annulation de la demande de supprimer ce message
+DELETE_SELECTED_MESSAGES_CONFIRM_CANCEL_MESSAGE: Annulation de la demande de supprimer les messages sélectionnés.
+
+NO_MESSAGE_FOUND: Aucun message trouvé.
+NO_MESSAGE_FOUND_WITH_FILTER: Aucun message trouvé avec ce filtre.
+NEW: NOUVEAU
+SAVED: SAUVEGARDÉ
+NO_CONTACT_INFORMATION: Il n'y a pas de coordonnées
+ERROR: Erreur
+
+HISTORY_PAGE:
+NO_HISTORY_FOUND: Aucun historique.
+
+CONTEXT_MENU_HISTORY:
+VIEW_PROFILE_HISTORY: Visualiser profil
+SEND_MESSAGE_HISTORY: Envoyer message
+
+SETTINGS_HISTORY:
+SHOW: Montrer...
+INCOMING_CALL: Appels entrants
+OUTGOING_CALL: Appels sortants
+MISSED_CALL: Appels manqués
+INSTANT_MESSAGES: Messages intantanés
+CONFERENCES: Conférences
+
+SETTINGS_PAGE:
+SETTINGS_TITLE: Paramètres
+APP_SETTINGS:
+NAME: Réglages Application
+LANGUAGE_SETTINGS: Choix du langage
+PREFERRED_LANGUAGE: Langue privilégiée
+VIBRATION_SETTINGS: Réglages Vibration
+PREFERRED_SETTINGS: Réglages préférés
+CALLING_MODE: Mode d'appel
+CALLING_MODE_WIFI: Mode d'appel - WiFi
+CALLING_MODE_WIFI_HEAD: Sélectionnez comment les appels seront effectués avec une connexion WiFi
+CALLING_MODE_CELLULAR_DATA: Mode d'appel - Données cellulaire
+CALLING_MODE_CELLULAR_DATA_HEAD: Sélectionnez comment les appels seront effectués avec une connexion données cellulaires
+
+CALLING_MODE_INFO:
+BLOCKED: Bloqué Aucun appel ne peut être lancé (vous pouvez toujours recevoir des appels)
+INTERNET_CONNECTION:• Connexion Internet: Les appels utiliseront la connexion données,
+CELLULAR_CALL:• Appel Cellulaire: Les appels seront lancés à l'aide du compositeur mobile,
+CALL_ME_BACK:• Rappelez-moi: vous recevrez d’abord un appel sur votre mobile puis vous serez connecté,
+ASK_ON_EVERY_CALL:• Demander à chaque appel: Vous serez invité à faire un choix à chaque appel
+
+MY_MOBILE_PHONE : Mon numéro de portable
+CALLING_SETTINGS: Paramètres d'appel
+CALL_VIBRATION_MODE: Mode d'appel
+IM_VIBRATION_MODE: Mode Messagerie
+LOG_SETTINGS: Réglages Logs
+LOG_LEVEL: Niveau des logs
+
+LOG_LEVELS:
+VERBOSE: VERBOSE
+DEBUG: DEBUG
+INFO: INFO
+WARN: WARN
+ERROR_LOG: ERROR
+
+CALL_MODE:
+NONE: Bloqué
+VoIP: Connexion Internet
+CELLULAR: Appel Cellulaire
+CALL_MY_FIRST_MOBILE: Rappelez-moi
+ASK_EVERY_TIME: Demander à Chaque Appel
+
+ASK_EVERY_CALL:
+CHANGE_DEFAULT_MODE: Changer le mode par défaut
+
+SELECT_MODE: Sélectionnez un mode d'appel
+PLACEHOLDER_SETTINGS: Entrez votre numéro de mobile
+BATTERY_SETTINGS: Réglages Batterie
+BATTERY_OPTIMIZATION: Maintenir la connection lorsque l'application est en vielle
+BATTERY_OPTIMIZATION_REQUIRED_ENABLE: Recommended Check 'stay connected' in order to receive calls and messages while the app is in the background.
+BATTERY_OPTIMIZATION_REQUIRED_DISABLE: Vous avez le réglage recommandé. Si vous voulez le changer, utilisez les paramètres Batterie d'Android.
+SERVICE_SETTINGS: Ajouter ou Supprimer des Services aux Favoris
+SERVICE_SETTINGS_TITLE: Paramètres du service
+SERVICE_SETTINGS_DESCRIPTION: Sélectionnez le service que vous voulez voir dans vos favoris
+SERVICES_SETTINGS: Prestations de service
+BOOST_SETTINGS: Paramètres de Transférer au Mobile
+
+BOOST_STEP:
+DESCRIPTION: Transférer au Mobile permet de transférer un appel en cours vers un appel cellulaire.
+FIRST_STEP: 1. Sélectionnez le point d'accès au service le plus proche
+
+SECOND_STEP:
+DESCRIPTION_SECOND: 2. Entrez votre numéro de téléphone portable en tant que Call Grab Number
+QUICK_STEP1: via le
+QUICK_STEP1_1: portail Web de l'utilisateur
+QUICK_STEP2: sous l'onglet Service Settings (l’utilisation d’un navigateur de bureau est recommandé)
+THIRD_STEP: 3. Pour déplacer un appel actif vers un appel cellulaire, appuyez sur le bouton Transférer au Mobile sur l'écran d'appel actif. Le transfert prend quelques secondes pour compléter.
+
+NAVBAR:
+NAME_NAVBAR: Configuration de la barre de navigation
+
+_POPUP_ATLANDI:
+
+REPORT_ISSUE:
+TITLE_REPORT: Envoyer un commentaire
+ISSUE_DESC_LABEL: Description du problème
+SEND_AN_EMAIL: 2- Envoyer les logs par courriel
+ATTACH_FILE_INFO: Veuillez joindre le fichier des logs ou les captures d'écrans à votre courriel.
+NO_SUBJECT: Sujet manquant
+SUBJECT:  Feedback
+PLACEHOLDER_REPORT: Entrez vos commentaires
+SUCCESS_MESSAGE: Logs reçus
+SEND_LOG: Envoyer des commentaires
+REPORTER_NAME_LABEL: Usager
+REPORTER_NAME_PLACEHOLDER: Entrez votre nom
+
+DIALPAD_PAGE: Pavé numérique
+PLACEHOLDER_DIALPAD: Entrez un numéro
+EMPTY_ADDRESS: Veuillez entrer une addresse.
+INVALID_ADDRESS: Requête invalide.
+
+CALL_PAGE:
+LOCKED_ALERT: Déverrouillez votre appareil pour d'autres fonctionnalités
+TABS:
+CHAT_TAB: MESSAGERIE
+VOICE_TAB: VOIX
+VIDEO_TAB: VIDÉO
+PEOPLE_TAB: PARTICIPANTS
+MERGE_USER: CONFÉRENCE
+
+ACTIONS:
+CALL_ACTION: Appeler,
+VIDEO_ACTION: Vidéo,
+CONNECTING: Connexion en cours...,
+CALLING: Appeler,
+TRANSFERRING: Transfert vers,
+BLIND_TRANSFER: Transferencia directa
+
+STATES:
+RINGING: Sonnerie en cours
+ON_HOLD: En garde
+CALL_HELD_REMOTELY: Appel mis en garde à distance
+ANSWERING_STATE: Réponse en cours
+RENEGOTIATION: Appel établis en cours
+IN_CALL: Appel en cours
+INCOMING_CALL_STATE: Appel entrant
+OUTGOING_CALL_STATE: Appel sortant
+REJECTED_STATE: Rejeté
+JOINED_STATE: Mis en conférence
+TRANSFERRED_STATE: Transféré
+CALL_ENDED: Appel terminé
+GSM_CALL_STATE: Appel cellulaire en cours
+EARLY_MEDIA: Sonnerie en cours
+TRANSFER_FAILURE: Transfert échoué
+INVALID_NUMBER: Ce contact n'a pas de numéro de téléphone de travail valide. S'il vous plaît, contacter l'administrateur.
+NO_MOBILE_NUMBER: Votre numéro de portable n'a pas été trouvé
+
+MERGE_MENU:
+ADD_PARTY: Ajouter une personne
+NO_CALL_FOUND: Aucun appel trouvé à ajouter à la conférence.
+TRYING: Établissement de la conférence en cours ...
+SUCCESS: Les appels ont été placé en conférence avec succès.
+FAILURE: La mise en conférence a échoué. Les appels ne sont pas dans un état approprié.
+
+CALL_MENU:
+MUTE: son coupé
+TRANSFER: transfert
+SPEAKER: audio
+ADD_TO_CALL: ajouter
+HOLD: attente
+BOOST: boost
+DIALPAD_: clavier
+HIDE: Cacher
+TRANSFER_VIA: Transférer l'appel via
+DIALER: Clavier
+
+TRANSFER_INFO:
+ADDRESS_BOOK_TRANSFER_TO_ROW_PREFIX: Transférer vers
+
+INFO_CALL:
+IN_BETWEEN_STATE: Veuillez patienter jusqu'à la fin de votre opération précédente.
+WAIT_FOR_JOIN: Opération en cours. Veuiller réessayer dans quelques secondes
+JOIN_STATE_FAILURE: La mise en conférence a échoué. Les appels ne sont pas dans un état approprié.
+REQUEST_FAILURE: Votre requête n'a pu être complétée. Veuiller réessayer plus tard
+REQUEST_FAILURE_NO_RETRY: Votre requête n'a pu être complétée.
+PREV_CALL_NOT_ENDED: Votre appel précédent n'a pas pu être terminé.
+PREV_CALL_END: Votre appel précédent sera terminé.
+CALL_SESSION_EXIT: Vous avez un appel en cours, voulez-vous quitter l'application?
+GSM_CALL_AND_START_SO_CALL: Vous avez une session d'appel cellulair actif, veuillez réessayer plus tard
+PERMISSION_REQUIRED: Assurez-vous que les autorisations de la caméra et du microphone sont fournies
+FAIL_HOLD: Un problème s’est produit avec la mise en garde
+FORWARD_CALL_START : Le système tente d'appeler votre numéro de portable. Veuillez répondre et vous serez alors connecté avec le numéro demandé.
+NO_MOBILE_NUMBER_INFO: Vous n'avez pas de numéro de téléphone portable. S'il vous plaît, entrez un téléphone mobile
+INCORRECT_PHONE_NUMBER: Incorrect phone number. Please make sure correct phone number.
+
+ERRORS_CALL:
+USER_NOT_FOUND: Utilisateur non trouvé
+NOT_ACCEPTABLE: Non acceptable
+FORBIDDEN: Interdit
+NO_CALL_TO_GRAB: Aucun appel \u00E0 saisir
+TEMPORARILY_UNAVAILABLE: Temporairement non disponible
+CALLEE_BUSY: Poste occuppé
+CALL_FAILURE: L'appel a échoué
+SERVER_ERROR: Erreur Serveur
+PENDING_REQUEST_CALL: Requête en cours
+CALL_RECONNECT_ERROR: FR_Call could not be reconnected
+
+MESSAGE_PLACEHOLDER: Message...
+SEND_CONFERENCE_LINK: Envoyer le lien pour la conférence
+
+POPUP_CALL:
+BOOST_CALL:
+POPUP_TITLE_CALL: Appel Plus,
+TITLE_CALL2: Vous êtes sur le point de changer votre mode d’appel.
+DESCRIPTION_CALL: L'appel sera transféré au réseau cellulaire à l'aide de votre composeur d’appel mobile.
+OK: OK
+CHECK: Ne plus afficher
+CONFIGURE: CONFIGURER
+
+IM_PAGE:
+USER_NOT_FOUND_IM: Utilisateur non trouvé
+TEMPORARILY_UNAVAILABLE_IM: Utilisateur temporairement non disponible
+EMPTY_MESSAGE: Aucun contenu à envoyer.
+INPUT_LENGTH_LIMIT_REACH: Limite de longueur des messages atteinte
+
+PRESENCE_PAGE:
+PRESENCE: Présence
+PLATFORM: Plate-forme
+VERSION: Version
+OFFLINE: Apparaitre déconnecté
+BE_RIGHT_BACK: De retour sous peu
+OUT_TO_LUNCH: Pause repas
+AWAY: Absent
+ON_VACATION: En vacances
+BUSY: Occupé
+AVAILABLE: Disponible
+
+CONFERENCE_PAGE:
+CONFERENCE_CONNECTION_TITLE: Détails de connectivité pour votre salle de réunion
+URL: URL
+PSTN_NUMBER: Numéro d'accès
+MEETME_NUMBER: Numéro MeetMe
+ACCESS_CODE: Code d'accès
+CONFERENCE_INVITATION_TITLE: Vous pouvez également envoyer une invitation automatique
+SEND_AN_EMAIL_CONF: Inviter par courriel
+START_MY_CONFERENCE_NOW: DÉMARRER MA CONFÉRENCE
+COPY_TO_CLIPBOARD: Copier sur le presse-papier
+CONFERENCE_INVITE: Veuillez rejoindre ma salle de réunion avec
+CONFERENCE_INVITE_DIAL_NUMBER: Ou composez le ou l'un des numéro(s) suivant(s) pour un accès voix
+CONFERENCE_INVITE_ACCESS_CODE: Code d'accès
+CONFERENCE_INVITE_MEETME_ACCESS_CODE: Code d'accès de l'audioconférence
+
+MONTH:
+INTERNAL_NOTIFICATION_ATLANDI:
+EXTERNAL_NOTIFICATION_ATLANDI:
+
+SESSION:
+NO_SESSION: Aucune session ouverte.
+CURRENT_CALLS: Session
+ACTIVE_CALL: Appel en cours
+ON_HOLD_BIG: En garde
+NEW_IM: Nouveaux Messages
+ACTIVE_CHAT: Messages Récents
+
+ABOUT: À propos,
+UPDATE: Mettre à jour le client
+UPDATE_CONFIRM: Mises à jour disponibles. Actualiser maintenant?
+INIT_CLIENT: Mise à jour du client ...
+INIT_CONFIG: Mise à jour de la configuration ...
+PRIVACY_POLICY: Lien vers la politique de confidentialité
+
+BACKBUTTON:
+QUIT_STATE: Quitter
+QUIT: Voulez-vous quitter?
+
+BACKGROUND_MODE:
+TITLE_BACKGROUND: Fonctionne en arrière-plan
+TEXT_BACKGROUND: Tapez pour revenir
+
+SEARCH_IN_CONTACTS: Rechercher dans les contacts
+SEARCH_IN_DIRECTORY: Rechercher dans le répertoire
+
+PROFILE_PAGE:
+ABOUT_BUTTON: SUR
+SEND_FEEDBACK: ENVEYOR DES COMMENTAIRES

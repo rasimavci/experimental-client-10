@@ -4,9 +4,9 @@
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title Dialpad
+    f7-nav-title {{ $t('DIALPAD') }}
   .modal-container2
-    f7-input(autofocus=true, name='callee', placeholder='Enter a name or number...', type='text', :value='callee', @input='callee = $event.target.value')
+    f7-input(autofocus=true, name='callee', :placeholder="$t('PLACEHOLDER_DIALPAD')", type='text', :value='callee', @input='callee = $event.target.value')
     span.input-group-btn(v-show='hasInput')
       button.backspace-button(type='button', @click="callee = ''")
         i

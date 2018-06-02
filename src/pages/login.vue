@@ -6,18 +6,18 @@
       f7-list(form='')
         f7-list-item
           f7-label Username
-          f7-input(name='username', placeholder='Username', type='text', :value='username', @input='username = $event.target.value')
+          f7-input(name='username', :placeholder="$t('USERNAME')", type='text', :value='username', @input='username = $event.target.value')
         f7-list-item
           f7-label Password
-          f7-input(name='password', type='password', placeholder='Password', :value='password', @input='password = $event.target.value')
+          f7-input(name='password', type='password', :placeholder="$t('PASSWORD')", :value='password', @input='password = $event.target.value')
       .list
         ul
           li
-            a.item-link.list-button.login-button.login-screen-close(href='#', @click='doLogin') Sign In
+            a.item-link.list-button.login-button.login-screen-close(href='#', @click='doLogin') {{ $t('SIGN_IN') }}
         .block-footer
-          | Smart Office Client for Demonstration
+          | {{ $t('DEMO') }}
           br
-          | Click "Sign In" to Login
+          | {{ $t('Version') }} 4.0
 </template>
 
 <script>

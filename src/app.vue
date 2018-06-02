@@ -15,7 +15,7 @@
   f7-panel(left='', reveal='', theme-blue='')
     f7-view(url='/panel-left/')
   // Right Panel
-  f7-panel(right='', cover='', theme-blue='', v-if="getPage === 'contact' || getPage === 'history' || getPage === 'messages' || getPage === 'favorites'")
+  f7-panel(right='', cover='', theme-blue='', v-if="currentPage === 'contact' || currentPage === 'history' || currentPage === 'messages' || currentPage === 'favorites'")
     f7-view(url='/panel-right/')
   // Main View
   f7-view#main-view(url='/login/', main='')
@@ -109,7 +109,7 @@ var notificationCallbackOnClose = this.$f7.notification.create({
   }
   },
   computed: {
-...mapGetters(['incomingCall'])
+...mapGetters(['incomingCall', 'currentPage'])
 //     getIncomingCall: function() {
 //       var that = this
 // var notificationCallbackOnClose = this.$f7.notification.create({

@@ -11,26 +11,27 @@ f7-page.div-container
             .flex.column
                h3 {{getUserName}}
   f7-list.thick#navList(no-hairlines-between)
-    f7-list-item(link='/call/', title='Call', view='#main-view', panel-close='')
+    //-f7-list-item(link='/call/', :title='Call', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
-    f7-list-item(link='/favorites/', title='Favorites', view='#main-view', panel-close='')
+    f7-list-item(link='/favorites/', :title="$t('FAVORITES')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
-    f7-list-item(link='/contact/', title='Contact', view='#main-view', panel-close='')
+    f7-list-item(link='/contact/', :title="$t('CONTACTS')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only contacts
-    f7-list-item(link='/history/', title='History', view='#main-view', panel-close='')
+    f7-list-item(link='/history/', :title="$t('HISTORY')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only access_time
-    f7-list-item(badge="3" link='/message/', title='Inbox', view='#main-view', panel-close='')
+    f7-list-item(badge="3" link='/message/', :title="$t('INBOX')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only.test-icon-left inbox
-    f7-list-item(link='/dialpad/', title='Dialpad', view='#main-view', panel-close='')
+    f7-list-item(link='/dialpad/', :title="$t('DIALPAD')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only phone
-    f7-list-item(link='/sessions/', title='Sessions', view='#main-view', panel-close='')
+    f7-list-item(link='/sessions/', :title="$t('SESSIONS')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only content_copy
-    f7-list-item(link='/conference/', title='Conference', view='#main-view', panel-close='')
+    f7-list-item(link='/conference/', :title="$t('CONFERENCE')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only supervisor_account
-    f7-list-item.my-image-botton(link='/settings/', title='Settings', view='#main-view', panel-close='')
+    f7-list-item.my-image-botton(link='/settings/', :title="$t('SETTINGS')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only settings
 </template>
 <script>
+
 import NoImg from '../assets/demo/noimage1.jpg';
 import IncomingCallModal from './ModalIncomingCall'
 import { mapGetters } from 'vuex'
