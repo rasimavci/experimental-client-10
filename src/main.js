@@ -34,58 +34,26 @@ import vuexI18n from 'vuex-i18n'
 
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
-
-
 Vue.use(vuexI18n.plugin, store)
-const vuxLocales = require('json-loader!yaml-loader!./locales/all.yml')
-const componentsLocales = require('json-loader!yaml-loader!./locales/components.yml')
 
 const en = require('json-loader!yaml-loader!./locales/en.yml')
 const es = require('json-loader!yaml-loader!./locales/es.yml')
 const fr = require('json-loader!yaml-loader!./locales/fr.yml')
 const pt = require('json-loader!yaml-loader!./locales/pt.yml')
-// const finalLocales = {
-//   'en': objectAssign(vuxLocales['en'], componentsLocales['en']),
-//   'es': objectAssign(vuxLocales['es'], componentsLocales['es']),
-//   'zh-CN': objectAssign(vuxLocales['zh-CN'], componentsLocales['zh-CN'])
-// }
 
-// for (let i in finalLocales) {
-//   Vue.i18n.add(i, finalLocales[i])
-// }
+const finalLocales = {
+  'en': en,
+  'es': es,
+  'fr': fr,
+  'pt': pt
+}
 
-// )
-//Vue.i18n.add(vuxLocales['en'], componentsLocales['en'])
+for (let i in finalLocales) {
+  Vue.i18n.add(i, finalLocales[i])
+}
 
-//Vue.use(LocalePlugin)
-//const nowLocale = Vue.locale.get()
-
-const translationsEn = {
-  "content": "This is some {type} content",
-  "login": "Login please"
-};
-
-// translations can be kept in separate files for each language
-// i.e. resources/i18n/de.json.
-const translationsDe = {
-	"My nice title": "Ein schöner Titel",
-	"content": "Dies ist ein toller Inhalt"
-};
-
-// add translations directly to the application
-Vue.i18n.add('en', en);
-Vue.i18n.add('es', es);
-Vue.i18n.add('fr', fr);
-Vue.i18n.add('pt', pt);
+// todo read initial locale from localStorage
 Vue.i18n.set('en')
-
-// if (/zh/.test(nowLocale)) {
-//   Vue.i18n.set('zh-CN')
-// } else if (/es/.test(nowLocale)) {
-//   Vue.i18n.set('es')
-// } else {
-//   Vue.i18n.set('en')
-// }
 
 //Vue.use(Notifications)
 Vue.prototype.$moment = moment

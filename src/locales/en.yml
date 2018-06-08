@@ -96,6 +96,7 @@ CANCEL: Cancel
 CANCEL_BIG: CANCEL
 
 SETTINGS: Settings
+SETTINGS_BIG: SETTINGS
 NAME: Application Settings
 LANGUAGE_SETTINGS: Language Settings
 PREFERRED_LANGUAGE: Preferred Language
@@ -151,6 +152,7 @@ UNKNOWN_ERROR: An unknown error occurred.
 ADD_FAVORITE_TEXT: Select one or multiple entries to add to your Favorites
 
 CONTEXT_MENU2:
+CONTACT: Contact
 DELETE_CONTACT: Delete Contact
 EDIT_CONTACT: Edit Contact
 ADD_CONTACT: Add Contact
@@ -286,6 +288,11 @@ CONFERENCE_INVITE_MEETME_ACCESS_CODE: MeetMe Access Code
 SEARCH_IN_CONTACTS: Search in contacts
 SEARCH_IN_DIRECTORY: Search in directory
 
+Personal: Personal
+PERSONAL_ADDRESSBOOK: Personal Addressbook
+GLOBAL_ADDRESSBOOK:
+
+CREATE_CONTACT: Create Contact
 PROFILE_PAGE:
 ABOUT_BUTTON: ABOUT
 SEND_FEEDBACK: SEND FEEDBACK

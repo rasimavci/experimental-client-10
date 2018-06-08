@@ -58,6 +58,8 @@ DIALPAD: Pavé numérique
 CONFERENCE: Conférence
 SETTINGS: Options de réglage
 
+SETTINGS_BIG: Options de réglage
+
 FAVORITES_PAGE:
 METHODS:
 VOICE_FAV: voix
@@ -437,6 +439,11 @@ BACKGROUND_MODE:
 TITLE_BACKGROUND: Fonctionne en arrière-plan
 TEXT_BACKGROUND: Tapez pour revenir
 
+CREATE_CONTACT: Créer un contact
+
+Personal: Personnel
+PERSONAL_ADDRESSBOOK: Carnet d'adresses personnel
+GLOBAL_ADDRESSBOOK: Global Carnet d'adresses
 SEARCH_IN_CONTACTS: Rechercher dans les contacts
 SEARCH_IN_DIRECTORY: Rechercher dans le répertoire
 

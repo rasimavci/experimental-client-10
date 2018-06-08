@@ -1,31 +1,42 @@
 {
-	"uSDK": {
-		"authentication": {
-			"subscription": {
-				"protocol": "https",
-				"server": "kvs1-kl.kandy.io",
-				"port": 443,
-				"version": "v2.0",
-				"expires": 3600,
-				"service": ["call", "IM", "Presence", "MWI"]
-			},
-			"websocket": {
-				"protocol": "wss",
-				"server": "kvs1-kl.kandy.io",
-				"port": 443
-			}
-		},
-		"logs": {
-			"logLevel": "debug",
-			"logActions": {
-				"actionOnly": true,
-				"flattenActions": true,
-				"collapsed": false,
-				"diff": false
-			},
-			"enableFcsLogs": true
-		}
-	},
+    "usdk": {
+        "authentication": {
+            "subscription": {
+                "protocol": "https",
+                "server": "kvs1-kl.kandy.io",
+                "port": 443,
+                "expires": 3600,
+                "service": ["call", "IM", "Presence", "MWI"]
+            },
+            "websocket": {
+                "protocol": "wss",
+                "server": "kvs1-kl.kandy.io",
+                "port": 443
+            }
+        },
+        "logs": {
+            "logLevel": "debug",
+            "logActions": {
+                "actionOnly": true,
+                "flattenActions": true,
+                "collapsed": false,
+                "diff": false
+            },
+            "enableFcsLogs": true
+        },
+        "connectivity": {
+            "method": "keepAlive",
+            "pingInterval": 5000,
+            "reconnectLimit": 5,
+            "reconnectDelay": 5000,
+            "reconnectTimeMultiplier": 1,
+            "reconnectTimeLimit": 640000,
+            "reconnectCount": 0,
+            "autoReconnect": true,
+            "maxMissedPings": 3,
+            "checkConnectivity": true
+        }
+    },
 	"cpi": {
 		"networkOnlineStateTransitionTimer": 300,
 		"appStateTransitionTimer": 5000,
@@ -41,7 +52,7 @@
 		"MeetMeConf@genband.com": ["meetme","6338"]
 	},
 	"branding": {
-		"useKBSBranding": "valueKBSBranding",
+		"useKBSBranding": valueKBSBranding,
 		"brandingMap": {
 			"sidebar_color_value": [{
 				"selector": ".layout-sidebar",
@@ -55,13 +66,13 @@
 				"selector": ".page",
 				"property": "background-color"
 			}, {
-				"selector": ".dialpad-top  *",
+				"selector": "#dialpad-page-content .dialpad-top  *",
 				"property": "background-color"
 			}, {
-				"selector": ".dialpad-top",
+				"selector": "#dialpad-page-content .dialpad-top",
 				"property": "background-color"
 			}, {
-				"selector": ".dialpad-wrapper",
+				"selector": "#dialpad-page-content .dialpad-wrapper",
 				"property": "background-color"
 			}, {
 				"selector": "#sendMessage",
@@ -155,7 +166,7 @@
 	"webrtcdtls": true,
 	"customLanguagePath": "",
 	"customCssFileNames": [],
-	"reportMail": "SmartOffice.Omni@genband.com",
+	"reportMail": "smartofficeomni@rbbn.com",
 	"appLoadingTimeout": 30000,
 	"emergencyList": ["155", "911", "112", "999", "113", "194", "000", "192"],
 	"updateCheckTimer": 24,
@@ -170,23 +181,76 @@
 		"version": "1"
 	},
 	"idCacheLength": "100",
-	"realm": "spidr-ucc.genband.com",
+	"realm": "",
 	"pushServices": ["call","IM"],
 	"endUserPortalUrl": "endUserPortalUrlGrunt",
-	"boostService": {
-		"Maidenhead": "+441628451172 ", "Ottawa": "+13438832302 ",
-		"New York": "+16469984942 ", "Holmdel": "+18562981414 ",
-		"Plano": "+19722653700 ", "Brazil": "+551139588662 ",
-		"Zurich": "+41435081075 ", "St-Louis": "+13144990763 ",
-		"UK": "+441628451152 ", "Frankfurt": "+496933296107 ",
-		"Brussels": "+3227896712 ", "Galway": "+35391435303 ",
-		"Tel-Aviv": "+97239155620 ", "Mexico": "+525511634785 ",
-		"Tokyo": "+81345782072 ", "Sydney": "+61280695802 ",
-		"Melbourne": "+61399884102 ", "Hong Kong": "+85258082502 ",
-		"Moscow": "+74995005551 ", "Amsterdam": "+31207083782 ",
-		"Madrid": "+34911230052 ", "Rome": "+390200617952 ",
-		"RTP": "+19194579602 ", "Auckland": "+6498874122 "
-	},
+	"boostService": [{
+		"location": "Dallas, USA",
+		"number": "+1 972 2653700"
+	},{
+		"location": "New York, USA",
+		"number": "+1 646 9984942"
+	},{
+		"location": "St-Louis, USA",
+		"number": "+1 314 4990763"
+	},{
+		"location": "Raleigh, USA",
+		"number": "+1 919 4579602"
+	},{
+		"location": "Ottawa, Canada",
+		"number": "+1 343 8832302"
+	},{
+		"location": "London, United Kingdom",
+		"number": "+44 1628 451172"
+	},{
+		"location": "Brazil",
+		"number": "+55 11 39588662"
+	},{
+		"location": "Zurich, Switzerland",
+		"number": "+41 43 5081075"
+	},{
+		"location": "Frankfurt, Germany",
+		"number": "+49 69 33296107"
+	},{
+		"location": "Brussels, Belgium",
+		"number": "+32 2 7896712"
+	},{
+		"location": "Galway, Ireland",
+		"number": "+353 91 435303"
+	},{
+		"location": "Tel-Aviv, Israel",
+		"number": "+972 3 9155620"
+	},{
+		"location": "Mexico, Mexico",
+		"number": "+52 55 11634785"
+	},{
+		"location": "Tokyo, Japan",
+		"number": "+81 3 45782072"
+	},{
+		"location": "Sydney, Australia",
+		"number": "+61 2 80695802"
+	},{
+		"location": "Melbourne, Australia",
+		"number": "+61 3 99884102"
+	},{
+		"location": "Hong Kong, China",
+		"number": "+852 58082502"
+	},{
+		"location": "Moscow, Russia",
+		"number": "+7 499 5005551"
+	},{
+		"location": "Amsterdam, Netherlands",
+		"number": "+31 20 7083782"
+	},{
+		"location": "Madrid, Spain",
+		"number": "+34 91 1230052"
+	},{
+		"location": "Rome, Italy",
+		"number": "+39 0200617952"
+	},{
+		"location": "Auckland, New Zealand",
+		"number": "+64 9 8874122"
+	}],
 	"iosConnectionLossRecoverTime": 3000,
 	"startUpdateTimer": 10000
 

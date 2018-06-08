@@ -28,7 +28,7 @@ f7-page
             .item-inner
               .item-title-row
                 .item-title {{contact.firstName}} {{contact.lastName}}
-                .item-subtitle Personal
+                .item-subtitle {{ $t('PERSONAL') }}
               //- img(:src='presenceConnected')
 
   f7-popup#popupContactDetails
@@ -36,9 +36,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left.my-class(@click='backContactDetails') Back
+            .left.my-class(@click='backContactDetails') {{ $t('BACK') }}
             .title Contact Details
-            .right.my-class(@click='openEditContactPopup') Edit
+            .right.my-class(@click='openEditContactPopup') {{ $t('EDIT') }}
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="115" height="115")
@@ -50,27 +50,27 @@ f7-page
              img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCallPage('video')")
              div(hspace="20")
              img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCallPage('chat')")
-        f7-block-title CONTACT
+        f7-block-title {{ $t('CONTACT') }}
         f7-list(form='')
           f7-list-item
-            f7-label Home
+            f7-label {{ $t('HOME') }}
             f7-input(type='text', value="contact.homePhone") {{contact.homePhone}}
           f7-list-item
-            f7-label Mobile
+            f7-label {{ $t('MOBILE') }}
             f7-input(type='mobile', placeholder='mobile') {{contact.mobilePhone}}
           f7-list-item
-            f7-label Work
+            f7-label {{ $t('WORK') }}
             f7-input(type='home', placeholder='home') {{contact.workPhone}}
           f7-list-item
-            f7-label Nickname
+            f7-label {{ $t('NICKNAME') }}
             f7-input(type='tel', placeholder='Phone') {{contact.nickname}}
           f7-list-item
-            f7-label User Id
+            f7-label {{ $t('USER_ID') }}
             f7-input(type='text', value="contact.homePhone") {{contact.primaryContact}}
           f7-list-item
-            f7-label E-mail
+            f7-label {{ $t('EMAIL') }}
             f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}
-        f7-block-title SETTINGS
+        f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list
           f7-list-item(@click='openManageFavorites()', title='Manage Favorites')
           f7-list-item(@click='removeContact(contact)', title='Remove From Contacts List')
@@ -80,9 +80,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left.my-class(@click='backAddContact') Close
-            .title Add Contact
-            .right.my-class(@click='openEditContactPopup()') Add
+            .left.my-class(@click='backAddContact') {{ $t('CLOSE') }}
+            .title {{ $t('ADD_CONTACT') }}
+            .right.my-class(@click='openEditContactPopup()') {{ $t('ADD') }}
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -117,9 +117,9 @@ f7-page
       f7-page
         f7-navbar(title='Edit Contact')
           f7-nav-right
-            f7-link(popup-close='', @click='editContact()') Save1
+            f7-link(popup-close='', @click='editContact()') {{ $t('SAVE') }}
           f7-nav-left
-            f7-link(popup-close='') Back
+            f7-link(popup-close='') {{ $t('BACK') }}
         f7-block
         f7-block-title Form Example
         f7-list(form='')
@@ -148,8 +148,8 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backEditContact') Back
-            .right(@click='addContact(contact)') Save
+            .left(@click='backEditContact') {{ $t('BACK') }}
+            .right(@click='addContact(contact)') {{ $t('SAVE') }}
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -175,19 +175,19 @@ f7-page
             f7-label E-mail
             f7-input(type='email', placeholder='contact.emailAddress')
         f7-block
-        f7-block-title CONTACT
+        f7-block-title {{ $t('CONTACT') }}
         f7-list(form='')
           f7-list-item
-            f7-label Home
+            f7-label {{ $t('HOME') }}
             f7-input(type='tel', :placeholder='contact.homePhone')
           f7-list-item
-            f7-label Mobile
+            f7-label {{ $t('MOBILE') }}
             f7-input(type='tel', :placeholder='contact.mobilePhone')
           f7-list-item
-            f7-label Work
+            f7-label {{ $t('WORK') }}
             f7-input(type='tel', :placeholder='contact.workPhone')
         f7-block
-        f7-block-title SETTINGS
+        f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list(form='')
             f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")
   f7-popup#popupCreateContact
@@ -195,26 +195,26 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backProfile') Back
-            .title Create Profile
-            .right(@click='saveProfile') Save
+            .left(@click='backProfile') {{ $t('BACK') }}
+            .title {{ $t('ADD_PROFILE') }}
+            .right(@click='saveProfile') {{ $t('SAVE') }}
         f7-block
         f7-block-title IDENTIFICATION
         f7-list(form='')
           f7-list-item
-            f7-label First Name
+            f7-label {{ $t('FIRST_NAME') }}
             f7-input(type='text', placeholder='Name')
           f7-list-item
-            f7-label Last Name
+            f7-label {{ $t('LAST_NAME') }}
             f7-input(type='text', placeholder='Name')
           f7-list-item
-            f7-label Nickname
+            f7-label {{ $t('NICKNAME') }}
             f7-input(type='text', placeholder='Name')
           f7-list-item
             f7-label User ID*
             f7-input(type='tel', placeholder='id')
           f7-list-item
-            f7-label E-mail
+            f7-label {{ $t('EMAIL') }}
             f7-input(type='email', placeholder='E-mail')
         f7-block
         f7-block-title CONTACT
@@ -238,25 +238,25 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backFavorites') Back
-            .title Manage Favorites
-            .right(@click='saveFavorites') Save
+            .left(@click='backFavorites') {{ $t('BACK') }}
+            .title {{ $t('MANAGE_FAVS') }}
+            .right(@click='saveFavorites') {{ $t('SAVE') }}
         f7-block
         f7-list(form='')
-          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="contact.primaryContact") Chat
-          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.primaryContact") Voice
-          f7-list-item(:key='3', checkbox='', name='my-checkbox', :value='3', :title="contact.primaryContact") Video
-          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.workPhone") Work
+          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="contact.primaryContact") {{ $t('CHAT') }}
+          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.primaryContact") {{ $t('VOICE') }}
+          f7-list-item(:key='3', checkbox='', name='my-checkbox', :value='3', :title="contact.primaryContact") {{ $t('VIDEO') }}
+          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.workPhone") {{ $t('WORK') }}
   f7-popup#popupContextMenu
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backProfile') Back
+            .left(@click='backProfile') {{ $t('BACK') }}
             .title Context Menu
-            .right(@click='saveProfile') Save
+            .right(@click='saveProfile') {{ $t('SAVE') }}
         f7-block
-        f7-block-title IDENTIFICATION
+        f7-block-title {{ $t('IDENTIFICATION') }}
         f7-list(form='')
   </template>
 <script>

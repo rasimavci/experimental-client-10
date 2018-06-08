@@ -59,6 +59,8 @@ DIALPAD: Teclado
 CONFERENCE: Colaboración
 SETTINGS: Ajustes
 
+SETTINGS_BIG: AJUSTES
+
 VOICE: voz
 VIDEO: video
 CHAT: chat
@@ -123,6 +125,20 @@ QUICK_STEP2: (se recomienda el uso de un navegador de escritorio)
 
 THIRD_STEP: 3. Para mover una llamada activa a una llamada celular presione el botón Transferir a Móvil en la pantalla de llamada activa. La transferencia tarda unos pocos segundos para completar
 
+SETTINGS_:
+MANAGE: Administrar
+SERVICE_SHORTCUTS: Accesos directos de servicio
+SERVICE_SHORTCUTS_INFO: Puede agregar esos Servicios a sus Favoritos con Ajustes
+CREATE: Crear Contacto
+SORT_BY: Ordenar por
+SORT_LAST_NAME: Apellido
+SORT_FIRST_NAME: Nombre
+SORT_AVAILABILITY: Disponibilidad
+SOURCES: Fuentes
+SOURCE_PAB: Directorio Personal
+SOURCE_GAB: Directorio Global
+SOURCE_MAB: Directorio Móvil
+
 INBOX_PAGE:
 DISPLAY: Display
 CAPTION_NEW: New
@@ -176,6 +192,7 @@ SUCCESS: Las llamadas se han unido satisfactoriamente.
 FAILURE: La unión de llamadas falló
 
 BACK: Regresar
+OPEN: Abrir
 CLOSE: Cerrar
 SAVE: Guardar
 OK: Aceptar
@@ -200,7 +217,7 @@ DIALER: Teclado
 SESSION:
 NO_SESSION: No hay sesiones abiertas.
 CURRENT_CALLS: Sesiones
-ACTIVE_CALL: LLAMADA ACTIVA
+ACTIVE_CALL_BIG: LLAMADA ACTIVA
 ON_HOLD_BIG: EN ESPERA
 NEW_IM: NUEVO MENSAJE INSTÁNTANEO
 ACTIVE_CHAT: CHAT ACTIVO
@@ -270,9 +287,27 @@ CONFERENCE_INVITE_DIAL_NUMBER: O acceda sólo con audio a través del número te
 CONFERENCE_INVITE_ACCESS_CODE: Código de Acceso
 CONFERENCE_INVITE_MEETME_ACCESS_CODE: Código de Acceso a Meetme
 
+Personal: Personal
+PERSONAL_ADDRESSBOOK: Libreta de direcciones personal
+GLOBAL_ADDRESSBOOK: Libreta de direcciones global
 SEARCH_IN_CONTACTS: Buscar en contactos
 SEARCH_IN_DIRECTORY: Buscar en el directorio
 
+CREATE_CONTACT: Crear contacto
+
+SHOW: Espectáculo
 PROFILE_PAGE:
 ABOUT_BUTTON: ACERCA DE
 SEND_FEEDBACK: enviar comentarios
+
+EXTERNAL_NOTIFICATION:
+DECLINE: Declinar
+AUDIO_CALL: Audio
+VIDEO_CALL: Video
+IGNORE_CALL: Ignorar
+REJECT: Rechazar
+INCOMING_CALL: Llamada Entrante
+OUTGOING_CALL: Llamada Saliente
+ACTIVE_CALL: Llamada Activa,
+MISSED_CALL: Llamada Perdida
+INSTANT_MESSAGES: Mensaje

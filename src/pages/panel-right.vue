@@ -1,40 +1,40 @@
 <template lang='pug'>
 f7-page
   f7-navbar(title='', sliding='')
-  f7-block-title(v-if="currentPage === 'contact'") Manage
+  f7-block-title(v-if="currentPage === 'contact'") {{ $t('MANAGE') }}
   f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="openCreateContactPopup", title='Create Contact', view='#main-view', panel-close='')
-  f7-block-title(v-if="currentPage === 'contact'") Sort By
+    f7-list-item.my-class(@click="openCreateContactPopup", :title="$t('CREATE_CONTACT')", view='#main-view', panel-close='')
+  f7-block-title(v-if="currentPage === 'contact'") {{ $t('SORT_BY') }}
   f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="setSortBy('lastName')", title='Last Name', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setSortBy('lastName')", :title="$t('SORT_LAST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="!getSortBy") check
-    f7-list-item.my-class(@click="setSortBy('firstName')", title='First Name', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setSortBy('firstName')", :title="$t('SORT_FIRST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getSortBy") check
   f7-block-title(v-if="currentPage === 'contact'") Sources
   f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="setContactSource('personal')", title='Personal Addressbook', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setContactSource('personal')", :title="$t('PERSONAL_ADDRESSBOOK')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getContactSource") check
-    f7-list-item.my-class(@click="setContactSource('global')", title='Global Addressbook', view='#main-view', panel-close='')
+    f7-list-item.my-class(@click="setContactSource('global')", :title="$t('GLOBAL_ADDRESSBOOK')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="!getContactSource") check
-  f7-block-title(v-if="currentPage === 'history'") Show..
+  f7-block-title(v-if="currentPage === 'history'") {{ $t('SHOW') }}
   f7-list(v-if="currentPage === 'history'")
-    f7-list-item(@click="setLogType('outgoing')", title='Incoming Call', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('INCOMING_CALL')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(@click="setLogType('outgoing')", title='Outgoing Call', view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('missed')", title='Missed Call', view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('message')", title='Message', view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('conference')", title='Conference', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('OUTGOING_CALL')", view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('missed')", :title="$t('MISSED_CALL')", view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('message')", :title="$t('INSTANT_MESSAGES')", view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('conference')", :title="$t('CONFERENCE')", view='#main-view', panel-close='')
   f7-block-title(v-if="currentPage === 'messages'") View
   f7-list(v-if="currentPage === 'messages'")
     f7-list-item(@click="setLogType('outgoing')", title='New', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
     f7-list-item(@click="setLogType('outgoing')", title='Saved', view='#main-view', panel-close='')
-  f7-block-title(v-if="currentPage === 'favorites'") Display As
+  f7-block-title(v-if="currentPage === 'favorites'") {{ $t('DISPLAY_AS') }}
   f7-list(v-if="currentPage === 'favorites'")
     f7-list-item(@click="setLogType('outgoing')", title='Tiles', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
     f7-list-item(@click="setLogType('outgoing')", title='List', view='#main-view', panel-close='')
-  f7-block-title(v-if="currentPage === 'favorites'") Sort By
+  f7-block-title(v-if="currentPage === 'favorites'") {{ $t('SORT_BY') }}
   f7-list(v-if="currentPage === 'favorites'")
     f7-list-item(@click="setLogType('outgoing')", title='Last Name1', view='#main-view', panel-close='')
      i.icon.material-icons.md-only check

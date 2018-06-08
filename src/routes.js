@@ -19,7 +19,7 @@ import Contact from './pages/contact.vue'
 export default [
   {
     path: '/',
-    component: HomePage,
+    component: Favorites,
     on: {
       pageBeforeIn: (event, page) => {
         alert('Check router.js file. path:"/" to manage router guard on HOME')

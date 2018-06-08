@@ -1,5 +1,5 @@
 import * as types from './mutation-types'
-import createKandy from '../../kandy.link.js'
+import createKandy from '../../kandy.cpaas.js'
 import store from './index'
 import state from './state'
 import IMService from '../IMService'

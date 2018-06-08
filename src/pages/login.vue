@@ -77,11 +77,11 @@ var that = this
         loged: true,
         token: 'SOME_TOKEN',
       });
-      this.checkResult().then((interval) =>  {
+      //this.checkResult().then((interval) =>  {
         this.$f7router.navigate('/favorites');
-      }).catch(() =>  {
-        this.$f7.dialog.alert('Unable to login.', 'Smart Office', false)
-      })
+      //}).catch(() =>  {
+       // this.$f7.dialog.alert('Unable to login.', 'Smart Office', false)
+      //})
 
     },
     checkResult() {
