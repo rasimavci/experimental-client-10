@@ -26,7 +26,9 @@ export default {
   self: {},
   callee: '',
   participant: '',
+  target: '',
   startCall: false,
+  startTransfer: false,
   incomingCall: {},
     callOptions: {
     isAudioEnabled: true,

@@ -1,5 +1,5 @@
 import * as types from './mutation-types'
-import createKandy from '../../kandy.cpaas.js'
+import createKandy from '../../kandy.link.js'
 import store from './index'
 import state from './state'
 import IMService from '../IMService'
@@ -141,8 +141,8 @@ export const stopScreenshare =({commit}) => {
   kandy.stopScreenshare(state.activeCall.id);
 }
 
-export const directTransfer = ({commit}, destination) => {
-  kandy.directTransfer(state.activeCall.id, destination);
+export const directTransfer = ({commit, state}) => {
+  kandy.call.directTransfer(state.activeCall.id, state.target);
 }
 
 /**
@@ -195,7 +195,7 @@ export const sendDtmf = ({commit}, tone) => {
 
   // Devices.
   export const getDevices = () => {
-      // kandy.device.get();
+      let devices =  kandy.media.getDevices();
   }
 
   export const selectDevice= () => {

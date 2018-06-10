@@ -6,6 +6,8 @@ const activeConversations = state => state.activeConversations
 const activeCall = state => state.activeCall
 const incomingCall = state => state.incomingCall.active
 const startCall = state => state.startCall
+const startTransfer = state => state.startTransfer
 const currentPage = state => state.currentPage
+const participant = state => state.participant
 //const callAnswer = state => state.callAnswer
-export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, currentPage }
+export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage }

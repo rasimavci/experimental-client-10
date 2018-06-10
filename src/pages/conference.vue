@@ -9,7 +9,15 @@ f7-page
     f7-button.col.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(raised='', fill='') {{ $t('START_MY_CONFERENCE_NOW') }}
     //-f7-button.col(big round open-popup='#popup') START COLLABORATION
   f7-block(strong='')
-    p {{ $t('CONFERENCE_INVITATION_TITLE') }}
+  p {{ $t('CONFERENCE_INVITATION_TITLE') }}
+  f7-list(form='')
+    f7-list-item(:title="$t('SEND_AN_EMAIL')")
+  f7-block
+  p {{ $t('CONFERENCE_CONNECTION_TITLE') }}
+  f7-list(form='')
+    f7-list-item(:title="$t('URL')", subtitle="https:pa.nuvia")
+  f7-list(form='')
+    f7-list-item(:title="$t('CONFERENCE_INVITE_MEETME_ACCESS_CODE')", after="882572")
 </template>
 
 <script>

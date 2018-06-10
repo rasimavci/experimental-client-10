@@ -1,5 +1,6 @@
 <template lang="pug">
   p(v-if="incomingCall")
+  //p(v-if="returnActiveCall")
 
   //-   .incoming-call-container
   //-     .answer-call(@click='anserCall')
@@ -53,7 +54,7 @@ var notificationCallbackOnClose = this.$f7.notification.create({
   closeOnClick: true,
   on: {
     close: () => {
-      that.$store.commit('SET_PARTICIPANT', 'Sevda Aynaci');
+      //that.$store.commit('SET_PARTICIPANT', 'Sevda Aynaci');
       that.$store.commit('SET_STARTCALL', 'answer');
       //this.$store.dispatch('answer');
       that.$store.commit('SET_ACTIVECALLTAB', 'audio');
@@ -74,7 +75,43 @@ var notificationCallbackOnClose = this.$f7.notification.create({
         notificationCallbackOnClose.open();
       }
       return true
-  }
+  },
+
+returnActiveCall () {
+
+          var that = this
+var notificationCallbackOnClose1 = this.$f7.notification.create({
+  icon: '<i class="icon demo-icon">7</i>',
+  title: 'Return to Active Call',
+  titleRightText: 'now',
+  subtitle: 'Incoming Call',
+  text: 'Answer',
+  closeOnClick: true,
+  on: {
+    close: () => {
+      that.$store.commit('SET_PARTICIPANT', 'Sevda Aynaci');
+      that.$store.commit('SET_STARTCALL', 'answer');
+      //this.$store.dispatch('answer');
+      that.$store.commit('SET_ACTIVECALLTAB', 'audio');
+
+      //that.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
+      that.$f7router.navigate('/call');
+       let incomingCallData = {
+      callId: '',
+      active: true
+    }
+    this.$store.commit('UPDATE_INCOMINGCALL')
+    }
+  },
+});
+
+     let incoming = this.$store.state.incomingCall.active
+      if (incoming) {
+        notificationCallbackOnClose1.open();
+      }
+      return true
+
+}
 
 }
 }

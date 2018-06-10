@@ -1,193 +1,46 @@
 {
-	"uSDK": {
-		"authentication": {
-			"subscription": {
-				"protocol": "https",
-				"server": "kvs1-kl.kandy.io",
-				"port": 443,
-				"version": "v2.0",
-				"expires": 3600,
-				"service": ["call", "IM", "Presence", "MWI"]
-			},
-			"websocket": {
-				"protocol": "wss",
-				"server": "kvs1-kl.kandy.io",
-				"port": 443
-			}
-		},
-		"logs": {
-			"logLevel": "debug",
-			"logActions": {
-				"actionOnly": true,
-				"flattenActions": true,
-				"collapsed": false,
-				"diff": false
-			},
-			"enableFcsLogs": true
-		}
-	},
-	"cpi": {
-		"networkOnlineStateTransitionTimer": 300,
-		"appStateTransitionTimer": 5000,
-		"iosDeviceListQueryDelay": 500
-	},
-	"appName": "Smart Office",
-	"companyName": "SmartOffice",
-	"system-messages-display-time": 3000,
-	"useOpenDefaultBrowser": false,
-	"aliasNameList": {
-		"CallGrabber@genband.com": "*25",
-		"VoiceMail@genband.com": "voicemail",
-		"MeetMeConf@genband.com": ["meetme","6338"]
-	},
-	"branding": {
-		"useKBSBranding": "valueKBSBranding",
-		"brandingMap": {
-			"sidebar_color_value": [{
-				"selector": ".layout-sidebar",
-				"property": "background-color"
-			}],
-			"sidebar_hover_color_value": [{
-				"selector": ".side-navbar>li.active, .side-navbar>li:hover",
-				"property": "background-color"
-			}],
-			"background_color_value": [{
-				"selector": ".page",
-				"property": "background-color"
-			}, {
-				"selector": ".dialpad-top  *",
-				"property": "background-color"
-			}, {
-				"selector": ".dialpad-top",
-				"property": "background-color"
-			}, {
-				"selector": ".dialpad-wrapper",
-				"property": "background-color"
-			}, {
-				"selector": "#sendMessage",
-				"property": "background-color"
-			}, {
-				"selector": ".login-row",
-				"property": "background-color"
-			}],
-			"background_hover_color_value": [{
-				"selector": ".contact-user:hover",
-				"property": "background-color"
-			}, {
-				"selector": ".favorite-user:hover",
-				"property": "background-color"
-			}, {
-				"selector": ".sessions-item:hover",
-				"property": "background-color"
-			}, {
-				"selector": ".historylog-item-log:hover",
-				"property": "background-color"
-			}, {
-				"selector": ".im-active",
-				"property": "background-color"
-			}],
-			"tab_color_value": [{
-				"selector": ".button.dropdown",
-				"property": "background-color"
-			}, {
-				"selector": ".im-incoming",
-				"property": "background-color"
-			}, {
-				"selector": ".conference-url-row",
-				"property": "background-color"
-			}, {
-				"selector": ".conference-send-mail-row",
-				"property": "background-color"
-			}, {
-				"selector": ".search-input",
-				"property": "background-color"
-			}, {
-				"selector": ".login-input",
-				"property": "background-color"
-			}, {
-				"selector": ".contact-user",
-				"property": "background-color"
-			}, {
-				"selector": ".favorite-user",
-				"property": "background-color"
-			}, {
-				"selector": ".historylog-item-log",
-				"property": "background-color"
-			}],
-			"buttons_color_value": [{
-				"selector": ".button",
-				"property": "background-color"
-			}, {
-				"selector": ".dialpad-button-highlight",
-				"property": "background-color"
-			}, {
-				"selector": ".test-button",
-				"property": "background-color"
-			}, {
-				"selector": ".edit-button",
-				"property": "background-color"
-			}, {
-				"selector": ".conference-send-mail-row>button",
-				"property": "background-color"
-			}, {
-				"selector": ".login-button",
-				"property": "background-color"
-			}]
-		}
-	},
-	"customTabs": {
-		"source": "KBSCustomTabsValue",
-		"definition": {
-			"Smart Office Client":[]
-		}
-	},
-	"iceserver": [{
-        "url": "turns:turn1.spidrdomain.com:443?transport=tcp",
+  "authentication": {
+    "subscription": {
+      "expires": 3600,
+      "service": [
+        "IM",
+        "Presence",
+        "call"
+      ],
+      "protocol": "https",
+      "server": "spidr-ucc.genband.com",
+      "version": "1",
+      "port": "443"
+    },
+    "websocket": {
+      "protocol": "wss",
+      "server": "spidr-ucc.genband.com",
+      "port": "443"
+    }
+  },
+  "logs": {
+    "logLevel": "debug",
+    "enableFcsLogs": true
+  },
+  "call": {
+    "chromeExtensionId": "daohbhpgnnlgkipndobecbmahalalhcp",
+    "serverProvidedTurnCredentials": true,
+    "iceserver": [
+      {
+        "url": "stun:turn-ucc-1.genband.com:3478?transport=udp"
+      },
+      {
+        "url": "stun:turn-ucc-2.genband.com:3478?transport=udp"
+      },
+      {
+        "url": "turns:turn-ucc-1.genband.com:443?transport=tcp",
         "credential": ""
-    }, {
-        "url": "turns:turn2.spidrdomain.com:443?transport=tcp",
+      },
+      {
+        "url": "turns:turn-ucc-2.genband.com:443?transport=tcp",
         "credential": ""
-    }, {
-        "url": "stun:turn1.spidrdomain.com:3478?transport=udp"
-    }, {
-        "url": "stun:turn2.spidrdomain.com:3478?transport=udp"
-    }],
-	"webrtcdtls": true,
-	"customLanguagePath": "",
-	"customCssFileNames": [],
-	"reportMail": "SmartOffice.Omni@genband.com",
-	"appLoadingTimeout": 30000,
-	"emergencyList": ["155", "911", "112", "999", "113", "194", "000", "192"],
-	"updateCheckTimer": 24,
-	"privacyPolicyLink": "https://www.genband.com/company/about-us/privacy-policy",
-	"normalizeCallToWorkDN": false,
-	"shortCallToWorkDN": false,
-	"omniLogLevel": "DEBUG",
-	"pushServer": {
-		"protocol": "https",
-		"port": "443",
-		"server": "kvs1-token-auth.kandy.io",
-		"version": "1"
-	},
-	"idCacheLength": "100",
-	"realm": "spidr-ucc.genband.com",
-	"pushServices": ["call","IM"],
-	"endUserPortalUrl": "endUserPortalUrlGrunt",
-	"boostService": {
-		"Maidenhead": "+441628451172 ", "Ottawa": "+13438832302 ",
-		"New York": "+16469984942 ", "Holmdel": "+18562981414 ",
-		"Plano": "+19722653700 ", "Brazil": "+551139588662 ",
-		"Zurich": "+41435081075 ", "St-Louis": "+13144990763 ",
-		"UK": "+441628451152 ", "Frankfurt": "+496933296107 ",
-		"Brussels": "+3227896712 ", "Galway": "+35391435303 ",
-		"Tel-Aviv": "+97239155620 ", "Mexico": "+525511634785 ",
-		"Tokyo": "+81345782072 ", "Sydney": "+61280695802 ",
-		"Melbourne": "+61399884102 ", "Hong Kong": "+85258082502 ",
-		"Moscow": "+74995005551 ", "Amsterdam": "+31207083782 ",
-		"Madrid": "+34911230052 ", "Rome": "+390200617952 ",
-		"RTP": "+19194579602 ", "Auckland": "+6498874122 "
-	},
-	"iosConnectionLossRecoverTime": 3000,
-	"startUpdateTimer": 10000
-
+      }
+    ]
+  }
 }
+

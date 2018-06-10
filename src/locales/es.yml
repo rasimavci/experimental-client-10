@@ -79,7 +79,19 @@ LANGUAGE_SETTINGS: Ajustes de Idioma
 PREFERRED_LANGUAGE: Idioma Preferido
 VIBRATION_SETTINGS: Ajustes de Vibración
 PREFERRED_SETTINGS: Ajustes Preferidos
+CALLING_MODE: Modo de llamada
+CALLING_MODE_WIFI: Modo de llamada - WiFi
+CALLING_MODE_WIFI_HEAD: Selecciona cómo se realizarán las llamadas con una conexión WiFi
+CALLING_MODE_CELLULAR_DATA: Modo de llamada - Datos del celular
+CALLING_MODE_CELLULAR_DATA_HEAD: Selecciona cómo se realizarán las llamadas con una conexión de datos móviles
+CALLING_MODE_INFO:
+BLOCKED: • Bloqueado No se pueden hacer llamadas (aún puede recibir llamadas)
+INTERNET_CONNECTION: • Conexión a Internet Las llamadas utilizarán la conexión de datos
+CELLULAR_CALL: • Llamada celular Las llamadas se iniciarán usando el compositor móvil
+CALL_ME_BACK: • Recuérdame Primero recibirás una llamada en tu móvil y luego estarás conectado
+ASK_ON_EVERY_CALL: • Preguntar en cada llamada Se le pedirá que haga una elección en cada llamad
 
+MY_MOBILE_PHONE: Mi numero de celular
 CALL_VIBRATION_MODE: Modo de llamada
 IM_VIBRATION_MODE: Modo de Mensaje Instantáneo
 LOG_SETTINGS: Ajustes de Registro
@@ -101,6 +113,7 @@ ASK_EVERY_TIME: Preguntar a Cada Llamada
 ASK_EVERY_CALL:
 CHANGE_DEFAULT_MODE: Cambiar el Modo Predeterminado
 
+SELECT_MODE: Seleccione un modo de llamada
 PLACEHOLDER: Ingrese su numero celular
 BATTERY_SETTINGS: Ajustes de Batería
 BATTERY_OPTIMIZATION: Permanecer conectado en segundo plano
@@ -139,6 +152,22 @@ SOURCE_PAB: Directorio Personal
 SOURCE_GAB: Directorio Global
 SOURCE_MAB: Directorio Móvil
 
+SWIPE_ACTIONS:
+CALL_BIG: LLAMAR
+
+PERSONAL: Personal
+DIRECTORY: Directorio
+MOBILE_STARTBIG: Móvil
+FILTER_PLACEHOLDER: Nombre, Apellido
+FILTER_PLACEHOLDER_LN: Apellido, Nombre
+NO_RESULT: No se encuentran resultados
+NO_CONTACT: No se encuentran Contactos. Para agregar contactos, haga clic en el icono de Agregar Contacto Nuevo
+MIN_SEARCH_CRITERIA: Criterio de búsqueda requiere un mínimo de 3 caracteres
+MEETME_SERVICE: Conferencia de Audio MeetMe
+CALL_GRAB_SERVICE: Capturar Llamada
+VOICEMAIL_SERVICE: Mensaje de voz
+PLACEHOLDER_SERVICE: Contacto
+
 INBOX_PAGE:
 DISPLAY: Display
 CAPTION_NEW: New
@@ -168,6 +197,7 @@ BLIND_TRANSFER: Transferencia sin Consulta
 STATES:
 RINGING: Llamando
 ON_HOLD: En Espera
+ON_REMOTE_HOLD: Llamada retenida remotamente
 CALL_HELD_REMOTELY: Llamada retenida remotamente
 ANSWERING_STATE: Contestando
 RENEGOTIATION: Llamada Activa
@@ -311,3 +341,10 @@ OUTGOING_CALL: Llamada Saliente
 ACTIVE_CALL: Llamada Activa,
 MISSED_CALL: Llamada Perdida
 INSTANT_MESSAGES: Mensaje
+
+CHOOSE: Choose
+SEND_FILE: Send File
+SEND_IMAGE: Send Image
+SEND_VIDEO: Send Video
+SEND_LINK: Send Link
+SHARE_LOCATION: Share Location

@@ -96,12 +96,26 @@ CANCEL: Cancel
 CANCEL_BIG: CANCEL
 
 SETTINGS: Settings
+APP_SETTINGS:
 SETTINGS_BIG: SETTINGS
 NAME: Application Settings
 LANGUAGE_SETTINGS: Language Settings
 PREFERRED_LANGUAGE: Preferred Language
 VIBRATION_SETTINGS: Vibration Settings
 PREFERRED_SETTINGS: Preferred Settings
+CALLING_MODE: Calling Mode
+CALLING_MODE_WIFI: Calling Mode - WiFi
+CALLING_MODE_WIFI_HEAD: Select how calls will be made when connecting with WiFi
+CALLING_MODE_CELLULAR_DATA: Calling Mode - Cellular Data
+CALLING_MODE_CELLULAR_DATA_HEAD: Select how calls will be made when connecting with cellular data
+
+CALLING_MODE_INFO:
+BLOCKED: • Blocked No calls can be initiated (you can still receive calls)
+INTERNET_CONNECTION: • Internet Connection Calls will use the data connection
+CELLULAR_CALL: • Cellular Call Calls will be initiated using the mobile dialer
+CALL_ME_BACK: • Call me back You will first receive a call on your mobile and then be connected
+ASK_ON_EVERY_CALL: • Ask on every call You will be prompted to make a choice on every call
+MY_MOBILE_PHONE : My Mobile Number
 CALL_VIBRATION_MODE: Call Mode
 IM_VIBRATION_MODE: IM Mode
 LOG_SETTINGS: Log Settings
@@ -120,6 +134,32 @@ SERVICE_SETTINGS_TITLE: Service Settings
 SERVICE_SETTINGS_DESCRIPTION: Select the service you want to see in your favorites
 SERVICES: Services
 BOOST_SETTINGS: Boost Settings
+
+DESCRIPTION_CALLBOOST: Call Boost allows moving an active call to a cellular call. Follow these steps to configure:,
+FIRST_STEP: 1. Select the nearest service access location:,
+
+SECOND_STEP:
+DESCRIPTION_SECOND: 2. Enter your mobile number as the Call Grab Number,
+QUICK_STEP1: via the,
+QUICK_STEP1_1: end user web portal,
+QUICK_STEP2: under the Service Settings tab. (a desktop browser is recommended)
+THIRD_STEP: 3. To move an active call to cellular voice, push the call boost button on the active call screen. The transfer takes a few seconds to complete.
+
+CALL_MODE:
+NONE: Blocked
+VoIP: Internet Connection
+CELLULAR: Cellular Call
+CALL_MY_FIRST_MOBILE: Call Me Back
+ASK_EVERY_TIME: Ask on every call
+
+ASK_EVERY_CALL:
+CHANGE_DEFAULT_MODE: Change the default mode
+
+SELECT_MODE: Select a Call Mode
+PLACEHOLDER_SELECT_MODE: Enter your mobile number
+
+NAVBAR:
+NAME_NAVBAR: Configure Nav Bar
 
 MANAGE: Manage
 SERVICE_SHORTCUTS: Service Shortcuts
@@ -168,6 +208,33 @@ DELETE_FAVORITE : Delete
 TO_FAVORITES: to Favorites
 FROM_FAVORITES: from Favorites
 
+SETTINGS__:
+SERVICE_SHORTCUTS_INFO: You can add those Services to your Favorites via the Settings page
+CREATE: Create Contact
+SORT_AVAILABILITY: Availability
+SOURCES: Sources
+SOURCE_PAB: Personal Addressbook
+SOURCE_GAB: Global Addressbook
+SOURCE_MAB: Mobile Addressbook
+
+SWIPE_ACTIONS:
+CALL_BIG: CALL
+
+
+PERSONAL: Personal
+DIRECTORY: Directory
+MOBILE_STARTBIG: Mobile
+GLOBAL_STARTBIG: Global
+FILTER_PLACEHOLDER: First Name, Last Name
+FILTER_PLACEHOLDER_LN: Last Name, First Name
+NO_RESULT: No Results Found
+NO_CONTACT: No Contacts Found. To add contacts, click on the add new contact icon
+MIN_SEARCH_CRITERIA: Search criteria requires a minimum of 3 characters
+MEETME_SERVICE: MeetMe Audio Conference
+CALL_GRAB_SERVICE: Call Grab
+VOICEMAIL_SERVICE: Voicemail
+PLACEHOLDER_SERVICE: Contact
+
 INBOX_PAGE:
 DISPLAY: Display
 CAPTION_NEW: New
@@ -199,6 +266,7 @@ BLIND_TRANSFER: Blind Transfer
 STATES:
 RINGING: Ringing
 ON_HOLD: On Hold
+ON_REMOTE_HOLD: Call Held Remotely
 CALL_HELD_REMOTELY: Call Held Remotely
 ANSWERING_STATE: Answering
 RENEGOTIATION: Active Call
@@ -253,6 +321,17 @@ INCORRECT_PHONE_NUMBER: Incorrect phone number. Please make sure correct phone n
 
 ___________BU_ARADA_VAR:
 
+MESSAGE_PLACEHOLDER: Message...
+SEND_CONFERENCE_LINK: Send Collaboration Link
+
+POPUP_BOOST:
+POPUP_TITLE: Call Boost
+TITLE_BOOST: You are about to Boost your call.
+DESCRIPTION_BOOST: The call will be carried over to the network of your mobile carrier using the native phone app.
+CONFIGURE: CONFIGURE
+CHECK: Don't show this again
+
+
 IM:
 TEMPORARILY_UNAVAILABLE_IM: User temporarily unavailable
 EMPTY_MESSAGE: Empty messages are not allowed.
@@ -296,3 +375,12 @@ CREATE_CONTACT: Create Contact
 PROFILE_PAGE:
 ABOUT_BUTTON: ABOUT
 SEND_FEEDBACK: SEND FEEDBACK
+
+CHOOSE: Choose
+SEND_FILE: Send File
+SEND_IMAGE: Send Image
+SEND_VIDEO: Send Video
+SEND_LINK: Send Link
+SHARE_LOCATION: Share Location
+
+NO_SESSION: There is no open session.

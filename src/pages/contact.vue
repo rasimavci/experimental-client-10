@@ -46,7 +46,7 @@ f7-page
             .flex
              h3  {{contact.firstName}} {{contact.lastName}}
             .flex
-             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="goCallPage('audio')")
+             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="callTypeSelection($t('SELECT_MODE'), $t('CHANGE_DEFAULT_MODE'), $t('CALL_MY_FIRST_MOBILE'), $t('CELLULAR'), $t('VoIP'))")
              img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCallPage('video')")
              div(hspace="20")
              img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCallPage('chat')")
@@ -55,6 +55,7 @@ f7-page
           f7-list-item
             f7-label {{ $t('HOME') }}
             f7-input(type='text', value="contact.homePhone") {{contact.homePhone}}
+            i.icon.f7-icons.ios-only.test-icon-right phone_in_talk_full
           f7-list-item
             f7-label {{ $t('MOBILE') }}
             f7-input(type='mobile', placeholder='mobile') {{contact.mobilePhone}}
@@ -258,6 +259,46 @@ f7-page
         f7-block
         f7-block-title {{ $t('IDENTIFICATION') }}
         f7-list(form='')
+  f7-popup#popupDefaultMode
+    f7-view
+      f7-page
+        .navbar
+          .navbar-inner
+            .left.my-cursor(@click='backDefaultMode') {{ $t('SAVE') }}
+            .title {{ $t('CALLING_MODE_WIFI') }}
+        f7-block
+        f7-block-title
+        p {{ $t('CALLING_MODE_WIFI_HEAD') }}
+        f7-list(form='')
+          f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".defaultMode-sheet")
+        p {{ $t('BLOCKED') }}
+        p {{ $t('INTERNET_CONNECTION') }}
+        p {{ $t('CELLULAR_CALL') }}
+        p {{ $t('CALL_ME_BACK') }}
+        p {{ $t('ASK_ON_EVERY_CALL') }}
+  .sheet-modal.transferTo-sheet
+    .toolbar(title="deneme1")
+      .toolbar-inner.center
+        .right
+          a.link.sheet-close.center(href="#") {{ $t('TRANSFERRING') }}
+    .sheet-modal-inner
+      .block
+        f7-list(form='')
+         f7-list-item.center.sheet-close(:title="$t('DIALER')", @click='goDialpad()')
+         f7-list-item.center(:title="$t('CONTACTS')")
+  .sheet-modal.defaultMode-sheet
+    .toolbar(title="deneme1")
+      .toolbar-inner
+        .left
+        .right
+          a.link.sheet-close(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
+    .sheet-modal-inner
+        f7-list(form='')
+         f7-list-item.center.sheet-close(:title="$t('NONE')", @click='goDialpad()')
+         f7-list-item.center(:title="$t('VoIP')")
+         f7-list-item.center.sheet-close(:title="$t('CELLULAR')", @click='goDialpad()')
+         f7-list-item.center(:title="$t('CALL_MY_FIRST_MOBILE')")
+         f7-list-item.center(:title="$t('ASK_EVERY_TIME')")
   </template>
 <script>
 import NoImg from '../assets/demo/noimage.jpg';
@@ -324,6 +365,9 @@ export default {
     backFavorites() {
       this.$f7.popup.close('#popupManageFavorites', true);
     },
+    backDefaultMode() {
+      this.$f7.popup.close('#popupDefaultMode', true);
+    },
     saveFavorites() {
       this.$f7.popup.close('#popupManageFavorites', true);
     },
@@ -363,6 +407,43 @@ export default {
     onDisable: function(event) {
       this.isSearch = false;
       console.log('disable');
+    },
+
+       callTypeSelection (selectMode,a,b,c,d) {
+var ac1 = this.$f7.actions.create({
+  buttons: [
+    {
+      text: selectMode,
+      bold: true,
+      bg: 'blue',
+      color: 'red',
+    },
+    {
+      text: a,
+      color: 'blue',
+      onClick: () => {
+        this.$f7.popup.open('#popupDefaultMode', true);
+      }
+    },
+    {
+      text: b,
+      color: 'blue'
+    },
+    {
+      text: c,
+      color: 'blue'
+    },
+    {
+      text: d,
+      color: 'blue',
+      onClick: () => {
+        this.goCallPage('audio')
+      }
+    }
+  ]
+})
+
+ac1.open();
     },
     goCallPage: function(mode) {
       this.$f7.popup.close('#popupContactDetails', true);
@@ -564,6 +645,10 @@ export default {
 }
 
 .my-class {
+  cursor: default;
+}
+
+.my-cursor {
   cursor: default;
 }
 </style>

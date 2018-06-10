@@ -30,8 +30,14 @@ const store = new Vuex.Store({
     [types.SET_PARTICIPANT] (state, participant) {
       state.participant = participant
     },
+    [types.SET_TARGET] (state, target) {
+      state.target = target
+    },
     [types.SET_STARTCALL] (state, startCall) {
       state.startCall = startCall
+    },
+    [types.SET_STARTTRANSFER] (state, startTransfer) {
+      state.startTransfer = startTransfer
     },
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
@@ -113,7 +119,7 @@ const store = new Vuex.Store({
         ) {
           state.activeCall = call
 
-          if(call.state === 'RINGING' || call.state === 'IN_CALL') {
+          if(call.state === 'RINGING' || call.state === 'IN_CALL' || call.state === 'ENDED') {
             state.startCall = false
           }
         }

@@ -62,8 +62,13 @@
               | 0
             button(@click='press(1)')
               | #
+          div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
+            button(@click='press(1)')
+              |
+            button(@click='transfer()')(v-if="startTransfer")
+              i.icon.material-icons.md-only phone_in_talk
   // Additional "tabbar-labels" class
-  .toolbar.toolbar-bottom-md.tabbar-labels.tabBackground
+  .toolbar.toolbar-bottom-md.tabbar-labels.tabBackground(v-if="!startTransfer")
     .toolbar-inner
       a.tab-link.b(href='#tab-1')
         i.icon.f7-icons.ios-only
@@ -77,7 +82,7 @@
         span.badge.color-red 5
         // Label text
       a.tab-link.b.tab-link-active(href='#tab-3',@click='goCallPage("audio")')
-        // -img(slot='icon', src='../assets/demo/camera_outline_white.png')
+        //-img(slot='icon', src='../assets/demo/camera_outline_white.png')
         i.icon.f7-icons.ios-only phone_fill
         i.icon.material-icons.md-only phone
       a.tab-link.b(href='#tab-4',@click='goCallPage("video")')
@@ -89,7 +94,8 @@
   .tabs
     #tab-1.page-content.tab
     #tab-2.page-content.tab
-    #tab-3.page-content.tab.tab-active
+    #tab-3
+    //-.page-content.tab.tab-active
     #tab-4.page-content.tab
     #tab-4.page-content.tab
 
@@ -108,11 +114,23 @@ export default {
       document.getElementsByClassName('modal-container1')[0].style.width =
         document.body.offsetWidth + 'px';
     });
+    console.log('startTransfer ' + this.startTransfer)
   },
   components: {
     incomingCallModal: IncomingCallModal
   },
+  computed: {
+    ...mapGetters(['startTransfer']),
+  },
   methods: {
+        transfer: function() {
+          this.$store.commit('SET_ACTIVECALLTAB', 'audio');
+          this.$store.commit('SET_TARGET', this.callee);
+          this.$store.commit('SET_STARTTRANSFER', false);
+          this.$store.commit('SET_STARTCALL', 'transfer');
+          this.$f7router.navigate('/history');
+          this.$f7router.navigate('/call');
+        },
     goCallPage: function(mode) {
       const callee1 = this.$store.state.callee
       if(this.callee === '') {
@@ -122,7 +140,9 @@ export default {
       console.log('callee ' + this.callee)
       this.$store.commit('SET_ACTIVECALLTAB', mode);
       this.$store.commit('SET_CALLEE', this.callee);
-      this.$store.commit('SET_STARTCALL', true);
+      if(mode === 'audio' || mode === 'video') {
+        this.$store.commit('SET_STARTCALL', true);
+      }
       this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       this.$f7router.navigate('/call');
 
@@ -185,7 +205,7 @@ export default {
 }
 
 .modal-container2 {
-  padding-top: 100px;
+  padding-top: 200px;
   background-color: #fff;
 }
 

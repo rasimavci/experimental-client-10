@@ -7,9 +7,10 @@ f7-page
     f7-nav-title {{ $t('SESSIONS') }}
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
+  p.my-center(v-if="activeConversations.length === 0") {{ $t('NO_SESSION') }}
   f7-block-title(v-if="getCalls1") ACTIVE CALL
   f7-list
-   f7-list-item.my-class(v-for="call in getCalls" @click='goCallPage("audio", call.calleeName, call.to, call.id)' :key="call.name" :title="call.calleeName + ' ' + call.state" href="#popupAddContact")
+   f7-list-item.my-class(v-for="call in getCalls" @click='goCallPage("audio", call.calleeName, call.to, call.id)' :key="call.name" :title="call.calleeName + ' ' +  $t(call.state) " href="#popupAddContact")
   f7-block-title(v-if="checkActiveConv") ACTIVE CHAT
   f7-list.my-class
     ul
@@ -110,9 +111,9 @@ export default {
       });
       // contact.photoUrl = contact.photoUrl || this.noImg;
       this.selectedContacts.push(this.$_.cloneDeep(contact));
-      this.$nextTick(() => {
-        this.renderMessages = true;
-      });
+      // this.$nextTick(() => {
+      //   this.renderMessages = true;
+      // });
     },
   },
   computed: {
@@ -242,5 +243,9 @@ export default {
 
 .avatar-circle {
   border-radius: 25px;
+}
+
+.my-center {
+text-align: center
 }
 </style>

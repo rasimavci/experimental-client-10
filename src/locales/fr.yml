@@ -301,6 +301,7 @@ BLIND_TRANSFER: Transferencia directa
 STATES:
 RINGING: Sonnerie en cours
 ON_HOLD: En garde
+ON_REMOTE_HOLD: Appel mis en garde à distance
 CALL_HELD_REMOTELY: Appel mis en garde à distance
 ANSWERING_STATE: Réponse en cours
 RENEGOTIATION: Appel établis en cours
@@ -450,3 +451,10 @@ SEARCH_IN_DIRECTORY: Rechercher dans le répertoire
 PROFILE_PAGE:
 ABOUT_BUTTON: SUR
 SEND_FEEDBACK: ENVEYOR DES COMMENTAIRES
+
+CHOOSE: Choose
+SEND_FILE: Send File
+SEND_IMAGE: Send Image
+SEND_VIDEO: Send Video
+SEND_LINK: Send Link
+SHARE_LOCATION: Share Location

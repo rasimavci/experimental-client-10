@@ -302,6 +302,7 @@ BLIND_TRANSFER: Transferência direta
 STATES:
 RINGING_STATE: Tocando
 ON_HOLD: Em Espera
+ON_REMOTE_HOLD: Chamada em espera remotamente
 CALL_HELD_REMOTELY: Chamada em espera remotamente
 ANSWERING_STATE: Atendimento
 RENEGOTIATION: Chamada ativa
@@ -448,3 +449,10 @@ SEARCH_IN_DIRECTORY: Pesquisar no diretório
 PROFILE_PAGE:
 ABOUT_BUTTON: SOBRE
 SEND_FEEDBACK: enviar comentários
+
+CHOOSE: Choose
+SEND_FILE: Send File
+SEND_IMAGE: Send Image
+SEND_VIDEO: Send Video
+SEND_LINK: Send Link
+SHARE_LOCATION: Share Location
