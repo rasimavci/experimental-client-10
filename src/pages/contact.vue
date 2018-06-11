@@ -7,30 +7,49 @@ f7-page
     f7-nav-title {{ $t('CONTACTS') }}
     f7-nav-right
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
-  f7-searchbar(v-show='getContactSource', disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_CONTACTS')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
-  f7-searchbar(v-show='!getContactSource', custom-search=true, disable-link-text="Cancel" :placeholder="$t('SEARCH_IN_DIRECTORY')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+      f7-list-index(indexes="auto" list-el="#contacts-list" :scroll-list="true" :label="true" @listindex:select="onIndexSelect")
+    //- f7-list#contacts-list(contacts-list="")
+    //-   f7-list-group(v-for='(groups, key) in groupedContacts')
+    //-     f7-list-item(v-for="contact in groups", :title="contact.firstName + ' ' + contact.lastName" group-title="")
+  f7-tabs
+    f7-tab#tab-1(tab-active="")
+    f7-tab#tab-2
+    f7-tab#tab-3
+    // Switch Between Tabs
+  f7-segmented
+    f7-button(tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") Personal
+    f7-button(tab-link="#tab-2", @click="setContactSource('global')") Global
+    f7-button(tab-link="#tab-3", @click="setContactSource('mobile')") Mobile
+  f7-searchbar(v-if="contactSource === 'personal'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_CONTACTS')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
+  p(v-if="contactSource === 'global'") {{ $t('MIN_SEARCH_CRITERIA') }}
+  f7-searchbar(v-if="contactSource === 'global'", custom-search=true, disable-link-text="Cancel" :placeholder="$t('SEARCH_IN_DIRECTORY')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-list.searchbar-not-found
    f7-list-item(title="No contacts found")
   f7-list.searchbar-found(v-show='getContactSource', id='searchList')
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list(v-show='!getContactSource')
    f7-list-item.my-class(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
-  f7-list.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
-   h5 {{key}}
-   f7-list(media-list="")
-      ul
-        li.my-class(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
-          .item-content
-            .item-media
-              img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
-              //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
-              //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
-            .item-inner
-              .item-title-row
-                .item-title {{contact.firstName}} {{contact.lastName}}
-                .item-subtitle {{ $t('PERSONAL') }}
-              //- img(:src='presenceConnected')
-
+  f7-list
+   f7-list-group.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
+    f7-list-item(:title="key" group-title="")
+    f7-list-item(v-for="contact in groups", :key="key", :title="contact.firstName + ' ' + contact.lastName", after="personal", @click='openContactDetailsPopup(contact)')
+     .item-content
+     .item-media
+     img.avatar-circle.test-icon-left(:src="contact.photoUrl || noImg" width="44")
+  //-  //-h5 {{key}}
+  //-  f7-list(media-list="")
+  //-     ul
+  //-       li.my-class(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
+  //-         .item-content
+  //-           .item-media
+  //-             img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
+  //-             //- img(:src='presenceConnected', v-if='contact.presence.status === "open"')
+  //-             //- img(:src='presenceClosed', v-if='contact.presence.status === "closed"')
+  //-           .item-inner
+  //-             .item-title-row
+  //-               .item-title {{contact.firstName}} {{contact.lastName}}
+  //-               .item-subtitle {{ $t('PERSONAL') }}
+  //-             //- img(:src='presenceConnected')
   f7-popup#popupContactDetails
     f7-view
       f7-page
@@ -73,9 +92,9 @@ f7-page
             f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}
         f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list
-          f7-list-item(@click='openManageFavorites()', title='Manage Favorites')
-          f7-list-item(@click='removeContact(contact)', title='Remove From Contacts List')
-          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="'Show Presence Status'")
+          f7-list-item(@click='openManageFavorites()', :title="$t('MANAGE_FAVS')")
+          f7-list-item(@click='removeContact(contact)', :title="$t('REMOVE_FROM_PAB')")
+          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="$t('SHOW_AVAILABILITY')")
   f7-popup#popupAddContact
     f7-view
       f7-page
@@ -347,6 +366,12 @@ export default {
     incomingCallModal: IncomingCallModal
   },
   methods: {
+    setContactSource: function(source) {
+    this.$store.commit("SET_CONTACTSOURCE", source);
+    },
+    onIndexSelect() {
+      console.log('list index clicked')
+    },
     backAddContact() {
       this.$f7.popup.close('#popupAddContact', true);
     },
@@ -556,7 +581,7 @@ ac1.open();
     },
   },
   computed: {
-    ...mapGetters(['contacts']), // not used anymore, instead store.state used
+    ...mapGetters(['contacts','contactSource']), // not used anymore, instead store.state used
     getContacts() {
       var resultArray = [];
       let contactSource = this.$store.state.contactSource;

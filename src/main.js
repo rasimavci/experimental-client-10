@@ -67,7 +67,7 @@ var vm = new Vue({
   framework7: {
     id: 'com.base.app', // App bundle ID
     name: 'BaseApp', // App name
-    theme: 'ios', // Automatic theme detection
+    theme: 'auto', // Automatic theme detection
     // App routes
     routes: Routes
   },

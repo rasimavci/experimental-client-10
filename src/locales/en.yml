@@ -364,17 +364,33 @@ CONFERENCE_INVITE_DIAL_NUMBER: Or dial in for audio only using one of the follow
 CONFERENCE_INVITE_ACCESS_CODE: Access Code
 CONFERENCE_INVITE_MEETME_ACCESS_CODE: MeetMe Access Code
 
+SESSION_PAGE:
+NO_SESSION: There is no open session.
+CURRENT_CALLS: Sessions
+ACTIVE_CALL_BIG: ACTIVE CALL
+ON_HOLD_BIG: ON HOLD
+NEW_IM: NEW IM
+ACTIVE_CHAT: ACTIVE CHAT
+
+ABOUT_PAGE:
+ABOUT: About
+UPDATE: Update Client
+UPDATE_CONFIRM: Updates available. Refresh now?
+INIT_CLIENT: Updating client...
+INIT_CONFIG: Updating configuration...
+PRIVACY_POLICY: Link to privacy policy
+
 SEARCH_IN_CONTACTS: Search in contacts
 SEARCH_IN_DIRECTORY: Search in directory
 
 Personal: Personal
 PERSONAL_ADDRESSBOOK: Personal Addressbook
-GLOBAL_ADDRESSBOOK:
+GLOBAL_ADDRESSBOOK: Global Addressbook
 
 CREATE_CONTACT: Create Contact
 PROFILE_PAGE:
-ABOUT_BUTTON: ABOUT
-SEND_FEEDBACK: SEND FEEDBACK
+ABOUT_BUTTON: About
+SEND_FEEDBACK: Send Feedback
 
 CHOOSE: Choose
 SEND_FILE: Send File
@@ -382,5 +398,3 @@ SEND_IMAGE: Send Image
 SEND_VIDEO: Send Video
 SEND_LINK: Send Link
 SHARE_LOCATION: Share Location
-
-NO_SESSION: There is no open session.

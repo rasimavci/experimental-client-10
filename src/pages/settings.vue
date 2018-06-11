@@ -5,7 +5,7 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{ $t('SETTINGS') }}
-  f7-block-title {{ $t('NAME') }}
+  f7-block-header {{ $t('NAME') }}
   f7-list
     f7-list-item(@click='openPopupLanguage()', :title="$t('LANGUAGE_SETTINGS')", link="")
     f7-list-item(@click='openPopupVibration()', :title="$t('VIBRATION_SETTINGS')", link="")
@@ -82,7 +82,7 @@ f7-page
             .left.my-cursor(@click='closePopupBoost') {{ $t('SAVE') }}
             .title {{ $t('BOOST_SETTINGS') }}
         f7-block
-        f7-block-title {{ $t('DESCRIPTION_CALLBOOST') }}
+        f7-block-header {{ $t('DESCRIPTION_CALLBOOST') }}
         p {{ $t('FIRST_STEP') }}
         f7-list(form='')
           f7-list-item.sheet-open(title="Dallas USA", link="", data-sheet=".boostList-sheet")
@@ -96,7 +96,7 @@ f7-page
             .left.my-cursor(@click='closePopupCallingModeWifi') {{ $t('SAVE') }}
             .title {{ $t('CALLING_MODE_WIFI') }}
         f7-block
-        f7-block-title {{ $t('CALLING_MODE_WIFI_HEAD') }}
+        f7-block-header {{ $t('CALLING_MODE_WIFI_HEAD') }}
         f7-list(form='')
           f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".defaultMode-sheet")
         p {{ $t('BLOCKED') }}
@@ -112,7 +112,7 @@ f7-page
             .left.my-cursor(@click='closePopupCallingModeCellular') {{ $t('SAVE') }}
             .title {{ $t('CALLING_MODE_CELLULAR_DATA') }}
         f7-block
-        f7-block-title {{ $t('CALLING_MODE_CELLULAR_DATA_HEAD') }}
+        f7-block-header {{ $t('CALLING_MODE_CELLULAR_DATA_HEAD') }}
         f7-list(form='')
           f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".defaultMode-sheet")
         p {{ $t('BLOCKED') }}
@@ -153,9 +153,9 @@ f7-page
     .sheet-modal-inner
         f7-list(formLanguage='')
          f7-list-item(:key='1', radio='', name='language', :checked="language === 'en'", @change="language = 'en'", :title="'English'")
-         f7-list-item(:key='2', radio='', name='language', :checked="language === 'pt'", @change="language = 'pt'", :title="'Portuguese'")
-         f7-list-item(:key='3', radio='', name='language', :checked="language === 'es'", @change="language = 'es'", :title="'Espanol'")
-         f7-list-item(:key='4', radio='', name='language', :checked="language === 'fr'", @change="language = 'fr'", :title="'French'")
+         f7-list-item(:key='2', radio='', name='language', :checked="language === 'fr'", @change="language = 'fr'", :title="'French'")
+         f7-list-item(:key='3', radio='', name='language', :checked="language === 'pt'", @change="language = 'pt'", :title="'Portuguese'")
+         f7-list-item(:key='4', radio='', name='language', :checked="language === 'es'", @change="language = 'es'", :title="'Espanol'")
   .sheet-modal.boostList
     .toolbar
       .toolbar-inner

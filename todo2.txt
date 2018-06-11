@@ -1,0 +1,16 @@
+fix general UI, some UI doesnt fit in mobile bcos of fixed heights
+
+fix contact page, contacts Detaild etc, some images seems blurred
+
+improve incoming call notification UI
+improve incoming call notification logic (notification queue for incoming call/IM)
+
+imrprove video containers in call.page, fit well in mobile
+
+favorites service
+
+produce apk and get same UI work for anroid (and ios if possible)
+
+similar call.page to sr1 ()
+https://sr1.genband.com/smartofficemobile/
+try to integrate a cordova pluygin (for example callkit)

@@ -14,20 +14,28 @@ f7-page.div-container
     //-f7-list-item(link='/call/', :title='Call', view='#main-view', panel-close='')
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/favorites/', :title="$t('FAVORITES')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only star_border_fill
      i.icon.material-icons.md-only star_border
     f7-list-item(link='/contact/', :title="$t('CONTACTS')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only contacts_fill
      i.icon.material-icons.md-only contacts
     f7-list-item(link='/history/', :title="$t('HISTORY')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only access_time_fill
      i.icon.material-icons.md-only access_time
-    f7-list-item(badge="3" link='/message/', :title="$t('INBOX')", view='#main-view', panel-close='')
+    f7-list-item(link='/message/', :title="$t('INBOX')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only inbox_fill
      i.icon.material-icons.md-only.test-icon-left inbox
     f7-list-item(link='/dialpad/', :title="$t('DIALPAD')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only phone_fill
      i.icon.material-icons.md-only phone
     f7-list-item(link='/sessions/', :title="$t('SESSIONS')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only content_copy_fill
      i.icon.material-icons.md-only content_copy
     f7-list-item(link='/conference/', :title="$t('CONFERENCE')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only supervisor_account_fill
      i.icon.material-icons.md-only supervisor_account
     f7-list-item.my-image-botton(link='/settings/', :title="$t('SETTINGS')", view='#main-view', panel-close='')
+     i.icon.material-icons.ios-only settings_fill
      i.icon.material-icons.md-only settings
 </template>
 <script>

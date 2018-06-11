@@ -5,26 +5,29 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{username}}
-  f7-block-title $t('Presence')
-  f7-list(form='')
-    f7-list-item(:key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="'Available'" @change="setPresence('0')" checked)
-    f7-list-item(:key='2', radio='', name='my-radio', :checked='fruit === 1', :value='2', :title="'Busy'" @change="setPresence('1')")
-    f7-list-item(:key='3', radio='', name='my-radio', :checked='fruit === 1', :value='3', :title="'On Vacation'" @change="setPresence('2')")
-    f7-list-item(:key='4', radio='', name='my-radio', :checked='fruit === 1', :value='4', :title="'Away'" @change="setPresence('3')")
-    f7-list-item(:key='5', radio='', name='my-radio', :checked='fruit === 1', :value='5', :title="'Out to Lunch'" @change="setPresence('4')")
-    f7-list-item(:key='6', radio='', name='my-radio', :checked='fruit === 1', :value='6', :title="'Be Right Back'" @change="setPresence('5')")
-    f7-list-item(:key='7', radio='', name='my-radio', :checked='fruit === 1', :value='7', :title="'Appear Offline'" @change="setPresence('6')")
+  f7-block-header {{ $t('PRESENCE') }}
+  f7-list(form='', media-list="")
+    f7-list-item(:media="presenceConnected", :key='1', radio='', name='my-radio', :checked='fruit === 1', :value='1', :title="$t('AVAILABLE')" @change="setPresence('0')" checked)
+    f7-list-item(:media="presenceClosed", :key='2', radio='', name='my-radio', :checked='fruit === 1', :value='2', :title="$t('BUSY')" @change="setPresence('1')")
+    f7-list-item(:media="presenceClosed", :key='3', radio='', name='my-radio', :checked='fruit === 1', :value='3', :title="$t('ON_VACATION')" @change="setPresence('2')")
+    f7-list-item(:media="presenceClosedMessage", :key='4', radio='', name='my-radio', :checked='fruit === 1', :value='4', :title="$t('AWAY')" @change="setPresence('3')")
+    f7-list-item(:media="presenceClosedMessage", :key='5', radio='', name='my-radio', :checked='fruit === 1', :value='5', :title="$t('OUT_TO_LUNCH')" @change="setPresence('4')")
+    f7-list-item(:media="presenceClosedMessage", :key='6', radio='', name='my-radio', :checked='fruit === 1', :value='6', :title="$t('BE_RIGHT_BACK')" @change="setPresence('5')")
+    f7-list-item(:media="PresenceOffline", :key='7', radio='', name='my-radio', :checked='fruit === 1', :value='7', :title="$t('OFFLINE')" @change="setPresence('6')")
 
   f7-block(strong='')
     f7-row.block_container
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='',@click="about") {{ $t('ABOUT') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='',@click="about") {{ $t('ABOUT') }}
     f7-row.block_container(tag='p')
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='', @click='doLogout') {{ $t('Logout') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', @click='doLogout') {{ $t('LOGOUT') }}
     f7-row.block_container(tag='p')
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', raised='', popup-open='#popupSendFeedback') {{ $t('SEND_FEEDBACK') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', popup-open='#popupSendFeedback') {{ $t('SEND_FEEDBACK') }}
+    f7-row.block_container(tag='p')
+      f7-col(width='85')
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', popup-open='#openPrivacyPolicy') {{ $t('PRIVACY_POLICY') }}
   f7-popup#popupSendFeedback
     f7-view
       f7-page
@@ -34,7 +37,7 @@ f7-page
         f7-block
         f7-list
           f7-list-item
-            f7-label ISSUE DESCRIPTION
+            f7-label {{ $t('ISSUE_DESC_LABEL') }}
             f7-input(type='textarea', placeholder='Enter your feedback')
           f7-row(tag='p')
             f7-col(width='85')
@@ -42,9 +45,13 @@ f7-page
 </template>
 
 <script>
-import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+//import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 import NoImg from '../assets/demo/noimage.jpg';
 import IncomingCallModal from './ModalIncomingCall'
+import PresenceConnected from '../assets/icon/presence_connected.png';
+import PresenceClosed from '../assets/icon/presence_not.png';
+import PresenceClosedMessage from '../assets/icon/presence_away.png';
+import PresenceOffline from '../assets/icon/presence_offline.png';
 export default {
 
   created: function() {
@@ -52,6 +59,10 @@ export default {
   },
   data() {
     return {
+      presenceConnected: PresenceConnected,
+      presenceClosed: PresenceClosed,
+      presenceClosedMessage: PresenceClosedMessage,
+      PresenceOffline: PresenceOffline,
       noImg: NoImg,
       fruit: 'apple',
       username: '',
@@ -61,6 +72,8 @@ export default {
     incomingCallModal: IncomingCallModal
   },
    methods: {
+     openPrivacyPolicy() {
+     },
     about() {
        this.$f7.dialog.alert('Version 4.0', 'Smart Office', false)
     },

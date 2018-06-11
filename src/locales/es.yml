@@ -232,7 +232,7 @@ DELETE: Eliminar
 CANCEL: Cancelar
 REPLY: Responder
 
-CALL_:
+CALL_PAGE:
 MUTE: mudo
 TRANSFER: transferir
 SPEAKER: altavoz
@@ -252,7 +252,7 @@ ON_HOLD_BIG: EN ESPERA
 NEW_IM: NUEVO MENSAJE INSTÁNTANEO
 ACTIVE_CHAT: CHAT ACTIVO
 
-ABOUT_:
+ABOUT_PAGE:
 ABOUT: Acerca de
 VERSION: Versión
 UPDATE: Actualizar Cliente
@@ -328,7 +328,7 @@ CREATE_CONTACT: Crear contacto
 SHOW: Espectáculo
 PROFILE_PAGE:
 ABOUT_BUTTON: ACERCA DE
-SEND_FEEDBACK: enviar comentarios
+SEND_FEEDBACK: Enviar comentarios
 
 EXTERNAL_NOTIFICATION:
 DECLINE: Declinar
@@ -348,3 +348,7 @@ SEND_IMAGE: Send Image
 SEND_VIDEO: Send Video
 SEND_LINK: Send Link
 SHARE_LOCATION: Share Location
+
+MANAGE_FAVS: Adminstrar Favoritos
+REMOVE_FROM_PAB: Remover de Lista Contactos Personales
+SHOW_AVAILABILITY: Mostrar Estado de Presencia
