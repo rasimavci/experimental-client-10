@@ -68,3 +68,11 @@
 .this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render{
   width: 100% !important;
 }
+
+.trans{
+  text-transform:capitalize
+}
+
+.messageLine {
+  max-height: 20px;
+}

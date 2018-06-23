@@ -12,7 +12,7 @@ f7-page
    h5 {{key}}
    f7-list
       ul
-        li(v-for="group in groups" @click='goCall(group)')
+        li.my-cursor(style="font-size: 14px", v-for="group in groups" @click='goCall(group)')
           .item-content
             .item-media
               img.avatar-circle(:src="group.photoUrl || noImg" width="44")
@@ -23,6 +23,8 @@ f7-page
               i.icon.material-icons.md-only(v-if="group.direction === 'outgoing'") call_made
               i.icon.material-icons.md-only(v-if="group.direction === 'incoming'") call_received
               i.icon.material-icons.md-only(v-if="group.direction === 'missed'") call_missed
+              i.icon.material-icons.md-only(v-if="group.direction === 'inbox'") inbox
+              i.icon.material-icons.md-only(v-if="group.direction === 'conference'") supervisor_account
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex';
@@ -81,7 +83,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['contacts']),
+    ...mapGetters(['contacts','historyType']),
     getContact(callerDisplayNumber) {
       // if (this.showdata === 'all') {
       let contacts = this.$store.state.contacts;
@@ -91,14 +93,6 @@ export default {
         contacts
       );
       return contact.photoUrl;
-      // } else if (this.showdata === 'filtered') {
-      //   return this.$store.state.history.filter(note => note.firstName.startsWith(this.filterWord))
-      // } else if (this.showdata === 'Global Addressbook') {
-      //   console.log('global selected')
-      //   return this.$store.state.history.filter(note => note.firstName.startsWith(this.filterWord))
-      // } else {
-      //   return this.$store.state.history
-      // }
     },
     getCallLogs() {
       // if (this.$store.state.historyFilterSelection === 'All Call') {
@@ -110,6 +104,7 @@ export default {
         contacts.forEach(contact => {
           if (contact.primaryContact === log.callerDisplayNumber) {
             log.photoUrl = contact.photoUrl;
+            log.callerName = contact.firstName + ' ' + contact.lastName
             console.log('log photo url' + log.photoUrl);
           }
         });
@@ -121,15 +116,24 @@ export default {
       });
       // this.list = this.$store.state.contacts
 
-      return hist;
-      // return this.$store.state.history;
-      // } else if (this.$store.state.historyFilterSelection === 'Incoming Call') {
-      //   return this.$store.state.history.filter(note => note.direction === 'incoming')
-      // } else if (this.$store.state.historyFilterSelection === 'Outgoing Call') {
-      //   return this.$store.state.history.filter(note => note.direction === 'outgoing')
-      // } else if (this.$store.state.historyFilterSelection === 'Missed Call') {
-      //   return this.$store.state.history.filter(note => note.direction === 'missed')
-      // }
+
+
+      if (!this.historyType.incoming) {
+        hist = hist.filter(note => note.direction !=='incoming')
+      }
+      if (!this.historyType.outgoing) {
+        hist = hist.filter(note => note.direction !=='outgoing')
+      }
+      if (!this.historyType.missed) {
+        hist = hist.filter(note => note.direction !=='missed')
+      }
+      if (!this.historyType.message) {
+        hist = hist.filter(note => note.direction !=='message')
+      }
+      if (!this.historyType.conference) {
+        hist = hist.filter(note => note.direction !=='conference')
+      }
+      return hist
     },
     groupedLogs() {
       let history = this.getCallLogs; // this.$store.state.vux.history

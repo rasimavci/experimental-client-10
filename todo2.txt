@@ -1,16 +1,42 @@
+UI
+-----------------------------------------------
 fix general UI, some UI doesnt fit in mobile bcos of fixed heights
+I made a fix by putting .page but it crashed something, shown in in every tab and bcos of that no functionality,
+http://forum.framework7.io/t/how-to-fix-message-bar-at-bottom/3829/6
 
-fix contact page, contacts Detaild etc, some images seems blurred
+fix contact pages, big contact image is blurred in popup, also no real contact image in popup
 
+improve video containers in call.page, fit well in mobile
+
+contacts upper buttons background seems green
+
+call page action cheet button background is not blue
+http://forum.framework7.io/t/can-not-change-background-color-of-a-button-in-action-sheet/3734/5
+
+
+call page UI improvement for reach messaging - file upload, photo-Viewer etc (as in the ppt)
+http://forum.framework7.io/t/how-to-trigger-file-upload-in-a-framework-7-application/3690/13
+
+remove underdline from bottom tabs
+http://forum.framework7.io/t/how-to-remove-underlines-for-toolbar/3724
+
+
+CODE PROBLEMS & IMPROVEMENS
+-----------------------------------------------
+
+history page infinite scrolling, currently brings 50 items, should bring more when scroll bar reachs end
+
+**Cordova Issues**
+call or IM not working in real mobile
+cordova plugins should be integrated
+
+incoming call not working, it needs to be done
 improve incoming call notification UI
-improve incoming call notification logic (notification queue for incoming call/IM)
+improve incoming call notification logic (notification queue for incoming IM)
 
-imrprove video containers in call.page, fit well in mobile
 
-favorites service
-
-produce apk and get same UI work for anroid (and ios if possible)
-
-similar call.page to sr1 ()
+cordova call should be integrated, similar call.page to sr1 website
 https://sr1.genband.com/smartofficemobile/
-try to integrate a cordova pluygin (for example callkit)
+
+
+favorites service should be implemented

@@ -82,12 +82,13 @@ MOBILE_CALL: Chamar Móvel
 SEND_MESSAGE: Enviar mensagem
 CALL: Chamar
 
-SAVE: Salvar,
+SAVE: Salvar
 DELETE: Apagar
 CLOSE: Fechar
 REPLY: Responder
 REPLY_DOT: Responder ...
 BACK: Costas
+CANCEL: Cancelar
 
 SETTINGS_FAVORITES:
 MANAGE: Gerenciar
@@ -98,6 +99,8 @@ LIST: Lista
 SORT_BY: Classificar por
 SORT_LAST_NAME: Classificar por sobrenome
 SORT_FIRST_NAME: Classificar por nome
+
+NO_FAV: Seu guia de Favoritos está vazio. Para adicionar favoritos, clique no ícone de lista de endereços e adicione um contato para o seu guia de favoritos
 
 CONTACTS_PAGE: Contatos
 PROFILE_MENU:
@@ -265,7 +268,7 @@ NAME_NAVBAR: Configurações do aplicativo
 REPORT_ISSUE:
 TITLE_REPORT: Enviar um comentário
 ISSUE_DESC_LABEL: Descrição do problema
-SEND_AN_EMAIL: 2- Enviar logs por e-mail
+SEND_VIA_EMAIL: 2- Enviar logs por e-mail
 ATTACH_FILE_INFO: Por favor, anexar os arquivos de logs ou capturas de telas ao seu e-mail.
 NO_SUBJECT: Sem Assunto
 SUBJECT: Comentários

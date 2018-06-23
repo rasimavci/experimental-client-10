@@ -42,6 +42,9 @@ const store = new Vuex.Store({
     [types.SET_CONTACTSOURCE] (state, source) {
       state.contactSource = source
     },
+    [types.SET_HISTORYTYPE] (state, type) {
+      state.historyType = type
+    },
     [types.SET_ISCONNECTED] (state, isConnected) {
       state.isConnected = isConnected
     },

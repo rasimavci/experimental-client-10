@@ -2,43 +2,63 @@
 f7-page
   f7-navbar(title='', sliding='')
   f7-block-title(v-if="currentPage === 'contact'") {{ $t('MANAGE') }}
-  f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="openCreateContactPopup", :title="$t('CREATE_CONTACT')", view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'contact'", no-hairlines-between="")
+    f7-list-item.my-cursor(@click="openCreateContactPopup", :title="$t('CREATE_CONTACT')", view='#main-view', panel-close='')
   f7-block-title(v-if="currentPage === 'contact'") {{ $t('SORT_BY') }}
-  f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="setSortBy('lastName')", :title="$t('SORT_LAST_NAME')", view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'contact'", no-hairlines-between="")
+    f7-list-item.my-cursor(@click="setSortBy('lastName')", :title="$t('SORT_LAST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="!getSortBy") check
-    f7-list-item.my-class(@click="setSortBy('firstName')", :title="$t('SORT_FIRST_NAME')", view='#main-view', panel-close='')
+    f7-list-item.my-cursor(@click="setSortBy('firstName')", :title="$t('SORT_FIRST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getSortBy") check
   f7-block-title(v-if="currentPage === 'contact'") Sources
-  f7-list(v-if="currentPage === 'contact'")
-    f7-list-item.my-class(@click="setContactSource('personal')", :title="$t('PERSONAL_ADDRESSBOOK')", view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'contact'", no-hairlines-between="")
+    f7-list-item.my-cursor(@click="setContactSource('personal')", :title="$t('PERSONAL_ADDRESSBOOK')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="getContactSource") check
-    f7-list-item.my-class(@click="setContactSource('global')", :title="$t('GLOBAL_ADDRESSBOOK')", view='#main-view', panel-close='')
+    f7-list-item.my-cursor(@click="setContactSource('global')", :title="$t('GLOBAL_ADDRESSBOOK')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only(v-if="!getContactSource") check
   f7-block-title(v-if="currentPage === 'history'") {{ $t('SHOW') }}
-  f7-list(v-if="currentPage === 'history'")
-    f7-list-item(@click="setLogType('outgoing')", :title="$t('INCOMING_CALL')", view='#main-view', panel-close='')
-     i.icon.material-icons.md-only check
-    f7-list-item(@click="setLogType('outgoing')", :title="$t('OUTGOING_CALL')", view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('missed')", :title="$t('MISSED_CALL')", view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('message')", :title="$t('INSTANT_MESSAGES')", view='#main-view', panel-close='')
-    f7-list-item(@click="setLogType('conference')", :title="$t('CONFERENCE')", view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'history'", no-hairlines-between="")
+    f7-list-item(@click="setHistoryType('incoming')", :title="$t('INCOMING_CALL')", view='#main-view', panel-close='')
+     i.icon.material-icons.md-only(v-if="incoming") check
+    f7-list-item(@click="setHistoryType('outgoing')", :title="$t('OUTGOING_CALL')", view='#main-view', panel-close='')
+      i.icon.material-icons.md-only(v-if="outgoing") check
+    f7-list-item(@click="setHistoryType('missed')", :title="$t('MISSED_CALL')", view='#main-view', panel-close='')
+      i.icon.material-icons.md-only(v-if="missed") check
+    f7-list-item(@click="setHistoryType('message')", :title="$t('INSTANT_MESSAGES')", view='#main-view', panel-close='')
+      i.icon.material-icons.md-only(v-if="message") check
+    f7-list-item(@click="setHistoryType('conference')", :title="$t('CONFERENCE')", view='#main-view', panel-close='')
+      i.icon.material-icons.md-only(v-if="conference") check
   f7-block-title(v-if="currentPage === 'messages'") View
-  f7-list(v-if="currentPage === 'messages'")
-    f7-list-item(@click="setLogType('outgoing')", title='New', view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'messages'", no-hairlines-between="")
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('CAPTION_NEW')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(@click="setLogType('outgoing')", title='Saved', view='#main-view', panel-close='')
-  f7-block-title(v-if="currentPage === 'favorites'") {{ $t('DISPLAY_AS') }}
-  f7-list(v-if="currentPage === 'favorites'")
-    f7-list-item(@click="setLogType('outgoing')", title='Tiles', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('CAPTION_SAVED')", view='#main-view', panel-close='')
+  f7-block-title(v-if="currentPage === 'favorites'") {{ $t('MANAGE') }}
+    f7-list(no-hairlines-between)
+      f7-list-item(@click="openServiceShortcutsPopup()", :title="$t('SERVICE_SHORTCUTS')", view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'favorites'", no-hairlines-between="")
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('FIRST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(@click="setLogType('outgoing')", title='List', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('LAST_NAME')", view='#main-view', panel-close='')
   f7-block-title(v-if="currentPage === 'favorites'") {{ $t('SORT_BY') }}
-  f7-list(v-if="currentPage === 'favorites'")
-    f7-list-item(@click="setLogType('outgoing')", title='Last Name1', view='#main-view', panel-close='')
+  f7-list(v-if="currentPage === 'favorites'", no-hairlines-between="")
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('FIRST_NAME')", view='#main-view', panel-close='')
      i.icon.material-icons.md-only check
-    f7-list-item(@click="setLogType('outgoing')", title='First Name1', view='#main-view', panel-close='')
+    f7-list-item(@click="setLogType('outgoing')", :title="$t('LAST_NAME')", view='#main-view', panel-close='')
+  f7-popup#popupServiceShortcuts
+    f7-view
+      f7-page
+        .navbar
+          .navbar-inner
+            .left.my-cursor(@click='openServiceShortcutsPopup') {{ $t('BACK') }}
+            .title {{ $t('SERVICE_SHORTCUTS') }}
+            .right
+        f7-block-header {{ $t('SERVICES') }}
+        f7-list(form='')
+         f7-list-item(href="#", :title="$t('MEETME_SERVICE')")
+          i.icon.material-icons.md-only phone_in_talk
+         f7-list-item(href="#", :title="$t('CALL_GRAB_SERVICE')")
+         f7-list-item(href="#", :title="$t('VOICEMAIL_SERVICE')")
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -47,6 +67,11 @@ export default {
   data: function() {
     return {
       showData: 'all',
+      outgoing: true,
+      incoming: true,
+      missed: true,
+      message: true,
+      conference: true
     }
   },
   computed: {
@@ -72,8 +97,11 @@ export default {
       }
     },
   methods: {
-    openCreateContactPopup: function() {
-      this.$f7.popup.open(popupCreateContact, true)
+    openServiceShortcutsPopup: function() {
+      this.$f7.popup.open(popupServiceShortcuts, true)
+    },
+    closeServiceShortcutsPopup: function() {
+      this.$f7.popup.close(popupServiceShortcuts, true)
     },
     setContactSource: function(source) {
     this.$store.commit("SET_CONTACTSOURCE", source);
@@ -83,13 +111,33 @@ export default {
     },
     setLogType: function(type) {
     this.$store.commit("SET_LOGTYPE", source);
+    },
+    setHistoryType: function(type) {
+    if(type == 'outgoing') {
+      this.outgoing = !this.outgoing
+    } else if (type == 'incoming') {
+      this.incoming = !this.incoming
+    } else if (type == 'missed') {
+      this.missed = !this.missed
+    } else if (type == 'message') {
+      this.message = !this.message
+    } else if (type == 'conference') {
+      this.conference = !this.conference
     }
+
+    let type1 = {
+      incoming: this.incoming,
+      outgoing: this.outgoing,
+      missed: this.missed,
+      message: this.message,
+      conference: this.conference
+    }
+    this.$store.commit("SET_HISTORYTYPE", type1);
+
+    },
 }
 }
 </script>
 
 <style>
-.my-class {
-  cursor: default;
-}
 </style>

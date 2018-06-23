@@ -92,6 +92,8 @@ SORT_BY: Ordre de Tri
 SORT_LAST_NAME: Tri par nom de famille
 SORT_FIRST_NAME: Tri par prénom
 
+NO_FAV: Votre onglet favoris est vide. Pour ajouter des favoris, cliquer sur l'icône de carnet d'adresses et ajouter des contacts à votre onglet favoris.
+
 CONTACTS_PAGE:
 PROFILE_MENU:
 EDIT_PROFILE: Modification du profil,
@@ -266,7 +268,7 @@ _POPUP_ATLANDI:
 REPORT_ISSUE:
 TITLE_REPORT: Envoyer un commentaire
 ISSUE_DESC_LABEL: Description du problème
-SEND_AN_EMAIL: 2- Envoyer les logs par courriel
+SEND_VIA_EMAIL: 2- Envoyer les logs par courriel
 ATTACH_FILE_INFO: Veuillez joindre le fichier des logs ou les captures d'écrans à votre courriel.
 NO_SUBJECT: Sujet manquant
 SUBJECT:  Feedback

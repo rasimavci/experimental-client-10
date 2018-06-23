@@ -252,6 +252,19 @@ VOICE_TAB: VOICE
 VIDEO_TAB: VIDEO
 PEOPLE_TAB: PEOPLE
 
+REPORT_ISSUE:
+TITLE_REPORT: Send Feedback
+ISSUE_DESC_LABEL: 'Issue Description:'
+SEND_VIA_EMAIL: Send logs via Email
+ATTACH_FILE_INFO: Please attach the log file or screenshots into your email.
+NO_SUBJECT: No Subject
+SUBJECT:  'Feedback:'
+PLACEHOLDER_REPORT: Enter your feedback
+SUCCESS_MESSAGE: Logs sent successfully
+SEND_LOG: Send Feedback
+REPORTER_NAME_LABEL: Reporter
+REPORTER_NAME_PLACEHOLDER: Enter your name
+
 DIALPAD_PAGE: Dialpad
 PLACEHOLDER_DIALPAD: Enter a number
 EMPTY_ADDRESS: Please enter an address.
@@ -284,7 +297,7 @@ INVALID_NUMBER: No valid number found. Please contact your Local Administrator.
 NO_MOBILE_NUMBER: Your mobile number not found
 
 MERGE:
-ADD_PARTY: Add Party,
+ADD_PARTY: Add Party
 NO_CALL_FOUND: No held call found to merge with.
 TRYING: Trying to merge calls...
 SUCCESS: Calls have been merged successfully.
@@ -311,12 +324,12 @@ REQUEST_FAILURE: Your request could not be completed. Please try again later
 REQUEST_FAILURE_NO_RETRY: Your request could not be completed.
 PREV_CALL_NOT_ENDED: Your previous call could not be ended.
 PREV_CALL_END: Your previous call will be ended.
-CALL_SESSION_EXIT: You have an active call session, do you want to exit?
-GSM_CALL_AND_START_SO_CALL: You have a gsm active call session, please try again later
+CALL_SESSION_EXIT: 'You have an active call session, do you want to exit?'
+GSM_CALL_AND_START_SO_CALL: You have a gsm active call session; please try again later
 PERMISSION_REQUIRED: Please make sure camera & microphone permissions provided
 FAIL_HOLD: There was a problem while hold or unhold
 FORWARD_CALL_START : The system is attempting to call your mobile number. Please answer and you will then be connected with the requested number.
-NO_MOBILE_NUMBER_INFO: You don't have a mobile phone number. Please, Enter a mobile phone
+NO_MOBILE_NUMBER_INFO: You don't have a mobile phone number. Please Enter a mobile phone
 INCORRECT_PHONE_NUMBER: Incorrect phone number. Please make sure correct phone number.
 
 ___________BU_ARADA_VAR:
@@ -382,6 +395,7 @@ PRIVACY_POLICY: Link to privacy policy
 
 SEARCH_IN_CONTACTS: Search in contacts
 SEARCH_IN_DIRECTORY: Search in directory
+SEARCH_IN_MOBILE: Search in mobile
 
 Personal: Personal
 PERSONAL_ADDRESSBOOK: Personal Addressbook

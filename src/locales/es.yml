@@ -47,7 +47,31 @@ GUIDE_STEP_3: 3. Salir y entrar nuevamente a su sesión puede recuperar su conex
 GUIDE_STEP_4: 4. Como última solución, por favor reinicie su aplicación.
 TRY_RECOVER: ¡Problema de conectividad! Intentando recuperar...
 
-NO_FAV: Seu guia de Favoritos está vazio. Para adicionar favoritos, clique no ícone de lista de endereços e adicione um contato para o seu guia de favoritos
+NO_FAV: Tu pestaña de favoritos está vacía. Para agregar favoritos, haga clic en la pestaña Contactos y agregue un contacto a su pestaña de favoritos.
+
+CONTACTS_PAGE: Contacts
+EDIT_PROFILE: Edit Profile
+ADD_PROFILE: Create Profile
+ADD_PHOTO: Add Photo
+IDENTIFICATION: IDENTIFICATION
+NICKNAME: Nickname
+FIRST_NAME: First Name
+LAST_NAME: Last Name
+MOBILE1: Mobile
+HOME1: Home
+WORK1: Work
+USER_ID: User ID
+EMAIL1: Email
+CHAT1: Chat
+VOICE1: Voz
+VIDEO1: Video
+CONTACT_DETAIL: CONTACT
+CONTACT_EXISTS_ERROR: Contact does already exist.
+CONTACT_MAXIMUM_ENTRIES_ERROR: Your contact list has exceeded the size limit allowed on the server.
+CONTACT_INSUFFICIENT_INFO_ERROR: Insufficient information to create/edit contact. Please check that all mandatory fields are filled.
+CONTACT_INVALID_PARAMETER_ERROR: Invalid Input, please check all field entries and remove all special characters.
+UNKNOWN_ERROR: An unknown error occurred.
+ADD_FAVORITE_TEXT: Select one or multiple entries to add to your Favorites
 
 PROFILE: Perfil
 FAVORITES: Favoritos
@@ -172,6 +196,19 @@ INBOX_PAGE:
 DISPLAY: Display
 CAPTION_NEW: New
 CAPTION_SAVED: Saved
+
+REPORT_ISSUE:
+TITLE_REPORT: Enviar Comentarios
+ISSUE_DESC_LABEL: Descripción del Problema,
+SEND_VIA_EMAIL: Enviar registros por correo electrónico
+ATTACH_FILE_INFO: 'Por favor, adjunte el archivo de registro o las capturas de pantalla en su correo electrónico.'
+NO_SUBJECT: Sin Asunto
+SUBJECT:  Comentarios
+PLACEHOLDER_REPORT: Ingrese sus comentarios
+SUCCESS_MESSAGE: Registros enviados exitosamente
+SEND_LOG: Enviar Comentarios
+REPORTER_NAME_LABEL: Contacto
+REPORTER_NAME_PLACEHOLDER: Introduzca su nombre
 
 DIALPAD_PAGE:
 PLACEHOLDER_DIALPAD: Introduzca un número
@@ -352,3 +389,4 @@ SHARE_LOCATION: Share Location
 MANAGE_FAVS: Adminstrar Favoritos
 REMOVE_FROM_PAB: Remover de Lista Contactos Personales
 SHOW_AVAILABILITY: Mostrar Estado de Presencia
+

@@ -10,5 +10,6 @@ const startTransfer = state => state.startTransfer
 const currentPage = state => state.currentPage
 const participant = state => state.participant
 const contactSource = state => state.contactSource
+const historyType = state => state.historyType
 //const callAnswer = state => state.callAnswer
-export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage, contactSource }
+export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage, contactSource, historyType }

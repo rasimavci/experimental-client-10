@@ -1,7 +1,6 @@
 <template lang='pug'>
     f7-page(login-screen='')
       f7-login-screen-title
-        br
         img(src="../assets/logo.png" class="deneme")
       f7-list(form='')
         f7-list-item

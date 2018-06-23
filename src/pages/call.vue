@@ -24,7 +24,8 @@
   .tabs
     //-#tab-1.page-content.tab.sheet-open(:class="tabActiveChat", data-sheet=".my-sheet2")
     #tab-1.page-content.tab(:class="tabActiveChat")
-      .page-content.messages-content.a
+    .page
+      .page-content.messages-content
         .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
           left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
           right-chat-bubble.rightBBl.messageLine(:message='message', v-else)
@@ -46,7 +47,7 @@
               i.icon.material-icons.md-only Image
             a(href="")
               i.icon.material-icons.md-only phone_forward
-          //-input#_file.button.button-big.button-fill(type="file" accept="image/*;capture=camera")
+          //-input#_file.button.button-big.button-fill(hidden="", type="file" accept="image/*;capture=camera")
           a.link.sheet-open(href='#', data-sheet=".richMessaging-sheet")
             i.icon.f7-icons.ios-only more_vert_fill
             i.icon.material-icons.md-only more_vert
@@ -198,7 +199,7 @@
           a.link.sheet-close.center(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
     .sheet-modal-inner
         f7-list(form='')
-         f7-list-item.my-cursor(:title="$t('SEND_FILE')", @click='goDialpad()', height="10px")
+         f7-list-item.my-cursor(:title="$t('SEND_FILE')", @click='openFileDialog()', height="10px")
           i.icon.material-icons.md-only attach_file
          f7-list-item.my-cursor(:title="$t('SEND_VIDEO')", @click='goDialpad()')
           i.icon.material-icons.md-only music_video
@@ -316,6 +317,10 @@ export default {
     //this.$store.commit('SET_STARTCALL', false);
   },
   methods: {
+    openFileDialog: function() {
+      console.log('open file dialog')
+      this.Dom7('#_file').trigger('click');
+    },
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true);
     },
@@ -363,9 +368,9 @@ ac1.open();
       }
 
       this.selectedContacts.push(this.$_.cloneDeep(contact));
-      // this.$nextTick(() => {
-      //   this.renderMessages = true;
-      // });
+      this.$nextTick(() => {
+        this.renderMessages = true;
+      });
     },
     sendMessage() {
       let messageToSend = {
@@ -653,10 +658,6 @@ ac1.open();
 .a2 {
   max-height: 700px;
   visibility: hidden
-}
-
-.messageLine {
-  max-height: 20px;
 }
 
 .a2altta {

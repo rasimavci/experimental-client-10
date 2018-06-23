@@ -18,22 +18,24 @@ f7-page
   f7-block(strong='')
     f7-row.block_container
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='',@click="about") {{ $t('ABOUT') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(style="text-transform:capitalize", fill='', big='', raised='',@click="about") {{ $t('ABOUT') }}
     f7-row.block_container(tag='p')
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', @click='doLogout') {{ $t('LOGOUT') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(style="text-transform:capitalize", fill='', big='', raised='', @click='doLogout') {{ $t('LOGOUT') }}
     f7-row.block_container(tag='p')
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', popup-open='#popupSendFeedback') {{ $t('SEND_FEEDBACK') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(style="text-transform:capitalize", fill='', big='', raised='', popup-open='#popupSendFeedback') {{ $t('SEND_VIA_EMAIL') }}
     f7-row.block_container(tag='p')
       f7-col(width='85')
-        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(fill='', big='', raised='', popup-open='#openPrivacyPolicy') {{ $t('PRIVACY_POLICY') }}
+        f7-button.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render(style="text-transform:capitalize", fill='', big='', raised='', popup-open='#openPrivacyPolicy') {{ $t('PRIVACY_POLICY') }}
   f7-popup#popupSendFeedback
     f7-view
       f7-page
-        f7-navbar(title='Send Feeback')
-          f7-nav-right
-            f7-link(popup-close='') $t('CLOSE')
+        .navbar
+          .navbar-inner
+            .left.my-cursor(@click='closePopupSendFeedback') {{ $t('BACK') }}
+            .title {{ $t('SEND_FEEDBACK') }}
+            .right
         f7-block
         f7-list
           f7-list-item
@@ -41,7 +43,7 @@ f7-page
             f7-input(type='textarea', placeholder='Enter your feedback')
           f7-row(tag='p')
             f7-col(width='85')
-              f7-button(fill='', raised='', popup-open='#popupSendFeedback') $t('SEND_FEEDBACK')
+              f7-button(fill='', raised='', popup-open='#popupSendFeedback') {{ $t('SEND_FEEDBACK') }}
 </template>
 
 <script>
@@ -99,6 +101,9 @@ export default {
         vm.$f7router.navigate('/login');
       }, 2000);
     },
+    closePopupSendFeedback() {
+      this.$f7.popup.close('#popupSendFeedback', true);
+    }
   },
 };
 </script>
@@ -109,7 +114,7 @@ export default {
   padding: 5px;
   padding-top: 2px;
 }
-.my-class {
+.my-cursor {
   cursor: default;
 }
 </style>

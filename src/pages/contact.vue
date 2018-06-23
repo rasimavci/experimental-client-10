@@ -20,6 +20,7 @@ f7-page
     f7-button(tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") Personal
     f7-button(tab-link="#tab-2", @click="setContactSource('global')") Global
     f7-button(tab-link="#tab-3", @click="setContactSource('mobile')") Mobile
+  f7-searchbar(v-if="contactSource === 'mobile'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_MOBILE')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-searchbar(v-if="contactSource === 'personal'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_CONTACTS')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   p(v-if="contactSource === 'global'") {{ $t('MIN_SEARCH_CRITERIA') }}
   f7-searchbar(v-if="contactSource === 'global'", custom-search=true, disable-link-text="Cancel" :placeholder="$t('SEARCH_IN_DIRECTORY')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
@@ -29,13 +30,13 @@ f7-page
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list(v-show='!getContactSource')
    f7-list-item.my-class(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
-  f7-list
+  f7-list(media-list="")
    f7-list-group.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
     f7-list-item(:title="key" group-title="")
     f7-list-item(v-for="contact in groups", :key="key", :title="contact.firstName + ' ' + contact.lastName", after="personal", @click='openContactDetailsPopup(contact)')
-     .item-content
-     .item-media
-     img.avatar-circle.test-icon-left(:src="contact.photoUrl || noImg" width="44")
+     //-.item-content
+     //-.item-media
+     img.avatar-circle.test-icon-left(:src="contact.photoUrl || noImg" slot="media", width="44")
   //-  //-h5 {{key}}
   //-  f7-list(media-list="")
   //-     ul

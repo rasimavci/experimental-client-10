@@ -23,7 +23,7 @@ f7-page
             .item-subtitle {{conv.messages[0].parts[0].text}} {{conv.messages[0].timestamp}}
   f7-popup#popupMessage
     f7-view
-      f7-page
+      .page
         .navbar
           .navbar-inner
             .left(@click='closePopup') {{ $t('SAVE') }}
@@ -32,8 +32,8 @@ f7-page
         f7-block
         .page-content.messages-content.a
           .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
-            left-chat-bubble.leftBBl(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
-            right-chat-bubble.rightBBl(:message='message', v-else)
+            left-chat-bubble.leftBBl.messageLine(:message='message', v-if='message.sender === conversationId', :contact='selectedContacts[0]')
+            right-chat-bubble.rightBBl.messageLine(:message='message', v-else)
         .toolbar.toolbar-bottom-md.tabbar-labels
           .toolbar-inner
             a.tab-link.tab-link-active.b(href='#tab-5', @click='deleteMessage()')
@@ -120,9 +120,9 @@ export default {
             resultArray = this.conversations[i].messages;
           }
         }
-        this.$nextTick(() => {
-          $('.messages-container').scrollTop($('.messages-container').height());
-        });
+        // this.$nextTick(() => {
+        //   $('.messages-container').scrollTop($('.messages-container').height());
+        // });
         console.log(
           //'first message in the Array ' + resultArray[0].parts[0].text
         );

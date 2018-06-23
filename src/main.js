@@ -55,6 +55,23 @@ for (let i in finalLocales) {
 // todo read initial locale from localStorage
 Vue.i18n.set('en')
 
+//Vanilla JavaScript
+document.addEventListener('deviceready', function() {
+
+  var permissions = cordova.plugins.permissions;
+  permissions.requestPermission(permissions.CAMERA, success, error);
+
+  function error() {
+    console.warn('Camera permission is not turned on');
+  }
+
+  function success( status ) {
+    if( !status.hasPermission ) error();
+  }
+  //console.log('cordova.plugins.CordovaCall is now available');
+  //var cordovaCall = cordova.plugins.CordovaCall; //not necessary, but might be more convenient
+});
+
 //Vue.use(Notifications)
 Vue.prototype.$moment = moment
 Vue.prototype.$_ = _

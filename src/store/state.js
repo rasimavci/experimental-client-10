@@ -19,6 +19,13 @@ export default {
   },
   currentPage: '',
   contactSource: 'personal',
+  historyType: {
+    incoming: true,
+    outgoing: true,
+    missed: true,
+    message: true,
+    conference: true
+  },
   sortBy: 'firstName',
   logType: 'all',
   activeCallTab: 'chat',
