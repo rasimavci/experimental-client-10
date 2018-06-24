@@ -17,9 +17,9 @@ f7-page
     f7-tab#tab-3
     // Switch Between Tabs
   f7-segmented
-    f7-button(tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") Personal
-    f7-button(tab-link="#tab-2", @click="setContactSource('global')") Global
-    f7-button(tab-link="#tab-3", @click="setContactSource('mobile')") Mobile
+    f7-button(style="text-transform:capitalize", tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") {{ $t('PERSONAL') }}
+    f7-button(style="text-transform:capitalize", tab-link="#tab-2", @click="setContactSource('global')") {{ $t('GLOBAL_STARTBIG') }}
+    f7-button(style="text-transform:capitalize", tab-link="#tab-3", @click="setContactSource('mobile')") {{ $t('MOBILE') }}
   f7-searchbar(v-if="contactSource === 'mobile'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_MOBILE')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-searchbar(v-if="contactSource === 'personal'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_CONTACTS')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   p(v-if="contactSource === 'global'") {{ $t('MIN_SEARCH_CRITERIA') }}
@@ -29,18 +29,18 @@ f7-page
   f7-list.searchbar-found(v-show='getContactSource', id='searchList')
    f7-list-item(v-for='contact in getContacts' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list(v-show='!getContactSource')
-   f7-list-item.my-class(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
+   f7-list-item.my-cursor(v-for='contact in foundItems' :key="contact.entryId", v-show='isSearch', @click='openContactDetailsPopup(contact)' :title="contact.firstName + ' ' + contact.lastName")
   f7-list(media-list="")
    f7-list-group.date(v-for='(groups, key) in groupedContacts' :key="key", v-show='!isSearch')
     f7-list-item(:title="key" group-title="")
-    f7-list-item(v-for="contact in groups", :key="key", :title="contact.firstName + ' ' + contact.lastName", after="personal", @click='openContactDetailsPopup(contact)')
+    f7-list-item.my-cursor(v-for="contact in groups", :key="key", :title="contact.firstName + ' ' + contact.lastName", after="personal", @click='openContactDetailsPopup(contact)')
      //-.item-content
      //-.item-media
      img.avatar-circle.test-icon-left(:src="contact.photoUrl || noImg" slot="media", width="44")
   //-  //-h5 {{key}}
   //-  f7-list(media-list="")
   //-     ul
-  //-       li.my-class(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
+  //-       li.my-cursor(v-for="contact in groups" @click='openContactDetailsPopup(contact)', oncontextmenu="openContextMenuPopup()",)
   //-         .item-content
   //-           .item-media
   //-             img.avatar-circle(:src="contact.photoUrl || noImg" width="44")
@@ -56,9 +56,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left.my-class(@click='backContactDetails') {{ $t('BACK') }}
+            .left.my-cursor(@click='backContactDetails') {{ $t('BACK') }}
             .title Contact Details
-            .right.my-class(@click='openEditContactPopup') {{ $t('EDIT') }}
+            .right.my-cursor(@click='openEditContactPopup') {{ $t('EDIT') }}
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="115" height="115")
@@ -101,9 +101,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left.my-class(@click='backAddContact') {{ $t('CLOSE') }}
+            .left.my-cursor(@click='backAddContact') {{ $t('CLOSE') }}
             .title {{ $t('ADD_CONTACT') }}
-            .right.my-class(@click='openEditContactPopup()') {{ $t('ADD') }}
+            .right.my-cursor(@click='openEditContactPopup()') {{ $t('ADD') }}
         f7-block
           | Please fill contact details.
         f7-block-title Form Example
@@ -259,15 +259,16 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backFavorites') {{ $t('BACK') }}
+            .left.my-cursor(@click='backFavorites') {{ $t('BACK') }}
             .title {{ $t('MANAGE_FAVS') }}
-            .right(@click='saveFavorites') {{ $t('SAVE') }}
+            .right.my-cursor(@click='saveFavorites') {{ $t('OK') }}
         f7-block
+        f7-block-header {{ $t('ADD_FAVORITE_TEXT') }}
         f7-list(form='')
-          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="contact.primaryContact") {{ $t('CHAT') }}
-          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.primaryContact") {{ $t('VOICE') }}
-          f7-list-item(:key='3', checkbox='', name='my-checkbox', :value='3', :title="contact.primaryContact") {{ $t('VIDEO') }}
-          f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="contact.workPhone") {{ $t('WORK') }}
+          f7-list-item(:key='1', checkbox='', name='checkboxChat', :checked="checkboxChat === true", @change="checkboxChat = !checkboxChat" :title="contact.primaryContact") {{ $t('CHAT') }}
+          f7-list-item(:key='2', checkbox='', name='checkboxVoice', :checked="checkboxVoice === true", @change="checkboxVoice = !checkboxVoice", :title="contact.primaryContact") {{ $t('VOICE') }}
+          f7-list-item(:key='3', checkbox='', name='checkboxVideo', :checked="checkboxVideo === true", @change="checkboxVideo = !checkboxVideo", :title="contact.primaryContact") {{ $t('VIDEO') }}
+          f7-list-item(:key='4', checkbox='', name='checkboxWork', :checked="checkboxWork === true", @change="checkboxWork = !checkboxWork", :title="contact.workPhone") {{ $t('WORK') }}
   f7-popup#popupContextMenu
     f7-view
       f7-page
@@ -337,6 +338,10 @@ export default {
   },
   data: function() {
     return {
+      checkboxChat: false,
+      checkboxVoice: false,
+      checkboxVideo: false,
+      checkboxWork: false,
       foundItems: [],
       contacts: [],
       noImg: NoImg,
@@ -395,7 +400,114 @@ export default {
       this.$f7.popup.close('#popupDefaultMode', true);
     },
     saveFavorites() {
+      console.log('fav ' + this.contact.primaryContact)
+      console.log('fav nickname' + this.contact.nickname)
+      console.log('fav ' + this.contact.primaryContact)
+      console.log('checkboxChat ' + this.checkboxChat)
+      //"{"saynaci@genband.com":{"id":"6","nickname":"Sevda","primaryContact":"saynaci@genband.com","firstName":"Sevda","lastName":"AYNACI","photoUrl":"https://pa-ucc.genband.com/pa/direct/pictureServlet?user=saynaci@genband.com","emailAddress":"saynaci@NETAS.com.tr","homePhone":null,"mobilePhone":null,"workPhone":"8825272","friendStatus":false,"conferenceURL":null,"groupList":null,"fax":null,"pager":null,"type":{"addressbook":true},"presence":"icon-presence_offline sl-presence_unavailablenote","presenceOrder":"4"}}"
+      // let that = this
+      // let fav = {
+      //   this.contact.primaryContact:{
+      //     id:6,
+      //     nickname: that.contact.nickname,
+      //     primaryContact: this.contact.primaryContact,
+      //     firstName: this.contact.firstName,
+      //     lastName: this.contact.lastName,
+      //     photoUrl: this.contact.phoroUrl
+      //     emailAddress: 'saynaci@NETAS.com.tr',
+      //     homePhone: null,
+      //     mobilePhone: null,
+      //     workPhone: 8825272,
+      //     friendStatus: false,
+      //     conferenceURL: null,
+      //     groupList: null,
+      //     fax: null,
+      //     pager: null,
+      //     type:{
+      //       addressbook:true
+      //       presence: 'icon-presence_offline sl-presence_unavailablenote',
+      //       presenceOrder:4
+      //       }
+      //   }
+//"[,{"primaryContact":"haci@genband.com","favoriteMethod":"VOICE"},{"primaryContact":"haci@genband.com","favoriteMethod":"VIDEO"}]"
+       // {"primaryContact":"haci@genband.com","favoriteMethod":"CHAT"}
+        //let favItems = []
+
+      this.$store.dispatch('getFavorites')
+      let favItems = this.favorites
+      let favItem = {}
+      let found = false
+
+        if(this.checkboxChat) {
+          found = false
+        favItems.forEach(favorite => {
+          if (favorite.primaryContact === this.contact.primaryContact && favorite.favoriteMethod === 'CHAT') {
+            found = true
+          }
+        });
+
+        if(!found) {
+          favItem = {
+            primaryContact:this.contact.primaryContact,
+            favoriteMethod: 'CHAT'
+            }
+          favItems.push(favItem)
+        }
+
+        }
+
+        if(this.checkboxVoice) {
+          found = false
+        favItems.forEach(favorite => {
+          if (favorite.primaryContact === this.contact.primaryContact && favorite.favoriteMethod === 'VOICE') {
+            found = true
+          }
+        });
+
+        if(!found) {
+          favItem = {
+            primaryContact:this.contact.primaryContact,
+            favoriteMethod: 'VOICE'
+            }
+          favItems.push(favItem)
+        }
+        }
+
+        if(this.checkboxVideo) {
+          found = false
+        favItems.forEach(favorite => {
+          if (favorite.primaryContact === this.contact.primaryContact && favorite.favoriteMethod === 'VIDEO') {
+            found = true
+          }
+        });
+         if(!found) {
+          favItem = {
+            primaryContact:this.contact.primaryContact,
+            favoriteMethod: 'VIDEO'
+            }
+          favItems.push(favItem)
+        }
+        }
+        if(this.checkboxWork) {
+          found = false
+        favItems.forEach(favorite => {
+          if (favorite.primaryContact === this.contact.primaryContact && favorite.favoriteMethod === 'WORK') {
+            found = true
+          }
+        });
+
+        if(!found) {
+          favItem = {
+            primaryContact:this.contact.primaryContact,
+            favoriteMethod: 'WORK'
+            }
+          favItems.push(favItem)
+        }
+        }
+
+      this.$store.dispatch('saveFavorites', favItems)
       this.$f7.popup.close('#popupManageFavorites', true);
+
     },
     openContactDetailsPopup: function(contact) {
       this.contact = contact;
@@ -475,8 +587,11 @@ ac1.open();
       this.$f7.popup.close('#popupContactDetails', true);
       this.$store.commit('SET_ACTIVECALLTAB', mode);
       this.$store.commit('SET_CALLEE', this.contact.id);
+      if(mode !== 'chat'){
       this.$store.commit('SET_STARTCALL', true);
+      }
       setTimeout(() => {
+        this.$f7router.navigate('/history');
         this.$f7router.navigate('/call');
       }, 100);
     },
@@ -582,7 +697,7 @@ ac1.open();
     },
   },
   computed: {
-    ...mapGetters(['contacts','contactSource']), // not used anymore, instead store.state used
+    ...mapGetters(['contacts','contactSource','favorites']), // not used anymore, instead store.state used
     getContacts() {
       var resultArray = [];
       let contactSource = this.$store.state.contactSource;
@@ -670,11 +785,5 @@ ac1.open();
   max-height: 50px;
 }
 
-.my-class {
-  cursor: default;
-}
 
-.my-cursor {
-  cursor: default;
-}
 </style>

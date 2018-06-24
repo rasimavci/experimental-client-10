@@ -58,7 +58,8 @@
             i.icon.material-icons.md-only near_me
         .messagebar-sheet
     #tab-2.page-content.tab(:class="tabActiveAudio")
-      .page-content.messages-content.a
+     .page
+      .page-content.messages-content
         //-f7-block(strong='')
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") {{ $t('CALLING') }} {{activeCall.calleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") {{ $t('CANCEL_BIG') }}
@@ -112,7 +113,7 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(v-if="!activeCall.state || (!startCall && activeCall.state === 'ENDED')" @click='makeCall(false)')
+        .call-button-container.action.my-cursor(v-if="!activeCall.state" @click='makeCall(false)')
           img.my-size(src='../assets/demo/call_outline_white.png')
           p.my-font1s {{ $t('CALL') }} {{activeCall.calleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels
@@ -134,7 +135,8 @@
             i.icon.material-icons.md-only phone_forwarded
             //-i.icon.material-icons.md-only.my-color(v-if="activeCall.muted") phone_forward
     #tab-3.page-content.tab(:class="tabActiveVideo")
-      .page-content.messages-content.a
+     .page
+      .page-content.messages-content
         p.a2altta2.my-font1(v-if="activeCall.state === 'RINGING'") {{ $t('CALLING') }} {{activeCall.calleeName}}
         p.a2altta2.my-font2(v-if="activeCall.state === 'RINGING'", @click="end") {{ $t('CANCEL_BIG') }}
         p.a2altta2.my-font1(v-if="activeCall.state !== 'RINGING' && activeCall.state !== 'ENDED'") {{ $t(activeCall.state) }}
@@ -166,6 +168,7 @@
             i.icon.f7-icons.ios-onlymic_off_fill
             i.icon.material-icons.md-only(v-bind:class="{ 'my-color': activeCall.muted }") mic_off
     #tab-4.page-content.tab
+     .page
       //-f7-list(media-list='')
       //- f7-list-item(media="../assets/demo/avatar_generic.png", text="Some text", @click='openContactDetailsPopup(contact)' :title="callee" href="#popupAddContact") Corporate
       f7-list
@@ -652,8 +655,13 @@ ac1.open();
 }
 
 .a {
-  max-height: 700px;
+  max-height: 300px;
 }
+
+.aa {
+  height: 100px;
+}
+
 
 .a2 {
   max-height: 700px;

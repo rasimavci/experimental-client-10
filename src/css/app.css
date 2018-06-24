@@ -76,3 +76,7 @@
 .messageLine {
   max-height: 20px;
 }
+
+.my-cursor {
+  cursor: default;
+}

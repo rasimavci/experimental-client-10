@@ -3,6 +3,8 @@ import createKandy from '../../kandy.link.js'
 import store from './index'
 import state from './state'
 import IMService from '../IMService'
+import FavoritesService from '../FavoritesService'
+
 import _ from 'lodash'
 var kandy
 var logout = false
@@ -215,6 +217,20 @@ export const sendDtmf = ({commit}, tone) => {
       kandy.changeInputDevices(state.activeCall.id);
   }
 
+  export const saveFavorites= ({commit}, favItems) => {
+    FavoritesService.setSpeedDialContacts(favItems)
+  }
+
+  export const getFavorites= ({commit}) => {
+    let favItems = FavoritesService.getSpeedDialContacts()
+    store.commit('SET_FAVORITES', favItems)
+  }
+
+  function getFavoritesFromStorage () {
+    let favItems = FavoritesService.getSpeedDialContacts()
+    store.commit('SET_FAVORITES', favItems)
+  }
+
 // Functions
 
 // Service functions
@@ -252,6 +268,7 @@ function addEventListeners () {
       getDevices()
       getMessages()
       fetchCallHistory()
+      getFavoritesFromStorage()
       kandy.contacts.refresh()
       kandy.call.history.fetch()
     }

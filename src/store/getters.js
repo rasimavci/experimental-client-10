@@ -11,5 +11,7 @@ const currentPage = state => state.currentPage
 const participant = state => state.participant
 const contactSource = state => state.contactSource
 const historyType = state => state.historyType
+const favorites = state => state.favorites
+const favoritesLayout = state => state.favoritesLayout
 //const callAnswer = state => state.callAnswer
-export { credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage, contactSource, historyType }
+export { favorites, favoritesLayout, credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage, contactSource, historyType }

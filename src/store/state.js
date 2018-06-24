@@ -14,6 +14,8 @@ export default {
   history: [],
   calls: [],
   sessions: [],
+  favorites: [],
+  favoritesLayout: 'tiles',
   sounds: {
     ringing: new Audio('./static/sounds/ringing.mp3')
   },
@@ -27,6 +29,7 @@ export default {
     conference: true
   },
   sortBy: 'firstName',
+  sortFavorites: 'firstName',
   logType: 'all',
   activeCallTab: 'chat',
   directory: [{firstName: '', lastName: ''}],

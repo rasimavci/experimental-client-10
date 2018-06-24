@@ -448,6 +448,7 @@ PERSONAL_ADDRESSBOOK: Livro de endereços pessoal
 GLOBAL_ADDRESSBOOK: Livro de endereços global
 SEARCH_IN_CONTACTS: Pesquisar nos contatos
 SEARCH_IN_DIRECTORY: Pesquisar no diretório
+SEARCH_IN_MOBILE: Pesquisar no celular
 
 PROFILE_PAGE:
 ABOUT_BUTTON: SOBRE

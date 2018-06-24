@@ -1,12 +1,12 @@
 # Experimental Client 10 with F7 v2
-Just another experimental client based on vue and f7 version 1 with webpack & cordova
+Just another experimental client based on vue and f7 version 2 with webpack & cordova
 
 <p>
 <img src="src/assets/kandylogo.png"/>
 </p>
 
 ## Introduction
-In this applicaton I tried to build another mobile webRTC client using framework 7.
+In this applicaton I have built a mobile webRTC client using vuejs 2 and framework 7 version 2.
 
 
 ## Issues
@@ -26,6 +26,9 @@ This project can be developed using necessary libraries
 + Webpack 3.6.0
 + node@^7.6(development)
 
+* vue-notification 1.3.7
+* vuex-i18n lo1.10.5
+* moment 2.22.0
 
 ## Build Setup
 
@@ -41,6 +44,9 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
+
+# build apk for android mobile
+cordova build/run android
 ```
 
 # Framework7 Vue + Webpack App Template
@@ -57,6 +63,5 @@ A full-featured Framework7 Vue with Webpack setup with hot-reload & css extracti
 * `src/main.js` - main app file where you include/import all required libs and init app
 * `src/routes.js` - app routes
 * `src/app.vue` - main app structure/component
-
 ## License
 MIT

@@ -5,14 +5,12 @@ f7-page
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
     f7-nav-title {{ $t('SESSIONS') }}
-    f7-nav-right
-      f7-link(icon-if-ios='f7:menu', icon-if-md='material:more_horiz', panel-open='right')
   p.my-center(v-if="activeConversations.length === 0") {{ $t('NO_SESSION') }}
-  f7-block-title(v-if="getCalls1") ACTIVE CALL
+  f7-block-title(v-if="getCalls1") {{ $t('ACTIVE_CALL_BIG') }}
   f7-list
-   f7-list-item.my-class(v-for="call in getCalls" @click='goCallPage("audio", call.calleeName, call.to, call.id)' :key="call.name" :title="call.calleeName + ' ' +  $t(call.state) " href="#popupAddContact")
-  f7-block-title(v-if="checkActiveConv") ACTIVE CHAT
-  f7-list.my-class
+   f7-list-item.my-cursor(v-for="call in getCalls" @click='goCallPage("audio", call.calleeName, call.to, call.id)' :key="call.name" :title="call.calleeName + ' ' +  $t(call.state) " href="#popupAddContact")
+  f7-block-title(v-if="checkActiveConv") {{ $t('ACTIVE_CHAT_BIG') }}
+  f7-list.my-cursor
     ul
       li(v-for='conv in getConversations' :key="conv.key" @click='goCallPage("chat", conv.fullName, conv.conversationId)')
         .item-content
@@ -30,9 +28,9 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='closePopup') Save
-            .title Sessions
-            .right(@click='closePopup') Close
+            .left(@click='closePopup') {{ $t('SAVE') }}
+            .title {{ $t('SESSIONS') }}
+            .right(@click='closePopup') {{ $t('CLOSE') }}
         f7-block
         .page-content.messages-content.a
           .chat-div(v-for='message in filtredMessages', :key='message.timestamp', v-if='renderMessages')
@@ -59,7 +57,7 @@ import PresenceClosedMessage from '../assets/icon/presence_away.png';
 import IncomingCallModal from './ModalIncomingCall'
 export default {
   created: function() {
-    this.$store.commit('UPDATE_CURRENTPAGE', 'call');
+    this.$store.commit('UPDATE_CURRENTPAGE', 'sessions');
   },
   data: function() {
     return {
@@ -231,9 +229,7 @@ export default {
   max-height: 40px;
 }
 
-.my-class {
-  cursor: default;
-}
+
 
 .action {
   display: flex;

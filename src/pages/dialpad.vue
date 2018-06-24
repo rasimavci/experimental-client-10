@@ -65,7 +65,7 @@
           div.this-is-why-i-use-f7-components-and-not-f7vuecomponents-f7vuecomponents-are-created-AFTER-render
             button(@click='press(1)')
               |
-            button(@click='transfer()')(v-if="startTransfer")
+            button(@click='transfer()',v-if="startTransfer")
               i.icon.material-icons.md-only phone_in_talk
   // Additional "tabbar-labels" class
   .toolbar.toolbar-bottom-md.tabbar-labels.tabBackground(v-if="!startTransfer")

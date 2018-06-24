@@ -359,6 +359,7 @@ PERSONAL_ADDRESSBOOK: Libreta de direcciones personal
 GLOBAL_ADDRESSBOOK: Libreta de direcciones global
 SEARCH_IN_CONTACTS: Buscar en contactos
 SEARCH_IN_DIRECTORY: Buscar en el directorio
+SEARCH_IN_MOBILE: Buscar en el móvil
 
 CREATE_CONTACT: Crear contacto
 

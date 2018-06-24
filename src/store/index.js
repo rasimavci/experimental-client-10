@@ -51,8 +51,14 @@ const store = new Vuex.Store({
     [types.SET_SORTBY] (state, sortBy) {
       state.sortBy = sortBy
     },
+    [types.SET_SORTFAVORITES] (state, sortBy) {
+      state.sortFavorites = sortBy
+    },
     [types.SET_LOGTYPE] (state, logType) {
       state.logType = logType
+    },
+    [types.SET_FAVORITESLAYOUT] (state, layout) {
+      state.favoritesLayout = layout
     },
     [types.UPDATE_CURRENTPAGE] (state, page) {
       state.currentPage = page
@@ -157,7 +163,11 @@ const store = new Vuex.Store({
         state.sounds.ringing.pause()
         state.sounds.ringing.load()
       }
-    }
+    },
+
+    [types.SET_FAVORITES] (state, favorites) {
+      state.favorites = favorites
+    },
   }
 })
 export default store

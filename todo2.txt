@@ -1,32 +1,43 @@
 UI
 -----------------------------------------------
 fix general UI, some UI doesnt fit in mobile bcos of fixed heights
-I made a fix by putting .page but it crashed something, shown in in every tab and bcos of that no functionality,
+
+Call Page bottom problem - I made a fix by putting ".page" for every tab but Lost functionality for mesage bar (tab-1), also boxex went up
 http://forum.framework7.io/t/how-to-fix-message-bar-at-bottom/3829/6
 
-fix contact pages, big contact image is blurred in popup, also no real contact image in popup
+Contact pages, needs some fixes, contact image is blurred in contact details popup and call icons doesnt fit, also no real contact image in popup
 
-improve video containers in call.page, fit well in mobile
+improve video containers in call.page, needs to be fit well in mobile - havent been able to test since no call on mobile yet
 
-contacts upper buttons background seems green
+contacts page segmented buttons background seems green on android device when not clicked
+http://forum.framework7.io/t/segmented-button-color-changes-in-android-device/3849
 
-call page action cheet button background is not blue
+call page action sheet button background is not blue
 http://forum.framework7.io/t/can-not-change-background-color-of-a-button-in-action-sheet/3734/5
-
-
-call page UI improvement for reach messaging - file upload, photo-Viewer etc (as in the ppt)
-http://forum.framework7.io/t/how-to-trigger-file-upload-in-a-framework-7-application/3690/13
 
 remove underdline from bottom tabs
 http://forum.framework7.io/t/how-to-remove-underlines-for-toolbar/3724
 
+favorites tiles view needs to be fixed, listed in the below post
+http://forum.framework7.io/t/how-to-put-image-and-underline-string-in-list-view-using-custom-table/3837
+
+call page UI improvement for reach messaging - file upload, photo-Viewer etc (as in the ppt)
+http://forum.framework7.io/t/how-to-trigger-file-upload-in-a-framework-7-application/3690/13
+
+
 
 CODE PROBLEMS & IMPROVEMENS
 -----------------------------------------------
+favorites page needs some coding improvements
 
-history page infinite scrolling, currently brings 50 items, should bring more when scroll bar reachs end
+infinite scrolling for Message and History pages
+for ex history currently brings 50 items, should bring more when scroll bar reachs end
 
-**Cordova Issues**
+incoming call not working
+
+call notification needs improvement
+-----------------------------------------------
+CORDOVA ISSUES
 call or IM not working in real mobile
 cordova plugins should be integrated
 
@@ -34,9 +45,5 @@ incoming call not working, it needs to be done
 improve incoming call notification UI
 improve incoming call notification logic (notification queue for incoming IM)
 
-
 cordova call should be integrated, similar call.page to sr1 website
 https://sr1.genband.com/smartofficemobile/
-
-
-favorites service should be implemented
