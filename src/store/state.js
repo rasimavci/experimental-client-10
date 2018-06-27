@@ -30,6 +30,11 @@ export default {
   },
   sortBy: 'firstName',
   sortFavorites: 'firstName',
+  serviceShortcuts: {
+    serviceMeetme: true,
+    serviceCallGrap: true,
+    serviceVoicemail: true,
+  },
   logType: 'all',
   activeCallTab: 'chat',
   directory: [{firstName: '', lastName: ''}],

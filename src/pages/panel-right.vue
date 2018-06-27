@@ -104,6 +104,9 @@ export default {
       }
     },
   methods: {
+    openCreateContactPopup: function() {
+      this.$f7.popup.open(popupCreateContact, true)
+    },
     openServiceShortcutsPopup: function() {
       this.$f7.popup.open(popupServiceShortcuts, true)
     },

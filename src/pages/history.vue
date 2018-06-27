@@ -97,8 +97,8 @@ export default {
     getCallLogs() {
       // if (this.$store.state.historyFilterSelection === 'All Call') {
       // console.log(this.$store.state.history);
-      let hist = this.$store.state.history;
-      let contacts = this.$store.state.contacts;
+      let hist = _.cloneDeep(this.$store.state.history);
+      let contacts = _.cloneDeep(this.$store.state.contacts);
       var contact = '';
       hist.forEach(log => {
         contacts.forEach(contact => {

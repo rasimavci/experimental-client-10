@@ -49,17 +49,21 @@ TRY_RECOVER: ¡Problema de conectividad! Intentando recuperar...
 
 NO_FAV: Tu pestaña de favoritos está vacía. Para agregar favoritos, haga clic en la pestaña Contactos y agregue un contacto a su pestaña de favoritos.
 
-CONTACTS_PAGE: Contacts
-EDIT_PROFILE: Edit Profile
+DELETE_CONTACT: Borrar contacto
+EDIT_CONTACT: Editar contacto
+ADD_CONTACT: Aggregate contacto
+
+CONTACTS_PAGE: Contactos
+EDIT_PROFILE: Editar perfil
 ADD_PROFILE: Create Profile
-ADD_PHOTO: Add Photo
-IDENTIFICATION: IDENTIFICATION
-NICKNAME: Nickname
-FIRST_NAME: First Name
-LAST_NAME: Last Name
-MOBILE1: Mobile
-HOME1: Home
-WORK1: Work
+ADD_PHOTO: Crear Perfil
+IDENTIFICATION: IDENTIFICACIÓN
+NICKNAME: Apodo
+FIRST_NAME: nombre de pila
+LAST_NAME: último nombre
+MOBILE1: Móvil
+HOME1: Casa
+WORK1: Trabajo
 USER_ID: User ID
 EMAIL1: Email
 CHAT1: Chat
@@ -109,11 +113,11 @@ CALLING_MODE_WIFI_HEAD: Selecciona cómo se realizarán las llamadas con una con
 CALLING_MODE_CELLULAR_DATA: Modo de llamada - Datos del celular
 CALLING_MODE_CELLULAR_DATA_HEAD: Selecciona cómo se realizarán las llamadas con una conexión de datos móviles
 CALLING_MODE_INFO:
-BLOCKED: • Bloqueado No se pueden hacer llamadas (aún puede recibir llamadas)
-INTERNET_CONNECTION: • Conexión a Internet Las llamadas utilizarán la conexión de datos
-CELLULAR_CALL: • Llamada celular Las llamadas se iniciarán usando el compositor móvil
-CALL_ME_BACK: • Recuérdame Primero recibirás una llamada en tu móvil y luego estarás conectado
-ASK_ON_EVERY_CALL: • Preguntar en cada llamada Se le pedirá que haga una elección en cada llamad
+BLOCKED: '• Bloqueado: No se pueden hacer llamadas (aún puede recibir llamadas)'
+INTERNET_CONNECTION: '• Conexión a Internet: Las llamadas utilizarán la conexión de datos'
+CELLULAR_CALL: '• Llamada celular: Las llamadas se iniciarán usando el compositor móvil'
+CALL_ME_BACK: '• Recuérdame: Primero recibirás una llamada en tu móvil y luego estarás conectado'
+ASK_ON_EVERY_CALL: '• Preguntar en cada llamada: Se le pedirá que haga una elección en cada llamad'
 
 MY_MOBILE_PHONE: Mi numero de celular
 CALL_VIBRATION_MODE: Modo de llamada

@@ -58,7 +58,7 @@ f7-page
             .title {{ $t('LOG_SETTINGS') }}
             .right.my-cursor(@click='saveLogSettings') {{ $t('SAVE') }}
         f7-list(form='')
-         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet" :title="$t('LOG_LEVEL')") WARN
+         f7-list-item.sheet-open(href="#" data-sheet=".my-sheet" :title="$t('LOG_LEVEL')") {{ $t('WARN') }}
           //-a.link.sheet-open(href="#" data-sheet=".my-sheet") Sheet Open
   f7-popup#popupService
     f7-view
@@ -71,9 +71,9 @@ f7-page
         p {{ $t('SERVICE_SETTINGS_DESCRIPTION') }}
         f7-block-title {{ $t('SERVICES') }}
         f7-list(form='')
-         f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="$t('MEETME_SERVICE')")
-         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="$t('CALL_GRAB_SERVICE')")
-         f7-list-item(:key='2', checkbox='', name='my-checkbox', :value='2', :title="$t('VOICEMAIL_SERVICE')")
+         f7-list-item(:key='1', checkbox='', name='serviceMeetme', :checked="serviceMeetme === true", @change="serviceMeetme = !serviceMeetme", :title="$t('MEETME_SERVICE')")
+         f7-list-item(:key='2', checkbox='', name='serviceCallGrap', :checked="serviceCallgrap === true", @change="serviceCallgrap = !serviceCallgrap", :title="$t('CALL_GRAB_SERVICE')")
+         f7-list-item(:key='2', checkbox='', name='serviceVoicemail', :checked="serviceVoicemail === true", @change="serviceVoicemail = !serviceVoicemail", :title="$t('VOICEMAIL_SERVICE')")
   f7-popup#popupBoost
     f7-view
       f7-page
@@ -98,7 +98,7 @@ f7-page
         f7-block
         f7-block-header {{ $t('CALLING_MODE_WIFI_HEAD') }}
         f7-list(form='')
-          f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".defaultMode-sheet")
+          f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".calling-mode")
         p {{ $t('BLOCKED') }}
         p {{ $t('INTERNET_CONNECTION') }}
         p {{ $t('CELLULAR_CALL') }}
@@ -114,7 +114,7 @@ f7-page
         f7-block
         f7-block-header {{ $t('CALLING_MODE_CELLULAR_DATA_HEAD') }}
         f7-list(form='')
-          f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".defaultMode-sheet")
+          f7-list-item.sheet-open(:title="$t('CALLING_MODE')", :after="$t('ASK_EVERY_TIME')", link="", data-sheet=".calling-mode-cellular")
         p {{ $t('BLOCKED') }}
         p {{ $t('INTERNET_CONNECTION') }}
         p {{ $t('CELLULAR_CALL') }}
@@ -170,6 +170,32 @@ f7-page
         f7-list(formLanguage2='')
          f7-list-item(:key='1', radio='', name='my-radio2', :checked='1 === 1', :value='1', :title="'English'")
          f7-list-item(:key='2', radio='', name='my-radio2', :checked='2 === 1', :value='2', :title="'French'")
+  .sheet-modal.calling-mode
+    .toolbar
+      .toolbar-inner
+        .left
+        .right
+         a.link.sheet-close.Linklarge(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
+    .sheet-modal-inner
+        f7-list(formLanguage='')
+         f7-list-item(:key='1', radio='', name='callingMode', :checked="callingMode === 'en'", @change="callingMode = 'none'", :title="$t('NONE')")
+         f7-list-item(:key='2', radio='', name='callingMode', :checked="callingMode === 'fr'", @change="callingMode = 'voip'", :title="$t('VoIP')")
+         f7-list-item(:key='3', radio='', name='callingMode', :checked="callingMode === 'pt'", @change="callingMode = 'cellular'", :title="$t('CELLULAR')")
+         f7-list-item(:key='4', radio='', name='callingMode', :checked="callingMode === 'es'", @change="callingMode = 'mobile'", :title="$t('CALL_MY_FIRST_MOBILE')")
+         f7-list-item(:key='5', radio='', name='callingMode', :checked="callingMode === 'es'", @change="callingMode = 'ask'", :title="$t('ASK_EVERY_CALL')")
+  .sheet-modal.calling-mode-cellular
+    .toolbar
+      .toolbar-inner
+        .left
+        .right
+         a.link.sheet-close.Linklarge(href="#", style="font-size: 20px") {{ $t('CANCEL') }}
+    .sheet-modal-inner
+        f7-list(formLanguage='')
+         f7-list-item(:key='1', radio='', name='callingMode', :checked="callingMode === 'en'", @change="callingMode = 'none'", :title="$t('NONE')")
+         f7-list-item(:key='2', radio='', name='callingMode', :checked="callingMode === 'fr'", @change="callingMode = 'voip'", :title="$t('VoIP')")
+         f7-list-item(:key='3', radio='', name='callingMode', :checked="callingMode === 'pt'", @change="callingMode = 'cellular'", :title="$t('CELLULAR')")
+         f7-list-item(:key='4', radio='', name='callingMode', :checked="callingMode === 'es'", @change="callingMode = 'mobile'", :title="$t('CALL_MY_FIRST_MOBILE')")
+         f7-list-item(:key='5', radio='', name='callingMode', :checked="callingMode === 'es'", @change="callingMode = 'ask'", :title="$t('ASK_EVERY_CALL')")
 </template>
 
 
@@ -183,6 +209,9 @@ export default {
   },
   data: function() {
     return {
+      serviceMeetme: true,
+      serviceCallgrap: true,
+      serviceVoicemail: true,
       showData: 'all',
       language: 'english'
     }
@@ -249,6 +278,12 @@ export default {
     saveLogSettings: function() {
     },
     saveServiceSettings: function() {
+      let serviceSettings = {
+        serviceMeetme: this.serviceMeetme,
+        servicecallGrap: this.serviceGrap,
+        serviceVoicemail: this.serviceVoicemail
+      }
+      this.$store.commit('SET_SERVICESHORTCUTS', 'serviceSettings');
       this.$f7.popup.close(popupService, true)
     },
     saveMyMobileNumber: function() {

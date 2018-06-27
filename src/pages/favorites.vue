@@ -18,11 +18,11 @@ f7-page
              .item-cell {{ $t('MEETME_SERVICE') }}
               //-i.icon.material-icons.md-only phone_in_talk
               img.avatar-circle(:src="phoneImg" width="34")
-             .item-cell {{ $t('CALL_GRAB_SERVICE') }}
+             .item-cell(v-if="serviceShortcuts.serviceCallGrap") {{ $t('CALL_GRAB_SERVICE') }}
               //-i.icon.material-icons.md-only phone_in_talk
               img.avatar-circle(:src="phoneImg" width="34")
            .item-row
-             .item-cell {{ $t('VOICEMAIL_SERVICE') }}
+             .item-cell(v-if="serviceShortcuts.serviceVoicemail") {{ $t('VOICEMAIL_SERVICE') }}
               //-i.icon.material-icons.md-only phone_in_talk
               img.avatar-circle(:src="phoneImg" width="34")
              .item-cell Cell 2-2
@@ -51,7 +51,7 @@ f7-page
               .item-title-row
                 .item-title {{ $t('MEETME_SERVICE') }}
               .item-subtitle Service
-        li.my-cursor
+        li.my-cursor(v-if="serviceShortcuts.serviceCallGrap")
           .item-content
             .item-media
               //-i.icon.material-icons.md-only phone_in_talk
@@ -60,7 +60,7 @@ f7-page
               .item-title-row
                 .item-title {{ $t('CALL_GRAB_SERVICE') }}
               .item-subtitle Service
-        li.my-cursor
+        li.my-cursor(v-if="serviceShortcuts.serviceVoicemail")
           .item-content
             .item-media
               //-i.icon.material-icons.md-only phone_in_talk
@@ -122,7 +122,7 @@ export default {
     },
 },
   computed: {
-    ...mapGetters(['contacts', 'conversations', 'favorites', 'favoritesLayout']),
+    ...mapGetters(['contacts', 'conversations', 'favorites', 'favoritesLayout', 'serviceShortcuts']),
     getFavorites1() {
       let favs = this.$store.state.favorites
       let contacts = this.$store.state.contacts;

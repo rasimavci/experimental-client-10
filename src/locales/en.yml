@@ -110,11 +110,11 @@ CALLING_MODE_CELLULAR_DATA: Calling Mode - Cellular Data
 CALLING_MODE_CELLULAR_DATA_HEAD: Select how calls will be made when connecting with cellular data
 
 CALLING_MODE_INFO:
-BLOCKED: • Blocked No calls can be initiated (you can still receive calls)
-INTERNET_CONNECTION: • Internet Connection Calls will use the data connection
-CELLULAR_CALL: • Cellular Call Calls will be initiated using the mobile dialer
-CALL_ME_BACK: • Call me back You will first receive a call on your mobile and then be connected
-ASK_ON_EVERY_CALL: • Ask on every call You will be prompted to make a choice on every call
+BLOCKED: '• Blocked: No calls can be initiated (you can still receive calls)'
+INTERNET_CONNECTION: '• Internet Connection: Calls will use the data connection'
+CELLULAR_CALL: '• Cellular Call Calls will be initiated using the mobile dialer'
+CALL_ME_BACK: '• Call Me Back: You will first receive a call on your mobile and then be connected'
+ASK_ON_EVERY_CALL: '• Ask on Every Call: You will be prompted to make a choice on every call'
 MY_MOBILE_PHONE : My Mobile Number
 CALL_VIBRATION_MODE: Call Mode
 IM_VIBRATION_MODE: IM Mode
@@ -190,6 +190,13 @@ CONTACT_INSUFFICIENT_INFO_ERROR: Insufficient information to create/edit contact
 CONTACT_INVALID_PARAMETER_ERROR: Invalid Input please check all field entries and remove all special characters.
 UNKNOWN_ERROR: An unknown error occurred.
 ADD_FAVORITE_TEXT: Select one or multiple entries to add to your Favorites
+
+CHAT1: Chat
+VOICE1: Voice
+VIDEO1: Video
+HOME1: Home
+MOBILE1: Mobile
+WORK1: Work
 
 CONTEXT_MENU2:
 CONTACT: Contact
@@ -397,7 +404,6 @@ SEARCH_IN_CONTACTS: Search in contacts
 SEARCH_IN_DIRECTORY: Search in directory
 SEARCH_IN_MOBILE: Search in mobile
 
-Personal: Personal
 PERSONAL_ADDRESSBOOK: Personal Addressbook
 GLOBAL_ADDRESSBOOK: Global Addressbook
 

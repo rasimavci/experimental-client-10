@@ -113,7 +113,7 @@
                 | 0
               button(@click="press('#')")
                 | #
-        .call-button-container.action.my-cursor(v-if="!activeCall.state" @click='makeCall(false)')
+        .call-button-container.action.my-cursor(v-if="!activeCall.state  || activeCall.state === 'ENDED'" @click='makeCall(false)')
           img.my-size(src='../assets/demo/call_outline_white.png')
           p.my-font1s {{ $t('CALL') }} {{activeCall.calleeName}}
       .toolbar.toolbar-bottom-md.tabbar-labels

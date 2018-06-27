@@ -96,30 +96,30 @@ NO_FAV: Votre onglet favoris est vide. Pour ajouter des favoris, cliquer sur l'i
 
 CONTACTS_PAGE:
 PROFILE_MENU:
-EDIT_PROFILE: Modification du profil,
-ADD_PHOTO: Ajouter une photo,
-IDENTIFICATION: IDENTIFICATION,
-NICKNAME: Surnom,
-FIRST_NAME: Prénom,
-LAST_NAME: Nom de famille,
-MOBILE: Cellulaire,
-HOME: Maison,
-WORK: Travail,
-USER_ID: Identifiant,
-EMAIL: Courriel,
-CHAT: Messagerie,
-VOICE: Voix,
-VIDEO: Vidéo,
-SETTINGS_CONTACTS: Paramètres,
-MANAGE_FAVS: Gérer les favoris,
-REMOVE_FROM_PAB: Effacer des contacts personnels,
-CONTACT_DETAIL: Contact,
-SHOW_AVAILABILITY: Montrer l'état de présence,
-CONTACT_EXISTS_ERROR: Ce contact existe déjà.,
-CONTACT_MAXIMUM_ENTRIES_ERROR: Votre liste de contacts a dépassé la limite de taille autorisée sur le serveur.,
-CONTACT_INSUFFICIENT_INFO_ERROR:  Informations insuffisantes pour créer / modifier un contact. Veuillez vérifier que tous les champs obligatoires sont remplis.,
-CONTACT_INVALID_PARAMETER_ERROR: Invalid Input, veuillez cocher toutes les entrées de champs et supprimer tous les caractères spéciaux.,
-UNKNOWN_ERROR: Une erreur inconnue est survenue.,
+EDIT_PROFILE: Modification du profil
+ADD_PHOTO: Ajouter une photo
+IDENTIFICATION: IDENTIFICATION
+NICKNAME: Surnom
+FIRST_NAME: Prénom
+LAST_NAME: Nom de famille
+MOBILE: Cellulaire
+HOME: Maison
+WORK: Travail
+USER_ID: Identifiant
+EMAIL: Courriel
+CHAT: Messagerie
+VOICE: Voix
+VIDEO: Vidéo
+SETTINGS_CONTACTS: Paramètres
+MANAGE_FAVS: Gérer les favoris
+REMOVE_FROM_PAB: Effacer des contacts personnels
+CONTACT_DETAIL: Contact
+SHOW_AVAILABILITY: Montrer l'état de présence
+CONTACT_EXISTS_ERROR: Ce contact existe déjà.
+CONTACT_MAXIMUM_ENTRIES_ERROR: Votre liste de contacts a dépassé la limite de taille autorisée sur le serveur.
+CONTACT_INSUFFICIENT_INFO_ERROR:  Informations insuffisantes pour créer / modifier un contact. Veuillez vérifier que tous les champs obligatoires sont remplis.
+CONTACT_INVALID_PARAMETER_ERROR: Invalid Input, veuillez cocher toutes les entrées de champs et supprimer tous les caractères spéciaux.
+UNKNOWN_ERROR: Une erreur inconnue est survenue.
 ADD_FAVORITE_TEXT: Sélectionnez une ou plusieurs entrées à ajouter à vos favoris
 
 ___MANAGE_FAV_ATLANDI:

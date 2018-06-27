@@ -74,23 +74,23 @@ f7-page
         f7-list(form='')
           f7-list-item
             f7-label {{ $t('HOME') }}
-            f7-input(type='text', value="contact.homePhone") {{contact.homePhone}}
+            f7-input(type='text', :value="contact.homePhone") {{contact.homePhone}}
             i.icon.f7-icons.ios-only.test-icon-right phone_in_talk_full
           f7-list-item
             f7-label {{ $t('MOBILE') }}
-            f7-input(type='mobile', placeholder='mobile') {{contact.mobilePhone}}
+            f7-input(type='mobile', :value='mobile') {{contact.mobilePhone}}
           f7-list-item
             f7-label {{ $t('WORK') }}
-            f7-input(type='home', placeholder='home') {{contact.workPhone}}
+            f7-input(type='home', :value='home') {{contact.workPhone}}
           f7-list-item
             f7-label {{ $t('NICKNAME') }}
-            f7-input(type='tel', placeholder='Phone') {{contact.nickname}}
+            f7-input(type='tel', :value='Phone') {{contact.nickname}}
           f7-list-item
             f7-label {{ $t('USER_ID') }}
-            f7-input(type='text', value="contact.homePhone") {{contact.primaryContact}}
+            f7-input(type='text', :value="contact.homePhone") {{contact.primaryContact}}
           f7-list-item
             f7-label {{ $t('EMAIL') }}
-            f7-input(type='email', placeholder='E-mail') {{contact.emailAddress}}
+            f7-input(type='email', :value='E-mail') {{contact.emailAddress}}
         f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list
           f7-list-item(@click='openManageFavorites()', :title="$t('MANAGE_FAVS')")
@@ -101,76 +101,53 @@ f7-page
       f7-page
         .navbar
           .navbar-inner
-            .left.my-cursor(@click='backAddContact') {{ $t('CLOSE') }}
-            .title {{ $t('ADD_CONTACT') }}
+            .left.my-cursor(@click='backAddContact') {{ $t('BACK') }}
+            .title
             .right.my-cursor(@click='openEditContactPopup()') {{ $t('ADD') }}
+        .flex
+          .flex2
+            img(src="../assets/demo/avatar_generic.png" width="150" height="150")
+          .flex.column
+            .flex
+             h3  {{contact.firstName}} {{contact.lastName}}
+            .flex
+             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="callTypeSelection($t('SELECT_MODE'), $t('CHANGE_DEFAULT_MODE'), $t('CALL_MY_FIRST_MOBILE'), $t('CELLULAR'), $t('VoIP'))")
+             img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCallPage('video')")
+             div(hspace="20")
+             img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCallPage('chat')")
         f7-block
-          | Please fill contact details.
-        f7-block-title Form Example
+        f7-block-title {{ $t('CONTACT_DETAIL') }}
         f7-list(form='')
           f7-list-item
-            f7-label Name
-            f7-input(type='text', placeholder='Name')
+            f7-label {{ $t('HOME') }}
+            f7-input(type='tel', :value='contact.homePhone')
           f7-list-item
-            f7-label E-mail
-            f7-input(type='email', placeholder='E-mail')
+            f7-label {{ $t('MOBILE') }}
+            f7-input(type='tel', :value='contact.mobilePhone')
           f7-list-item
-            f7-label URL
-            f7-input(type='url', placeholder='URL')
+            f7-label {{ $t('WORK') }}
+            f7-input(type='tel', :value='contact.workPhone')
           f7-list-item
-            f7-label Password
-            f7-input(type='password', placeholder='Password')
+            f7-label {{ $t('NICKNAME') }}
+            f7-input(type='text', :value='contact.nickname')
           f7-list-item
-            f7-label Phone
-            f7-input(type='tel', placeholder='Phone')
+            f7-label {{ $t('USER_ID') }}
+            f7-input(type='url', :value='contact.userId')
           f7-list-item
-            f7-label Gender
-            f7-input(type='select')
-              option(selected='') Male
-              option Female
-          f7-list-item
-            f7-label Birth date
-            f7-input(type='date', placeholder='Birth date', value='2014-04-30')
-          f7-list-item(title='Friend')
-            f7-toggle(slot='after')
-  f7-popup#popupEditContact1
-    f7-view
-      f7-page
-        f7-navbar(title='Edit Contact')
-          f7-nav-right
-            f7-link(popup-close='', @click='editContact()') {{ $t('SAVE') }}
-          f7-nav-left
-            f7-link(popup-close='') {{ $t('BACK') }}
+            f7-label {{ $t('EMAIL') }}
+            f7-input(type='email', :value='contact.email')
         f7-block
-        f7-block-title Form Example
+        f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list(form='')
-          f7-list-item
-          f7-label Name
-          f7-input(:value='firstName', @input="lastName = $event.target.value", type='text', :placeholder="contact.firstName")
-          f7-list-item
-          f7-label E-mail
-          f7-input(type='email', placeholder='E-maill')
-          f7-list-item
-          f7-label URL
-          f7-input(type='url', placeholder='URL')
-          f7-list-item
-          f7-label Password
-          f7-input(type='password', placeholder='Password')
-          f7-list-item
-          f7-label Phone
-          f7-input(type='tel', placeholder='Phone')
-          f7-list-item
-          f7-label Gender
-          f7-input(type='select')
-            option(selected='') Male
-            option Female
+          f7-list-item(@click='openManageFavorites()', :title="$t('MANAGE_FAVS')")
   f7-popup#popupEditContact
     f7-view
       f7-page
         .navbar
           .navbar-inner
-            .left(@click='backEditContact') {{ $t('BACK') }}
-            .right(@click='addContact(contact)') {{ $t('SAVE') }}
+            .left.my-cursor(@click='backEditContact') {{ $t('BACK') }}
+            .title {{ $t('EDIT_PROFILE') }}
+            .right.my-cursor(@click='addContact(contact)') {{ $t('SAVE') }}
         .flex
           .flex2
             img(src="../assets/demo/avatar_generic.png" width="150" height="150")
@@ -178,35 +155,35 @@ f7-page
             .flex
              h3  {{contact.firstName}} {{contact.lastName}}
         f7-block
-        f7-block-title IDENFIFICATION
+        f7-block-title {{ $t('IDENTIFICATION') }}
         f7-list(form='')
           f7-list-item
-            f7-label First Name*
-            f7-input(:value='firstName' @input="firstName = $event.target.value",type='text', :placeholder='contact.firstName')
+            f7-label {{ $t('FIRST_NAME') }}*
+            f7-input(:value='firstName' @input="firstName = $event.target.value",type='text')
           f7-list-item
-            f7-label Last Name*
-            f7-input(:value='lastName' @input="lastName = $event.target.value", type='text', :placeholder='contact.lastName')
+            f7-label {{ $t('LAST_NAME') }}*
+            f7-input(:value='lastName' @input="lastName = $event.target.value", type='text')
           f7-list-item
             f7-label Nickname
-            f7-input(type='text', :placeholder='contact.nickname')
+            f7-input(type='text', :value='contact.nickname')
           f7-list-item
-            f7-label User Id
-            f7-input(type='url', :placeholder='contact.primaryContact')
+            f7-label {{ $t('USER_ID') }}
+            f7-input(type='url', :value='contact.userId')
           f7-list-item
             f7-label E-mail
-            f7-input(type='email', placeholder='contact.emailAddress')
+            f7-input(type='email', :value='contact.email')
         f7-block
-        f7-block-title {{ $t('CONTACT') }}
+        f7-block-title {{ $t('CONTACT_DETAIL') }}
         f7-list(form='')
           f7-list-item
             f7-label {{ $t('HOME') }}
-            f7-input(type='tel', :placeholder='contact.homePhone')
+            f7-input(type='tel', :value='contact.homePhone')
           f7-list-item
             f7-label {{ $t('MOBILE') }}
-            f7-input(type='tel', :placeholder='contact.mobilePhone')
+            f7-input(type='tel', :value='contact.mobilePhone')
           f7-list-item
             f7-label {{ $t('WORK') }}
-            f7-input(type='tel', :placeholder='contact.workPhone')
+            f7-input(type='tel', :value='contact.workPhone')
         f7-block
         f7-block-title {{ $t('SETTINGS_BIG') }}
         f7-list(form='')
@@ -372,6 +349,10 @@ export default {
     incomingCallModal: IncomingCallModal
   },
   methods: {
+
+    joinCall: function() {
+      console.log('join started')
+    },
     setContactSource: function(source) {
     this.$store.commit("SET_CONTACTSOURCE", source);
     },
@@ -619,25 +600,22 @@ ac1.open();
         alert('not canceled');
       }
     },
-    removeContact: function(contact) {
-      var r = confirm('Delete Contact', 'Are You Sure ?');
-      if (r == true) {
-        this.$store.dispatch('removeContact', contact.entryId);
-      } else {
-        console.log('remove contact canceled');
+      removeContact: function(contact) {
+      let that = this
+      function callbackOk () {
+        that.$store.dispatch('removeContact', contact.entryId);
+        that.$f7.popup.close('#popupContactDetails', true);
       }
+       function callbackCancel () {
+         console.log('remove contact canceled');
+       }
+      this.$f7.dialog.confirm('Are You Sure ?', 'Delete Contact', callbackOk, callbackCancel)
 
-      //Framework7.app.
-      // confirm('Delete Contact', 'Are You Sure ?', function() {
-      //   console.log('confirmed')
-      //   this.$store.dispatch('removeContact', contact.entryId);
-      // });
     },
     editContact: function() {
       console.log('name ' + this.firstName + this.lastName);
     },
     addContact: function(contact) {
-      // this.$f7.popup.close('#popupEditContact', true);
       const newContact = {
         id: this.contacts.length,
         // entryId: this.contacts.length,
@@ -692,7 +670,7 @@ ac1.open();
         this.$store.dispatch('addContact', newContact);
         console.log('add contact ' + newContact.primaryContact);
       }
-
+      this.$f7.popup.close('#popupEditContact', true);
       this.$f7.popup.close('#popupAddContact', true);
     },
   },

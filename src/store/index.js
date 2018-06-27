@@ -54,6 +54,9 @@ const store = new Vuex.Store({
     [types.SET_SORTFAVORITES] (state, sortBy) {
       state.sortFavorites = sortBy
     },
+    [types.SET_SERVICESHORTCUTS] (state, serviceShortcuts) {
+      state.serviceShortcuts = serviceShortcuts
+    },
     [types.SET_LOGTYPE] (state, logType) {
       state.logType = logType
     },
@@ -150,9 +153,8 @@ const store = new Vuex.Store({
         }
       })
     },
-
-    [types.SET_ACTIVECALLID] (state, to) {
-      state.activeCall.to = to
+    [types.SET_ACTIVECALLCALLEE] (state, params) {
+      state.activeCall.calleeName = params.calleeName
     },
 
     [types.RINGING_SOUND] (state, options) {
