@@ -1,22 +1,22 @@
 <template lang='pug'>
-    f7-page(login-screen='')
-      f7-login-screen-title
-        img(src="../assets/logo.png" class="deneme")
-      f7-list(form='')
-        f7-list-item
-          f7-label Username
-          f7-input(name='username', :placeholder="$t('USERNAME')", type='text', :value='username', @input='username = $event.target.value')
-        f7-list-item
-          f7-label Password
-          f7-input(name='password', type='password', :placeholder="$t('PASSWORD')", :value='password', @input='password = $event.target.value')
-      .list
-        ul
-          li
-            a.item-link.list-button.login-button.login-screen-close(href='#', @click='doLogin') {{ $t('SIGN_IN') }}
-        .block-footer
-          | {{ $t('DEMO') }}
-          br
-          | {{ $t('Version') }} 4.0
+f7-page(login-screen='')
+  f7-login-screen-title
+    img(src="../assets/logo.png" class="deneme")
+  f7-list(form='')
+    f7-list-item
+      f7-label Username
+      f7-input(name='username', :placeholder="$t('USERNAME')", type='text', :value='username', @input='username = $event.target.value')
+    f7-list-item
+      f7-label Password
+      f7-input(name='password', type='password', :placeholder="$t('PASSWORD')", :value='password', @input='password = $event.target.value')
+  .list
+    ul
+      li
+        a.item-link.list-button.login-button.login-screen-close(href='#', @click='doLogin') {{ $t('SIGN_IN') }}
+    .block-footer
+      | {{ $t('DEMO') }}
+      br
+      | {{ $t('Version') }} 4.0
 </template>
 
 <script>
@@ -28,8 +28,8 @@ export default {
   },
   data() {
     return {
-      username: '',
-      password: '',
+      username: 'ravci@genband.com',
+      password: 'yjke9884',
     };
   },
   mounted() {},

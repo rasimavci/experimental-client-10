@@ -170,6 +170,9 @@ const store = new Vuex.Store({
     [types.SET_FAVORITES] (state, favorites) {
       state.favorites = favorites
     },
+    [types.SET_CONTACT_DATA] (state, contactData) {
+      state.contactData = contactData
+    },
   }
 })
 export default store

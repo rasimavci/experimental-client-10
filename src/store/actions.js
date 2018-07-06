@@ -9,6 +9,16 @@ import _ from 'lodash'
 var kandy
 var logout = false
 
+
+
+
+
+export const setContactData = ({ commit }, contactData) => {
+  if (contactData) {
+    commit(types.SET_CONTACT_DATA, contactData)
+  }
+}
+
 export const setCredentials = ({ commit }, credentials) => {
   if (credentials) {
     commit(types.SET_CREDENTIALS, credentials)
@@ -441,4 +451,5 @@ export const getPresence = ({ commit }, args) => {
   const deneme = kandy.presence.get('ravci@genband.com')
   console.log('presence' + deneme)
 }
+
 

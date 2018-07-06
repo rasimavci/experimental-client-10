@@ -75,6 +75,8 @@ export default {
       username: '',
     };
   },
+  mounted () {
+  },
   methods: {
     getContactInfo() {
       let self = this.$store.state.self; // this.conversationId;

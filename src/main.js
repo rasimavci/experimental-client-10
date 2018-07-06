@@ -76,7 +76,7 @@ document.addEventListener('deviceready', function() {
 Vue.prototype.$moment = moment
 Vue.prototype.$_ = _
 // Init App
-var vm = new Vue({
+window.vm = new Vue({
   el: '#app',
   template: '<app/>',
   store,
@@ -84,7 +84,7 @@ var vm = new Vue({
   framework7: {
     id: 'com.base.app', // App bundle ID
     name: 'BaseApp', // App name
-    theme: 'auto', // Automatic theme detection
+    theme: 'md', // Automatic theme detection
     // App routes
     routes: Routes
   },

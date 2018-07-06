@@ -51,51 +51,6 @@ f7-page
   //-               .item-title {{contact.firstName}} {{contact.lastName}}
   //-               .item-subtitle {{ $t('PERSONAL') }}
   //-             //- img(:src='presenceConnected')
-  f7-popup#popupContactDetails
-    f7-view
-      f7-page
-        .navbar
-          .navbar-inner
-            .left.my-cursor(@click='backContactDetails') {{ $t('BACK') }}
-            .title Contact Details
-            .right.my-cursor(@click='openEditContactPopup') {{ $t('EDIT') }}
-        .flex
-          .flex2
-            img(src="../assets/demo/avatar_generic.png" width="115" height="115")
-          .flex.column
-            .flex
-             h3  {{contact.firstName}} {{contact.lastName}}
-            .flex
-             img.imgSize(src="../assets/demo/call_outline_blue.png" @click="callTypeSelection($t('SELECT_MODE'), $t('CHANGE_DEFAULT_MODE'), $t('CALL_MY_FIRST_MOBILE'), $t('CELLULAR'), $t('VoIP'))")
-             img.imgSize(src="../assets/demo/video_outline_blue.png" hspace="20" @click="goCallPage('video')")
-             div(hspace="20")
-             img.imgSize(src="../assets/demo/bubble-clipart-chat-box-15d.png" @click="goCallPage('chat')")
-        f7-block-title {{ $t('CONTACT') }}
-        f7-list(form='')
-          f7-list-item
-            f7-label {{ $t('HOME') }}
-            f7-input(type='text', :value="contact.homePhone") {{contact.homePhone}}
-            i.icon.f7-icons.ios-only.test-icon-right phone_in_talk_full
-          f7-list-item
-            f7-label {{ $t('MOBILE') }}
-            f7-input(type='mobile', :value='mobile') {{contact.mobilePhone}}
-          f7-list-item
-            f7-label {{ $t('WORK') }}
-            f7-input(type='home', :value='home') {{contact.workPhone}}
-          f7-list-item
-            f7-label {{ $t('NICKNAME') }}
-            f7-input(type='tel', :value='Phone') {{contact.nickname}}
-          f7-list-item
-            f7-label {{ $t('USER_ID') }}
-            f7-input(type='text', :value="contact.homePhone") {{contact.primaryContact}}
-          f7-list-item
-            f7-label {{ $t('EMAIL') }}
-            f7-input(type='email', :value='E-mail') {{contact.emailAddress}}
-        f7-block-title {{ $t('SETTINGS_BIG') }}
-        f7-list
-          f7-list-item(@click='openManageFavorites()', :title="$t('MANAGE_FAVS')")
-          f7-list-item(@click='removeContact(contact)', :title="$t('REMOVE_FROM_PAB')")
-          f7-list-item(:key='1', checkbox='', name='my-checkbox', :value='1', :title="$t('SHOW_AVAILABILITY')")
   f7-popup#popupAddContact
     f7-view
       f7-page
@@ -304,7 +259,7 @@ import PresenceConnected from '../assets/icon/presence_connected.png';
 import PresenceClosed from '../assets/icon/presence_not.png';
 import PresenceClosedMessage from '../assets/icon/presence_away.png';
 import IncomingCallModal from './ModalIncomingCall'
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import _ from 'lodash';
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 
@@ -343,13 +298,13 @@ export default {
       friendStatus: false,
       primaryContact: null,
       // contactSource: '',
-    };
+    }
   },
   components: {
     incomingCallModal: IncomingCallModal
   },
   methods: {
-
+    ...mapActions(['setContactData']),
     joinCall: function() {
       console.log('join started')
     },
@@ -361,9 +316,6 @@ export default {
     },
     backAddContact() {
       this.$f7.popup.close('#popupAddContact', true);
-    },
-    backContactDetails() {
-      this.$f7.popup.close('#popupContactDetails', true);
     },
     backEditContact() {
       this.$f7.popup.close('#popupEditContact', true);
@@ -490,12 +442,14 @@ export default {
       this.$f7.popup.close('#popupManageFavorites', true);
 
     },
-    openContactDetailsPopup: function(contact) {
+    openContactDetailsPopup (contact) {
+      debugger
       this.contact = contact;
+      this.setContactData( _.cloneDeep(contact))
       let contactSource1 = this.$store.state.contactSource;
       console.log('selected contact ' + JSON.stringify(contact));
       if (contactSource1 === 'personal') {
-        this.$f7.popup.open(popupContactDetails, true);
+        this.$f7.popup.open('.popupContactDetails', true);
       } else {
         this.$f7.popup.open(popupAddContact, true);
       }
@@ -505,7 +459,6 @@ export default {
     },
     openEditContactPopup: function() {
       this.$f7.popup.open('#popupEditContact', true);
-      //this.$f7.popup.open('#popupAddContact', true);
     },
     openManageFavorites: function() {
       this.$f7.popup.open(popupManageFavorites, true);
@@ -527,42 +480,40 @@ export default {
       this.isSearch = false;
       console.log('disable');
     },
-
-       callTypeSelection (selectMode,a,b,c,d) {
-var ac1 = this.$f7.actions.create({
-  buttons: [
-    {
-      text: selectMode,
-      bold: true,
-      bg: 'blue',
-      color: 'red',
-    },
-    {
-      text: a,
-      color: 'blue',
-      onClick: () => {
-        this.$f7.popup.open('#popupDefaultMode', true);
-      }
-    },
-    {
-      text: b,
-      color: 'blue'
-    },
-    {
-      text: c,
-      color: 'blue'
-    },
-    {
-      text: d,
-      color: 'blue',
-      onClick: () => {
-        this.goCallPage('audio')
-      }
-    }
-  ]
-})
-
-ac1.open();
+    callTypeSelection (selectMode,a,b,c,d) {
+      var ac1 = this.$f7.actions.create({
+        buttons: [
+          {
+            text: selectMode,
+            bold: true,
+            bg: 'blue',
+            color: 'red',
+          },
+          {
+            text: a,
+            color: 'blue',
+            onClick: () => {
+              this.$f7.popup.open('#popupDefaultMode', true);
+            }
+          },
+          {
+            text: b,
+            color: 'blue'
+          },
+          {
+            text: c,
+            color: 'blue'
+          },
+          {
+            text: d,
+            color: 'blue',
+            onClick: () => {
+              this.goCallPage('audio')
+            }
+          }
+        ]
+      })
+      ac1.open();
     },
     goCallPage: function(mode) {
       this.$f7.popup.close('#popupContactDetails', true);

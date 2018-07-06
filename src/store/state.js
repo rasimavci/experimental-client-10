@@ -44,6 +44,7 @@ export default {
   target: '',
   startCall: false,
   startTransfer: false,
+  contactData: null,
   incomingCall: {},
     callOptions: {
     isAudioEnabled: true,
