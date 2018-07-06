@@ -15,6 +15,7 @@ import Presences from './pages/presences'
 import Call from './pages/call'
 import Settings from './pages/settings.vue'
 import Contact from './pages/contact.vue'
+import ContactEdit from './pages/contact-edit.vue'
 
 export default [
   {
@@ -49,6 +50,11 @@ export default [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/contact-edit',
+    name: 'Contact-Edit',
+    component: ContactEdit
   },
   {
     path: '/history',

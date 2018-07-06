@@ -443,7 +443,6 @@ export default {
 
     },
     openContactDetailsPopup (contact) {
-      debugger
       this.contact = contact;
       this.setContactData( _.cloneDeep(contact))
       let contactSource1 = this.$store.state.contactSource;
@@ -702,8 +701,8 @@ export default {
 }
 
 .imgSize {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 30px;
+  max-width: 30px;
 }
 
 .avatar-circle {

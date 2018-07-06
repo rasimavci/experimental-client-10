@@ -2,13 +2,6 @@
 // App
 #app
   incomingCallModal(v-if='getIncomingCall')
-  //- .preloader
-  //-   span.preloader-inner
-  //-     span.preloader-inner-gap
-  //-     span.preloader-inner-left
-  //-       span.preloader-inner-half-circle
-  //-     span.preloader-inner-right
-  //-       span.preloader-inner-half-circle
   // Statusbar
   f7-statusbar
   // Left Panel
@@ -29,12 +22,6 @@ import IncomingCallModal from './pages/ModalIncomingCall'
 import { mapGetters } from 'vuex'
 import PopupContactDetail from './pages/popups/contact-detail'
 
-// setInterval(
-//   function(){
-
-//     getIncomingCall ()
-//   }, 3000);
-
 export default {
   name: 'mainApp',
   components: {
@@ -42,7 +29,7 @@ export default {
     popupContactDetail: PopupContactDetail
   },
   computed: {
-    ...mapGetters(['incomingCall', 'currentPage']),
+    ...mapGetters(['incomingCall', 'currentPage', 'contactData']),
     getIncomingCall () {
       var that = this
       if (this.$f7) {
