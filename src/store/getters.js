@@ -15,8 +15,25 @@ const favorites = state => state.favorites
 const favoritesLayout = state => state.favoritesLayout
 const serviceShortcuts = state => state.serviceShortcuts
 const contactData = state => state.contactData
+const activeCallTab = state => state.activeCallTab
+const callee = state => state.callee
 //const callAnswer = state => state.callAnswer
-export { serviceShortcuts, favorites, favoritesLayout, credentials, contacts, mystate, conversations, activeConversations, activeCall, incomingCall, startCall, startTransfer, currentPage, contactSource, 
+export { serviceShortcuts,
+  favorites,
+  favoritesLayout,
+  credentials,
+  contacts,
+  mystate,
+  conversations,
+  activeConversations,
+  activeCall,
+  incomingCall,
+  startCall,
+  startTransfer,
+  currentPage,
+  contactSource,
   contactData,
+  callee,
+  activeCallTab,
   historyType }
   

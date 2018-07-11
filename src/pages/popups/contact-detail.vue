@@ -112,15 +112,16 @@ export default {
       ac1.open();
     },
     goCallPage (mode) {
-      this.$f7.popup.close('#popupContactDetails', true);
+      let vm =  this
+      this.$f7.popup.close('.popupContactDetails', true);
       this.$store.commit('SET_ACTIVECALLTAB', mode);
-      this.$store.commit('SET_CALLEE', this.contact.id);
+      this.$store.commit('SET_CALLEE', this.contactData.primaryContact);
       if(mode !== 'chat'){
       this.$store.commit('SET_STARTCALL', true);
       }
       setTimeout(() => {
-        this.$f7router.navigate('/history');
-        this.$f7router.navigate('/call');
+        vm.$f7.view.main.router.navigate('/history');
+        vm.$f7.view.main.router.navigate('/call');
       }, 100);
     },
   }

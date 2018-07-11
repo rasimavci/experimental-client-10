@@ -3,7 +3,7 @@
   f7-navbar
     f7-nav-left
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:menu', panel-open='left')
-    f7-nav-title {{ participant }}
+    f7-nav-title {{ participant || "Not Set" }}
     f7-nav-right.end-button-color(v-if="activeCall.state && activeCall.state !== 'ENDED'")
       f7-link(icon-if-ios='f7:menu', icon-if-md='material:call_end', panel-open='right',@click="end")
     f7-nav-right(v-if="!activeCall.state || activeCall.state === 'ENDED'")
@@ -277,13 +277,11 @@ export default {
       message: '',
       showData: 'all',
       message: '',
-      callee: '',
       showbottombar: false,
       conversationId: '',
       selectedContacts: [],
       contact: {},
       contactType: '',
-      activeTab: false,
       getActiveTab: true,
     };
   },
@@ -292,28 +290,25 @@ export default {
     rightChatBubble: RightChatBubble,
   },
   mounted() {
-    let contacts = this.$store.state.contacts;
-    const startCall = this.$store.state.startCall
-
     this.contactType = 'corporate';
-    contacts.forEach(contact1 => {
-      if (contact1.primaryContact === this.$store.state.callee) {
-        this.contact = contact1;
+    this.contacts.forEach(c => {
+      if (c.primaryContact === this.callee) {
+        this.contact = _.cloneDeep(c);
         this.contactType = 'personal';
       }
     });
     this.getContactInfo();
-    this.callee = this.$store.state.callee;
-    this.conversationId = this.$store.state.callee;
-    if (this.$store.state.activeCallTab === 'audio' & startCall) {
-      console.log('call with audio to ' + this.$store.state.callee);
+    this.conversationId = this.callee;
+    debugger
+    if (this.activeCallTab === 'audio' & this.startCall) {
+      console.log('call with audio to ' + this.callee);
       this.makeInitialCall(false);
-    } else if (this.$store.state.activeCallTab === 'video' && startCall) {
+    } else if (this.activeCallTab === 'video' && this.startCall) {
       console.log('call with video');
-    } else if (this.$store.state.activeCallTab === 'audio' && startCall === 'answer') {
+    } else if (this.activeCallTab === 'audio' && this.startCall === 'answer') {
       this.answer()
       console.log('call with video');
-    } else if (this.$store.state.activeCallTab === 'audio' && startCall === 'transfer') {
+    } else if (this.activeCallTab === 'audio' && this.startCall === 'transfer') {
       console.log('call with video');
       this.$store.dispatch('directTransfer');
     }
@@ -349,20 +344,16 @@ var ac1 = this.$f7.actions.create({
 
 ac1.open();
     },
-    checkCallee: function() {
-       return new Promise(function (resolve, reject) {
-            this.callee = this.$store.state.callee
-            if (this.callee) {
-              resolve
-            }
-        });
+    checkCallee: () => {
+      if (this.callee) return true
+      return false
     },
     end() {
       this.callStarted = false
       this.$store.dispatch('end');
     },
     getContactInfo() {
-      let primaryContact = this.$store.state.callee; // this.conversationId;
+      let primaryContact = this.callee; // this.conversationId;
       let contact = this.$_.find(this.contacts, c => {
         return c.primaryContact === primaryContact;
       });
@@ -444,7 +435,6 @@ ac1.open();
       this.isVideo = mode
       // SET_ACTIVE_CALLID
       if (!this.activeCall.state || this.activeCall.state === 'ENDED') {
-        this.callee = this.$store.state.callee;
         const params = {
           callee: this.callee,
           mode: mode,
@@ -481,34 +471,32 @@ ac1.open();
       }
     },
     makeInitialCall(mode) {
-      // SET_ACTIVE_CALLID
-     // if there is no already session with the contact
-     // if (!this.activeCall || this.activeCall.state === 'ENDED') {
-        //this.callStarted = true
-        this.$f7.preloader.show();
-        this.callee = this.$store.state.callee;
-        const params = {
-          callee: this.callee,
-          mode: mode,
-        };
-        let options = [
-          {
-            key: 'localVideoContainer',
-            value: document.getElementById('localVideoContainer'),
-          },
-          {
-            key: 'remoteVideoContainer',
-            value: document.getElementById('remoteVideoContainer'),
-          },
-        ];
-        //params.options = options;
-        this.$store.commit('SET_CALL_OPTIONS', options);
-        this.$store.dispatch('call', params);
-      //}
+      this.$f7.preloader.show()
+      const params = {
+        callee: this.callee,
+        mode: mode,
+      };
+      let options = [
+        {
+          key: 'localVideoContainer',
+          value: document.getElementById('localVideoContainer'),
+        },
+        {
+          key: 'remoteVideoContainer',
+          value: document.getElementById('remoteVideoContainer'),
+        },
+      ]
+      this.$store.commit('SET_CALL_OPTIONS', options);
+      this.$store.dispatch('call', params);
     }
   },
   computed: {
-    ...mapGetters(['contacts', 'conversations', 'activeCall','startCall']),
+    ...mapGetters(['contacts',
+      'conversations',
+      'activeCall',
+      'startCall',
+      'activeCallTab',
+      'callee']),
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {
@@ -557,7 +545,7 @@ ac1.open();
       }
     },
     getActiveTabAudio() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'audio') {
         return 'tab-link-active'
       } else {
@@ -565,7 +553,7 @@ ac1.open();
       }
     },
     getActiveTabVideo() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'video') {
         return 'tab-link-active'
       } else {
@@ -573,7 +561,7 @@ ac1.open();
       }
     },
     getActiveTabChat() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'chat') {
         return 'tab-link-active'
       } else {
@@ -581,7 +569,7 @@ ac1.open();
       }
     },
     tabActiveChat() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'chat') {
         return 'tab-active'
       } else {
@@ -589,7 +577,7 @@ ac1.open();
       }
     },
     tabActiveAudio() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'audio') {
         return 'tab-active'
       } else {
@@ -597,7 +585,7 @@ ac1.open();
       }
     },
     tabActiveVideo() {
-      const activeTab = this.$store.state.activeCallTab;
+      const activeTab = this.activeCallTab;
       if (activeTab === 'video') {
         return 'tab-active'
       } else {

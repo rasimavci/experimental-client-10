@@ -63,6 +63,7 @@ export const getCallLogs = ({ commit }) => {
 }
 
 export const call = ({ commit, state }, params) => {
+  debugger
   console.log('start call to:' + params.callee)
   kandy.call.make(params.callee, state.callOptions)
   // store.commit("SET_CALLEE", callee);

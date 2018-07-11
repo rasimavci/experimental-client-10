@@ -5,7 +5,7 @@ fix general UI, some UI doesnt fit in mobile bcos of fixed heights
 Call Page bottom problem - I made a fix by putting ".page" for every tab but Lost functionality for mesage bar (tab-1), also boxex went up
 http://forum.framework7.io/t/how-to-fix-message-bar-at-bottom/3829/6
 
-Contact pages, needs some fixes, contact image is blurred in contact details popup and call icons doesnt fit, also no real contact image in popup
+OK Contact pages, needs some fixes, contact image is blurred in contact details popup and call icons doesnt fit, also no real contact image in popup
 
 improve video containers in call.page, needs to be fit well in mobile - havent been able to test since no call on mobile yet
 
