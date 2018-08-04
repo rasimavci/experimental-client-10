@@ -128,6 +128,7 @@ export default {
           this.$store.commit('SET_TARGET', this.callee);
           this.$store.commit('SET_STARTTRANSFER', false);
           this.$store.commit('SET_STARTCALL', 'transfer');
+
           this.$f7router.navigate('/history');
           this.$f7router.navigate('/call');
         },
@@ -142,6 +143,15 @@ export default {
       this.$store.commit('SET_CALLEE', this.callee);
       if(mode === 'audio' || mode === 'video') {
         this.$store.commit('SET_STARTCALL', true);
+      } else if (mode === 'chat') {
+      let contacts = this.$store.state.contacts;
+      let calleeName;
+      contacts.forEach(contact => {
+          if (contact.primaryContact === this.callee) {
+            calleeName = contact.firstName + ' ' + contact.lastName;
+          }
+        });
+      this.$store.commit('SET_ACTIVECALLCALLEE', calleeName);
       }
       this.$f7router.navigate('/history'); // if not route another page first, tabs are not working in call page
       this.$f7router.navigate('/call');

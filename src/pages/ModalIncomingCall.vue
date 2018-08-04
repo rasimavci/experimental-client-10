@@ -89,7 +89,7 @@ var notificationCallbackOnClose1 = this.$f7.notification.create({
   closeOnClick: true,
   on: {
     close: () => {
-      that.$store.commit('SET_PARTICIPANT', 'Sevda Aynaci');
+      that.$store.commit('SET_ACTIVECALLCALLEE', 'Full Name');
       that.$store.commit('SET_STARTCALL', 'answer');
       //this.$store.dispatch('answer');
       that.$store.commit('SET_ACTIVECALLTAB', 'audio');

@@ -8,7 +8,6 @@ const incomingCall = state => state.incomingCall.active
 const startCall = state => state.startCall
 const startTransfer = state => state.startTransfer
 const currentPage = state => state.currentPage
-const participant = state => state.participant
 const contactSource = state => state.contactSource
 const historyType = state => state.historyType
 const favorites = state => state.favorites
@@ -36,4 +35,3 @@ export { serviceShortcuts,
   callee,
   activeCallTab,
   historyType }
-  

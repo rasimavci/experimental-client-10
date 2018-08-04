@@ -90,7 +90,7 @@ export default {
     openPopupMessage: function(mode, fullName, conversationId) {
       this.conversationId = conversationId;
       this.$f7.popup.open(popupMessage, true);
-      this.$store.commit('SET_PARTICIPANT', fullName);
+      this.$store.commit('SET_ACTIVECALLCALLEE', fullName);
       this.$store.commit('SET_CALLEE', conversationId);
       this.$store.commit('SET_STARTCALL', false);
       this.$store.commit('SET_ACTIVECALLTAB', 'chat');

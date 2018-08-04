@@ -15,7 +15,7 @@ http://forum.framework7.io/t/segmented-button-color-changes-in-android-device/38
 call page action sheet button background is not blue
 http://forum.framework7.io/t/can-not-change-background-color-of-a-button-in-action-sheet/3734/5
 
-remove underdline from bottom tabs
+remove underline from bottom tabs
 http://forum.framework7.io/t/how-to-remove-underlines-for-toolbar/3724
 
 favorites tiles view needs to be fixed, listed in the below post

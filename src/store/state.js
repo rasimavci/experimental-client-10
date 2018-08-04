@@ -40,7 +40,6 @@ export default {
   directory: [{firstName: '', lastName: ''}],
   self: {},
   callee: '',
-  participant: '',
   target: '',
   startCall: false,
   startTransfer: false,

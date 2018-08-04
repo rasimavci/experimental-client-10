@@ -54,7 +54,7 @@ export default {
       const contact = this.$_.find(contacts, c => {
         return c.primaryContact === log.callerDisplayNumber;
       });
-      this.$store.commit('SET_PARTICIPANT', contact.firstName + ' ' + contact.lastName);
+      this.$store.commit('SET_ACTIVECALLCALLEE', contact.firstName + ' ' + contact.lastName);
       this.$store.commit('SET_CALLEE', log.callerDisplayNumber);
       this.$store.commit('SET_STARTCALL', true);
       this.$store.commit('SET_ACTIVECALLTAB', 'audio');

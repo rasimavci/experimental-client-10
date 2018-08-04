@@ -153,8 +153,8 @@ const store = new Vuex.Store({
         }
       })
     },
-    [types.SET_ACTIVECALLCALLEE] (state, params) {
-      state.activeCall.calleeName = params.calleeName
+    [types.SET_ACTIVECALLCALLEE] (state, calleeName) {
+      state.activeCall.calleeName = calleeName
     },
 
     [types.RINGING_SOUND] (state, options) {

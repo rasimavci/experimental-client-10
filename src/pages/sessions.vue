@@ -87,7 +87,6 @@ export default {
     },
     goCallPage: function(mode, fullName, id, callId) {
       this.$store.commit('TOGGLE_ACTIVE_CALL', callId);
-      this.$store.commit('SET_PARTICIPANT', fullName);
       this.$store.commit('SET_CALLEE', id);
       this.$store.commit('SET_STARTCALL', false);
       // this.popup-close=''
