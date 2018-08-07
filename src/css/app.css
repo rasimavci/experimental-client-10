@@ -81,3 +81,7 @@
   cursor: default;
 }
 
+.tab-link-highlight{
+  display: none;
+}
+
