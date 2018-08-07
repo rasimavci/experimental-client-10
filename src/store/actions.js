@@ -453,4 +453,14 @@ export const getPresence = ({ commit }, args) => {
   console.log('presence' + deneme)
 }
 
+export const setActiveCallTab = ({ commit }, tab) => {
+  if (tab) commit(types.SET_ACTIVECALLTAB, tab)
+}
 
+export const setCallee = ({ commit }, id) => {
+  if (id) commit(types.SET_CALLEE, id)
+}
+
+export const setStartCall = ({ commit }, start) => {
+  commit(types.SET_STARTCALL, start)
+}
