@@ -9,8 +9,12 @@ OK Contact pages, needs some fixes, contact image is blurred in contact details 
 
 improve video containers in call.page, needs to be fit well in mobile - havent been able to test since no call on mobile yet
 
+
+***OK***
 contacts page segmented buttons background seems green on android device when not clicked
 http://forum.framework7.io/t/segmented-button-color-changes-in-android-device/3849
+********
+
 
 call page action sheet button background is not blue
 http://forum.framework7.io/t/can-not-change-background-color-of-a-button-in-action-sheet/3734/5

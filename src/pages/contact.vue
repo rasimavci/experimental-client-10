@@ -11,15 +11,20 @@ f7-page
     //- f7-list#contacts-list(contacts-list="")
     //-   f7-list-group(v-for='(groups, key) in groupedContacts')
     //-     f7-list-item(v-for="contact in groups", :title="contact.firstName + ' ' + contact.lastName" group-title="")
-  f7-tabs
-    f7-tab#tab-1(tab-active="")
-    f7-tab#tab-2
-    f7-tab#tab-3
+  //- f7-tabs
+  //-   f7-tab#tab-1(tab-active="")
+  //-   f7-tab#tab-2
+  //-   f7-tab#tab-3
     // Switch Between Tabs
-  f7-segmented
-    f7-button(style="text-transform:capitalize", tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") {{ $t('PERSONAL') }}
-    f7-button(style="text-transform:capitalize", tab-link="#tab-2", @click="setContactSource('global')") {{ $t('GLOBAL_STARTBIG') }}
-    f7-button(style="text-transform:capitalize", tab-link="#tab-3", @click="setContactSource('mobile')") {{ $t('MOBILE') }}
+  //- f7-segmented
+  //-   f7-button(style="text-transform:capitalize", tab-link="#tab-1" tab-link-active="", @click="setContactSource('personal')") {{ $t('PERSONAL') }}
+  //-   f7-button(style="text-transform:capitalize", tab-link="#tab-2", @click="setContactSource('global')") {{ $t('GLOBAL_STARTBIG') }}
+  //-   f7-button(style="text-transform:capitalize", tab-link="#tab-3", @click="setContactSource('mobile')") {{ $t('MOBILE') }}
+  .block
+    p.segmented(ref='segmentedButtonContainer')
+      button.button.button-active(@click="setContactSource('personal')") {{ $t('PERSONAL') }}
+      button.button(@click="setContactSource('global')") {{ $t('GLOBAL_STARTBIG') }}
+      button.button(@click="setContactSource('mobile')") {{ $t('MOBILE') }}
   f7-searchbar(v-if="contactSource === 'mobile'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_MOBILE')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   f7-searchbar(v-if="contactSource === 'personal'", disable-link-text="Cancel" search-container="#searchList" :placeholder="$t('SEARCH_IN_CONTACTS')" :clear-button="true" @searchbar:search="onSearch" @searchbar:enable="onEnable" @searchbar:disable="onDisable" @searchbar:clear="onClear")
   p(v-if="contactSource === 'global'") {{ $t('MIN_SEARCH_CRITERIA') }}
@@ -308,8 +313,11 @@ export default {
     joinCall: function() {
       console.log('join started')
     },
-    setContactSource: function(source) {
-    this.$store.commit("SET_CONTACTSOURCE", source);
+    setContactSource (source) {
+      let el = this.$refs.segmentedButtonContainer.getElementsByTagName('button')
+      _.forEach(el, b => {b.classList.remove('button-active')})
+      event.target.classList.add('button-active')
+      this.$store.commit("SET_CONTACTSOURCE", source);
     },
     onIndexSelect() {
       console.log('list index clicked')

@@ -1,5 +1,5 @@
 <template lang='pug'>
-.page
+.page.dialpad-page
   incomingCallModal
   f7-navbar
     f7-nav-left
@@ -301,7 +301,7 @@ export default {
   height: 12px;
 }
 
-.button {
+.dialpad-page .button {
   background-color: #4caf50;
   border: none;
   color: white;
