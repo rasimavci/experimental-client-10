@@ -1,3 +1,12 @@
 https://html2pug.herokuapp.com/
 https://material.io/icons/
+https://docs.kandy.io/references/link#calls
+
+Credentials:
+username: 'ravci@genband.com',
+password: 'yjke9884',
+-------------------------------
+username: 'saynaci@genband.com',
+password: 'ab12cd34',
+
 

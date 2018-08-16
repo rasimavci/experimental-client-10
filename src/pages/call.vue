@@ -249,13 +249,13 @@
 
 
 <script>
-import LeftChatBubble from './LeftChatBubble';
-import RightChatBubble from './RightChatBubble';
-import { mapState, mapGetters } from 'vuex';
-import NoImg from '../assets/demo/noimage1.jpg';
+import LeftChatBubble from "./LeftChatBubble";
+import RightChatBubble from "./RightChatBubble";
+import { mapState, mapGetters } from "vuex";
+import NoImg from "../assets/demo/noimage1.jpg";
 export default {
   created: function() {
-    this.$store.commit('UPDATE_CURRENTPAGE', 'call');
+    this.$store.commit("UPDATE_CURRENTPAGE", "call");
     // let contacts = this.$store.state.contacts;
     // this.contactType = 'corporate'
     // contacts.forEach(contact1 => {
@@ -273,84 +273,87 @@ export default {
       callStarted: false,
       noImg: NoImg,
       renderMessages: false,
-      showData: 'all',
-      message: '',
-      showData: 'all',
-      message: '',
+      showData: "all",
+      message: "",
+      showData: "all",
+      message: "",
       showbottombar: false,
-      conversationId: '',
+      conversationId: "",
       selectedContacts: [],
       contact: {},
-      contactType: '',
-      getActiveTab: true,
+      contactType: "",
+      getActiveTab: true
     };
   },
   components: {
     leftChatBubble: LeftChatBubble,
-    rightChatBubble: RightChatBubble,
+    rightChatBubble: RightChatBubble
   },
   mounted() {
-    this.contactType = 'corporate';
+    this.contactType = "corporate";
     this.contacts.forEach(c => {
       if (c.primaryContact === this.callee) {
         this.contact = _.cloneDeep(c);
-        this.contactType = 'personal';
+        this.contactType = "personal";
       }
     });
     this.getContactInfo();
     this.conversationId = this.callee;
-    debugger
-    if (this.activeCallTab === 'audio' & this.startCall) {
-      console.log('call with audio to ' + this.callee);
+    debugger;
+    if ((this.activeCallTab === "audio") & this.startCall) {
+      console.log("call with audio to " + this.callee);
       this.makeInitialCall(false);
-    } else if (this.activeCallTab === 'video' && this.startCall) {
-      console.log('call with video');
-    } else if (this.activeCallTab === 'audio' && this.startCall === 'answer') {
-      this.answer()
-      console.log('call with video');
-    } else if (this.activeCallTab === 'audio' && this.startCall === 'transfer') {
-      console.log('call with video');
-      this.$store.dispatch('directTransfer');
+    } else if (this.activeCallTab === "video" && this.startCall) {
+      console.log("call with video");
+    } else if (this.activeCallTab === "audio" && this.startCall === "answer") {
+      this.answer();
+      console.log("call with video");
+    } else if (
+      this.activeCallTab === "audio" &&
+      this.startCall === "transfer"
+    ) {
+      console.log("call with video");
+      this.$store.dispatch("directTransfer");
     }
     //this.$store.commit('SET_STARTCALL', false);
   },
   methods: {
     openFileDialog: function() {
-      console.log('open file dialog')
-      this.Dom7('#_file').trigger('click');
+      console.log("open file dialog");
+      this.Dom7("#_file").trigger("click");
     },
     openLeftPanel: function() {
       this.$f7.popup.open(popupLanguage, true);
     },
-    transferSelection () {
-var ac1 = this.$f7.actions.create({
-  buttons: [
-    {
-      text: 'Transfer Call Via',
-      bold: true,
-      color: 'white',
-      bg: 'blue'
-    },
-    {
-      text: 'Dialer',
-      color: 'blue'
-    },
-    {
-      text: 'Contacts',
-      color: 'blue'
-    },
-  ]
-})
+    transferSelection() {
+      var ac1 = this.$f7.actions.create({
+        buttons: [
+          {
+            text: "Transfer Call Via",
+            bold: true,
+            color: "white",
+            bg: "blue"
+          },
+          {
+            text: "Dialer",
+            color: "blue"
+          },
+          {
+            text: "Contacts",
+            color: "blue"
+          }
+        ]
+      });
 
-ac1.open();
+      ac1.open();
     },
     checkCallee: () => {
-      if (this.callee) return true
-      return false
+      if (this.callee) return true;
+      return false;
     },
     end() {
-      this.callStarted = false
-      this.$store.dispatch('end');
+      this.callStarted = false;
+      this.$store.dispatch("end");
     },
     getContactInfo() {
       let primaryContact = this.callee; // this.conversationId;
@@ -368,135 +371,142 @@ ac1.open();
     },
     sendMessage() {
       let messageToSend = {
-        type: 'IM',
+        type: "IM",
         text: this.message,
-        participant: this.callee,
+        participant: this.callee
       };
-      console.log('send message ' + this.message);
-      this.message = '';
-      this.$store.dispatch('send', messageToSend);
+      console.log("send message " + this.message);
+      this.message = "";
+      this.$store.dispatch("send", messageToSend);
     },
     hold() {
       this.$f7.preloader.show();
-      if(this.activeCall.state === 'ON_HOLD') {
-        this.$store.dispatch('unhold', '');
+      if (this.activeCall.state === "ON_HOLD") {
+        this.$store.dispatch("unhold", "");
       } else {
-        this.$store.dispatch('hold', '');
+        this.$store.dispatch("hold", "");
       }
-
     },
     mute() {
-      console.log(JSON.stringify(this.activeCall))
-      if(this.activeCall.muted === true) {
-        this.$store.dispatch('unmute', '');
+      console.log(JSON.stringify(this.activeCall));
+      if (this.activeCall.muted === true) {
+        this.$store.dispatch("unmute", "");
       } else {
-        this.$store.dispatch('mute', '');
+        this.$store.dispatch("mute", "");
       }
     },
     transfer() {
-      console.log(JSON.stringify(this.activeCall))
+      console.log(JSON.stringify(this.activeCall));
       //  this.$store.dispatch('transfer', '');
     },
     selectTransferee() {
-      this.$store.commit('SET_STARTTRANSFER', true);
-      this.$f7router.navigate('/contact');
+      this.$store.commit("SET_STARTTRANSFER", true);
+      this.$f7router.navigate("/contact");
     },
     goDialpad() {
-      this.$store.commit('SET_STARTTRANSFER', true);
-      this.$f7router.navigate('/dialpad');
+      this.$store.commit("SET_STARTTRANSFER", true);
+      this.$f7router.navigate("/dialpad");
     },
     add() {
-      console.log('sorry, not implemented yet');
-      this.$store.commit('SET_STARTCALL', false);
-      this.$f7router.navigate('/history');
-      this.$f7router.navigate('/contact');
+      console.log("sorry, not implemented yet");
+      this.$store.commit("SET_STARTCALL", false);
+      this.$f7router.navigate("/history");
+      this.$f7router.navigate("/contact");
     },
     volumeUp() {
       console.log(JSON.stringify(this.activeCall));
       //console.log(JSON.stringify('callStarted ' + this.callStarted));
 
-      console.log('sorry, not implemented yet');
+      console.log("sorry, not implemented yet");
     },
     answer() {
       this.$f7.preloader.show();
-              //if(mode === 'video') {
-                let options = [{key: 'localVideoContainer', value: document.getElementById('localVideoContainer')},
-          {
-            key: 'remoteVideoContainer', value: document.getElementById('remoteVideoContainer')
-          }]
-          this.$store.commit('SET_CALL_OPTIONS', options);
-
-        //}
-
-      this.$store.dispatch('answer');
-      console.log('call answer');
+      let options = [
+        {
+          key: "localVideoContainer",
+          value: document.getElementById("localVideoContainer")
+        },
+        {
+          key: "remoteVideoContainer",
+          value: document.getElementById("remoteVideoContainer")
+        }
+      ];
+      this.$store.commit("SET_CALL_OPTIONS", options);
+      this.$store.dispatch("answer");
+      console.log("call answer");
     },
     makeCall(mode) {
-      this.isVideo = mode
+      this.isVideo = mode;
       // SET_ACTIVE_CALLID
-      if (!this.activeCall.state || this.activeCall.state === 'ENDED') {
+      if (!this.activeCall.state || this.activeCall.state === "ENDED") {
         const params = {
           callee: this.callee,
-          mode: mode,
+          mode: mode
         };
         let options = [
           {
-            key: 'localVideoContainer',
-            value: document.getElementById('localVideoContainer'),
+            key: "localVideoContainer",
+            value: document.getElementById("localVideoContainer")
           },
           {
-            key: 'remoteVideoContainer',
-            value: document.getElementById('remoteVideoContainer'),
-          },
+            key: "remoteVideoContainer",
+            value: document.getElementById("remoteVideoContainer")
+          }
         ];
         //params.options = options;
         this.$f7.preloader.show();
-        this.callStarted = true
-        this.$store.commit('SET_STARTCALL', true);
-        this.$store.commit('SET_CALL_OPTIONS', options);
-        this.$store.dispatch('call', params);
-      }      else if(mode && this.activeCall.state !== 'ENDED' && !this.activeCall.sendingVideo) {
-          //this.isVideo
-          this.$store.dispatch('startVideo');
-        } else {
-          this.callStarted = false
-          this.$store.dispatch('end');
-        }
+        this.callStarted = true;
+        this.$store.commit("SET_STARTCALL", true);
+        this.$store.commit("SET_CALL_OPTIONS", options);
+        this.$store.dispatch("call", params);
+      } else if (
+        mode &&
+        this.activeCall.state !== "ENDED" &&
+        !this.activeCall.sendingVideo
+      ) {
+        //this.isVideo
+        this.$store.dispatch("startVideo");
+      } else {
+        this.callStarted = false;
+        this.$store.dispatch("end");
+      }
     },
     startVideo(mode) {
-      if(!this.activeCall.sendingVideo) {
-          this.$store.dispatch('startVideo');
+      if (!this.activeCall.sendingVideo) {
+        this.$store.dispatch("startVideo");
       } else {
-          this.$store.dispatch('stopVideo');
+        this.$store.dispatch("stopVideo");
       }
     },
     makeInitialCall(mode) {
-      this.$f7.preloader.show()
+      this.$f7.preloader.show();
       const params = {
         callee: this.callee,
-        mode: mode,
+        mode: mode
       };
       let options = [
         {
-          key: 'localVideoContainer',
-          value: document.getElementById('localVideoContainer'),
+          key: "localVideoContainer",
+          value: document.getElementById("localVideoContainer")
         },
         {
-          key: 'remoteVideoContainer',
-          value: document.getElementById('remoteVideoContainer'),
-        },
-      ]
-      this.$store.commit('SET_CALL_OPTIONS', options);
-      this.$store.dispatch('call', params);
+          key: "remoteVideoContainer",
+          value: document.getElementById("remoteVideoContainer")
+        }
+      ];
+      this.$store.commit("SET_CALL_OPTIONS", options);
+      this.$store.dispatch("call", params);
     }
   },
   computed: {
-    ...mapGetters(['contacts',
-      'conversations',
-      'activeCall',
-      'startCall',
-      'activeCallTab',
-      'callee']),
+    ...mapGetters([
+      "contacts",
+      "conversations",
+      "activeCall",
+      "startCall",
+      "activeCallTab",
+      "callee"
+    ]),
     filtredMessages() {
       let resultArray = [];
       if (this.conversations) {
@@ -514,28 +524,32 @@ ac1.open();
     },
     getCalleeName() {
       let activeState = this.$store.state.activeCall.state;
-      if (activeState === 'RINGING' || activeState === 'IN_CALL'|| activeState === 'ON_HOLD') {
+      if (
+        activeState === "RINGING" ||
+        activeState === "IN_CALL" ||
+        activeState === "ON_HOLD"
+      ) {
         //this.callStarted = false;
         this.$f7.preloader.hide();
-      } else if (activeState === 'ENDED') {
+      } else if (activeState === "ENDED") {
         //this.callStarted = false;
       }
-      if (this.activeCall.sendingVideo) { //activeState !== 'IN_CALL' &&
-        this.isActive = false
+      if (this.activeCall.sendingVideo) {
+        //activeState !== 'IN_CALL' &&
+        this.isActive = false;
       } else {
-        this.isActive = true
+        this.isActive = true;
       }
 
       // if (this.activeCall.sendingVideo) {
       //   this.isActive2 = true
       // }
 
-
-      return true //'  ' + this.$store.state.activeCall.calleeName;
+      return true; //'  ' + this.$store.state.activeCall.calleeName;
     },
     checkActiveCall() {
       const ActiveCallState = this.$store.state.activeCall.state;
-      if (ActiveCallState === 'IN_CALL') {
+      if (ActiveCallState === "IN_CALL") {
         return true;
       } else {
         return false;
@@ -543,63 +557,67 @@ ac1.open();
     },
     getActiveTabAudio() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'audio') {
-        return 'tab-link-active'
+      if (activeTab === "audio") {
+        return "tab-link-active";
       } else {
-        return ''
+        return "";
       }
     },
     getActiveTabVideo() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'video') {
-        return 'tab-link-active'
+      if (activeTab === "video") {
+        return "tab-link-active";
       } else {
-        return ''
+        return "";
       }
     },
     getActiveTabChat() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'chat') {
-        return 'tab-link-active'
+      if (activeTab === "chat") {
+        return "tab-link-active";
       } else {
-        return ''
+        return "";
       }
     },
     tabActiveChat() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'chat') {
-        return 'tab-active'
+      if (activeTab === "chat") {
+        return "tab-active";
       } else {
-        return ''
+        return "";
       }
     },
     tabActiveAudio() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'audio') {
-        return 'tab-active'
+      if (activeTab === "audio") {
+        return "tab-active";
       } else {
-        return ''
+        return "";
       }
     },
     tabActiveVideo() {
       const activeTab = this.activeCallTab;
-      if (activeTab === 'video') {
-        return 'tab-active'
+      if (activeTab === "video") {
+        return "tab-active";
       } else {
-        return ''
+        return "";
       }
     },
     getVideoCallOption() {
       //v-if="activeCall.state === 'ENDED' || (activeCall.state === 'IN_CALL' && !activeCall.sendingVideo)"
-      if(!this.startCall && this.activeCall.state === 'ENDED') {
-        return true
-      } else if (this.activeCall.state !== 'ENDED' && this.activeCall.state !== 'RINGING' && !this.activeCall.sendingVideo) {
-        return true
+      if (!this.startCall && this.activeCall.state === "ENDED") {
+        return true;
+      } else if (
+        this.activeCall.state !== "ENDED" &&
+        this.activeCall.state !== "RINGING" &&
+        !this.activeCall.sendingVideo
+      ) {
+        return true;
       } else {
-        return false
+        return false;
       }
     }
-  },
+  }
 };
 </script>
 <style>
@@ -647,10 +665,9 @@ ac1.open();
   height: 100px;
 }
 
-
 .a2 {
   max-height: 700px;
-  visibility: hidden
+  visibility: hidden;
 }
 
 .a2altta {
@@ -687,39 +704,38 @@ ac1.open();
   cursor: default;
 }
 
-.my-font[type="text"]
-{
-    font-size:24px;
-    font-weight: bold;
+.my-font[type="text"] {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .my-font2 {
   cursor: default;
-  font-size:24px;
-  color:#29a3d8;
+  font-size: 24px;
+  color: #29a3d8;
   font-family: Arial;
 }
 
 .my-font1 {
   cursor: default;
-  font-size:24px;
+  font-size: 24px;
   font-family: Arial;
 }
 
 .my-font1s {
   cursor: default;
   font-family: Arial;
-  font-size: 17px
+  font-size: 17px;
 }
 
 .my-size {
- width: 24px;
- height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .my-size2 {
- width: 24px;
- height: 24px;
+  width: 24px;
+  height: 24px;
 }
 .flex {
   display: flex;
@@ -752,6 +768,6 @@ ac1.open();
 }
 
 .center {
-text-align: center
+  text-align: center;
 }
 </style>

@@ -26,6 +26,7 @@ export default {
   created: function() {
     this.$store.commit('UPDATE_CURRENTPAGE', 'login');
   },
+  // saynaci@genband.com ab12cd34
   data() {
     return {
       username: 'ravci@genband.com',

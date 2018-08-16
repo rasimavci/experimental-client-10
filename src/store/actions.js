@@ -1,5 +1,5 @@
 import * as types from './mutation-types'
-import createKandy from '../../kandy.link.js'
+// import createKandy from '../../kandy.link.js'
 import store from './index'
 import state from './state'
 import IMService from '../IMService'
@@ -71,7 +71,8 @@ export const call = ({ commit, state }, params) => {
 
 export const callVideo = ({ commit }, callee) => {
   console.log('call to:' + callee)
-  options.isVideoEnabled = true
+  // options.isVideoEnabled = true
+  options.isVideoEnabled = false
   options.sendInitialVideo = true
 
   kandy.call.make(callee, options)
@@ -79,6 +80,7 @@ export const callVideo = ({ commit }, callee) => {
 }
 
 export const answer = ({ commit, state }) => {
+  debugger
   kandy.call.answer(state.incomingCall.callId, state.callOptions)
 }
 
