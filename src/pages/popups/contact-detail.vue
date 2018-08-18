@@ -64,7 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['contactData'])
+    ...mapGetters(['contactData', 'contacts'])
   },
   mounted () {
   },
@@ -73,7 +73,7 @@ export default {
       this.$f7.popup.close('.popupContactDetails', true);
     },
     openEditContactPopup () {
-      this.$f7.popup.close('.popupContactDetails', true);
+      this.$f7.popup.close('.popupManageFavorites1', true);
       this.$f7.router.navigate('/contact-edit')
     },
     callTypeSelection (selectMode,a,b,c,d) {
@@ -116,6 +116,9 @@ export default {
       this.$f7.popup.close('.popupContactDetails', true);
       this.$store.commit('SET_ACTIVECALLTAB', mode);
       this.$store.commit('SET_CALLEE', this.contactData.primaryContact);
+      let primaryContact = this.contactData.primaryContact;
+      let calleeName = this.contactData.firstName + ' ' + ' '+ this.contactData.lastName;
+      this.$store.commit('SET_ACTIVECALLCALLEE', calleeName);
       if(mode !== 'chat'){
       this.$store.commit('SET_STARTCALL', true);
       }
@@ -124,6 +127,11 @@ export default {
         vm.$f7.view.main.router.navigate('/call');
       }, 100);
     },
+    openManageFavorites: function() {
+      // can not get this work !!
+      //this.$f7.popup.open('.popupManageFavorites1', true);
+      this.$f7.popup.open(popupManageFavorites, true);
+    }
   }
 }
 </script>

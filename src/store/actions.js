@@ -9,10 +9,6 @@ import _ from 'lodash'
 var kandy
 var logout = false
 
-
-
-
-
 export const setContactData = ({ commit }, contactData) => {
   if (contactData) {
     commit(types.SET_CONTACT_DATA, contactData)

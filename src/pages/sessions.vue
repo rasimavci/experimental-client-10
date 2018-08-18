@@ -85,10 +85,11 @@ export default {
     closePopup() {
       this.$f7.popup.close('#popupMessage', true);
     },
-    goCallPage: function(mode, fullName, id, callId) {
+    goCallPage: function(mode, calleeName, id, callId) {
       this.$store.commit('TOGGLE_ACTIVE_CALL', callId);
       this.$store.commit('SET_CALLEE', id);
       this.$store.commit('SET_STARTCALL', false);
+      this.$store.commit('SET_ACTIVECALLCALLEE', calleeName);
       // this.popup-close=''
       this.$store.commit('SET_ACTIVECALLTAB', mode);
       this.$f7router.navigate('/call');
