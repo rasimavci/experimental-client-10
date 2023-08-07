@@ -6,11 +6,11 @@ Just another experimental client based on vue and f7 version 2 with webpack & co
 </p>
 
 ## Introduction
-In this applicaton I have built a mobile webRTC client using vuejs 2 and framework 7 version 2.
+In this application I have built a mobile webRTC client using vuejs 2 and framework 7 version 2.
 
 
 ## Issues
-Targeted for mobile. Since phonegap structure needs www folder, directly builds into www folder when buidl.
+Targeted for mobile. Since phonegap structure needs www folder, directly builds into www folder when build.
 
 ## Development
 This project can be developed using necessary libraries
